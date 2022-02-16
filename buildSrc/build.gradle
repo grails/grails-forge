@@ -19,8 +19,8 @@ dependencies {
 gradlePlugin {
     plugins {
         rockerPlugin {
-            id = "io.micronaut.starter.rocker"
-            implementationClass = "io.micronaut.starter.rocker.plugin.RockerPlugin"
+            id = "org.grails.forge.rocker"
+            implementationClass = "org.grails.forge.rocker.plugin.RockerPlugin"
         }
     }
 }

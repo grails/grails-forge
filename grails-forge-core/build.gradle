@@ -1,0 +1,49 @@
+import org.grails.forge.internal.tasks.WriteGrailsVersionInfoTask
+
+plugins {
+    id "org.grails.forge.internal.published-module"
+    id "org.grails.forge.internal.convention"
+    id "org.grails.forge.rocker"
+}
+
+sourceSets {
+    main {
+        rocker {
+            srcDir("src/main/java")
+        }
+    }
+}
+
+dependencies {
+    api platform("io.micronaut:micronaut-bom:$micronautVersion")
+    api "com.fizzed:rocker-runtime:$rockerVersion"
+    api "io.micronaut:micronaut-inject"
+    api "io.micronaut:micronaut-http"
+    api "io.micronaut:micronaut-http-client"
+    api "io.github.java-diff-utils:java-diff-utils:4.10"
+    api "org.eclipse.jgit:org.eclipse.jgit:5.11.1.202105131744-r"
+    implementation "org.yaml:snakeyaml:1.28"
+    implementation 'com.typesafe:config:1.4.1'
+    implementation 'org.apache.commons:commons-compress:1.20'
+}
+
+
+def grailsVersionInfo = tasks.register("grailsVersionInfo", WriteGrailsVersionInfoTask) {
+    version = grailsVersion
+    outputDirectory = layout.buildDirectory.dir("version-info")
+}
+
+sourceSets.main.resources.srcDir(grailsVersionInfo)
+
+rocker {
+    javaVersion = '1.8'
+    postProcessing = ['org.grails.forge.rocker.plugin.WhitespaceProcessor']
+}
+
+nohttp {
+    source.exclude "**/pom.rocker.raw"
+}
+
+javadoc {
+    options.encoding = 'UTF-8'
+}

@@ -1,0 +1,22 @@
+@import org.grails.forge.feature.Feature
+
+@args (
+Feature feature
+)
+
+@if (feature.getDocumentation() != null || feature.getThirdPartyDocumentation() != null) {
+
+
+## Feature @feature.getName() documentation
+
+    @if (feature.getDocumentation() != null) {
+
+- [Micronaut @feature.getTitle().replaceFirst("^Micronaut\\s+(.*)", "$1") documentation](@feature.getDocumentation())
+
+    }
+    @if (feature.getThirdPartyDocumentation() != null) {
+
+- [@feature.getThirdPartyDocumentation()](@feature.getThirdPartyDocumentation())
+
+    }
+}

@@ -1,5 +1,0 @@
-plugins {
-    id "io.micronaut.internal.starter.published-module"
-    id "io.micronaut.internal.starter.convention"
-    id "io.micronaut.starter.rocker"
-}

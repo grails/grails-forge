@@ -1,0 +1,13 @@
+@import org.grails.forge.options.JdkVersion
+@import org.grails.forge.application.Project
+
+@args (
+JdkVersion jdkVersion
+)
+
+      - uses: actions/checkout@@v2
+      - name: Set up JDK @jdkVersion.majorVersion()
+        uses: actions/setup-java@@v2
+        with:
+          distribution: 'adopt'
+          java-version: @jdkVersion.majorVersion()

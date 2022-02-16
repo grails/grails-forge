@@ -1,0 +1,9 @@
+@args(String srcDirPath)
+
+sourceSets {
+    main {
+        resources {
+            srcDir @srcDirPath
+        }
+    }
+}

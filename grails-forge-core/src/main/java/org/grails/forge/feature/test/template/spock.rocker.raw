@@ -1,0 +1,28 @@
+@import org.grails.forge.application.Project
+
+@args (
+Project project
+)
+
+@if (project.getPackageName() != null) {
+package @project.getPackageName()
+}
+
+
+import io.micronaut.runtime.EmbeddedApplication
+import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import spock.lang.Specification
+import jakarta.inject.Inject
+
+@@MicronautTest
+class @project.getClassName()Spec extends Specification {
+
+    @@Inject
+    EmbeddedApplication<?> application
+
+    void 'test it works'() {
+        expect:
+        application.running
+    }
+
+}

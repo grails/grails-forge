@@ -1,0 +1,7 @@
+plugins {
+    id 'org.grails.forge.internal.base-module'
+}
+
+dependencies {
+    implementation gradleTestKit()
+}

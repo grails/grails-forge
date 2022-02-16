@@ -40,6 +40,6 @@ buildCache {
     }}
 
 
-rootProject.name = 'grails-starter'
+rootProject.name = 'grails-forge'
 
-include 'starter-core'
+include 'grails-forge-core'

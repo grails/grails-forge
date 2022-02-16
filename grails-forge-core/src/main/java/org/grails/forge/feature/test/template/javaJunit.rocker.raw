@@ -1,0 +1,30 @@
+@import org.grails.forge.application.Project
+
+@args (
+Project project
+)
+
+@if (project.getPackageName() != null) {
+package @project.getPackageName();
+}
+
+
+import io.micronaut.runtime.EmbeddedApplication;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
+import jakarta.inject.Inject;
+
+@@MicronautTest
+class @project.getClassName()Test {
+
+    @@Inject
+    EmbeddedApplication<?> application;
+
+    @@Test
+    void testItWorks() {
+        Assertions.assertTrue(application.isRunning());
+    }
+
+}
