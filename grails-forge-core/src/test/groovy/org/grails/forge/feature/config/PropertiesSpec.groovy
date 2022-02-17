@@ -41,7 +41,7 @@ class PropertiesSpec extends BeanContextSpec implements CommandOutputFixture {
         def output = generate(ApplicationType.DEFAULT, generatorContext)
 
         then:
-        output["src/main/resources/application.properties"].readLines()[1] == 'info.app.name=foo'
+        output["src/main/resources/application.properties"].readLines()[2] == 'info.app.name=foo'
         output["src/main/resources/bootstrap.properties"].readLines()[1] == 'abc=123'
         output["src/test/resources/application-test.properties"].readLines()[1] == 'abc=456'
         output["src/main/resources/application-prod.properties"].readLines()[1] == 'abc=789'

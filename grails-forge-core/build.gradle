@@ -20,11 +20,12 @@ dependencies {
     api "io.micronaut:micronaut-inject"
     api "io.micronaut:micronaut-http"
     api "io.micronaut:micronaut-http-client"
-    api "io.github.java-diff-utils:java-diff-utils:4.10"
-    api "org.eclipse.jgit:org.eclipse.jgit:5.11.1.202105131744-r"
-    implementation "org.yaml:snakeyaml:1.28"
-    implementation 'com.typesafe:config:1.4.1'
-    implementation 'org.apache.commons:commons-compress:1.20'
+    api "io.github.java-diff-utils:java-diff-utils:4.11"
+    api 'org.eclipse.jgit:org.eclipse.jgit:6.0.0.202111291000-r'
+    implementation "org.yaml:snakeyaml:1.29"
+    implementation 'com.typesafe:config:1.4.2'
+    implementation 'org.apache.commons:commons-compress:1.21'
+    compileOnly "com.google.code.findbugs:jsr305"
 }
 
 
@@ -46,4 +47,8 @@ nohttp {
 
 javadoc {
     options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
 }
