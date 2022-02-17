@@ -1,5 +1,11 @@
 plugins {
-    id "io.micronaut.build.internal.common"
+    id 'idea'
+    id 'com.diffplug.spotless'
+    id 'io.spring.nohttp'
+    id 'checkstyle'
+    id 'groovy'
+    id 'java-library'
+    id 'org.gradle.test-retry'
 }
 
 repositories {
@@ -9,32 +15,123 @@ repositories {
 
 version project.projectVersion
 group "org.grails.forge"
-ext {
-    isBuildSnapshot = version.toString().endsWith("-SNAPSHOT")
-}
 
-configurations.all {
-    resolutionStrategy {
-        eachDependency { DependencyResolveDetails details ->
-            if (details.requested.group == "org.codehaus.groovy") {
-                details.useVersion(groovyVersion)
-            }
-            if (details.requested.name == "spock-core") {
-                details.useVersion(spockVersion)
+ext.isSnapshot = version.toString().endsWith("-SNAPSHOT")
+
+configurations {
+    documentation
+    all {
+        resolutionStrategy {
+            eachDependency { DependencyResolveDetails details ->
+                if (details.requested.group == "org.codehaus.groovy") {
+                    details.useVersion(groovyVersion)
+                }
+                if (details.requested.name == "spock-core") {
+                    details.useVersion(spockVersion)
+                }
             }
         }
     }
 }
 
+nohttp {
+    source.exclude "src/test/**", "build/**"
+}
+
 spotless {
     java {
+        licenseHeaderFile rootProject.file("${rootDir}/config/spotless.license.java")
         target 'src/main/java/**/*.java'
+    }
+    groovy {
+        licenseHeaderFile rootProject.file("${rootDir}/config/spotless.license.java")
+        target 'src/main/groovy/**'
+    }
+    format 'javaMisc', {
+        target 'src/main/**/package-info.java', 'src/main/**/module-info.java'
+        licenseHeaderFile rootProject.file('config/spotless.license.java'), '\\/\\*\\*'
+    }
+}
+
+checkstyle {
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+
+    // Per submodule
+    maxErrors = 1
+    maxWarnings = 10
+
+    showViolations = true
+}
+
+idea {
+    module {
+        outputDir file('build/classes/java/main')
+        testOutputDir file('build/classes/groovy/test')
     }
 }
 
 dependencies {
+    documentation "org.codehaus.groovy:groovy-templates:$groovyVersion"
+    documentation "org.codehaus.groovy:groovy-dateutil:$groovyVersion"
+
+    if (project.hasProperty('micronautVersion')) {
+        testCompileOnly "io.micronaut:micronaut-inject-groovy:${micronautVersion}"
+    }
+
     testImplementation("org.codehaus.groovy:groovy:$groovyVersion")
     testImplementation("org.spockframework:spock-core:$spockVersion") {
         exclude group: "org.codehaus.groovy", module: "groovy-all"
     }
+
+    testImplementation "cglib:cglib-nodep:3.3.0"
+    testImplementation "org.objenesis:objenesis:3.1"
+    testRuntimeOnly "ch.qos.logback:logback-classic:1.2.3"
+    testImplementation "org.codehaus.groovy:groovy-test:$groovyVersion"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Jar).configureEach {
+    manifest {
+        attributes('Automatic-Module-Name': "${project.group}.${project.name}".replaceAll('[^\\w\\.\\$_]', "_"))
+        attributes('Implementation-Version': project.findProperty("projectVersion"))
+        attributes('Implementation-Title': project.findProperty("title"))
+    }
+}
+
+tasks.named('checkstyleTest') {
+    enabled = false
+}
+tasks.named('checkstyleMain') {
+    dependsOn('spotlessCheck')
+}
+
+tasks.withType(Test).configureEach {
+    jvmArgs '-Duser.country=US'
+    jvmArgs '-Duser.language=en'
+
+    String groovyVersion = project.findProperty("groovyVersion")
+    if (groovyVersion?.startsWith("3")) {
+        useJUnitPlatform()
+    }
+    retry {
+        maxRetries.set(2)
+        maxFailures.set(20)
+        failOnPassedAfterRetry.set(false)
+    }
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    groovyOptions.forkOptions.jvmArgs.add('-Dgroovy.parameters=true')
+}
+
+tasks.withType(org.groovy.lang.groovydoc.tasks.GroovydocTask).configureEach {
+    classpath += project.configurations.documentation
 }

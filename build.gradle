@@ -1,0 +1,27 @@
+plugins {
+    id "io.github.gradle-nexus.publish-plugin"
+}
+
+version project.projectVersion
+group "org.grails.forge"
+
+def ossUser = System.getenv("SONATYPE_USERNAME") ?: rootProject.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
+def ossPass = System.getenv("SONATYPE_PASSWORD") ?: rootProject.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
+
+if (!ossUser.isEmpty() && !ossPass.isEmpty()) {
+    String version = String.valueOf(rootProject.getVersion());
+    if ("unspecified".equals(version)) {
+        throw new RuntimeException("The root project doesn't define a version. Please set the version in the root project.");
+    }
+    nexusPublishing {
+        repositories {
+            sonatype {
+                allowInsecureProtocol = rootProject.hasProperty("allowInsecurePublishing")
+                username = ossUser
+                password = ossPass
+                nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+                snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            }
+        }
+    }
+}
