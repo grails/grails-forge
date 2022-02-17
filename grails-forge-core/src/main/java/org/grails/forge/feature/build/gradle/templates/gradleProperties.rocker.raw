@@ -1,0 +1,14 @@
+@import org.grails.forge.build.Property
+@import java.util.List
+
+@args (
+    List<Property> properties
+)
+
+@for (Property prop : properties) {
+@if (prop.isComment()) {
+#@prop.getComment()
+} else {
+@prop.getKey()=@prop.getValue()
+}
+}

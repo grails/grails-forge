@@ -5,6 +5,8 @@ classes/
 .idea/
 .idea_modules
 build/
+/buildSrc/build
+!grails-forge-core/src/**/build/
 **/out/
 *.iml
 *.ipr

@@ -1,0 +1,35 @@
+@import org.grails.forge.application.ApplicationType
+@import org.grails.forge.application.Project
+@import org.grails.forge.build.gradle.GradleBuild
+@import org.grails.forge.build.gradle.GradleDependency
+@import org.grails.forge.feature.build.gradle.templates.dependency
+@import org.grails.forge.feature.Features
+
+@args (
+ApplicationType applicationType,
+Project project,
+Features features,
+GradleBuild gradleBuild
+)
+
+dependencies {
+@for (GradleDependency dependency : gradleBuild.getDependencies()) {
+    @dependency.toSnippet()
+}
+    @dependency.template("io.micronaut", "micronaut-validation", "implementation", null, false)
+@if (features.testFramework().isSpock()) {
+
+}
+@if (features.contains("hamcrest")) {
+    @dependency.template("org.hamcrest","hamcrest", "testImplementation", null, false)
+}
+@if (features.contains("mockito")) {
+    @dependency.template("org.mockito","mockito-core", "testImplementation", null, false)
+}
+@if (!features.contains("http-client")) {
+    @dependency.template("io.micronaut", "micronaut-http-client", "testImplementation", null, false)
+}
+@if (features.contains("neo4j-bolt")) {
+    @dependency.template("org.neo4j.test", "neo4j-harness", "testRuntimeOnly", null, false)
+}
+}
