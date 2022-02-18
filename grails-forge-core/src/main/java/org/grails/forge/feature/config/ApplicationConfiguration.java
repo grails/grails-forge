@@ -20,7 +20,7 @@ import io.micronaut.core.annotation.NonNull;
 public class ApplicationConfiguration extends Configuration {
 
     public ApplicationConfiguration(@NonNull String sourceSet, @NonNull String environment) {
-        super(sourceSet, "application-" + environment, "application-config-" + environment);
+        super(sourceSet, ("application-" + environment), ("application-config-" + environment), environment);
     }
 
     public ApplicationConfiguration(@NonNull String environment) {
@@ -28,7 +28,7 @@ public class ApplicationConfiguration extends Configuration {
     }
 
     public ApplicationConfiguration() {
-        super("main", "application", "application-config");
+        super("main", "application", "application-config", null);
     }
 
     public static ApplicationConfiguration testConfig() {

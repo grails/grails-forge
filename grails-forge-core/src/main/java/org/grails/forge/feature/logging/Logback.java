@@ -58,7 +58,7 @@ public class Logback implements LoggingFeature, DefaultFeature {
         if (operatingSystem != OperatingSystem.WINDOWS) {
             jansi = true;
         }
-        generatorContext.addTemplate("loggingConfig", new RockerTemplate("src/main/resources/logback.xml", logback.template(jansi)));
+        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback.xml", logback.template(jansi)));
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.grails")
                 .artifactId("grails-logging")

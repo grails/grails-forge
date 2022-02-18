@@ -33,9 +33,9 @@ import java.util.Set;
 @Singleton
 public class Groovy implements LanguageFeature {
 
-    private final List<GroovyApplicationFeature> applicationFeatures;
+    private final List<GrailsApplicationFeature> applicationFeatures;
 
-    public Groovy(List<GroovyApplicationFeature> applicationFeatures, Spock spock) {
+    public Groovy(List<GrailsApplicationFeature> applicationFeatures, Spock spock) {
         this.applicationFeatures = applicationFeatures;
     }
 

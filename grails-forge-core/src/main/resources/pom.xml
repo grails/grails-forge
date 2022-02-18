@@ -78,7 +78,7 @@
             <version>7.1.1</version>
         </dependency>
         <dependency>
-            <groupId>org.grails.plugins</groupId>
+            <groupId>org.grails</groupId>
             <artifactId>grails-gradle-plugin</artifactId>
             <version>5.1.2</version>
         </dependency>

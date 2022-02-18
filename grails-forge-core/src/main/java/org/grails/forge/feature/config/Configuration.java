@@ -16,6 +16,7 @@
 package org.grails.forge.feature.config;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.core.util.StringUtils;
 
@@ -34,6 +35,7 @@ public class Configuration extends LinkedHashMap<String, Object> {
     private final String path;
     private final String fileName;
     private final String templateKey;
+    private final String environment;
 
     /**
      * A configuration rooted at path, with the given map of configurations
@@ -41,12 +43,14 @@ public class Configuration extends LinkedHashMap<String, Object> {
      * @param sourceSet where the configuration is rooted, e.g. main, test
      * @param fileName the configuration file name
      * @param templateKey the file template key
+     * @param environment the environment name
      */
-    public Configuration(@NonNull String sourceSet, @NonNull String fileName, @NonNull String templateKey) {
+    public Configuration(@NonNull String sourceSet, @NonNull String fileName, @NonNull String templateKey, @Nullable String environment) {
         super();
-        this.path = "src/" + sourceSet + "/resources/";
+        this.path = environment != null && environment.equals("test") ? "src/" + sourceSet  + "/resources/" : "grails-app/conf/";
         this.fileName = fileName;
         this.templateKey = templateKey;
+        this.environment = environment;
     }
 
     @Override

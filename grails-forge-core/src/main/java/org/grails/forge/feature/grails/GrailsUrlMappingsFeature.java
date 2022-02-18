@@ -13,40 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.forge.feature.other;
+package org.grails.forge.feature.grails;
 
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
-import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
+import org.grails.forge.template.RockerTemplate;
+import org.grails.forge.feature.grails.templates.urlMappings;
 
 import java.util.Set;
 
 @Singleton
-public class HttpClient implements DefaultFeature {
+public class GrailsUrlMappingsFeature implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.DEFAULT;
+        return true;
     }
 
     @Override
     public String getName() {
-        return "http-client";
-    }
-
-    @Override
-    public String getTitle() {
-        return "HTTP Client";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Adds support for the Micronaut HTTP client";
+        return "grails-url-mappings";
     }
 
     @Override
@@ -55,25 +45,16 @@ public class HttpClient implements DefaultFeature {
     }
 
     @Override
-    public String getCategory() {
-        return Category.CLIENT;
-    }
-
-    @Override
-    public String getDocumentation() {
-        return "https://docs.micronaut.io/latest/guide/index.html#httpClient";
+    public boolean isVisible() {
+        return false;
     }
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("io.micronaut")
-                .artifactId("micronaut-http-client")
-                .testCompileOnly());
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("io.micronaut")
-                .artifactId("micronaut-http-validation")
-                .versionProperty("micronaut.version")
-                .annotationProcessor());
+        generatorContext.addTemplate("urlMappings", new RockerTemplate(getPath(), urlMappings.template(generatorContext.getProject(), generatorContext.getApplicationType())));
+    }
+
+    protected String getPath() {
+        return "grails-app/controller/{packagePath}/UrlMappings.groovy";
     }
 }

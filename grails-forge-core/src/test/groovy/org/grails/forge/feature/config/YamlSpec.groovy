@@ -41,18 +41,18 @@ class YamlSpec extends BeanContextSpec implements CommandOutputFixture {
         def output = generate(ApplicationType.DEFAULT, generatorContext)
 
         then:
-        output["src/main/resources/application.yml"].contains '''\
+        output["grails-app/conf/application.yml"].contains '''\
 info:
   app:
     name: foo
 '''
-        output["src/main/resources/bootstrap.yml"] == '''\
+        output["grails-app/conf/bootstrap.yml"] == '''\
 abc: 123
 '''
         output["src/test/resources/application-test.yml"] == '''\
 abc: 456
 '''
-        output["src/main/resources/application-prod.yml"] == '''\
+        output["grails-app/conf/application-prod.yml"] == '''\
 abc: 789
 '''
     }

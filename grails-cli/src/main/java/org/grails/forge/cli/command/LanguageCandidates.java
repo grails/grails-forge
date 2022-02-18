@@ -13,9 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.forge.feature.lang.groovy;
+package org.grails.forge.cli.command;
 
-import org.grails.forge.feature.ApplicationFeature;
+import org.grails.forge.options.Language;
 
-public interface GroovyApplicationFeature extends ApplicationFeature {
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class LanguageCandidates extends ArrayList<String> {
+    public LanguageCandidates() {
+        super(Stream.of(Language.values()).map(l -> l.toString().toLowerCase()).collect(Collectors.toList()));
+    }
 }

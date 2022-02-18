@@ -1,0 +1,22 @@
+@import org.grails.forge.application.Project
+@import org.grails.forge.application.ApplicationType
+
+@args (Project project, ApplicationType applicationType)
+
+package @project.getPackageName()
+
+class UrlMappings {
+    static mappings = {
+@if(applicationType == ApplicationType.DEFAULT) {
+        "/$controller/$action?/$id?(.$format)?"{
+            constraints {
+                // apply constraints here
+            }
+        }
+
+        "/"(view:"/index")
+        "500"(view:'/error')
+        "404"(view:'/notFound')
+}
+    }
+}

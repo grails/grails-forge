@@ -22,7 +22,6 @@ import java.util.Locale;
 
 public enum ApplicationType implements Named {
 
-    WEB_APP("Grails Web Application", "A Grails® framework Web Application"),
     DEFAULT("Grails Web Application", "A Grails® framework Web Application");
 
     public static final ApplicationType DEFAULT_OPTION = DEFAULT;

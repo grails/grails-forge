@@ -8,7 +8,7 @@ import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
 
-class GroovyApplicationSpec extends BeanContextSpec implements CommandOutputFixture {
+class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixture {
     void 'Application file is generated for a default application type with gradle and referenced in build.gradle mainClassName for language: groovy'() {
         when:
         def output = generate(
@@ -18,7 +18,7 @@ class GroovyApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         )
 
         then:
-        output.containsKey("src/main/groovy/example/grails/Application.${Language.GROOVY.extension}".toString())
+        output.containsKey("grails-app/init/example/grails/Application.${Language.GROOVY.extension}".toString())
 
         when:
         def buildGradle = output['build.gradle']

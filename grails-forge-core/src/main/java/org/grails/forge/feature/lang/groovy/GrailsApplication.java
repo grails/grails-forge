@@ -20,15 +20,20 @@ import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.feature.DefaultFeature;
+import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.test.template.groovyJunit;
 import org.grails.forge.feature.test.template.spock;
 import org.grails.forge.options.DefaultTestRockerModelProvider;
+import org.grails.forge.options.Options;
 import org.grails.forge.options.TestFramework;
 import org.grails.forge.options.TestRockerModelProvider;
 import org.grails.forge.template.RockerTemplate;
 
+import java.util.Set;
+
 @Singleton
-public class GroovyApplication implements GroovyApplicationFeature {
+public class GrailsApplication implements GrailsApplicationFeature, DefaultFeature {
 
     @Override
     @Nullable
@@ -38,7 +43,7 @@ public class GroovyApplication implements GroovyApplicationFeature {
 
     @Override
     public String getName() {
-        return "groovy-application";
+        return "grails-application";
     }
 
     @Override
@@ -48,7 +53,7 @@ public class GroovyApplication implements GroovyApplicationFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        GroovyApplicationFeature.super.apply(generatorContext);
+        GrailsApplicationFeature.super.apply(generatorContext);
 
         if (shouldGenerateApplicationFile(generatorContext)) {
             generatorContext.addTemplate("application", new RockerTemplate(getPath(),
@@ -69,6 +74,11 @@ public class GroovyApplication implements GroovyApplicationFeature {
     }
 
     protected String getPath() {
-        return "src/main/groovy/{packagePath}/Application.groovy";
+        return "grails-app/init/{packagePath}/Application.groovy";
+    }
+
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return applicationType == ApplicationType.DEFAULT;
     }
 }

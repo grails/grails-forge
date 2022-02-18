@@ -20,7 +20,7 @@ import io.micronaut.core.annotation.NonNull;
 public class BootstrapConfiguration extends Configuration {
 
     public BootstrapConfiguration(@NonNull String sourceSet, @NonNull String environment) {
-        super(sourceSet, "bootstrap-" + environment, "bootstrap-config-" + environment);
+        super(sourceSet, ("bootstrap-" + environment), ("bootstrap-config-" + environment), environment);
     }
 
     public BootstrapConfiguration(@NonNull String environment) {
@@ -28,7 +28,7 @@ public class BootstrapConfiguration extends Configuration {
     }
 
     public BootstrapConfiguration() {
-        super("main", "bootstrap", "bootstrap-config");
+        super("main", "bootstrap", "bootstrap-config", null);
     }
 
     public static BootstrapConfiguration testConfig() {

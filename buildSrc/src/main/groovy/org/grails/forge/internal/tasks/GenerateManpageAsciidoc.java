@@ -56,7 +56,7 @@ public abstract class GenerateManpageAsciidoc extends DefaultTask {
             spec.args(
                     "--outdir=" + getOutputDirectory().getAsFile().get(),
                     "-v",
-                    "--factory=org.grails.forge.cli.MicronautFactory",
+                    "--factory=org.grails.forge.cli.GrailsPicocliFactory",
                     //, "--template-dir=src/docs/mantemplates"
                     getMainClass().get()
             );
