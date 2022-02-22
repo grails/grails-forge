@@ -60,9 +60,9 @@ public class Gradle implements BuildFeature {
         generatorContext.addTemplate("gradleWrapper", new URLTemplate("gradlew", classLoader.getResource("gradle/gradlew"), true));
         generatorContext.addTemplate("gradleWrapperBat", new URLTemplate("gradlew.bat", classLoader.getResource("gradle/gradlew.bat"), false));
 
-        if ((generatorContext.getFeatures().language() != null && generatorContext.getFeatures().language().isGroovy()) || generatorContext.getFeatures().testFramework().isSpock()) {
-            generatorContext.addBuildPlugin(GradlePlugin.builder().id("groovy").build());
-        }
+        generatorContext.addBuildPlugin(GradlePlugin.builder().id("eclipse").build());
+        generatorContext.addBuildPlugin(GradlePlugin.builder().id("idea").build());
+        generatorContext.addBuildPlugin(GradlePlugin.builder().id("groovy").build());
 
         BuildTool buildTool = generatorContext.getBuildTool();
         GradleBuild build = dependencyResolver.create(generatorContext);
@@ -74,10 +74,18 @@ public class Gradle implements BuildFeature {
                 build
         )));
 
+        configureDefaultGradleProps(generatorContext);
         generatorContext.addTemplate("gitignore", new RockerTemplate(".gitignore", gitignore.template()));
         generatorContext.addTemplate("projectProperties", new RockerTemplate("gradle.properties", gradleProperties.template(generatorContext.getBuildProperties().getProperties())));
         String settingsFile = "settings.gradle";
         generatorContext.addTemplate("gradleSettings", new RockerTemplate(settingsFile, settingsGradle.template(generatorContext.getProject(), build)));
+    }
+
+    private void configureDefaultGradleProps(GeneratorContext generatorContext) {
+        generatorContext.getBuildProperties().put("org.gradle.caching", "true");
+        generatorContext.getBuildProperties().put("org.gradle.daemon", "true");
+        generatorContext.getBuildProperties().put("org.gradle.parallel", "true");
+        generatorContext.getBuildProperties().put("org.gradle.jvmArgs", "-Dfile.encoding=UTF-8 -Xmx1024M");
     }
 
     @Override

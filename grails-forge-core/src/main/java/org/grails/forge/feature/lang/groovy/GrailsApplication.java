@@ -20,6 +20,7 @@ import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.test.template.groovyJunit;
@@ -56,6 +57,7 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
         GrailsApplicationFeature.super.apply(generatorContext);
 
         if (shouldGenerateApplicationFile(generatorContext)) {
+            generatorContext.addBuildPlugin(GradlePlugin.builder().id("war").build());
             generatorContext.addTemplate("application", new RockerTemplate(getPath(),
                     application.template(generatorContext.getProject(), generatorContext.getFeatures())));
             TestFramework testFramework = generatorContext.getTestFramework();

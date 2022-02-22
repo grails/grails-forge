@@ -17,15 +17,20 @@ package org.grails.forge.feature.database;
 
 import io.micronaut.context.annotation.Primary;
 import jakarta.inject.Singleton;
+import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
+import org.grails.forge.feature.DefaultFeature;
+import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.options.Options;
 
 import java.util.Map;
+import java.util.Set;
 
 @Primary
 @Singleton
-public class HibernateGorm extends GormFeature implements DatabaseDriverConfigurationFeature {
+public class HibernateGorm extends GormFeature implements DatabaseDriverConfigurationFeature, DefaultFeature {
 
     private static final String PREFIX = "dataSource.";
     private static final String URL_KEY = PREFIX + "url";
@@ -118,5 +123,10 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
     @Override
     public String getPasswordKey() {
         return PASSWORD_KEY;
+    }
+
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return true;
     }
 }
