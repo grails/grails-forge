@@ -57,6 +57,7 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
         GrailsApplicationFeature.super.apply(generatorContext);
 
         if (shouldGenerateApplicationFile(generatorContext)) {
+            generatorContext.addBuildPlugin(GradlePlugin.builder().id("application").build());
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("war").build());
             generatorContext.addTemplate("application", new RockerTemplate(getPath(),
                     application.template(generatorContext.getProject(), generatorContext.getFeatures())));
