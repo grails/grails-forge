@@ -18,6 +18,8 @@ package org.grails.forge.feature.build.gradle;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.build.dependencies.Coordinate;
+import org.grails.forge.build.dependencies.CoordinateResolver;
 import org.grails.forge.build.gradle.GradleBuild;
 import org.grails.forge.build.gradle.GradleBuildCreator;
 import org.grails.forge.build.gradle.GradlePlugin;
@@ -41,9 +43,11 @@ public class Gradle implements BuildFeature {
     private static final String WRAPPER_PROPS = "gradle/wrapper/gradle-wrapper.properties";
 
     private final GradleBuildCreator dependencyResolver;
+    private final CoordinateResolver resolver;
 
-    public Gradle(GradleBuildCreator dependencyResolver) {
+    public Gradle(GradleBuildCreator dependencyResolver, CoordinateResolver resolver) {
         this.dependencyResolver = dependencyResolver;
+        this.resolver = resolver;
     }
 
     @Override
@@ -78,7 +82,8 @@ public class Gradle implements BuildFeature {
         generatorContext.addTemplate("gitignore", new RockerTemplate(".gitignore", gitignore.template()));
         generatorContext.addTemplate("projectProperties", new RockerTemplate("gradle.properties", gradleProperties.template(generatorContext.getBuildProperties().getProperties())));
         String settingsFile = "settings.gradle";
-        generatorContext.addTemplate("gradleSettings", new RockerTemplate(settingsFile, settingsGradle.template(generatorContext.getProject(), build)));
+        final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("5.1.2");
+        generatorContext.addTemplate("gradleSettings", new RockerTemplate(settingsFile, settingsGradle.template(generatorContext.getProject(), build, generatorContext.getFeatures(), grailsGradlePluginVersion)));
     }
 
     private void configureDefaultGradleProps(GeneratorContext generatorContext) {

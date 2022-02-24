@@ -1,8 +1,22 @@
 @import org.grails.forge.application.Project
 @import org.grails.forge.build.gradle.GradleBuild
+@import org.grails.forge.feature.Features
 
-@args (Project project, GradleBuild gradleBuild)
+@args (Project project, GradleBuild gradleBuild, Features features, String grailsGradlePluginVersion)
 
 @gradleBuild.renderSettingsExtensions()
 
+@if(features.contains("grails-gradle-plugin")) {
+pluginManagement {
+    repositories {
+        mavenLocal()
+        maven { url "https://repo.grails.org/grails/core/" }
+        gradlePluginPortal()
+    }
+    plugins {
+        id "org.grails.grails-web" version "@grailsGradlePluginVersion"
+        id "org.grails.grails-gsp" version "@grailsGradlePluginVersion"
+    }
+}
+}
 rootProject.name="@project.getName()"
