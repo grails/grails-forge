@@ -14,7 +14,6 @@ class HibernateGormSpec extends ApplicationContextSpec {
         Features features = getFeatures(['gorm-hibernate5'])
 
         then:
-        features.contains("groovy")
         features.contains("h2")
         features.contains("gorm-hibernate5")
     }
