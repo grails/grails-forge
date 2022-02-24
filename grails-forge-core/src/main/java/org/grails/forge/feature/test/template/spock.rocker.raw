@@ -8,21 +8,25 @@ Project project
 package @project.getPackageName()
 }
 
-
-import io.micronaut.runtime.EmbeddedApplication
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
-import jakarta.inject.Inject
+import grails.testing.mixin.integration.Integration
+import grails.transaction.*
 
-@@MicronautTest
-class @project.getClassName()Spec extends Specification {
+import geb.spock.*
 
-    @@Inject
-    EmbeddedApplication<?> application
+/**
+ * See https://www.gebish.org/manual/current/ for more instructions
+ */
+@@Integration
+@@Rollback
+class @project.getClassName()Spec extends GebSpec {
 
-    void 'test it works'() {
-        expect:
-        application.running
+    void "test something"() {
+        when:"The home page is visited"
+            go '/'
+
+        then:"The title is correct"
+            title == "Welcome to Grails"
     }
 
 }
