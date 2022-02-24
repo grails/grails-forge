@@ -8,4 +8,5 @@
     <suppress checks="FileLength"
               files="DefaultBeanContext.java|BeanDefinitionWriter.java|DefaultHttpClient.java"/>
     <suppress files="[\\/]generated-src[\\/]|RockerSubs.java" checks="[a-zA-Z0-9]*"/>
+    <suppress checks="Nohttp" files="pom.xml" />
 </suppressions>
