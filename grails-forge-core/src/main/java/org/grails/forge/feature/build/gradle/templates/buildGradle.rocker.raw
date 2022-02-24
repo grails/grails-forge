@@ -21,7 +21,7 @@ GradleBuild gradleBuild
 }
 plugins {
 @for (GradlePlugin gradlePlugin : gradleBuild.getPlugins()) {
-    id("@gradlePlugin.getId()") @(gradlePlugin.getVersion() != null ? "version \"" + gradlePlugin.getVersion() + "\"" : "")
+    id "@gradlePlugin.getId()" @(gradlePlugin.getVersion() != null ? "version \"" + gradlePlugin.getVersion() + "\"" : "")
 }
 }
 
@@ -38,15 +38,11 @@ repositories {
 
 @dependencies.template(applicationType, project, features, gradleBuild)
 
-
 @if (features.mainClass().isPresent()) {
 application {
     mainClass.set("@features.mainClass().get()")
 }
-} else if (features.contains("oracle-function") && !features.contains("oracle-function-http")) {
-application {
-    mainClass.set("com.fnproject.fn.runtime.EntryPoint")
-}
+
 }
 
 java {
