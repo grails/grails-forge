@@ -1,9 +1,8 @@
 @import org.grails.forge.application.ApplicationType
 @import org.grails.forge.application.Project
+@import org.grails.forge.feature.Features
 @import org.grails.forge.build.gradle.GradleBuild
 @import org.grails.forge.build.gradle.GradleDependency
-@import org.grails.forge.feature.build.gradle.templates.dependency
-@import org.grails.forge.feature.Features
 
 @args (
 ApplicationType applicationType,
@@ -13,14 +12,12 @@ GradleBuild gradleBuild
 )
 
 @if(!gradleBuild.getBuildscriptDependencies().isEmpty()) {
-buildscript {
-    repositories {
-        maven { url "https://repo.grails.org/grails/core/" }
-    }
-    dependencies {
-    @for (GradleDependency dependency : gradleBuild.getBuildscriptDependencies()) {
-        @dependency.toSnippet()
-    }
-    }
+repositories {
+    maven { url "https://repo.grails.org/grails/core/" }
+}
+dependencies {
+@for (GradleDependency dependency : gradleBuild.getBuildscriptDependencies()) {
+    @dependency.toSnippet()
+}
 }
 }

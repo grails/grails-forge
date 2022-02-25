@@ -14,41 +14,38 @@ class GradleDependencyComparatorSpec extends Specification {
             getLanguage() >> Language.GROOVY
             getTestFramework() >> TestFramework.JUNIT
         }
-        List<GradleDependency> dependencies = [
-                dep(Dependency.builder().groupId("io.micronaut").artifactId("micronaut-validation").compile(), ctx),
-                dep(Dependency.builder().groupId("io.swagger.core.v3").artifactId("swagger-annotations").compile(), ctx),
-                dep(Dependency.builder().groupId("io.micronaut").artifactId("micronaut-runtime").compile(), ctx),
-                dep(Dependency.builder().groupId("jakarta.annotation").artifactId("jakarta.annotation-api").compile(), ctx),
-                dep(Dependency.builder().groupId("io.micronaut").artifactId("micronaut-http-client").compile(), ctx),
-                dep(Dependency.builder().groupId("io.micronaut.openapi").artifactId("micronaut-openapi").annotationProcessor(), ctx),
-                dep(Dependency.builder().groupId("io.micronaut.sql").artifactId("micronaut-jdbc-hikari").compile(), ctx),
-                dep(Dependency.builder().groupId("org.grails").artifactId("grails-console").console(), ctx),
-                dep(Dependency.builder().groupId("org.testcontainers").artifactId("testcontainers").test(), ctx),
-                dep(Dependency.builder().groupId("mysql").artifactId("mysql-connector-java").runtime(), ctx),
-                dep(Dependency.builder().groupId("org.testcontainers").artifactId("junit-jupiter").test(), ctx),
-                dep(Dependency.builder().groupId("org.testcontainers").artifactId("mysql").test(), ctx),
-                dep(Dependency.builder().groupId("ch.qos.logback").artifactId("logback-classic").runtime(), ctx),
-                dep(Dependency.builder().groupId("org.grails.plugins").artifactId("hibernate5").buildscript(), ctx)
-        ]
+        List<GradleDependency> dependencies =
+                [dep(Dependency.builder().groupId("io.micronaut").artifactId("micronaut-validation").compile(), ctx),
+                 dep(Dependency.builder().groupId("io.swagger.core.v3").artifactId("swagger-annotations").compile(), ctx),
+                 dep(Dependency.builder().groupId("io.micronaut").artifactId("micronaut-runtime").compile(), ctx),
+                 dep(Dependency.builder().groupId("jakarta.annotation").artifactId("jakarta.annotation-api").compile(), ctx),
+                 dep(Dependency.builder().groupId("io.micronaut").artifactId("micronaut-http-client").compile(), ctx),
+                 dep(Dependency.builder().groupId("io.micronaut.openapi").artifactId("micronaut-openapi").annotationProcessor(), ctx),
+                 dep(Dependency.builder().groupId("io.micronaut.sql").artifactId("micronaut-jdbc-hikari").compile(), ctx),
+                 dep(Dependency.builder().groupId("org.grails").artifactId("grails-console").console(), ctx),
+                 dep(Dependency.builder().groupId("org.testcontainers").artifactId("testcontainers").test(), ctx),
+                 dep(Dependency.builder().groupId("mysql").artifactId("mysql-connector-java").runtime(), ctx),
+                 dep(Dependency.builder().groupId("org.testcontainers").artifactId("junit-jupiter").test(), ctx),
+                 dep(Dependency.builder().groupId("org.testcontainers").artifactId("mysql").test(), ctx),
+                 dep(Dependency.builder().groupId("ch.qos.logback").artifactId("logback-classic").runtime(), ctx)]
 
         when:
         dependencies.sort(GradleDependency.COMPARATOR)
 
         then:
-        "${str(dependencies[0])}" == 'classpath("org.grails.plugins:hibernate5")'
-        "${str(dependencies[1])}" == 'implementation("io.micronaut:micronaut-http-client")'
-        "${str(dependencies[2])}" == 'implementation("io.micronaut:micronaut-runtime")'
-        "${str(dependencies[3])}" == 'implementation("io.micronaut:micronaut-validation")'
-        "${str(dependencies[4])}" == 'implementation("io.micronaut.sql:micronaut-jdbc-hikari")'
-        "${str(dependencies[5])}" == 'implementation("io.swagger.core.v3:swagger-annotations")'
-        "${str(dependencies[6])}" == 'implementation("jakarta.annotation:jakarta.annotation-api")'
-        "${str(dependencies[7])}" == 'compileOnly("io.micronaut.openapi:micronaut-openapi")'
-        "${str(dependencies[8])}" == 'console("org.grails:grails-console")'
-        "${str(dependencies[9])}" == 'runtimeOnly("ch.qos.logback:logback-classic")'
-        "${str(dependencies[10])}" == 'runtimeOnly("mysql:mysql-connector-java")'
-        "${str(dependencies[11])}" == 'testImplementation("org.testcontainers:junit-jupiter")'
-        "${str(dependencies[12])}" == 'testImplementation("org.testcontainers:mysql")'
-        "${str(dependencies[13])}" == 'testImplementation("org.testcontainers:testcontainers")'
+        "${str(dependencies[0])}" == 'implementation("io.micronaut:micronaut-http-client")'
+        "${str(dependencies[1])}" == 'implementation("io.micronaut:micronaut-runtime")'
+        "${str(dependencies[2])}" == 'implementation("io.micronaut:micronaut-validation")'
+        "${str(dependencies[3])}" == 'implementation("io.micronaut.sql:micronaut-jdbc-hikari")'
+        "${str(dependencies[4])}" == 'implementation("io.swagger.core.v3:swagger-annotations")'
+        "${str(dependencies[5])}" == 'implementation("jakarta.annotation:jakarta.annotation-api")'
+        "${str(dependencies[6])}" == 'compileOnly("io.micronaut.openapi:micronaut-openapi")'
+        "${str(dependencies[7])}" == 'console("org.grails:grails-console")'
+        "${str(dependencies[8])}" == 'runtimeOnly("ch.qos.logback:logback-classic")'
+        "${str(dependencies[9])}" == 'runtimeOnly("mysql:mysql-connector-java")'
+        "${str(dependencies[10])}" == 'testImplementation("org.testcontainers:junit-jupiter")'
+        "${str(dependencies[11])}" == 'testImplementation("org.testcontainers:mysql")'
+        "${str(dependencies[12])}" == 'testImplementation("org.testcontainers:testcontainers")'
     }
 
     private static String str(GradleDependency dependency) {

@@ -27,6 +27,7 @@ import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.build.BuildFeature;
 import org.grails.forge.feature.build.gitignore;
 import org.grails.forge.feature.build.gradle.templates.buildGradle;
+import org.grails.forge.feature.build.gradle.templates.buildSrcBuildGradle;
 import org.grails.forge.feature.build.gradle.templates.gradleProperties;
 import org.grails.forge.feature.build.gradle.templates.settingsGradle;
 import org.grails.forge.options.BuildTool;
@@ -70,6 +71,13 @@ public class Gradle implements BuildFeature {
 
         BuildTool buildTool = generatorContext.getBuildTool();
         GradleBuild build = dependencyResolver.create(generatorContext);
+
+        generatorContext.addTemplate("buildSrc/build", new RockerTemplate("buildSrc/" + buildTool.getBuildFileName(), buildSrcBuildGradle.template(
+                generatorContext.getApplicationType(),
+                generatorContext.getProject(),
+                generatorContext.getFeatures(),
+                build
+        )));
 
         generatorContext.addTemplate("build", new RockerTemplate(buildTool.getBuildFileName(), buildGradle.template(
                 generatorContext.getApplicationType(),

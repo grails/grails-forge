@@ -10,6 +10,7 @@ import org.grails.forge.build.gradle.GradleBuild
 import org.grails.forge.build.gradle.GradleBuildCreator
 import org.grails.forge.feature.Features
 import org.grails.forge.feature.build.gradle.templates.buildGradle
+import org.grails.forge.feature.build.gradle.templates.buildSrcBuildGradle
 import org.grails.forge.fixture.ContextFixture
 import org.grails.forge.fixture.ProjectFixture
 import org.grails.forge.options.BuildTool
@@ -85,6 +86,24 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         if (buildTool.isGradle()) {
             GradleBuild build = gradleBuild(options, features, project, type)
             return buildGradle.template(type, project, features, build).render().toString()
+        }
+        null
+    }
+
+    String renderBuildSrc() {
+        List<String> featureNames = this.features ?: []
+        Language language = this.language ?: Language.DEFAULT_OPTION
+        TestFramework testFramework = this.testFramework ?: language.defaults.test
+        ApplicationType type = this.applicationType ?: ApplicationType.DEFAULT
+        Project project = this.project ?: buildProject()
+        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_8
+
+        Options options = new Options(language, testFramework, buildTool, jdkVersion)
+        Features features = getFeatures(featureNames, options, type)
+
+        if (buildTool.isGradle()) {
+            GradleBuild build = gradleBuild(options, features, project, type)
+            return buildSrcBuildGradle.template(type, project, features, build).render().toString()
         }
         null
     }

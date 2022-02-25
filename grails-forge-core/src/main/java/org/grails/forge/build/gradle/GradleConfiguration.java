@@ -25,14 +25,14 @@ import org.grails.forge.options.TestFramework;
 import java.util.Optional;
 
 public enum GradleConfiguration implements Ordered {
-    BUILD("classpath", 0),
-    ANNOTATION_PROCESSOR("annotationProcessor", 0),
-    KAPT("kapt", 1),
-    API("api", 2),
-    IMPLEMENTATION("implementation", 3),
-    COMPILE_ONLY("compileOnly", 4),
-    CONSOLE("console", 5),
-    RUNTIME_ONLY("runtimeOnly", 6),
+    BUILD("implementation", 0),
+    ANNOTATION_PROCESSOR("annotationProcessor", 1),
+    KAPT("kapt", 2),
+    API("api", 3),
+    IMPLEMENTATION("implementation", 4),
+    COMPILE_ONLY("compileOnly", 5),
+    CONSOLE("console", 6),
+    RUNTIME_ONLY("runtimeOnly", 7),
     TEST_ANNOTATION_PROCESSOR("testAnnotationProcessor", 8),
     TEST_KAPT("kaptTest", 9),
     TEST_IMPLEMENTATION("testImplementation", 10),

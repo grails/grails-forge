@@ -2,12 +2,17 @@ package org.grails.forge.feature.database
 
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
+import org.grails.forge.application.ApplicationType
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.feature.Features
+import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
+import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Language
+import org.grails.forge.options.Options
+import org.grails.forge.options.TestFramework
 
-class HibernateGormSpec extends ApplicationContextSpec {
+class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputFixture{
 
     void "test hibernate gorm features"() {
         when:
@@ -20,19 +25,38 @@ class HibernateGormSpec extends ApplicationContextSpec {
 
     void "test dependencies are present for gradle"() {
         when:
-        String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        final String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
                 .features(["gorm-hibernate5"])
-                .language(Language.GROOVY)
                 .render()
 
         then:
-        template.contains('classpath("org.grails.plugins:hibernate5:7.2.1")')
         template.contains('implementation("org.grails.plugins:hibernate5")')
         template.contains('implementation("org.hibernate:hibernate-core:5.6.3.Final")')
         template.contains("runtimeOnly(\"org.glassfish.web:el-impl:2.2.1-b05\")")
         template.contains("runtimeOnly(\"org.apache.tomcat:tomcat-jdbc\")")
         template.contains("runtimeOnly(\"com.h2database:h2\")")
         template.contains("runtimeOnly(\"javax.xml.bind:jaxb-api:2.3.1\")")
+    }
+
+    void "test dependencies are present for buildSrc"() {
+        when:
+        final String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+                .features(["gorm-hibernate5"])
+                .renderBuildSrc()
+
+        then:
+        template.contains('implementation("org.grails.plugins:hibernate5:7.2.1")')
+    }
+
+    void "test buildSrc is present for buildscript dependencies"() {
+        given:
+        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
+
+        expect:
+        buildSrcBuildGradle != null
+        buildSrcBuildGradle.contains("implementation(\"org.grails.plugins:hibernate5:7.2.1\")")
+
     }
 
     void "test config"() {

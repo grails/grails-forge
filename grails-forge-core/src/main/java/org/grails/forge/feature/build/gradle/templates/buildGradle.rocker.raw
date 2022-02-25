@@ -14,8 +14,6 @@ Features features,
 GradleBuild gradleBuild
 )
 
-@buildscriptDependencies.template(applicationType, project, features, gradleBuild)
-
 @for (String importLine : gradleBuild.getPluginsImports()) {
 @(importLine)
 }
