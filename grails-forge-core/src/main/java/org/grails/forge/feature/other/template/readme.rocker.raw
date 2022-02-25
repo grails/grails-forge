@@ -11,7 +11,7 @@ Feature feature
 
     @if (feature.getDocumentation() != null) {
 
-- [Micronaut @feature.getTitle().replaceFirst("^Micronaut\\s+(.*)", "$1") documentation](@feature.getDocumentation())
+- [Grails @feature.getTitle().replaceFirst("^Grails\\s+(.*)", "$1") documentation](@feature.getDocumentation())
 
     }
     @if (feature.getThirdPartyDocumentation() != null) {
