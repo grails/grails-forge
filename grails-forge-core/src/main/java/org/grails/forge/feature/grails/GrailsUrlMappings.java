@@ -27,7 +27,7 @@ import org.grails.forge.feature.grails.templates.urlMappings;
 import java.util.Set;
 
 @Singleton
-public class GrailsUrlMappingsFeature implements DefaultFeature {
+public class GrailsUrlMappings implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {

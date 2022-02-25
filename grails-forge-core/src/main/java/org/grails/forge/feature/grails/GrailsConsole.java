@@ -26,7 +26,7 @@ import org.grails.forge.options.Options;
 import java.util.Set;
 
 @Singleton
-public class GrailsConsoleFeature implements DefaultFeature {
+public class GrailsConsole implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {

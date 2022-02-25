@@ -25,7 +25,7 @@ import org.grails.forge.feature.Feature;
 import java.util.Map;
 
 @Singleton
-public class GrailsWebConsoleFeature implements Feature {
+public class GrailsWebConsole implements Feature {
 
     @Override
     public String getName() {

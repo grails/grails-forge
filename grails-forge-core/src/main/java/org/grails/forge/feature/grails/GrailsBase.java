@@ -26,7 +26,7 @@ import org.grails.forge.options.Options;
 import java.util.Set;
 
 @Singleton
-public class GrailsBaseFeature implements DefaultFeature {
+public class GrailsBase implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
@@ -48,6 +48,14 @@ public class GrailsBaseFeature implements DefaultFeature {
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.grails")
                 .artifactId("grails-core")
+                .compile());
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.grails")
+                .artifactId("grails-web-boot")
+                .compile());
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.grails")
+                .artifactId("grails-logging")
                 .compile());
     }
 }
