@@ -87,9 +87,9 @@ public class GrailsGsp implements DefaultFeature {
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
 
         generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "layouts/main.gsp", mainLayout.template()));
-        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "index.gsp", index.template()));
-        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "error.gsp", error.template()));
-        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "notFound.gsp", notFound.template()));
+        generatorContext.addTemplate("index", new RockerTemplate(getViewFolderPath() + "index.gsp", index.template()));
+        generatorContext.addTemplate("error", new RockerTemplate(getViewFolderPath() + "error.gsp", error.template()));
+        generatorContext.addTemplate("notFound", new RockerTemplate(getViewFolderPath() + "notFound.gsp", notFound.template()));
     }
 
     protected String getViewFolderPath() {
