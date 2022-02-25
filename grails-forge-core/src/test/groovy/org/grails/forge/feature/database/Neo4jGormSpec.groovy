@@ -13,7 +13,6 @@ class Neo4jGormSpec extends ApplicationContextSpec implements CommandOutputFixtu
         Features features = getFeatures(['gorm-neo4j'])
 
         then:
-        features.contains("groovy")
         features.contains("gorm-neo4j")
     }
 

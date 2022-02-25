@@ -14,7 +14,6 @@ class MongoGormSpec extends ApplicationContextSpec implements CommandOutputFixtu
         Features features = getFeatures(['gorm-mongodb'])
 
         then:
-        features.contains("groovy")
         features.contains("gorm-mongodb")
     }
 
@@ -23,7 +22,6 @@ class MongoGormSpec extends ApplicationContextSpec implements CommandOutputFixtu
         Features features = getFeatures(['gorm-mongodb', 'embedded-mongodb'])
 
         then:
-        features.contains("groovy")
         features.contains("gorm-mongodb")
         features.contains("embedded-mongodb")
     }
