@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 @Singleton
-public class DefaultGrailsDependenciesFeature implements DefaultFeature {
+public class GrailsDefaultPlugins implements DefaultFeature {
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
         return true;
@@ -54,7 +54,7 @@ public class DefaultGrailsDependenciesFeature implements DefaultFeature {
         Arrays.asList("rest", "databinding", "i18n", "services", "url-mappings", "interceptors").forEach((artifact) -> {
             generatorContext.addDependency(Dependency.builder()
                     .groupId("org.grails")
-                    .artifactId("grails-plugins-" + artifact)
+                    .artifactId("grails-plugin-" + artifact)
                     .compile());
         });
     }
