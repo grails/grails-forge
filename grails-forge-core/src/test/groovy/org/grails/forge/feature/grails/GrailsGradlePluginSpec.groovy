@@ -14,11 +14,9 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
     void "test build gradle file and gradle properties"() {
         when:
         final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
-        final String buildGradle = output["build.gradle"]
         final String gradleProps = output["gradle.properties"]
 
         then:
-        buildGradle.contains('classpath("org.grails:grails-gradle-plugin:${grailsGradlePluginVersion}")')
         gradleProps.contains("grailsGradlePluginVersion=5.1.2")
         gradleProps.contains("grailsVersion=5.1.2")
     }
