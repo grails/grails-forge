@@ -1,0 +1,10 @@
+@import org.grails.forge.application.Project;
+
+@args(Project project)
+
+webdriverBinaries {
+    chromedriver '2.32'
+    geckodriver '0.19.0'
+    iedriverserver '3.8.0'
+    edgedriver '86.0.601.0'
+}

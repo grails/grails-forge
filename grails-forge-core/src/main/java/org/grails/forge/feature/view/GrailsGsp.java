@@ -24,8 +24,13 @@ import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.feature.view.templates.error;
+import org.grails.forge.feature.view.templates.index;
+import org.grails.forge.feature.view.templates.mainLayout;
+import org.grails.forge.feature.view.templates.notFound;
 import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.options.Options;
+import org.grails.forge.template.RockerTemplate;
 
 import java.util.Map;
 import java.util.Set;
@@ -80,5 +85,14 @@ public class GrailsGsp implements DefaultFeature {
                 .artifactId("gsp")
                 .compile());
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
+
+        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "layouts/main.gsp", mainLayout.template()));
+        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "index.gsp", index.template()));
+        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "error.gsp", error.template()));
+        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "notFound.gsp", notFound.template()));
+    }
+
+    protected String getViewFolderPath() {
+        return "grails-app/views/";
     }
 }

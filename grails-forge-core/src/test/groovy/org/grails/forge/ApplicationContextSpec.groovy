@@ -42,7 +42,7 @@ abstract class ApplicationContextSpec extends Specification implements ProjectFi
     }
 
     protected static Optional<String> parseCommunityGradlePluginVersion(String gradlePluginId, String template) {
-        String applyPlugin = 'id("' + gradlePluginId + '") version "'
+        String applyPlugin = 'id "' + gradlePluginId + '" version "'
         List<String> lines = template.split('\n')
         String pluginLine = lines.find { line ->
             line.contains(applyPlugin)

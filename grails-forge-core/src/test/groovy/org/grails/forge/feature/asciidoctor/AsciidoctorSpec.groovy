@@ -22,7 +22,7 @@ class AsciidoctorSpec extends ApplicationContextSpec {
 
         when:
         String pluginId = 'org.asciidoctor.jvm.convert'
-        String applyPlugin = 'id("' + pluginId + '") version "'
+        String applyPlugin = 'id "' + pluginId + '" version "'
 
         then:
         template.contains(applyPlugin)

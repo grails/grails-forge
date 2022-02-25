@@ -33,4 +33,19 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         buildGradle.contains("idea")
         buildGradle.contains("war")
     }
+
+    void "test settings.gradle"() {
+        given:
+        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final String settingsGradle = output["settings.gradle"]
+
+        expect:
+        settingsGradle.contains("pluginManagement")
+        settingsGradle.contains("repositories")
+        settingsGradle.contains("mavenLocal()")
+        settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
+        settingsGradle.contains("gradlePluginPortal()")
+        settingsGradle.contains("id \"org.grails.grails-web\" version ")
+        settingsGradle.contains("id \"org.grails.grails-gsp\" version ")
+    }
 }
