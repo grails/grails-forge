@@ -45,7 +45,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version ")
-        settingsGradle.contains("id \"org.grails.grails-gsp\" version ")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"\${grailsGradlePluginVersion}\"")
+        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"\${grailsGradlePluginVersion}\"")
     }
 }

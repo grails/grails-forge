@@ -23,8 +23,15 @@ import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
+import org.grails.forge.template.URLTemplate;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Set;
 
 @Singleton
@@ -57,6 +64,20 @@ public class GrailsDefaultPlugins implements DefaultFeature {
                     .artifactId("grails-plugin-" + artifact)
                     .compile());
         });
+        final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        try {
+            final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("i18n")).toURI());
+            if (Files.exists(path)) {
+                Files.walk(path)
+                        .filter(Files::isRegularFile)
+                        .forEach(file -> {
+                            final String relativePath = "i18n/" + file.getFileName();
+                            generatorContext.addTemplate(relativePath, new URLTemplate("grails-app/" + relativePath, classLoader.getResource(relativePath)));
+                        });
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

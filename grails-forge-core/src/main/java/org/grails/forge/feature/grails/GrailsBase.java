@@ -22,6 +22,7 @@ import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
+import org.grails.forge.template.URLTemplate;
 
 import java.util.Set;
 
@@ -57,5 +58,10 @@ public class GrailsBase implements DefaultFeature {
                 .groupId("org.grails")
                 .artifactId("grails-logging")
                 .compile());
+
+        final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        generatorContext.addTemplate("src/main/groovy", new URLTemplate("src/main/groovy/.gitkeep", classLoader.getResource(".gitkeep")));
+        generatorContext.addTemplate("src/test/groovy", new URLTemplate("src/test/groovy/.gitkeep", classLoader.getResource(".gitkeep")));
+        generatorContext.addTemplate("src/integration-test/groovy", new URLTemplate("src/integration-test/groovy/.gitkeep", classLoader.getResource(".gitkeep")));
     }
 }

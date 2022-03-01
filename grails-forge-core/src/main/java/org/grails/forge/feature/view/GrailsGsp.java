@@ -24,13 +24,9 @@ import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
-import org.grails.forge.feature.view.templates.error;
-import org.grails.forge.feature.view.templates.index;
-import org.grails.forge.feature.view.templates.mainLayout;
-import org.grails.forge.feature.view.templates.notFound;
 import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.options.Options;
-import org.grails.forge.template.RockerTemplate;
+import org.grails.forge.template.URLTemplate;
 
 import java.util.Map;
 import java.util.Set;
@@ -86,10 +82,11 @@ public class GrailsGsp implements DefaultFeature {
                 .compile());
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
 
-        generatorContext.addTemplate("mainLayout", new RockerTemplate(getViewFolderPath() + "layouts/main.gsp", mainLayout.template()));
-        generatorContext.addTemplate("index", new RockerTemplate(getViewFolderPath() + "index.gsp", index.template()));
-        generatorContext.addTemplate("error", new RockerTemplate(getViewFolderPath() + "error.gsp", error.template()));
-        generatorContext.addTemplate("notFound", new RockerTemplate(getViewFolderPath() + "notFound.gsp", notFound.template()));
+        final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        generatorContext.addTemplate("mainLayout", new URLTemplate(getViewFolderPath() + "layouts/main.gsp", classLoader.getResource("gsp/main.gsp")));
+        generatorContext.addTemplate("index", new URLTemplate(getViewFolderPath() + "index.gsp", classLoader.getResource("gsp/index.gsp")));
+        generatorContext.addTemplate("error", new URLTemplate(getViewFolderPath() + "error.gsp", classLoader.getResource("gsp/error.gsp")));
+        generatorContext.addTemplate("notFound", new URLTemplate(getViewFolderPath() + "notFound.gsp", classLoader.getResource("gsp/notFound.gsp")));
     }
 
     protected String getViewFolderPath() {

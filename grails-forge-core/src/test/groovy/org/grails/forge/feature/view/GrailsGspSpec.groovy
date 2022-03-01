@@ -3,9 +3,15 @@ package org.grails.forge.feature.view
 
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
+import org.grails.forge.application.ApplicationType
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
+import org.grails.forge.options.BuildTool
+import org.grails.forge.options.JdkVersion
+import org.grails.forge.options.Language
+import org.grails.forge.options.Options
+import org.grails.forge.options.TestFramework
 
 class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -41,6 +47,16 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         ctx.getConfiguration().containsKey("grails.views.gsp.codecs.scriptlet")
         ctx.getConfiguration().containsKey("grails.views.gsp.codecs.taglib")
         ctx.getConfiguration().containsKey("grails.views.gsp.codecs.staticparts")
+    }
+
+    void "test default views are present"() {
+        when:
+        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        
+        then:
+        output.containsKey("grails-app/views/index.gsp")
+        output.containsKey("grails-app/views/error.gsp")
+        output.containsKey("grails-app/views/notFound.gsp")
     }
 
 }

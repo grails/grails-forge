@@ -22,4 +22,14 @@ class GrailsBaseSpec extends BeanContextSpec implements CommandOutputFixture {
         buildGradle.contains("implementation(\"org.grails:grails-web-boot\")")
         buildGradle.contains("implementation(\"org.grails:grails-logging\")")
     }
+
+    void "test src/main directories are present"() {
+        given:
+        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+
+        expect:
+        output.containsKey("src/main/groovy/.gitkeep")
+        output.containsKey("src/test/groovy/.gitkeep")
+        output.containsKey("src/integration-test/groovy/.gitkeep")
+    }
 }

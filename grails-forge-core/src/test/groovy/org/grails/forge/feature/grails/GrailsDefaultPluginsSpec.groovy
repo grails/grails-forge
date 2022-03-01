@@ -24,4 +24,14 @@ class GrailsDefaultPluginsSpec extends ApplicationContextSpec implements Command
         buildGradle.contains("implementation(\"org.grails:grails-plugin-interceptors\")")
     }
 
+    void "test i18n message properties files are present"() {
+        given:
+        final Map<String, String> output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+
+        expect:
+        output.containsKey("grails-app/i18n/messages.properties")
+        Arrays.asList("cs", "da", "de", "es", "fr", "it", "ja", "nb", "nl", "pl", "pt_BR", "pt_PT", "ru", "sv", "th", "zh_CN", "zn")
+                .any(prop -> { !output.containsKey("grails-app/i81n/message_" + prop + ".properties") })
+    }
+
 }
