@@ -66,7 +66,7 @@ public class GrailsDefaultPlugins implements DefaultFeature {
         });
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try {
-            final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("i18n")).toURI());
+            final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("i18n")).getPath());
             if (Files.exists(path)) {
                 Files.walk(path)
                         .filter(Files::isRegularFile)
@@ -75,7 +75,7 @@ public class GrailsDefaultPlugins implements DefaultFeature {
                             generatorContext.addTemplate(relativePath, new URLTemplate("grails-app/" + relativePath, classLoader.getResource(relativePath)));
                         });
             }
-        } catch (URISyntaxException | IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
