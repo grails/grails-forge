@@ -18,6 +18,7 @@ package org.grails.forge.options;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.value.ConvertibleValues;
 import io.micronaut.core.convert.value.ConvertibleValuesMap;
+import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.util.VersionInfo;
 
 import java.util.Collection;
@@ -28,46 +29,57 @@ import java.util.Set;
 
 public class Options implements ConvertibleValues<Object> {
 
+    private final OperatingSystem operatingSystem;
+
     private final Language language;
     private final TestFramework testFramework;
     private final BuildTool buildTool;
     private final JdkVersion javaVersion;
     private final ConvertibleValuesMap<Object> additionalOptions;
 
+    public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion, OperatingSystem operatingSystem) {
+        this(language, testFramework, buildTool, javaVersion, operatingSystem, Collections.emptyMap());
+    }
+
     public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion) {
-        this(language, testFramework, buildTool, javaVersion, Collections.emptyMap());
+        this(language, testFramework, buildTool, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(Language language, TestFramework testFramework, BuildTool buildTool) {
-        this(language, testFramework, buildTool, VersionInfo.getJavaVersion(), Collections.emptyMap());
+        this(language, testFramework, buildTool, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(Language language, TestFramework testFramework) {
-        this(language, testFramework, language.getDefaults().getBuild(), VersionInfo.getJavaVersion(), Collections.emptyMap());
+        this(language, testFramework, language.getDefaults().getBuild(), VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(Language language, BuildTool buildTool) {
-        this(language, language.getDefaults().getTest(), buildTool, VersionInfo.getJavaVersion(), Collections.emptyMap());
+        this(language, language.getDefaults().getTest(), buildTool, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(Language language) {
-        this(language, language.getDefaults().getTest(), language.getDefaults().getBuild(), VersionInfo.getJavaVersion(), Collections.emptyMap());
+        this(language, language.getDefaults().getTest(), language.getDefaults().getBuild(), VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options() {
-        this(Language.DEFAULT_OPTION, TestFramework.JUNIT, BuildTool.GRADLE, VersionInfo.getJavaVersion(), Collections.emptyMap());
+        this(Language.DEFAULT_OPTION, TestFramework.JUNIT, BuildTool.GRADLE, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool, Map<String, Object> additionalOptions) {
-        this(language, testFramework, buildTool, VersionInfo.getJavaVersion(), additionalOptions);
+    public Options(Language language, TestFramework testFramework, BuildTool buildTool, OperatingSystem operatingSystem, Map<String, Object> additionalOptions) {
+        this(language, testFramework, buildTool, VersionInfo.getJavaVersion(), operatingSystem, additionalOptions);
     }
 
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion, Map<String, Object> additionalOptions) {
+    public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion, OperatingSystem operatingSystem, Map<String, Object> additionalOptions) {
         this.javaVersion = javaVersion;
         this.language = language;
         this.testFramework = testFramework;
         this.buildTool = buildTool;
+        this.operatingSystem = operatingSystem;
         this.additionalOptions = new ConvertibleValuesMap<>(additionalOptions);
+    }
+
+    public OperatingSystem getOperatingSystem() {
+        return operatingSystem;
     }
 
     public Language getLanguage() {
@@ -101,19 +113,23 @@ public class Options implements ConvertibleValues<Object> {
         return javaVersion;
     }
 
+    public Options withOperatingSystem(OperatingSystem operatingSystem) {
+        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
+    }
+
     public Options withLanguage(Language language) {
-        return new Options(language, testFramework, buildTool, javaVersion, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withTestFramework(TestFramework testFramework) {
-        return new Options(language, testFramework, buildTool, javaVersion, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withBuildTool(BuildTool buildTool) {
-        return new Options(language, testFramework, buildTool, javaVersion, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withJavaVersion(JdkVersion javaVersion) {
-        return new Options(language, testFramework, buildTool, javaVersion, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 }

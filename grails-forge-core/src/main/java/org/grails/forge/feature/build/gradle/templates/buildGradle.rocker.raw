@@ -31,6 +31,7 @@ apply from: "gradle/asciidoc.gradle"
 }
 
 repositories {
+    mavenCentral()
     maven { url "https://repo.grails.org/grails/core/" }
 }
 
@@ -67,6 +68,18 @@ tasks {
     run {
         if (project.hasProperty("rebelAgent")) {
             jvmArgs(rebelAgent)
+        }
+    }
+}
+
+@if (features.contains("spock")) {
+    tasks.withType(Test) {
+        useJUnitPlatform()
+        if (features.contains("geb")) {
+        systemProperty "geb.env", System.getProperty('geb.env')
+        systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+        systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
+        systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
         }
     }
 }

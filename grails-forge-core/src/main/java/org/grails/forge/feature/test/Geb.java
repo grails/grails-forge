@@ -17,6 +17,8 @@ package org.grails.forge.feature.test;
 
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
+import org.grails.forge.application.OperatingSystem;
+import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradlePlugin;
@@ -24,8 +26,14 @@ import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.feature.test.template.groovyJunit;
+import org.grails.forge.feature.test.template.spock;
 import org.grails.forge.feature.test.template.webdriverBinariesPlugin;
+import org.grails.forge.options.DefaultTestRockerModelProvider;
 import org.grails.forge.options.Options;
+import org.grails.forge.options.TestFramework;
+import org.grails.forge.options.TestRockerModelProvider;
+import org.grails.forge.template.RockerTemplate;
 import org.grails.forge.template.RockerWritable;
 
 import java.util.Set;
@@ -42,7 +50,7 @@ public class Geb implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return true;
+        return options.getOperatingSystem() != OperatingSystem.MACOS_ARCH64;
     }
 
     @Override
@@ -89,33 +97,44 @@ public class Geb implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        generatorContext.addBuildPlugin(GradlePlugin.builder()
-                .id("com.github.erdi.webdriver-binaries")
-                .lookupArtifactId("webdriver-binaries-gradle-plugin")
-                .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject())))
-                .build());
+        if (generatorContext.getOperatingSystem() != OperatingSystem.MACOS_ARCH64) {
+            generatorContext.addBuildPlugin(GradlePlugin.builder()
+                    .id("com.github.erdi.webdriver-binaries")
+                    .lookupArtifactId("webdriver-binaries-gradle-plugin")
+                    .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject())))
+                    .build());
 
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.grails.plugins")
-                .artifactId("geb")
-                .test());
+            generatorContext.addDependency(Dependency.builder()
+                    .groupId("org.grails.plugins")
+                    .artifactId("geb")
+                    .test());
 
-        Stream.of("api", "support", "remote-driver")
-                .map(name -> "selenium-" + name)
-                .forEach(name -> {
-                    generatorContext.addDependency(Dependency.builder()
-                            .groupId("org.seleniumhq.selenium")
-                            .lookupArtifactId(name)
-                            .test());
-                });
+            Stream.of("api", "support", "remote-driver")
+                    .map(name -> "selenium-" + name)
+                    .forEach(name -> {
+                        generatorContext.addDependency(Dependency.builder()
+                                .groupId("org.seleniumhq.selenium")
+                                .lookupArtifactId(name)
+                                .test());
+                    });
 
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.seleniumhq.selenium")
-                .lookupArtifactId("selenium-chrome-driver")
-                .testRuntime());
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.seleniumhq.selenium")
-                .lookupArtifactId("selenium-firefox-driver")
-                .testRuntime());
+            generatorContext.addDependency(Dependency.builder()
+                    .groupId("org.seleniumhq.selenium")
+                    .lookupArtifactId("selenium-chrome-driver")
+                    .testRuntime());
+            generatorContext.addDependency(Dependency.builder()
+                    .groupId("org.seleniumhq.selenium")
+                    .lookupArtifactId("selenium-firefox-driver")
+                    .testRuntime());
+
+            TestFramework testFramework = generatorContext.getTestFramework();
+            String integrationTestSourcePath = generatorContext.getIntegrationTestSourcePath("/{packagePath}/{className}");
+            Project project = generatorContext.getProject();
+            TestRockerModelProvider provider = new DefaultTestRockerModelProvider(org.grails.forge.feature.test.template.spock.template(project),
+                    groovyJunit.template(project));
+            generatorContext.addTemplate("applicationTest",
+                    new RockerTemplate(integrationTestSourcePath, provider.findModel(generatorContext.getLanguage(), testFramework))
+            );
+        }
     }
 }

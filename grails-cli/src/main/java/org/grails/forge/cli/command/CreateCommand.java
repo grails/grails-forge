@@ -98,7 +98,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     public Integer call() throws Exception {
         if (listFeatures) {
             new ListFeatures(availableFeatures,
-                    new Options(lang, test, build, getJdkVersion()),
+                    new Options(lang, test, build, getJdkVersion(), getOperatingSystem()),
                     applicationType,
                     getOperatingSystem(),
                     contextFactory).output(this);
@@ -124,7 +124,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     }
 
     public void generate(Project project, OutputHandler outputHandler) throws Exception {
-        Options options = new Options(lang, test, build, getJdkVersion(), getAdditionalOptions());
+        Options options = new Options(lang, test, build, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
 
         projectGenerator.generate(applicationType, project, options, getOperatingSystem(), getSelectedFeatures(), outputHandler, this);
     }

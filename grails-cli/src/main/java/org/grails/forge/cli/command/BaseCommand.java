@@ -15,12 +15,15 @@
  */
 package org.grails.forge.cli.command;
 
+import io.micronaut.context.env.CachedEnvironment;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.annotation.ReflectiveAccess;
 import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.cli.CommonOptionsMixin;
 import org.grails.forge.io.ConsoleOutput;
 import picocli.CommandLine;
+
+import java.util.Locale;
 
 public class BaseCommand implements ConsoleOutput {
 
@@ -66,7 +69,12 @@ public class BaseCommand implements ConsoleOutput {
     public OperatingSystem getOperatingSystem() {
         io.micronaut.context.condition.OperatingSystem operatingSystem = io.micronaut.context.condition.OperatingSystem.getCurrent();
         if (operatingSystem.isMacOs()) {
-            return OperatingSystem.MACOS;
+            final String osArch = CachedEnvironment.getProperty("os.arch").toLowerCase(Locale.ENGLISH);
+            if (osArch.equals("aarch64")) {
+                return OperatingSystem.MACOS_ARCH64;
+            } else {
+                return OperatingSystem.MACOS;
+            }
         } else if (operatingSystem.isLinux()) {
             return OperatingSystem.LINUX;
         } else if (operatingSystem.isWindows()) {

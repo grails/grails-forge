@@ -15,9 +15,28 @@
  */
 package org.grails.forge.application;
 
+import javax.annotation.Nullable;
+
 public enum OperatingSystem {
+    MACOS_ARCH64("aarch64"),
     MACOS,
     LINUX,
     WINDOWS,
-    SOLARIS
+    SOLARIS;
+
+    public static final OperatingSystem DEFAULT = OperatingSystem.LINUX;
+    private final String architecture;
+
+    OperatingSystem(String architecture) {
+        this.architecture = architecture;
+    }
+
+    OperatingSystem() {
+        architecture = null;
+    }
+
+    @Nullable
+    public String getArchitecture() {
+        return architecture;
+    }
 }
