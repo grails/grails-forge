@@ -297,6 +297,10 @@ public class GeneratorContext implements DependencyContext {
         return getTestFramework().getSourcePath(path, getLanguage());
     }
 
+    public String getIntegrationTestSourcePath(String path) {
+        return getTestFramework().getIntegrationSourcePath(path, getLanguage());
+    }
+
     RockerModel parseModel(RockerModel javaTemplate,
                            RockerModel groovyTemplate) {
         switch (getLanguage()) {

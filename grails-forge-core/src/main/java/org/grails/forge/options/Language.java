@@ -64,6 +64,10 @@ public enum Language implements IncludesDefaults<LanguageDefaults> {
         return "src/test/" + getName();
     }
 
+    public String getIntegrationSrcDir() {
+        return  "src/integration-test/" + getName();
+    }
+
     public String getSourcePath(String path) {
         return getSrcDir() + path + "." + getExtension();
     }

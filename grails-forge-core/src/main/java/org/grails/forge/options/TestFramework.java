@@ -52,6 +52,20 @@ public enum TestFramework {
         }
     }
 
+    public String getIntegrationSourcePath(String path, Language language) {
+        switch (this) {
+            case SPOCK:
+                return Language.GROOVY.getIntegrationSrcDir() + path + getTestFrameworkSuffix() + Language.GROOVY.getExtension();
+            case JUNIT:
+            default:
+                if (language != null) {
+                    return language.getIntegrationSrcDir() + path + getTestFrameworkSuffix()  + language.getExtension();
+                } else {
+                    return Language.GROOVY.getIntegrationSrcDir() + path + getTestFrameworkSuffix() + Language.GROOVY.getExtension();
+                }
+        }
+    }
+
     public String getTestFrameworkSuffix() {
         switch (this) {
             case SPOCK:

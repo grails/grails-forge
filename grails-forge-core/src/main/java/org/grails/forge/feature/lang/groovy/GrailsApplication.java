@@ -18,17 +18,11 @@ package org.grails.forge.feature.lang.groovy;
 import io.micronaut.core.annotation.Nullable;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
-import org.grails.forge.feature.test.template.groovyJunit;
-import org.grails.forge.feature.test.template.spock;
-import org.grails.forge.options.DefaultTestRockerModelProvider;
 import org.grails.forge.options.Options;
-import org.grails.forge.options.TestFramework;
-import org.grails.forge.options.TestRockerModelProvider;
 import org.grails.forge.template.RockerTemplate;
 
 import java.util.Set;
@@ -61,14 +55,6 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("war").build());
             generatorContext.addTemplate("application", new RockerTemplate(getPath(),
                     application.template(generatorContext.getProject(), generatorContext.getFeatures())));
-            TestFramework testFramework = generatorContext.getTestFramework();
-            String testSourcePath = generatorContext.getTestSourcePath("/{packagePath}/{className}");
-            Project project = generatorContext.getProject();
-            TestRockerModelProvider provider = new DefaultTestRockerModelProvider(spock.template(project),
-                    groovyJunit.template(project));
-            generatorContext.addTemplate("applicationTest",
-                    new RockerTemplate(testSourcePath, provider.findModel(generatorContext.getLanguage(), testFramework))
-            );
         }
     }
 
