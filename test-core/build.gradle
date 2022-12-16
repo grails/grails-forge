@@ -1,0 +1,23 @@
+plugins {
+    id "org.grails.forge.internal.test-module"
+    id "org.grails.forge.rocker"
+}
+
+sourceSets {
+    test {
+        rocker {
+            srcDir("src/test/groovy")
+        }
+    }
+}
+
+dependencies {
+//    testImplementation project(":test-utils")
+    testImplementation project(":grails-forge-core")
+    testImplementation project(":grails-cli")
+    testImplementation "ch.qos.logback:logback-classic:1.2.3"
+}
+
+tasks.withType(Test).configureEach {
+    forkEvery = 10
+}
