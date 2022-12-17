@@ -35,7 +35,7 @@ configurations {
 }
 
 nohttp {
-    source.exclude "src/test/**", "build/**", "src/resources/assets"
+    source.exclude "src/test/**", "build/**", "src/main/resources/assets/**", "src/resources/main/pom.xml"
 }
 
 spotless {
