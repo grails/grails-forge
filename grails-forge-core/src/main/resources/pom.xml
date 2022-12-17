@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.grails.plugins</groupId>
             <artifactId>database-migration</artifactId>
-            <version>4.0.0</version>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.asciidoctor.jvm.convert</groupId>
