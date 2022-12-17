@@ -16,7 +16,7 @@ dependencies {
     api "info.picocli:picocli:${picocliVersion}"
     api "info.picocli:picocli-shell-jline3:${picocliVersion}"
     api "com.fizzed:rocker-runtime:$rockerVersion"
-    implementation "org.slf4j:slf4j-nop:1.7.30"
+    implementation "org.slf4j:slf4j-nop:1.7.36"
     implementation "org.fusesource.jansi:jansi:1.18"
     implementation "org.yaml:snakeyaml:1.28"
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
