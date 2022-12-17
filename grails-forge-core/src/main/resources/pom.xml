@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.grails.plugins</groupId>
             <artifactId>cache</artifactId>
-            <version>5.0.0</version>
+            <version>5.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.grails.plugins</groupId>
