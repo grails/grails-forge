@@ -15,7 +15,7 @@ dependencies {
 //    testImplementation project(":test-utils")
     testImplementation project(":grails-forge-core")
     testImplementation project(":grails-cli")
-    testImplementation "ch.qos.logback:logback-classic:1.2.3"
+    testImplementation "ch.qos.logback:logback-classic:1.4.5"
 }
 
 tasks.withType(Test).configureEach {
