@@ -25,7 +25,7 @@ class EmbeddedMongoSpec extends ApplicationContextSpec implements CommandOutputF
                 .render()
 
         then:
-        template.contains("testRuntimeOnly(\"org.grails.plugins:embedded-mongodb:2.0.0.M1\")")
+        template.contains("testRuntimeOnly(\"org.grails.plugins:embedded-mongodb:2.0.1\")")
     }
 
     void "test config"() {
