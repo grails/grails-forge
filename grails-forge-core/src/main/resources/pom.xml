@@ -115,7 +115,7 @@
         <dependency>
             <groupId>com.bertramlabs.plugins</groupId>
             <artifactId>asset-pipeline-grails</artifactId>
-            <version>3.3.4</version>
+            <version>3.4.7</version>
         </dependency>
     </dependencies>
 </project>
