@@ -53,7 +53,7 @@ class MongoGormSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
         then:
         template.contains("implementation(\"org.grails.plugins:mongodb\")")
-        template.contains("testRuntimeOnly(\"org.grails.plugins:embedded-mongodb:2.0.0.M1\")")
+        template.contains("testRuntimeOnly(\"org.grails.plugins:embedded-mongodb:2.0.1\")")
     }
 
     void "test config"() {
