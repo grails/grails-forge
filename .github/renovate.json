@@ -7,6 +7,12 @@
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
-    }
+    },
+     {
+      "matchPackagePatterns": [
+        "^org\\.seleniumhq\\.selenium"
+      ],
+      "groupName": "selenium monorepo"
+    },
   ]
 }
