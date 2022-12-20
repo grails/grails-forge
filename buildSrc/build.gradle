@@ -26,7 +26,6 @@ dependencies {
     implementation "org.asciidoctor:asciidoctor-gradle-jvm:3.3.2"
     implementation "com.diffplug.spotless:spotless-plugin-gradle:6.12.0"
     implementation "io.spring.nohttp:nohttp-gradle:0.0.10"
-    implementation "org.gradle:test-retry-gradle-plugin:1.5.0"
     implementation "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
     implementation "io.github.groovylang.groovydoc:io.github.groovylang.groovydoc.gradle.plugin:1.0.1"
     implementation "io.github.gradle-nexus:publish-plugin:1.1.0"
