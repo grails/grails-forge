@@ -18,6 +18,6 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
         then:
         gradleProps.contains("grailsGradlePluginVersion=5.2.4")
-        gradleProps.contains("grailsVersion=5.1.2")
+        gradleProps.contains("grailsVersion=5.2.5")
     }
 }
