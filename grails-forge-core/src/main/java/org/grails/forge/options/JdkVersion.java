@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public enum JdkVersion {
-    JDK_8(8),
     JDK_11(11),
     JDK_17(17);
 
