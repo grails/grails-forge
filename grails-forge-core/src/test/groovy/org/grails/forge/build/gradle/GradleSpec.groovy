@@ -13,7 +13,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test build properties"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final String gradleProps = output["gradle.properties"]
 
         expect:
@@ -25,7 +25,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test build gradle"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final String buildGradle = output["build.gradle"]
 
         expect:
@@ -36,7 +36,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final String settingsGradle = output["settings.gradle"]
 
         expect:

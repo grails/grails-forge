@@ -76,9 +76,9 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         List<String> featureNames = this.features ?: []
         Language language = this.language ?: Language.DEFAULT_OPTION
         TestFramework testFramework = this.testFramework ?: language.defaults.test
-        ApplicationType type = this.applicationType ?: ApplicationType.DEFAULT
+        ApplicationType type = this.applicationType ?: ApplicationType.WEB
         Project project = this.project ?: buildProject()
-        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_8
+        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
         Options options = new Options(language, testFramework, buildTool, jdkVersion)
         Features features = getFeatures(featureNames, options, type)
@@ -94,9 +94,9 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         List<String> featureNames = this.features ?: []
         Language language = this.language ?: Language.DEFAULT_OPTION
         TestFramework testFramework = this.testFramework ?: language.defaults.test
-        ApplicationType type = this.applicationType ?: ApplicationType.DEFAULT
+        ApplicationType type = this.applicationType ?: ApplicationType.WEB
         Project project = this.project ?: buildProject()
-        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_8
+        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
         Options options = new Options(language, testFramework, buildTool, jdkVersion)
         Features features = getFeatures(featureNames, options, type)

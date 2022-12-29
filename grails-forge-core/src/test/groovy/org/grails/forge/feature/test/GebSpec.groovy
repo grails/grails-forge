@@ -13,7 +13,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test dependencies"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final def buildGradle = output["build.gradle"]
 
         expect:
@@ -27,7 +27,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test webdriver binaries gradle configurations"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final def buildGradle = output["build.gradle"]
 
         expect:

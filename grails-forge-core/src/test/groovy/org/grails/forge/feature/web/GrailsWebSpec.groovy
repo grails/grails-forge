@@ -14,7 +14,7 @@ class GrailsWebSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
     void "test grails-web feature"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final def buildGradle = output["build.gradle"]
 
         expect:
@@ -23,7 +23,7 @@ class GrailsWebSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
     void "test grails-web configuration"() {
         when:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final String applicationYaml = output["grails-app/conf/application.yml"]
         def config = new YamlSlurper().parseText(applicationYaml)
 
