@@ -38,14 +38,14 @@ trait ContextFixture {
                          Language language = null,
                          TestFramework testFramework = null,
                          BuildTool buildTool = BuildTool.GRADLE,
-                         ApplicationType applicationType = ApplicationType.DEFAULT) {
+                         ApplicationType applicationType = ApplicationType.WEB) {
         Options options = new Options(language, testFramework, buildTool)
         return getFeatures(features, options, applicationType)
     }
 
     Features getFeatures(List<String> features,
                          Options options,
-                         ApplicationType applicationType = ApplicationType.DEFAULT) {
+                         ApplicationType applicationType = ApplicationType.WEB) {
         FeatureContext featureContext = buildFeatureContext(features, options, applicationType)
         featureContext.processSelectedFeatures()
         Set<Feature> finalFeatures = featureContext.getFinalFeatures(ConsoleOutput.NOOP)
@@ -55,7 +55,7 @@ trait ContextFixture {
 
     FeatureContext buildFeatureContext(List<String> selectedFeatures,
                                        Options options = new Options(null, null, BuildTool.GRADLE),
-                                       ApplicationType applicationType = ApplicationType.DEFAULT) {
+                                       ApplicationType applicationType = ApplicationType.WEB) {
 
         AvailableFeatures availableFeatures = beanContext.getBean(AvailableFeatures, Qualifiers.byName(applicationType.name))
 
@@ -70,7 +70,7 @@ trait ContextFixture {
 
     GeneratorContext buildGeneratorContext(List<String> selectedFeatures,
                                            Options options = new Options(null, null, BuildTool.GRADLE),
-                                           ApplicationType applicationType = ApplicationType.DEFAULT) {
+                                           ApplicationType applicationType = ApplicationType.WEB) {
         if (this instanceof ProjectFixture) {
             ContextFactory factory = beanContext.getBean(ContextFactory)
             FeatureContext featureContext = buildFeatureContext(selectedFeatures, options, applicationType)
@@ -85,7 +85,7 @@ trait ContextFixture {
     GeneratorContext buildGeneratorContext(List<String> selectedFeatures,
                                            Consumer<GeneratorContext> mutate,
                                            Options options = new Options(null, null, BuildTool.GRADLE),
-                                           ApplicationType applicationType = ApplicationType.DEFAULT) {
+                                           ApplicationType applicationType = ApplicationType.WEB) {
         if (this instanceof ProjectFixture) {
             ContextFactory factory = beanContext.getBean(ContextFactory)
             FeatureContext featureContext = buildFeatureContext(selectedFeatures, options, applicationType)

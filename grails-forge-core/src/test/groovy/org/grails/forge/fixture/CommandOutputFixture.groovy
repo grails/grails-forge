@@ -29,7 +29,7 @@ trait CommandOutputFixture {
     }
 
     Map<String, String> generate(List<String> features = []) {
-        generate(ApplicationType.DEFAULT, features)
+        generate(ApplicationType.WEB, features)
     }
 
     Map<String, String> generate(ApplicationType type, List<String> features = []) {
