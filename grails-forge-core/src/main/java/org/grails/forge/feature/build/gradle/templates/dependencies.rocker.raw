@@ -22,9 +22,7 @@ dependencies {
 @if (features.contains("hamcrest")) {
     @dependency.template("org.hamcrest","hamcrest", "testImplementation", null, false)
 }
-@if (features.contains("mockito")) {
-    @dependency.template("org.mockito","mockito-core", "testImplementation", null, false)
-}
+
 @if (!features.contains("http-client")) {
     @dependency.template("io.micronaut", "micronaut-http-client", "testImplementation", null, false)
 }
