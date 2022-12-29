@@ -47,6 +47,11 @@ public class Logback implements LoggingFeature, DefaultFeature {
     }
 
     @Override
+    public boolean isVisible() {
+        return false;
+    }
+
+    @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
         return selectedFeatures.stream().noneMatch(f -> f instanceof LoggingFeature);
     }
