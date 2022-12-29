@@ -25,7 +25,7 @@ public abstract class GormFeature implements Feature {
 
     @Override
     public boolean isPreview() {
-        return true;
+        return false;
     }
 
     @Override
