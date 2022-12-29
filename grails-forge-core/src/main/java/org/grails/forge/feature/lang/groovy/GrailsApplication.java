@@ -49,17 +49,20 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
     @Override
     public void apply(GeneratorContext generatorContext) {
         GrailsApplicationFeature.super.apply(generatorContext);
-
-        if (shouldGenerateApplicationFile(generatorContext)) {
+        final ApplicationType applicationType = generatorContext.getApplicationType();
+        if (shouldGenerateApplicationFile(applicationType, generatorContext)) {
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("application").build());
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("war").build());
             generatorContext.addTemplate("application", new RockerTemplate(getPath(),
-                    application.template(generatorContext.getProject(), generatorContext.getFeatures())));
+                    application.template(applicationType, generatorContext.getProject(), generatorContext.getFeatures())));
         }
     }
 
-    protected boolean shouldGenerateApplicationFile(GeneratorContext generatorContext) {
-        return generatorContext.getApplicationType() == ApplicationType.DEFAULT;
+    protected boolean shouldGenerateApplicationFile(ApplicationType applicationType, GeneratorContext generatorContext) {
+        return applicationType == ApplicationType.WEB ||
+                applicationType == ApplicationType.PLUGIN ||
+                applicationType == ApplicationType.WEB_PLUGIN ||
+                applicationType == ApplicationType.REST_API;
     }
 
     protected String getPath() {
@@ -68,6 +71,6 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.DEFAULT;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.REST_API || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.PLUGIN;
     }
 }
