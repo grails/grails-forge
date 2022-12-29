@@ -15,6 +15,7 @@
  */
 package org.grails.forge.feature.other;
 
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
@@ -27,21 +28,17 @@ import org.grails.forge.options.Options;
 import java.util.Set;
 
 @Singleton
-public class HttpClient implements DefaultFeature {
+public class MicronautHttpClient implements Feature {
 
     @Override
-    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.DEFAULT;
-    }
-
-    @Override
+    @NonNull
     public String getName() {
-        return "http-client";
+        return "micronaut-http-client";
     }
 
     @Override
     public String getTitle() {
-        return "HTTP Client";
+        return "Micronaut HTTP Client";
     }
 
     @Override
@@ -69,6 +66,6 @@ public class HttpClient implements DefaultFeature {
         generatorContext.addDependency(Dependency.builder()
                 .groupId("io.micronaut")
                 .artifactId("micronaut-http-client")
-                .testCompileOnly());
+                .compile());
     }
 }

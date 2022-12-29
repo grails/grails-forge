@@ -23,7 +23,7 @@ dependencies {
     @dependency.template("org.hamcrest","hamcrest", "testImplementation", null, false)
 }
 
-@if (!features.contains("http-client")) {
+@if (!features.contains("micronaut-http-client")) {
     @dependency.template("io.micronaut", "micronaut-http-client", "testImplementation", null, false)
 }
 @if (features.contains("neo4j-bolt")) {
