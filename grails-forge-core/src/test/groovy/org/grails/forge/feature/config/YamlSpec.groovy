@@ -38,7 +38,7 @@ class YamlSpec extends BeanContextSpec implements CommandOutputFixture {
             context.getConfiguration("test", new ApplicationConfiguration("test", "test")).put("abc", 456)
             context.getConfiguration("prod", new ApplicationConfiguration("prod")).put("abc", 789)
         }, new Options())
-        def output = generate(ApplicationType.DEFAULT, generatorContext)
+        def output = generate(ApplicationType.WEB, generatorContext)
 
         then:
         output["grails-app/conf/application.yml"].contains '''\

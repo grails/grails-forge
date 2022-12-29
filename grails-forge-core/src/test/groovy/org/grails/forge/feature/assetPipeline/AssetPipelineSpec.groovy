@@ -39,7 +39,7 @@ assets {
 
     void "test assets files are present"() {
         given:
-        final Map<String, String> output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final Map<String, String> output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
 
         expect:
         output.containsKey("grails-app/assets/images/advancedgrails.svg")

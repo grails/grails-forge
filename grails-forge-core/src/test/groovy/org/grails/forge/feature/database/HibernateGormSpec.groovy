@@ -50,7 +50,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
 
     void "test buildSrc is present for buildscript dependencies"() {
         given:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
 
         expect:
