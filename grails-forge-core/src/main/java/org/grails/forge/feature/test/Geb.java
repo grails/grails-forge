@@ -50,7 +50,7 @@ public class Geb implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return options.getOperatingSystem() != OperatingSystem.MACOS_ARCH64;
+        return options.getOperatingSystem() != OperatingSystem.MACOS_ARCH64 && applicationType == ApplicationType.WEB;
     }
 
     @Override
