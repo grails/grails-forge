@@ -125,7 +125,7 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             )
     )
     public HttpResponse<Writable> createZip(
-            @Bindable(defaultValue = "default") ApplicationType type,
+            @Bindable(defaultValue = "web") ApplicationType type,
             @Pattern(regexp = "[\\w\\d-_]+") @NotBlank String name,
             @Nullable List<String> features,
             @Nullable BuildTool build,
