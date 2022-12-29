@@ -104,6 +104,6 @@ public class AssetPipeline implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return true;
+        return applicationType != ApplicationType.REST_API && applicationType != ApplicationType.PLUGIN;
     }
 }
