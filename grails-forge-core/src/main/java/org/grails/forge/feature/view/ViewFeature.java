@@ -28,7 +28,7 @@ public interface ViewFeature extends OneOfFeature {
 
     @Override
     default boolean supports(ApplicationType applicationType) {
-        return applicationType == ApplicationType.DEFAULT;
+        return applicationType == ApplicationType.WEB;
     }
 
     @Override
