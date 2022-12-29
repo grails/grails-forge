@@ -21,7 +21,6 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.ContextFactory;
 import org.grails.forge.application.PluginAvailableFeatures;
-import org.grails.forge.application.RestApiAvailableFeatures;
 import org.grails.forge.application.generator.ProjectGenerator;
 import picocli.CommandLine;
 
