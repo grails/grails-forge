@@ -84,7 +84,7 @@ abstract class CommandSpec extends Specification {
                          BuildTool buildTool = BuildTool.DEFAULT_OPTION,
                          OperatingSystem operatingSystem = OperatingSystem.LINUX,
                          List<String> features = [],
-                         ApplicationType applicationType = ApplicationType.DEFAULT,
+                         ApplicationType applicationType = ApplicationType.WEB,
                          TestFramework testFramework = null) {
         applicationContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
@@ -101,7 +101,7 @@ abstract class CommandSpec extends Specification {
                          BuildTool buildTool = BuildTool.DEFAULT_OPTION,
                          OperatingSystem operatingSystem = OperatingSystem.LINUX,
                          List<String> features = [],
-                         ApplicationType applicationType = ApplicationType.DEFAULT,
+                         ApplicationType applicationType = ApplicationType.WEB,
                          TestFramework testFramework = TestFramework.DEFAULT_OPTION) {
         applicationContext.getBean(ProjectGenerator).generate(applicationType,
                 project,

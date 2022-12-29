@@ -3,7 +3,7 @@ package org.grails.forge.cli.command
 import io.micronaut.configuration.picocli.PicocliRunner
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.env.Environment
-import org.grails.forge.application.DefaultAvailableFeatures
+import org.grails.forge.application.WebAvailableFeatures
 import org.grails.forge.cli.CommandFixture
 import org.grails.forge.cli.CommandSpec
 import spock.lang.AutoCleanup
@@ -65,7 +65,7 @@ class CreateAppCommandSpec extends CommandSpec implements CommandFixture {
         System.setOut(new PrintStream(baos))
 
         and:
-        def (previewFeature, communityFeature) = beanContext.getBean(DefaultAvailableFeatures).with {
+        def (previewFeature, communityFeature) = beanContext.getBean(WebAvailableFeatures).with {
             [allFeatures.find { it.preview }, allFeatures.find { it.community }]
         }
 

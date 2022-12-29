@@ -20,7 +20,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.ReflectiveAccess;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.ContextFactory;
-import org.grails.forge.application.DefaultAvailableFeatures;
+import org.grails.forge.application.WebAvailableFeatures;
 import org.grails.forge.application.generator.ProjectGenerator;
 import picocli.CommandLine;
 
@@ -33,14 +33,14 @@ public class CreateAppCommand extends CreateCommand {
 
     public static final String NAME = "create-app";
 
-    @CommandLine.Option(names = {"-f", "--features"}, paramLabel = "FEATURE", split = ",", description = "The features to use. Possible values: ${COMPLETION-CANDIDATES}", completionCandidates = DefaultAvailableFeatures.class)
+    @CommandLine.Option(names = {"-f", "--features"}, paramLabel = "FEATURE", split = ",", description = "The features to use. Possible values: ${COMPLETION-CANDIDATES}", completionCandidates = WebAvailableFeatures.class)
     @ReflectiveAccess
     List<String> features = new ArrayList<>();
 
-    public CreateAppCommand(DefaultAvailableFeatures availableFeatures,
+    public CreateAppCommand(WebAvailableFeatures availableFeatures,
                             ContextFactory contextFactory,
                             ProjectGenerator projectGenerator) {
-        super(availableFeatures, contextFactory, ApplicationType.DEFAULT, projectGenerator);
+        super(availableFeatures, contextFactory, ApplicationType.WEB, projectGenerator);
     }
 
     @NonNull
