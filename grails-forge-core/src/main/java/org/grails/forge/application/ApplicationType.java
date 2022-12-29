@@ -22,9 +22,12 @@ import java.util.Locale;
 
 public enum ApplicationType implements Named {
 
-    DEFAULT("Grails Web Application", "A Grails® framework Web Application");
+    WEB("Web Application", "A Grails® framework Web Application"),
+    REST_API("Rest API", "A Grails® framework Rest API"),
+    WEB_PLUGIN("Web Plugin", "A Grails® framework Web Plugin"),
+    PLUGIN("Plugin", "A Grails® framework Plugin");
 
-    public static final ApplicationType DEFAULT_OPTION = DEFAULT;
+    public static final ApplicationType DEFAULT_OPTION = WEB;
 
     private final String title;
     private final String description;

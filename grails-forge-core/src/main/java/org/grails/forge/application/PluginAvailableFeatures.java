@@ -22,11 +22,11 @@ import org.grails.forge.feature.Feature;
 
 import java.util.List;
 
-@Named("default")
+@Named("plugin")
 @Singleton
-public class DefaultAvailableFeatures extends BaseAvailableFeatures {
+public class PluginAvailableFeatures extends BaseAvailableFeatures {
 
-    public DefaultAvailableFeatures(List<Feature> features) {
-        super(features, ApplicationType.DEFAULT);
+    public PluginAvailableFeatures(List<Feature> features) {
+        super(features, ApplicationType.PLUGIN);
     }
 }

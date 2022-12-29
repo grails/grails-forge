@@ -145,7 +145,7 @@ public class CodeGenConfig {
                     codeGenConfig.legacy = true;
                     String profile = map.get("profile").toString();
                     if (profile.equals("webapp")) {
-                        codeGenConfig.setApplicationType(ApplicationType.DEFAULT);
+                        codeGenConfig.setApplicationType(ApplicationType.WEB);
                     } else {
                         return null;
                     }

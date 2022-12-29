@@ -34,7 +34,7 @@ trait CommandFixture {
 
     void generateProject(Options options,
                          List<String> features = [],
-                         ApplicationType applicationType = ApplicationType.DEFAULT) {
+                         ApplicationType applicationType = ApplicationType.WEB) {
         beanContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
                 options,
