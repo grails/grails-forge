@@ -37,7 +37,7 @@ public class SprintBootTomcatFeature extends SpringBootEmbeddedServlet implement
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return true;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.REST_API;
     }
 
     @Override

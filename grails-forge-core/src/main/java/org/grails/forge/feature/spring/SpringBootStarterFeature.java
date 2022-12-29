@@ -50,14 +50,17 @@ public class SpringBootStarterFeature implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.springframework.boot")
-                .artifactId("spring-boot-starter")
-                .compile());
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.springframework.boot")
-                .artifactId("spring-boot-starter-actuator")
-                .compile());
+        final ApplicationType applicationType = generatorContext.getApplicationType();
+        if (applicationType != ApplicationType.PLUGIN) {
+            generatorContext.addDependency(Dependency.builder()
+                    .groupId("org.springframework.boot")
+                    .artifactId("spring-boot-starter")
+                    .compile());
+            generatorContext.addDependency(Dependency.builder()
+                    .groupId("org.springframework.boot")
+                    .artifactId("spring-boot-starter-actuator")
+                    .compile());
+        }
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.springframework.boot")
                 .artifactId("spring-boot-starter-validation")
