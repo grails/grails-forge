@@ -22,7 +22,7 @@ import org.grails.forge.feature.Feature;
 
 import java.util.List;
 
-@Named("web-plugin")
+@Named("web_plugin")
 @Singleton
 public class WebPluginAvailableFeatures extends BaseAvailableFeatures {
     public WebPluginAvailableFeatures(List<Feature> features) {
