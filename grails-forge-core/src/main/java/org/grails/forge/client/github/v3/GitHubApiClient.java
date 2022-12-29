@@ -27,7 +27,7 @@ import io.micronaut.http.client.annotation.Client;
  */
 @Client(id = GitHubApiClient.SERVICE_ID)
 @Requires(property = "micronaut.http.services." + GitHubApiClient.SERVICE_ID)
-@Header(name = "User-Agent", value = "https://micronaut.io/launch/")
+@Header(name = "User-Agent", value = "https://start.grails.org/")
 @Header(name = "Accept", value = GitHubApiClient.GITHUB_V3_TYPE)
 public interface GitHubApiClient extends GitHubApiOperations {
     String SERVICE_ID = "github-api-v3";
