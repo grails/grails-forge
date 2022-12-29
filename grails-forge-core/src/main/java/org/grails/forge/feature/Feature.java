@@ -61,12 +61,12 @@ public interface Feature extends Named, Ordered, Described {
      * @return The title of the feature
      */
     default String getTitle() {
-        return null;
+        return getName();
     }
 
     @Override
     default String getDescription() {
-        return null;
+        return getName();
     }
 
     /**
