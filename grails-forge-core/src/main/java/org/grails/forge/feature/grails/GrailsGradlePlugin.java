@@ -23,6 +23,7 @@ import org.grails.forge.build.dependencies.CoordinateResolver;
 import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
+import org.grails.forge.feature.view.GrailsGsp;
 import org.grails.forge.options.Options;
 
 import java.util.Set;
@@ -60,7 +61,9 @@ class GrailsGradlePlugin implements DefaultFeature {
     public void apply(GeneratorContext generatorContext) {
         final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("5.2.5");
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-web").build());
-        generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
+        if (generatorContext.getFeature(GrailsGsp.class).isPresent()) {
+            generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
+        }
         generatorContext.getBuildProperties().put("grailsGradlePluginVersion", grailsGradlePluginVersion);
     }
 }
