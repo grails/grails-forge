@@ -24,6 +24,7 @@ import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.view.GrailsGsp;
+import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.options.Options;
 
 import java.util.Set;
@@ -60,7 +61,9 @@ class GrailsGradlePlugin implements DefaultFeature {
     @Override
     public void apply(GeneratorContext generatorContext) {
         final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("5.2.5");
-        generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-web").build());
+        if (generatorContext.getFeature(GrailsWeb.class).isPresent()) {
+            generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-web").build());
+        }
         if (generatorContext.getFeature(GrailsGsp.class).isPresent()) {
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
         }

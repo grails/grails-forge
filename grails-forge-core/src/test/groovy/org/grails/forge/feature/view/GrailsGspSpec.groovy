@@ -12,6 +12,8 @@ import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
+import spock.lang.Ignore
+import spock.lang.Unroll
 
 class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -51,12 +53,42 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
     void "test default views are present"() {
         when:
-        final def output = generate(ApplicationType.DEFAULT, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         
         then:
         output.containsKey("grails-app/views/index.gsp")
         output.containsKey("grails-app/views/error.gsp")
         output.containsKey("grails-app/views/notFound.gsp")
+    }
+
+    @Unroll
+    void "test grails-gsp gradle plugins and dependencies are present for #applicationType application"() {
+        when:
+        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final String build = output['build.gradle']
+
+        then:
+        build.contains('id "org.grails.grails-web"')
+        build.contains('id "org.grails.grails-gsp"')
+        build.contains("implementation(\"org.grails.plugins:gsp\")")
+
+        where:
+        applicationType << [ApplicationType.WEB, ApplicationType.WEB_PLUGIN]
+    }
+
+    @Unroll
+    void "test grails-gsp gradle plugins and dependencies are NOT present for #applicationType application"() {
+        when:
+        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final String build = output['build.gradle']
+
+        then:
+        !build.contains('id "org.grails.grails-web"')
+        !build.contains('id "org.grails.grails-gsp"')
+        !build.contains("implementation(\"org.grails.plugins:gsp\")")
+
+        where:
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API]
     }
 
 }
