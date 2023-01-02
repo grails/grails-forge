@@ -10,14 +10,12 @@ import spock.lang.Ignore
 class CreateAppSpec extends CommandSpec {
 
 
-    @Ignore
     void "test basic create-app"() {
         given:
-        new CreateAppCommand()
         generateProject(Language.GROOVY, BuildTool.GRADLE, OperatingSystem.MACOS_ARCH64, [])
 
         when:
-        String output = executeBuild(BuildTool.GRADLE, "assemble")
+        String output = executeBuild(BuildTool.GRADLE, "build")
 
         then:
         output.contains('success')
