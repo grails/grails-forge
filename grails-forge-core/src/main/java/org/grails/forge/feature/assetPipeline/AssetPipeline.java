@@ -26,17 +26,19 @@ import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.assetPipeline.templates.assetPipelineExtension;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.RockerWritable;
-import org.grails.forge.template.URLTemplate;
+import org.grails.forge.util.IOFeatureUtil;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.ProviderNotFoundException;
 import java.util.Objects;
 import java.util.Set;
 
 @Singleton
 public class AssetPipeline implements DefaultFeature {
+
+    public static final String JAR_EXTENSION = ".jar";
 
     @Override
     public String getName() {
@@ -68,21 +70,12 @@ public class AssetPipeline implements DefaultFeature {
 
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("assets")).getPath());
-        walk(generatorContext, path, "assets");
-    }
-
-    private void walk(GeneratorContext generatorContext, Path path, String baseDirPath) {
-        final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try {
-            if (Files.exists(path)) {
-                Files.walk(path)
-                        .filter(Files::isRegularFile)
-                        .forEach(file -> {
-                            final String relativePath = path.getParent().relativize(file).toString();
-                            generatorContext.addTemplate(relativePath, new URLTemplate("grails-app/" + relativePath, classLoader.getResource(relativePath)));
-                        });
-            }
-        } catch (IOException e) {
+            IOFeatureUtil.walk(path, (name, template) -> {
+                generatorContext.addTemplate(name, template);
+                return generatorContext;
+            });
+        } catch (IOException | ProviderNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

@@ -23,12 +23,12 @@ import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
-import org.grails.forge.template.URLTemplate;
+import org.grails.forge.util.IOFeatureUtil;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.ProviderNotFoundException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -57,24 +57,21 @@ public class GrailsDefaultPlugins implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        Arrays.asList("rest", "databinding", "i18n", "services", "url-mappings", "interceptors").forEach((artifact) -> {
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.grails")
-                    .artifactId("grails-plugin-" + artifact)
-                    .compile());
-        });
+        Arrays.asList("rest", "databinding", "i18n", "services", "url-mappings", "interceptors")
+                .forEach((artifact) -> {
+                    generatorContext.addDependency(Dependency.builder()
+                            .groupId("org.grails")
+                            .artifactId("grails-plugin-" + artifact)
+                            .compile());
+                });
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("i18n")).getPath());
         try {
-            final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("i18n")).getPath());
-            if (Files.exists(path)) {
-                Files.walk(path)
-                        .filter(Files::isRegularFile)
-                        .forEach(file -> {
-                            final String relativePath = "i18n/" + file.getFileName();
-                            generatorContext.addTemplate(relativePath, new URLTemplate("grails-app/" + relativePath, classLoader.getResource(relativePath)));
-                        });
-            }
-        } catch (IOException e) {
+            IOFeatureUtil.walk(path, (name, urlTemplate) -> {
+                generatorContext.addTemplate(name, urlTemplate);
+                return generatorContext;
+            });
+        } catch (IOException | ProviderNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
