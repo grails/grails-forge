@@ -55,6 +55,6 @@ public class GrailsUrlMappings implements DefaultFeature {
     }
 
     protected String getPath() {
-        return "grails-app/controller/{packagePath}/UrlMappings.groovy";
+        return "grails-app/controllers/{packagePath}/UrlMappings.groovy";
     }
 }
