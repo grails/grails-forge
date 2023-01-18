@@ -3,10 +3,24 @@ plugins {
     id "org.grails.forge.rocker"
 }
 
+ext {
+    picocliVersion = '4.6.1'
+}
+
 sourceSets {
     test {
         rocker {
             srcDir("src/test/groovy")
+        }
+    }
+}
+
+configurations {
+    generateConfig
+    all {
+        resolutionStrategy {
+            // prevent fatJar result containing multiple versions of picocli
+            force("info.picocli:picocli:$picocliVersion")
         }
     }
 }
@@ -16,6 +30,8 @@ dependencies {
     testImplementation project(":grails-forge-core")
     testImplementation project(":grails-cli")
     testImplementation "ch.qos.logback:logback-classic:1.4.5"
+    testImplementation "io.micronaut.picocli:micronaut-picocli"
+    generateConfig "info.picocli:picocli-codegen:${picocliVersion}"
 }
 
 tasks.withType(Test).configureEach {
