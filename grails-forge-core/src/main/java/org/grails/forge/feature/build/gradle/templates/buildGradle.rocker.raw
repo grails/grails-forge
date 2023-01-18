@@ -48,42 +48,34 @@ java {
     sourceCompatibility = JavaVersion.toVersion("@features.getTargetJdk()")
 }
 
-@if (features.contains("jrebel") ||
-    features.contains("springloaded")) {
-tasks {
-
 @if (features.contains("jrebel")) {
-    run {
-        dependsOn(generateRebel)
+run {
+    dependsOn(generateRebel)
+    if (project.hasProperty("rebelAgent")) {
+        jvmArgs(rebelAgent)
     }
+}
+
 }
 
 @if (features.contains("springloaded")) {
-    run {
-        jvmArgs("-noverify", "-javaagent:agent/springloaded-1.2.8.RELEASE.jar")
-    }
+run {
+    jvmArgs("-noverify", "-javaagent:agent/springloaded-1.2.8.RELEASE.jar")
 }
 
-@if (features.contains("jrebel")) {
-    run {
-        if (project.hasProperty("rebelAgent")) {
-            jvmArgs(rebelAgent)
-        }
-    }
 }
 
 @if (features.contains("spock")) {
-    tasks.withType(Test) {
-        useJUnitPlatform()
-        if (features.contains("geb")) {
-        systemProperty "geb.env", System.getProperty('geb.env')
-        systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
-        systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
-        systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
-        }
+tasks.withType(Test) {
+    useJUnitPlatform()
+    @if (features.contains("geb")) {
+    systemProperty "geb.env", System.getProperty('geb.env')
+    systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+    systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
+    systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
     }
 }
 }
-}
+
 
 @gradleBuild.renderExtensions()

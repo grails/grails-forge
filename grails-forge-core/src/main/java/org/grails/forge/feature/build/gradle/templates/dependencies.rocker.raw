@@ -16,9 +16,7 @@ dependencies {
 @for (GradleDependency dependency : gradleBuild.getDependencies()) {
     @dependency.toSnippet()
 }
-@if (features.testFramework().isSpock()) {
 
-}
 @if (features.contains("hamcrest")) {
     @dependency.template("org.hamcrest","hamcrest", "testImplementation", null, false)
 }
