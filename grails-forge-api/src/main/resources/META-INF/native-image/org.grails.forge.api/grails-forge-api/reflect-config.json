@@ -44,7 +44,7 @@
 "name" : "org.apache.commons.compress.archivers.zip.ResourceAlignmentExtraField",
 "allDeclaredConstructors" : true
 },{
-"name":"io.micronaut.starter.api.preview.PreviewDTO",
+"name":"org.grails.forge.api.preview.PreviewDTO",
 "allDeclaredFields":true,
 "allDeclaredMethods":true,
 "allDeclaredConstructors":true
