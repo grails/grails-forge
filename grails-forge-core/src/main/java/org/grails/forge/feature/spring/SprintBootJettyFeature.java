@@ -29,6 +29,11 @@ public class SprintBootJettyFeature extends SpringBootEmbeddedServlet {
     }
 
     @Override
+    public String getTitle() {
+        return "Embedded Jetty";
+    }
+
+    @Override
     public boolean supports(ApplicationType applicationType) {
         return true;
     }

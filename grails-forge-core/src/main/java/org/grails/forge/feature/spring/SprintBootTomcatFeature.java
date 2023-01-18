@@ -28,7 +28,12 @@ import java.util.Set;
 
 @Primary
 @Singleton
-public class SprintBootTomcatFeature extends SpringBootEmbeddedServlet implements DefaultFeature {
+public class SprintBootTomcatFeature extends SpringBootEmbeddedServlet {
+
+    @Override
+    public String getTitle() {
+        return "Embedded Tomcat";
+    }
 
     @Override
     public String getName() {
@@ -46,10 +51,5 @@ public class SprintBootTomcatFeature extends SpringBootEmbeddedServlet implement
                 .groupId("org.springframework.boot")
                 .artifactId("spring-boot-starter-tomcat")
                 .compile());
-    }
-
-    @Override
-    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return true;
     }
 }

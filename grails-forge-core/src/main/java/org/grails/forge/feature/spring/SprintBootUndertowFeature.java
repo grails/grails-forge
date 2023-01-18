@@ -24,6 +24,11 @@ import org.grails.forge.build.dependencies.Dependency;
 public class SprintBootUndertowFeature extends SpringBootEmbeddedServlet {
 
     @Override
+    public String getTitle() {
+        return "Embedded Undertow";
+    }
+
+    @Override
     public String getName() {
         return "spring-boot-starter-undertow";
     }

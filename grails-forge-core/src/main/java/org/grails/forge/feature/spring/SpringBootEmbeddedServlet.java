@@ -15,6 +15,7 @@
  */
 package org.grails.forge.feature.spring;
 
+import org.grails.forge.feature.Category;
 import org.grails.forge.feature.OneOfFeature;
 
 abstract class SpringBootEmbeddedServlet implements OneOfFeature {
@@ -22,5 +23,10 @@ abstract class SpringBootEmbeddedServlet implements OneOfFeature {
     @Override
     public Class<?> getFeatureClass() {
         return SpringBootEmbeddedServlet.class;
+    }
+
+    @Override
+    public String getCategory() {
+        return Category.SERVER;
     }
 }
