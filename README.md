@@ -41,7 +41,7 @@ API documentation for the snapshot /development instance can be found at:
 
 ## Documentation
 
-<!-- See the [Documentation](https://micronaut-projects.github.io/micronaut-starter/1.0.x/guide/) for more information. -->
+<!-- See the [Documentation](https://grails.github.io/grails-forge/1.0.x/guide/) for more information. -->
 
 See the [Snapshot Documentation](https://grails.github.io/grails-forge/snapshot/guide/) for the current development docs.
 
