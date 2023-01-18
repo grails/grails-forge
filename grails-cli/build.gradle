@@ -2,6 +2,15 @@ plugins {
     id "org.grails.forge.internal.build.cli-module"
 }
 
+
+sourceSets {
+    main {
+        rocker {
+            srcDir("src/main/java")
+        }
+    }
+}
+
 ext {
     picocliVersion = '4.7.1'
 }
@@ -35,7 +44,7 @@ application {
 
 rocker {
     javaVersion = '11'
-    postProcessing = ['io.micronaut.starter.rocker.WhitespaceProcessor']
+    postProcessing = ['org.grails.forge.rocker.plugin.WhitespaceProcessor']
 }
 
 startScripts {
