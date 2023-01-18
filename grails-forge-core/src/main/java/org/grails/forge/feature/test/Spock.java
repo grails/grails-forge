@@ -17,6 +17,7 @@ package org.grails.forge.feature.test;
 
 import jakarta.inject.Singleton;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.options.TestFramework;
 
 @Singleton
@@ -29,7 +30,11 @@ public class Spock implements TestFeature {
 
     @Override
     public void doApply(GeneratorContext generatorContext) {
-        // no-op
+        generatorContext.addDependency(Dependency.builder()
+                        .groupId("org.spockframework")
+                        .artifactId("spock-core")
+                        .test()
+                .build());
     }
 
     @Override
