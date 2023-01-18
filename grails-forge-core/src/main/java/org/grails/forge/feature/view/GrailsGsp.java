@@ -46,6 +46,11 @@ public class GrailsGsp implements DefaultFeature {
     }
 
     @Override
+    public String getTitle() {
+        return "Grails GSP";
+    }
+
+    @Override
     public String getName() {
         return "grails-gsp";
     }
