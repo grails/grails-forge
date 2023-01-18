@@ -62,7 +62,7 @@ public class Options implements ConvertibleValues<Object> {
     }
 
     public Options() {
-        this(Language.DEFAULT_OPTION, TestFramework.JUNIT, BuildTool.GRADLE, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+        this(Language.DEFAULT_OPTION, TestFramework.DEFAULT_OPTION, BuildTool.GRADLE, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(Language language, TestFramework testFramework, BuildTool buildTool, OperatingSystem operatingSystem, Map<String, Object> additionalOptions) {

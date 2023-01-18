@@ -26,7 +26,7 @@ public enum TestFramework {
     JUNIT,
     SPOCK;
 
-    public static final TestFramework DEFAULT_OPTION = JUNIT;
+    public static final TestFramework DEFAULT_OPTION = SPOCK;
 
     @Override
     public String toString() {
