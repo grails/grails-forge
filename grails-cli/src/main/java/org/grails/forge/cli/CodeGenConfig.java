@@ -117,9 +117,9 @@ public class CodeGenConfig {
 
     public static CodeGenConfig load(BeanContext beanContext, File directory, ConsoleOutput consoleOutput) {
 
-        File micronautCli = new File(directory, "grails-cli.yml");
-        if (micronautCli.exists()) {
-            try (InputStream inputStream = Files.newInputStream(micronautCli.toPath())) {
+        File grailsCli = new File(directory, "grails-cli.yml");
+        if (grailsCli.exists()) {
+            try (InputStream inputStream = Files.newInputStream(grailsCli.toPath())) {
                 Yaml yaml = new Yaml();
                 Map<String, Object> map = new LinkedHashMap<>();
                 Iterable<Object> objects = yaml.loadAll(inputStream);
@@ -144,8 +144,14 @@ public class CodeGenConfig {
                 if (map.containsKey("profile")) {
                     codeGenConfig.legacy = true;
                     String profile = map.get("profile").toString();
-                    if (profile.equals("webapp")) {
+                    if (profile.equals("web")) {
                         codeGenConfig.setApplicationType(ApplicationType.WEB);
+                    } else if (profile.equals("rest-api")) {
+                        codeGenConfig.setApplicationType(ApplicationType.REST_API);
+                    } else if (profile.equals("plugin")) {
+                        codeGenConfig.setApplicationType(ApplicationType.PLUGIN);
+                    } else if (profile.equals("web-plugin")) {
+                        codeGenConfig.setApplicationType(ApplicationType.WEB_PLUGIN);
                     } else {
                         return null;
                     }
