@@ -15,22 +15,24 @@
  */
 package org.grails.forge.feature.spring;
 
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
 
 @Singleton
-public class SprintBootJettyFeature extends SpringBootEmbeddedServlet {
-
-    @Override
-    public String getName() {
-        return "spring-boot-starter-jetty";
-    }
+public class SpringBootUndertowFeature extends SpringBootEmbeddedServlet {
 
     @Override
     public String getTitle() {
-        return "Embedded Jetty";
+        return "Embedded Undertow";
+    }
+
+    @NonNull
+    @Override
+    public String getName() {
+        return "spring-boot-starter-undertow";
     }
 
     @Override
@@ -42,8 +44,7 @@ public class SprintBootJettyFeature extends SpringBootEmbeddedServlet {
     public void apply(GeneratorContext generatorContext) {
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.springframework.boot")
-                .artifactId("spring-boot-starter-jetty")
+                .artifactId("spring-boot-starter-undertow")
                 .compile());
-        generatorContext.getBuildProperties().put("jetty.version", "10.0");
     }
 }

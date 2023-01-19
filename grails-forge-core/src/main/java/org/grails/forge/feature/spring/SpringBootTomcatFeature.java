@@ -16,25 +16,22 @@
 package org.grails.forge.feature.spring;
 
 import io.micronaut.context.annotation.Primary;
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.feature.DefaultFeature;
-import org.grails.forge.feature.Feature;
-import org.grails.forge.options.Options;
-
-import java.util.Set;
 
 @Primary
 @Singleton
-public class SprintBootTomcatFeature extends SpringBootEmbeddedServlet {
+public class SpringBootTomcatFeature extends SpringBootEmbeddedServlet {
 
     @Override
     public String getTitle() {
         return "Embedded Tomcat";
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "spring-boot-starter-tomcat";
