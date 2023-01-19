@@ -18,12 +18,15 @@ package org.grails.forge.api;
 import io.micronaut.context.BeanLocator;
 import io.micronaut.context.MessageSource;
 import io.micronaut.inject.qualifiers.Qualifiers;
+import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.feature.AvailableFeatures;
+import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
-import jakarta.inject.Singleton;
+import org.grails.forge.options.Options;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -67,6 +70,23 @@ public class FeatureService implements FeatureOperations {
         MessageSource.MessageContext context = MessageSource.MessageContext.of(locale);
         return beanLocator.getBean(AvailableFeatures.class, Qualifiers.byName(type.getName()))
                 .getFeatures()
+                .filter(f -> !(f instanceof DefaultFeature && ((DefaultFeature) f).shouldApply(type, new Options(), new HashSet<>())))
+                .map(feature -> new FeatureDTO(feature, messageSource, context))
+                .sorted(Comparator.comparing(FeatureDTO::getName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FeatureDTO> getDefaultFeatures(Locale locale, ApplicationType type, Options options) {
+        MessageSource.MessageContext context = MessageSource.MessageContext.of(locale);
+        return beanLocator.getBean(AvailableFeatures.class, Qualifiers.byName(type.getName()))
+                .getFeatures()
+                .filter(f -> f instanceof DefaultFeature)
+                .map(DefaultFeature.class::cast)
+                .filter(f -> f.shouldApply(
+                        type,
+                        options,
+                        new HashSet<>()))
                 .map(feature -> new FeatureDTO(feature, messageSource, context))
                 .sorted(Comparator.comparing(FeatureDTO::getName))
                 .collect(Collectors.toList());

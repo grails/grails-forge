@@ -16,6 +16,7 @@
 package org.grails.forge.api;
 
 import org.grails.forge.application.ApplicationType;
+import org.grails.forge.options.Options;
 
 import java.util.List;
 import java.util.Locale;
@@ -41,4 +42,13 @@ public interface FeatureOperations {
      * @return The features
      */
     List<FeatureDTO> getFeatures(Locale locale, ApplicationType type);
+
+    /**
+     * A list of default applicable features to the given application type.
+     * @param locale The locale
+     * @param type The type
+     * @param options The options
+     * @return list of FeatureDTO
+     */
+    List<FeatureDTO> getDefaultFeatures(Locale locale, ApplicationType type, Options options);
 }

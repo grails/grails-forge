@@ -25,6 +25,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import org.grails.forge.application.ApplicationType;
+import org.grails.forge.options.Options;
 import org.grails.forge.template.RockerWritable;
 import org.grails.forge.template.api.grailsForgeApi;
 import org.grails.forge.util.VersionInfo;
@@ -93,7 +94,7 @@ public class ApplicationController implements ApplicationTypeOperations {
      * @param request The request
      * @return A description of the API.
      */
-    @Get("/")
+    @Get
     @Produces(MediaType.TEXT_PLAIN)
     @ApiResponse(
             responseCode = "200",
@@ -165,6 +166,17 @@ public class ApplicationController implements ApplicationTypeOperations {
     @Get("/application-types/{type}/features")
     public FeatureList features(ApplicationType type, RequestInfo requestInfo) {
         FeatureList featureList = new FeatureList(featureOperations.getFeatures(requestInfo.getLocale(), type));
+        featureList.addLink(
+                Relationship.SELF,
+                requestInfo.self()
+        );
+        return featureList;
+    }
+
+    @Override
+    @Get("/application-types/{type}/features/default")
+    public FeatureList defaultFeatures(ApplicationType type, RequestInfo requestInfo) {
+        FeatureList featureList = new FeatureList(featureOperations.getDefaultFeatures(requestInfo.getLocale(), type, new Options()));
         featureList.addLink(
                 Relationship.SELF,
                 requestInfo.self()

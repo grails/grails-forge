@@ -52,4 +52,8 @@ public interface ApplicationTypeOperations {
      */
     @Get("/application-types/{type}/features")
     FeatureList features(ApplicationType type, @Parameter(hidden = true) RequestInfo serverURL);
+
+
+    @Get("/application-types/{type}/features/default")
+    FeatureList defaultFeatures(ApplicationType type, @Parameter(hidden = true) RequestInfo serverURL);
 }

@@ -50,6 +50,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * GitHub create service.
@@ -102,7 +103,7 @@ public class GitHubCreateService extends AbstractCreateController {
                 type, name, features, buildTool, testFramework, lang, javaVersion, userAgent);
 
         String repoName = generatorContext.getProject().getName();
-        String repoDescription = String.format("Micronaut %s Application", generatorContext.getProject().getNaturalName());
+        String repoDescription = String.format("Grails %s Application", generatorContext.getProject().getNaturalName());
         GitHubRepository githubRepository = createGitHubRepository(authToken, repoName, repoDescription, gitHubUser);
 
         pushToGithubRepository(generatorContext, gitHubUser, githubRepository, accessToken);
@@ -180,12 +181,12 @@ public class GitHubCreateService extends AbstractCreateController {
      *
      * @param generatorContext context
      * @param repoPath         path
-     * @throws IOException
+     * @throws IOException if an I/O error occurs
      */
     protected void generateAppLocally(@NotNull GeneratorContext generatorContext, @NotNull Path repoPath) throws IOException {
         try {
             if (!Files.isDirectory(repoPath)) {
-                throw new IllegalArgumentException(String.format("The path %s must be a directory!", repoPath.toString()));
+                throw new IllegalArgumentException(String.format("The path %s must be a directory!", repoPath));
             }
 
             OutputHandler outputHandler = new FileSystemOutputHandler(repoPath.toFile(), ConsoleOutput.NOOP);
@@ -200,9 +201,10 @@ public class GitHubCreateService extends AbstractCreateController {
     }
 
     private static void deleteDirectory(Path dir) throws IOException {
-        Files.walk(dir)
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
+        try (Stream<Path> entries = Files.walk(dir)) {
+            entries.sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+        }
     }
 }
