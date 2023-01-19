@@ -8,6 +8,7 @@ import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
+import spock.lang.Unroll
 
 class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -23,6 +24,19 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver:4.7.2\")")
         buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver:4.7.2\")")
         buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver:4.7.2\")")
+    }
+
+    @Unroll
+    void "test feature geb is not supported for #applicationType application"(ApplicationType applicationType) {
+        when:
+        generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["geb"])
+
+        then:
+        def e = thrown(IllegalArgumentException)
+        e.message == 'The requested feature does not exist: geb'
+
+        where:
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API]
     }
 
     void "test webdriver binaries gradle configurations"() {

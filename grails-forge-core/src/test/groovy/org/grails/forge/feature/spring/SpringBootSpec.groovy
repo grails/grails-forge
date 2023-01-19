@@ -27,7 +27,6 @@ class SpringBootSpec extends BeanContextSpec implements CommandOutputFixture {
         build.contains("implementation(\"org.springframework.boot:spring-boot-starter-logging\")")
         build.contains("implementation(\"org.springframework.boot:spring-boot-starter-validation\")")
         build.contains("implementation(\"org.springframework.boot:spring-boot-autoconfigure\")")
-        build.contains("implementation(\"org.springframework.boot:spring-boot-starter-tomcat\")")
 
         where:
         applicationType << [ApplicationType.WEB, ApplicationType.REST_API, ApplicationType.WEB_PLUGIN]

@@ -117,5 +117,10 @@
             <artifactId>asset-pipeline-grails</artifactId>
             <version>3.4.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.2</version>
+        </dependency>
     </dependencies>
 </project>

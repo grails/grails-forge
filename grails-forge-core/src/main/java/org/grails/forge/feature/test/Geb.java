@@ -15,6 +15,7 @@
  */
 package org.grails.forge.feature.test;
 
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.OperatingSystem;
@@ -27,7 +28,6 @@ import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
 import org.grails.forge.feature.test.template.groovyJunit;
-import org.grails.forge.feature.test.template.spock;
 import org.grails.forge.feature.test.template.webdriverBinariesPlugin;
 import org.grails.forge.options.DefaultTestRockerModelProvider;
 import org.grails.forge.options.Options;
@@ -53,6 +53,7 @@ public class Geb implements DefaultFeature {
         return options.getOperatingSystem() != OperatingSystem.MACOS_ARCH64 && applicationType == ApplicationType.WEB;
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "geb";
@@ -63,6 +64,7 @@ public class Geb implements DefaultFeature {
         return "Geb Functional Testing for Grails";
     }
 
+    @NonNull
     @Override
     public String getDescription() {
         return "This plugins configure Geb for Grails framework to write automation tests.";
@@ -70,7 +72,7 @@ public class Geb implements DefaultFeature {
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return true;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
     }
 
     @Override
@@ -111,12 +113,10 @@ public class Geb implements DefaultFeature {
 
             Stream.of("api", "support", "remote-driver")
                     .map(name -> "selenium-" + name)
-                    .forEach(name -> {
-                        generatorContext.addDependency(Dependency.builder()
-                                .groupId("org.seleniumhq.selenium")
-                                .lookupArtifactId(name)
-                                .test());
-                    });
+                    .forEach(name -> generatorContext.addDependency(Dependency.builder()
+                            .groupId("org.seleniumhq.selenium")
+                            .lookupArtifactId(name)
+                            .test()));
 
             generatorContext.addDependency(Dependency.builder()
                     .groupId("org.seleniumhq.selenium")

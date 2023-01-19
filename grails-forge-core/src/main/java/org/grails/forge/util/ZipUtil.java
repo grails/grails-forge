@@ -61,11 +61,7 @@ public class ZipUtil {
             ZipEntry nextEntry = zipInputStream.getNextEntry();
             while (nextEntry != null) {
                 String name = nextEntry.getName();
-                if (name.contains("/")) {
-                    if (name.endsWith("/" + filename)) {
-                        return true;
-                    }
-                } else if (name.equals(filename)) {
+                if (name.equals(filename)) {
                     return true;
                 }
                 nextEntry = zipInputStream.getNextEntry();
@@ -92,12 +88,7 @@ public class ZipUtil {
             ZipEntry nextEntry = zipInputStream.getNextEntry();
             while (nextEntry != null) {
                 String name = nextEntry.getName();
-                if (name.contains("/")) {
-                    if (name.endsWith("/" + filename)) {
-                        String zipContents = readZipContents(zipInputStream);
-                        return zipContents.contains(contents);
-                    }
-                } else if (name.equals(filename)) {
+                if (name.equals(filename)) {
                     String zipContents = readZipContents(zipInputStream);
                     return zipContents.contains(contents);
                 }

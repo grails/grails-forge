@@ -10,6 +10,7 @@ import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
+import spock.lang.Unroll
 
 class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -74,5 +75,18 @@ assets {
         output.containsKey("grails-app/assets/stylesheets/grails.css")
         output.containsKey("grails-app/assets/stylesheets/main.css")
         output.containsKey("grails-app/assets/stylesheets/mobile.css")
+    }
+
+    @Unroll
+    void "test feature asset-pipeline-grails is not supported for #applicationType application"(ApplicationType applicationType) {
+        when:
+        generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["asset-pipeline-grails"])
+
+        then:
+        def e = thrown(IllegalArgumentException)
+        e.message == 'The requested feature does not exist: asset-pipeline-grails'
+
+        where:
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API]
     }
 }

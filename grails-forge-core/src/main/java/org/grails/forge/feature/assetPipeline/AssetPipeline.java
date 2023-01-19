@@ -15,6 +15,7 @@
  */
 package org.grails.forge.feature.assetPipeline;
 
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
@@ -38,8 +39,7 @@ import java.util.Set;
 @Singleton
 public class AssetPipeline implements DefaultFeature {
 
-    public static final String JAR_EXTENSION = ".jar";
-
+    @NonNull
     @Override
     public String getName() {
         return "asset-pipeline-grails";
@@ -50,6 +50,7 @@ public class AssetPipeline implements DefaultFeature {
         return "Asset Pipeline Core";
     }
 
+    @NonNull
     @Override
     public String getDescription() {
         return "The Asset-Pipeline is a plugin used for managing and processing static assets in JVM applications primarily via Gradle (however not mandatory). Read more at https://github.com/bertramdev/asset-pipeline";
@@ -82,7 +83,7 @@ public class AssetPipeline implements DefaultFeature {
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return true;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
     }
 
     @Override

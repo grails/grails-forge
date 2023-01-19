@@ -15,21 +15,38 @@
  */
 package org.grails.forge.feature.test;
 
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.options.TestFramework;
 
 @Singleton
 public class Junit implements TestFeature {
 
     @Override
+    public String getTitle() {
+        return "JUnit 5";
+    }
+
+    @NonNull
+    @Override
     public String getName() {
         return "junit";
     }
 
+    @NonNull
+    @Override
+    public String getDescription() {
+        return "Configure JUnit 5 for Grails application.";
+    }
+
     @Override
     public void doApply(GeneratorContext generatorContext) {
-        // no-op
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.junit.jupiter")
+                .lookupArtifactId("junit-jupiter")
+                .test());
     }
 
     @Override
