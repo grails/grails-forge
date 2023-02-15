@@ -24,7 +24,7 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:2.14.2"
     implementation "io.sdkman:gradle-sdkvendor-plugin:3.0.0"
     implementation "org.asciidoctor:asciidoctor-gradle-jvm:3.3.2"
-    implementation "com.diffplug.spotless:spotless-plugin-gradle:6.14.1"
+    implementation "com.diffplug.spotless:spotless-plugin-gradle:6.15.0"
     implementation "io.spring.nohttp:nohttp-gradle:0.0.11"
     implementation "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
     implementation "io.github.groovylang.groovydoc:io.github.groovylang.groovydoc.gradle.plugin:1.0.1"
