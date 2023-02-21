@@ -34,12 +34,7 @@ import org.grails.forge.feature.config.ApplicationConfiguration;
 import org.grails.forge.feature.config.BootstrapConfiguration;
 import org.grails.forge.feature.config.Configuration;
 import org.grails.forge.feature.other.template.markdownLink;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.Options;
-import org.grails.forge.options.TestFramework;
-import org.grails.forge.options.TestRockerModelProvider;
+import org.grails.forge.options.*;
 import org.grails.forge.template.RockerTemplate;
 import org.grails.forge.template.RockerWritable;
 import org.grails.forge.template.Template;
@@ -231,6 +226,13 @@ public class GeneratorContext implements DependencyContext {
      */
     @NonNull public BuildTool getBuildTool() {
         return options.getBuildTool();
+    }
+
+    /**
+     * @return The Gorm Implementation
+     */
+    @NonNull public GormImpl getGormImpl() {
+        return options.getGormImpl();
     }
 
     /**

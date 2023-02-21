@@ -20,9 +20,9 @@ import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.Options;
 
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Set;
 
 @Primary
 @Singleton
-public class HibernateGorm extends GormFeature implements DatabaseDriverConfigurationFeature, DefaultFeature {
+public class HibernateGorm extends GormFeature implements DatabaseDriverConfigurationFeature {
 
     private static final String PREFIX = "dataSource.";
     private static final String URL_KEY = PREFIX + "url";
@@ -127,6 +127,6 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.REST_API || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.PLUGIN;
+        return selectedFeatures.stream().anyMatch(f -> f instanceof HibernateGorm) || options.getGormImpl() == GormImpl.HIBERNATE;
     }
 }

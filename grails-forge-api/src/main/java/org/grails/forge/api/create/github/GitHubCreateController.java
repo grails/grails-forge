@@ -33,6 +33,7 @@ import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.client.github.v3.GitHubRepository;
 import org.grails.forge.options.BuildTool;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.Language;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -75,11 +76,11 @@ public class GitHubCreateController implements GitHubCreateOperation {
      * @param features The features The chosen features
      * @param build    The build type (optional, defaults to Gradle)
      * @param test     The test framework (optional, defaults to JUnit)
-     * @param lang     The language (optional, defaults to Java)
+     * @param gorm The GORM (optional, defaults to Hibernate)
      * @return A json containing the generated application details.
      */
     @Override
-    @Get(uri = "/github/{type}/{name}{?features,lang,build,test,javaVersion,code,state}", produces = MediaType.APPLICATION_JSON)
+    @Get(uri = "/github/{type}/{name}{?features,gorm,build,test,javaVersion,code,state}", produces = MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -104,7 +105,7 @@ public class GitHubCreateController implements GitHubCreateOperation {
             @Nullable List<String> features,
             @Nullable BuildTool build,
             @Nullable TestFramework test,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Nullable String code,
             @Nullable String state,
@@ -116,7 +117,7 @@ public class GitHubCreateController implements GitHubCreateOperation {
                 return HttpResponse.temporaryRedirect(redirectService.constructOAuthRedirectUrl(requestInfo));
             } else {
                 GitHubRepository repository = gitHubCreateService.creatApp(
-                        type, name, features, build, test, lang, javaVersion, code, state, userAgent);
+                        type, name, features, build, test, gorm, javaVersion, code, state, userAgent);
 
                 if (launcherURI == null) {
                     return HttpResponse.ok(new GitHubCreateDTO(repository.getUrl(), repository.getCloneUrl(), repository.getHtmlUrl()));

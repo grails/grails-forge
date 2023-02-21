@@ -23,10 +23,7 @@ import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradlePlugin;
-import org.grails.forge.feature.Category;
-import org.grails.forge.feature.DefaultFeature;
-import org.grails.forge.feature.Feature;
-import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.feature.*;
 import org.grails.forge.feature.test.template.groovyJunit;
 import org.grails.forge.feature.test.template.webdriverBinariesPlugin;
 import org.grails.forge.options.DefaultTestRockerModelProvider;
@@ -71,13 +68,13 @@ public class Geb implements DefaultFeature {
     }
 
     @Override
-    public boolean supports(ApplicationType applicationType) {
-        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
+    public int getOrder() {
+        return FeaturePhase.TEST.getOrder();
     }
 
     @Override
-    public String getCategory() {
-        return Category.SERVER;
+    public boolean supports(ApplicationType applicationType) {
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
     }
 
     @Override

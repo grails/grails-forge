@@ -20,15 +20,7 @@ import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Prototype;
 import io.micronaut.core.annotation.TypeHint;
 import io.micronaut.inject.BeanDefinition;
-import org.grails.forge.cli.command.BaseCommand;
-import org.grails.forge.cli.command.BuildToolCandidates;
-import org.grails.forge.cli.command.BuildToolConverter;
-import org.grails.forge.cli.command.CodeGenCommand;
-import org.grails.forge.cli.command.CreateAppCommand;
-import org.grails.forge.cli.command.LanguageCandidates;
-import org.grails.forge.cli.command.LanguageConverter;
-import org.grails.forge.cli.command.TestFrameworkCandidates;
-import org.grails.forge.cli.command.TestFrameworkConverter;
+import org.grails.forge.cli.command.*;
 import org.grails.forge.io.ConsoleOutput;
 import picocli.CommandLine;
 
@@ -40,10 +32,10 @@ import java.util.function.BiFunction;
         "Application generation commands are:",
         "",
         "*  @|bold create-app|@ @|yellow NAME|@",
-        "*  @|bold create-cli-app|@ @|yellow NAME|@",
-        "*  @|bold create-function-app|@ @|yellow NAME|@",
-        "*  @|bold create-grpc-app|@ @|yellow NAME|@",
-        "*  @|bold create-messaging-app|@ @|yellow NAME|@"
+        "*  @|bold create-webapp|@ @|yellow NAME|@",
+        "*  @|bold create-restapi|@ @|yellow NAME|@",
+        "*  @|bold create-plugin|@ @|yellow NAME|@",
+        "*  @|bold create-webplugin|@ @|yellow NAME|@"
 },
         synopsisHeading = "@|bold,underline Usage:|@ ",
         optionListHeading = "%n@|bold,underline Options:|@%n",
@@ -51,6 +43,10 @@ import java.util.function.BiFunction;
         subcommands = {
                 // Creation commands
                 CreateAppCommand.class,
+                CreateWebappCommand.class,
+                CreatePluginCommand.class,
+                CreateWebPluginCommand.class,
+                CreateRestApiCommand.class
         })
 @Prototype
 @TypeHint({
@@ -59,6 +55,7 @@ import java.util.function.BiFunction;
         LanguageConverter.class,
         BuildToolCandidates.class,
         BuildToolConverter.class,
+        GormImplConverter.class,
         CommonOptionsMixin.class,
         TestFrameworkCandidates.class,
         TestFrameworkConverter.class

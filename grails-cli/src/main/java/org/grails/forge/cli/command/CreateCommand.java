@@ -25,11 +25,7 @@ import org.grails.forge.application.generator.ProjectGenerator;
 import org.grails.forge.feature.AvailableFeatures;
 import org.grails.forge.io.FileSystemOutputHandler;
 import org.grails.forge.io.OutputHandler;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.Options;
-import org.grails.forge.options.TestFramework;
+import org.grails.forge.options.*;
 import org.grails.forge.util.NameUtils;
 import org.grails.forge.util.VersionInfo;
 import picocli.CommandLine;
@@ -58,6 +54,10 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     @ReflectiveAccess
     @CommandLine.Option(names = {"-b", "--build"}, paramLabel = "BUILD-TOOL", description = "Which build tool to configure. Possible values: ${COMPLETION-CANDIDATES}.", completionCandidates = BuildToolCandidates.class, converter = BuildToolConverter.class)
     BuildTool build;
+
+    @ReflectiveAccess
+    @CommandLine.Option(names = {"-g", "--gorm"}, paramLabel = "GORM Implementation", description = "Which GORM Implementation to configure. Possible values: ${COMPLETION-CANDIDATES}.", completionCandidates = GormImplCandidates.class, converter = GormImplConverter.class)
+    GormImpl gormImpl;
 
     @ReflectiveAccess
     @CommandLine.Option(names = {"-i", "--inplace"}, description = "Create a service using the current directory")
@@ -98,7 +98,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     public Integer call() throws Exception {
         if (listFeatures) {
             new ListFeatures(availableFeatures,
-                    new Options(lang, test, build, getJdkVersion(), getOperatingSystem()),
+                    new Options(lang, test, build, gormImpl, getJdkVersion(), getOperatingSystem()),
                     applicationType,
                     getOperatingSystem(),
                     contextFactory).output(this);
@@ -124,7 +124,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     }
 
     public void generate(Project project, OutputHandler outputHandler) throws Exception {
-        Options options = new Options(lang, test, build, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
+        Options options = new Options(lang, test, build, gormImpl, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
 
         projectGenerator.generate(applicationType, project, options, getOperatingSystem(), getSelectedFeatures(), outputHandler, this);
     }

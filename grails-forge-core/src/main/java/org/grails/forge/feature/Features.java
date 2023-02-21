@@ -19,6 +19,7 @@ import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.feature.lang.LanguageFeature;
 import org.grails.forge.feature.test.TestFeature;
 import org.grails.forge.options.BuildTool;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.Options;
 import org.grails.forge.util.VersionInfo;
@@ -33,6 +34,8 @@ public class Features extends ArrayList<String> {
 
     private final Set<Feature> featureList;
     private final BuildTool buildTool;
+
+    private final GormImpl gormImpl;
     private final GeneratorContext context;
     private ApplicationFeature applicationFeature;
     private LanguageFeature languageFeature;
@@ -56,6 +59,7 @@ public class Features extends ArrayList<String> {
         }
         this.javaVersion = options.getJavaVersion();
         this.buildTool = options.getBuildTool();
+        this.gormImpl = options.getGormImpl();
     }
 
     public BuildTool build() {
@@ -80,6 +84,10 @@ public class Features extends ArrayList<String> {
 
     public JdkVersion javaVersion() {
         return javaVersion;
+    }
+
+    public GormImpl gormImpl() {
+        return gormImpl;
     }
 
     /**

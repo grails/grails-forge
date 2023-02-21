@@ -31,10 +31,7 @@ import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.ProjectGenerator;
 import org.grails.forge.io.ConsoleOutput;
 import org.grails.forge.io.MapOutputHandler;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.Options;
+import org.grails.forge.options.*;
 import org.grails.forge.util.NameUtils;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.slf4j.Logger;
@@ -73,10 +70,10 @@ public class PreviewController extends AbstractCreateController implements Previ
      * @param features The features The chosen features
      * @param build The build type (optional, defaults to Gradle)
      * @param test The test framework (optional, defaults to JUnit)
-     * @param lang The language (optional, defaults to Java)
+     * @param gorm The GORM (optional, defaults to Hibernate)
      * @return A preview of the application contents.
      */
-    @Get(uri = "/{type}/{name}{?features,lang,build,test,javaVersion}", produces = MediaType.APPLICATION_JSON)
+    @Get(uri = "/{type}/{name}{?features,gorm,build,test,javaVersion}", produces = MediaType.APPLICATION_JSON)
     @Override
     public PreviewDTO previewApp(
             ApplicationType type,
@@ -84,7 +81,7 @@ public class PreviewController extends AbstractCreateController implements Previ
             @Nullable List<String> features,
             @Nullable BuildTool build,
             @Nullable TestFramework test,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException {
         try {
@@ -93,10 +90,12 @@ public class PreviewController extends AbstractCreateController implements Previ
             projectGenerator.generate(type,
                     project,
                     new Options(
-                            lang,
+                            Language.DEFAULT_OPTION,
                             test != null ? test.toTestFramework() : null,
                             build == null ? BuildTool.DEFAULT_OPTION : build,
-                            javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion),
+                            gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
+                            javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
+                            getOperatingSystem(requestInfo.getUserAgent())),
                     getOperatingSystem(requestInfo.getUserAgent()),
                     features == null ? Collections.emptyList() : features,
                     outputHandler,

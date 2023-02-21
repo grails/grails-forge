@@ -32,10 +32,10 @@ class FeatureControllerSpec extends Specification {
     void "test list features - spanish"() {
         when:
         List<FeatureDTO> features = client.spanishFeatures(ApplicationType.DEFAULT_OPTION).features
-        def mongoGorm = features.find { it.name == 'gorm-mongodb' }
+        def mongoGorm = features.find { it.name == 'asciidoctor' }
 
         then:
-        mongoGorm.description == 'Configura Gorm para MongoDB para aplicaciones groovy'
+        mongoGorm.description == 'Agrega soporte para crear documentación de Asciidoctor'
         !mongoGorm.isPreview()
         !mongoGorm.isCommunity()
     }

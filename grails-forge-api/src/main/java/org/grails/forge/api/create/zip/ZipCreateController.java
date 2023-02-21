@@ -28,6 +28,8 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.api.create.AbstractCreateController;
 import org.grails.forge.application.ApplicationType;
@@ -36,10 +38,9 @@ import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.application.generator.ProjectGenerator;
 import org.grails.forge.io.ZipOutputHandler;
 import org.grails.forge.options.BuildTool;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.Language;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,11 +84,11 @@ public class ZipCreateController extends AbstractCreateController implements Zip
      * @param features The features The chosen features
      * @param build    The build type (optional, defaults to Gradle)
      * @param test     The test framework (optional, defaults to JUnit)
-     * @param lang     The language (optional, defaults to Java)
+     * @param gorm The GORM Implementation (optional, defaults to GORM Hibernate)
      * @return A ZIP file containing the generated application.
      */
     @Override
-    @Get(uri = "/create/{type}/{name}{?features,lang,build,test,javaVersion}", produces = MEDIA_TYPE_APPLICATION_ZIP)
+    @Get(uri = "/create/{type}/{name}{?features,gorm,build,test,javaVersion}", produces = MEDIA_TYPE_APPLICATION_ZIP)
     @ApiResponse(
             description = "A ZIP file containing the generated application.",
             content = @Content(
@@ -100,10 +101,10 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             @Nullable List<String> features,
             @Nullable BuildTool build,
             @Nullable TestFramework test,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header(HttpHeaders.USER_AGENT) String userAgent) {
-        return generateAppIntoZipFile(type, name, features, build, test, lang, javaVersion, userAgent);
+        return generateAppIntoZipFile(type, name, features, build, test, gorm, javaVersion, userAgent);
     }
 
     /**
@@ -114,10 +115,10 @@ public class ZipCreateController extends AbstractCreateController implements Zip
      * @param features The features
      * @param build    The build tool
      * @param test     The test framework
-     * @param lang     The language
+     * @param gorm The GORM Implementation
      * @return A Zip file containing the application
      */
-    @Get(uri = "/{name}.zip{?type,features,lang,build,test}", produces = MEDIA_TYPE_APPLICATION_ZIP)
+    @Get(uri = "/{name}.zip{?type,features,gorm,build,test}", produces = MEDIA_TYPE_APPLICATION_ZIP)
     @ApiResponse(
             description = "A ZIP file containing the generated application.",
             content = @Content(
@@ -130,10 +131,10 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             @Nullable List<String> features,
             @Nullable BuildTool build,
             @Nullable TestFramework test,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header("User-Agent") String userAgent) {
-        return generateAppIntoZipFile(type, name, features, build, test, lang, javaVersion, userAgent);
+        return generateAppIntoZipFile(type, name, features, build, test, gorm, javaVersion, userAgent);
     }
 
     public HttpResponse<Writable> generateAppIntoZipFile(
@@ -142,11 +143,11 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             @Nullable List<String> features,
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Nullable String userAgent) {
 
-        GeneratorContext generatorContext = createProjectGeneratorContext(type, name, features, buildTool, testFramework, lang, javaVersion, userAgent);
+        GeneratorContext generatorContext = createProjectGeneratorContext(type, name, features, buildTool, testFramework, gorm, javaVersion, userAgent);
         MutableHttpResponse<Writable> response = HttpResponse.created(new Writable() {
             @Override
             public void writeTo(OutputStream outputStream, @Nullable Charset charset) throws IOException {

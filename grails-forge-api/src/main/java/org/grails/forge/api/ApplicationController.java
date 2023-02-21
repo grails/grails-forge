@@ -25,7 +25,8 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.options.Options;
+import org.grails.forge.application.OperatingSystem;
+import org.grails.forge.options.*;
 import org.grails.forge.template.RockerWritable;
 import org.grails.forge.template.api.grailsForgeApi;
 import org.grails.forge.util.VersionInfo;
@@ -163,9 +164,24 @@ public class ApplicationController implements ApplicationTypeOperations {
      * @return The features
      */
     @Override
-    @Get("/application-types/{type}/features")
-    public FeatureList features(ApplicationType type, RequestInfo requestInfo) {
-        FeatureList featureList = new FeatureList(featureOperations.getFeatures(requestInfo.getLocale(), type));
+    @Get("/application-types/{type}/features{?gorm,build,test,javaVersion}")
+    public FeatureList features(ApplicationType type,
+                                @Nullable BuildTool build,
+                                @Nullable TestFramework test,
+                                @Nullable GormImpl gorm,
+                                @Nullable JdkVersion javaVersion,
+                                RequestInfo requestInfo) {
+        List<FeatureDTO> featureDTOList = featureOperations
+                .getFeatures(requestInfo.getLocale(),
+                        type,
+                        new Options(Language.DEFAULT_OPTION,
+                                test != null ? test.toTestFramework() : null,
+                                build == null ? BuildTool.DEFAULT_OPTION : build,
+                                gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
+                                javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
+                        getOperatingSystem(requestInfo.getUserAgent())));
+
+        final FeatureList featureList = new FeatureList(featureDTOList);
         featureList.addLink(
                 Relationship.SELF,
                 requestInfo.self()
@@ -174,9 +190,24 @@ public class ApplicationController implements ApplicationTypeOperations {
     }
 
     @Override
-    @Get("/application-types/{type}/features/default")
-    public FeatureList defaultFeatures(ApplicationType type, RequestInfo requestInfo) {
-        FeatureList featureList = new FeatureList(featureOperations.getDefaultFeatures(requestInfo.getLocale(), type, new Options()));
+    @Get("/application-types/{type}/features/default{?gorm,build,test,javaVersion}")
+    public FeatureList defaultFeatures(ApplicationType type,
+                                       @Nullable BuildTool build,
+                                       @Nullable TestFramework test,
+                                       @Nullable GormImpl gorm,
+                                       @Nullable JdkVersion javaVersion,
+                                       RequestInfo requestInfo) {
+        List<FeatureDTO> featureDTOList = featureOperations
+                .getDefaultFeatures(requestInfo.getLocale(),
+                        type,
+                        new Options(Language.DEFAULT_OPTION,
+                                test != null ? test.toTestFramework() : null,
+                                build == null ? BuildTool.DEFAULT_OPTION : build,
+                                gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
+                                javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
+                                getOperatingSystem(requestInfo.getUserAgent())));
+
+        final FeatureList featureList = new FeatureList(featureDTOList);
         featureList.addLink(
                 Relationship.SELF,
                 requestInfo.self()
@@ -208,4 +239,7 @@ public class ApplicationController implements ApplicationTypeOperations {
         return dto;
     }
 
+    protected OperatingSystem getOperatingSystem(String userAgent) {
+        return UserAgentParser.getOperatingSystem(userAgent);
+    }
 }

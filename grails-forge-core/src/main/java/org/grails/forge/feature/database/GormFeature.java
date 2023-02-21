@@ -17,11 +17,11 @@ package org.grails.forge.feature.database;
 
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.feature.Category;
-import org.grails.forge.feature.Feature;
+import org.grails.forge.feature.DefaultFeature;
 
 import java.util.Map;
 
-public abstract class GormFeature implements Feature {
+public abstract class GormFeature implements DefaultFeature {
 
     @Override
     public boolean isPreview() {

@@ -3,6 +3,7 @@ package org.grails.forge
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.BeanContext
 import org.grails.forge.application.ApplicationType
+import org.grails.forge.application.OperatingSystem
 import org.grails.forge.application.Project
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.build.dependencies.CoordinateResolver
@@ -14,6 +15,7 @@ import org.grails.forge.feature.build.gradle.templates.buildSrcBuildGradle
 import org.grails.forge.fixture.ContextFixture
 import org.grails.forge.fixture.ProjectFixture
 import org.grails.forge.options.BuildTool
+import org.grails.forge.options.GormImpl
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
@@ -27,6 +29,8 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
     private TestFramework testFramework
     private ApplicationType applicationType
     private JdkVersion jdkVersion
+    private GormImpl gormImpl
+    private OperatingSystem operatingSystem
     private Project project
     private ApplicationContext ctx
     private GradleBuildCreator gradleDependencyResolver
@@ -34,8 +38,19 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
     BuildBuilder(ApplicationContext ctx) {
         this.ctx = ctx
         this.buildTool = BuildTool.GRADLE
+        this.gormImpl = GormImpl.DEFAULT_OPTION
+        this.operatingSystem = OperatingSystem.DEFAULT
         this.language = Language.GROOVY
     }
+
+    BuildBuilder(ApplicationContext ctx,
+                 BuildTool buildTool,
+                 GormImpl gormImpl) {
+        this.ctx = ctx
+        this.buildTool = buildTool
+        this.gormImpl = gormImpl;
+    }
+
 
     BuildBuilder(ApplicationContext ctx, BuildTool buildTool) {
         this.ctx = ctx
@@ -67,6 +82,11 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         this
     }
 
+    BuildBuilder gormImpl(GormImpl gormImpl) {
+        this.gormImpl = gormImpl
+        this
+    }
+
     BuildBuilder project(Project project) {
         this.project = project
         this
@@ -80,7 +100,7 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         Project project = this.project ?: buildProject()
         JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
-        Options options = new Options(language, testFramework, buildTool, jdkVersion)
+        final Options options = new Options(language, testFramework, buildTool, gormImpl, jdkVersion, operatingSystem)
         Features features = getFeatures(featureNames, options, type)
 
         if (buildTool.isGradle()) {

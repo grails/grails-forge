@@ -15,6 +15,7 @@
  */
 package org.grails.forge.api;
 
+import io.micronaut.core.annotation.Nullable;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.Options;
 
@@ -41,7 +42,18 @@ public interface FeatureOperations {
      * @param type The type
      * @return The features
      */
-    List<FeatureDTO> getFeatures(Locale locale, ApplicationType type);
+    default List<FeatureDTO> getFeatures(Locale locale, ApplicationType type) {
+        return getFeatures(locale, type, new Options());
+    }
+
+    /**
+     * A list of features applicable to the given application type.
+     * @param locale The locale
+     * @param type The type
+     * @param options The options
+     * @return The features
+     */
+    List<FeatureDTO> getFeatures(Locale locale, ApplicationType type, Options options);
 
     /**
      * A list of default applicable features to the given application type.

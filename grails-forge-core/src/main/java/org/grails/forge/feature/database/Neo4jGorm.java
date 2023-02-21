@@ -16,14 +16,18 @@
 package org.grails.forge.feature.database;
 
 import jakarta.inject.Singleton;
+import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.feature.OneOfFeature;
+import org.grails.forge.feature.Feature;
+import org.grails.forge.options.GormImpl;
+import org.grails.forge.options.Options;
 
 import java.util.Map;
+import java.util.Set;
 
 @Singleton
-public class Neo4jGorm extends GormOneOfFeature implements OneOfFeature {
+public class Neo4jGorm extends GormOneOfFeature {
 
     @Override
     public String getName() {
@@ -50,5 +54,10 @@ public class Neo4jGorm extends GormOneOfFeature implements OneOfFeature {
                 .groupId("org.grails.plugins")
                 .artifactId("neo4j")
                 .compile());
+    }
+
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return selectedFeatures.stream().anyMatch(f -> f instanceof Neo4jGorm) || options.getGormImpl() == GormImpl.NEO4J;
     }
 }

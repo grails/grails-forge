@@ -20,6 +20,7 @@ import org.grails.forge.api.RequestInfo;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.Language;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,7 +36,7 @@ public interface PreviewOperations {
      * @param features The features
      * @param buildTool The build tool
      * @param testFramework The test framework
-     * @param lang The lang
+     * @param gorm The GORM
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
      */
@@ -45,7 +46,7 @@ public interface PreviewOperations {
             @Nullable List<String> features,
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException;
 }

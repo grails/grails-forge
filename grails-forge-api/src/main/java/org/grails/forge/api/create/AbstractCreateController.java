@@ -30,10 +30,7 @@ import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.application.generator.ProjectGenerator;
 import org.grails.forge.io.ConsoleOutput;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.Options;
+import org.grails.forge.options.*;
 import org.grails.forge.util.NameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +68,7 @@ public abstract class AbstractCreateController {
             @Nullable List<String> features,
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header(HttpHeaders.USER_AGENT) String userAgent) {
         Project project;
@@ -83,14 +80,17 @@ public abstract class AbstractCreateController {
 
         GeneratorContext generatorContext;
         try {
-            Language language = lang != null ? lang : Language.DEFAULT_OPTION;
+            GormImpl gormImpl = gorm != null ? gorm : GormImpl.DEFAULT_OPTION;
+            Language lang = Language.DEFAULT_OPTION;
             generatorContext = projectGenerator.createGeneratorContext(
                     type,
                     project,
                     new Options(lang,
-                            testFramework != null ? testFramework.toTestFramework() : language.getDefaults().getTest(),
-                            buildTool == null ? language.getDefaults().getBuild() : buildTool,
-                            javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion),
+                            testFramework != null ? testFramework.toTestFramework() : lang.getDefaults().getTest(),
+                            buildTool == null ? lang.getDefaults().getBuild() : buildTool,
+                            gormImpl == null ? GormImpl.DEFAULT_OPTION : gormImpl,
+                            javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
+                            getOperatingSystem(userAgent)),
                     getOperatingSystem(userAgent),
                     features != null ? features : Collections.emptyList(),
                     ConsoleOutput.NOOP

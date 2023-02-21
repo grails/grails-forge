@@ -23,8 +23,8 @@ import io.micronaut.http.annotation.Header;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -44,7 +44,7 @@ public interface ZipCreateOperation {
      * @param features The features
      * @param buildTool The build tool
      * @param testFramework The test framework
-     * @param lang The lang
+     * @param gorm The GORM
      * @return An HTTP response that emits a writable
      */
     HttpResponse<Writable> createApp(
@@ -53,7 +53,7 @@ public interface ZipCreateOperation {
             @Nullable List<String> features,
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header(HttpHeaders.USER_AGENT) String userAgent
     );

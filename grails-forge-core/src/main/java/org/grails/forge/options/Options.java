@@ -21,11 +21,7 @@ import io.micronaut.core.convert.value.ConvertibleValuesMap;
 import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.util.VersionInfo;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class Options implements ConvertibleValues<Object> {
 
@@ -34,48 +30,72 @@ public class Options implements ConvertibleValues<Object> {
     private final Language language;
     private final TestFramework testFramework;
     private final BuildTool buildTool;
+
+    private final GormImpl gormImpl;
     private final JdkVersion javaVersion;
     private final ConvertibleValuesMap<Object> additionalOptions;
 
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion, OperatingSystem operatingSystem) {
-        this(language, testFramework, buildTool, javaVersion, operatingSystem, Collections.emptyMap());
-    }
+    public Options(Language language,
+                   TestFramework testFramework,
+                   BuildTool buildTool,
+                   GormImpl gormImpl,
+                   JdkVersion javaVersion,
+                   OperatingSystem operatingSystem,
+                   Map<String, Object> additionalOptions) {
 
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion) {
-        this(language, testFramework, buildTool, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool) {
-        this(language, testFramework, buildTool, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options(Language language, TestFramework testFramework) {
-        this(language, testFramework, language.getDefaults().getBuild(), VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options(Language language, BuildTool buildTool) {
-        this(language, language.getDefaults().getTest(), buildTool, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options(Language language) {
-        this(language, language.getDefaults().getTest(), language.getDefaults().getBuild(), VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options() {
-        this(Language.DEFAULT_OPTION, TestFramework.DEFAULT_OPTION, BuildTool.GRADLE, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool, OperatingSystem operatingSystem, Map<String, Object> additionalOptions) {
-        this(language, testFramework, buildTool, VersionInfo.getJavaVersion(), operatingSystem, additionalOptions);
-    }
-
-    public Options(Language language, TestFramework testFramework, BuildTool buildTool, JdkVersion javaVersion, OperatingSystem operatingSystem, Map<String, Object> additionalOptions) {
-        this.javaVersion = javaVersion;
         this.language = language;
         this.testFramework = testFramework;
         this.buildTool = buildTool;
+        this.gormImpl = gormImpl;
+        this.javaVersion = javaVersion;
         this.operatingSystem = operatingSystem;
         this.additionalOptions = new ConvertibleValuesMap<>(additionalOptions);
+    }
+
+    public Options(Language language,
+                   TestFramework testFramework,
+                   BuildTool buildTool,
+                   GormImpl gormImpl,
+                   JdkVersion javaVersion,
+                   OperatingSystem operatingSystem) {
+
+        this(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, Collections.emptyMap());
+    }
+
+    public Options(Language language,
+                   TestFramework testFramework,
+                   BuildTool buildTool,
+                   JdkVersion javaVersion,
+                   OperatingSystem operatingSystem) {
+
+        this(language, testFramework, buildTool, GormImpl.DEFAULT_OPTION, javaVersion, operatingSystem, Collections.emptyMap());
+    }
+
+    public Options(Language language,
+                   TestFramework testFramework,
+                   BuildTool buildTool,
+                   JdkVersion javaVersion) {
+
+        this(language, testFramework, buildTool, GormImpl.DEFAULT_OPTION, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
+    }
+
+    public Options(Language language,
+                   TestFramework testFramework,
+                   BuildTool buildTool) {
+
+        this(language, testFramework, buildTool, GormImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+    }
+
+    public Options(Language language, TestFramework testFramework) {
+        this(language, testFramework, language.getDefaults().getBuild(), GormImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+    }
+
+    public Options(Language language) {
+        this(language, language.getDefaults().getTest(), language.getDefaults().getBuild(), GormImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+    }
+
+    public Options() {
+        this(Language.DEFAULT_OPTION, TestFramework.DEFAULT_OPTION, BuildTool.GRADLE, GormImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public OperatingSystem getOperatingSystem() {
@@ -92,6 +112,10 @@ public class Options implements ConvertibleValues<Object> {
 
     public BuildTool getBuildTool() {
         return buildTool;
+    }
+
+    public GormImpl getGormImpl() {
+        return gormImpl;
     }
 
     @Override
@@ -114,22 +138,26 @@ public class Options implements ConvertibleValues<Object> {
     }
 
     public Options withOperatingSystem(OperatingSystem operatingSystem) {
-        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withLanguage(Language language) {
-        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withTestFramework(TestFramework testFramework) {
-        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withBuildTool(BuildTool buildTool) {
-        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, additionalOptions.asMap());
+    }
+
+    public Options withGormImpl(GormImpl gormImpl) {
+        return new Options(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withJavaVersion(JdkVersion javaVersion) {
-        return new Options(language, testFramework, buildTool, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 }

@@ -17,6 +17,7 @@ package org.grails.forge.api;
 
 import io.micronaut.context.BeanLocator;
 import io.micronaut.context.MessageSource;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
@@ -66,14 +67,19 @@ public class FeatureService implements FeatureOperations {
     }
 
     @Override
-    public List<FeatureDTO> getFeatures(Locale locale, ApplicationType type) {
+    public List<FeatureDTO> getFeatures(Locale locale, ApplicationType type, Options options) {
         MessageSource.MessageContext context = MessageSource.MessageContext.of(locale);
         return beanLocator.getBean(AvailableFeatures.class, Qualifiers.byName(type.getName()))
                 .getFeatures()
-                .filter(f -> !(f instanceof DefaultFeature && ((DefaultFeature) f).shouldApply(type, new Options(), new HashSet<>())))
+                .filter(f -> !shouldApplyDefaultFeature(type, f, options))
                 .map(feature -> new FeatureDTO(feature, messageSource, context))
                 .sorted(Comparator.comparing(FeatureDTO::getName))
                 .collect(Collectors.toList());
+    }
+
+    private static boolean shouldApplyDefaultFeature(ApplicationType type, Feature f, Options options) {
+        return f instanceof DefaultFeature &&
+                ((DefaultFeature) f).shouldApply(type, options, new HashSet<>());
     }
 
     @Override

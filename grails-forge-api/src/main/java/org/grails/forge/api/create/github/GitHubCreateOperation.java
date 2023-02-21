@@ -24,6 +24,7 @@ import org.grails.forge.api.RequestInfo;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
+import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.Language;
 
@@ -45,7 +46,7 @@ public interface GitHubCreateOperation {
      * @param features The features
      * @param buildTool The build tool
      * @param testFramework The test framework
-     * @param lang The lang
+     * @param gorm The GORM
      * @param javaVersion The java version
      * @param code The github code
      * @return An information about newly created GitHub repository
@@ -56,7 +57,7 @@ public interface GitHubCreateOperation {
             @Nullable List<String> features,
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @NonNull String code,
             @NonNull String state,
