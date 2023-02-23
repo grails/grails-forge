@@ -1,9 +1,11 @@
 package org.grails.forge.api
 
-
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.grails.forge.application.ApplicationType
+import org.grails.forge.options.BuildTool
+import org.grails.forge.options.GormImpl
+import org.grails.forge.options.JdkVersion
 import spock.lang.Specification
 
 @MicronautTest
@@ -14,7 +16,13 @@ class FeatureControllerSpec extends Specification {
 
     void "test list features"() {
         when:
-        List<FeatureDTO> features = client.features(ApplicationType.DEFAULT_OPTION, RequestInfo.LOCAL).features
+        List<FeatureDTO> features = client
+                .features(ApplicationType.DEFAULT_OPTION,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
 
         then:
         !features.isEmpty()
@@ -22,8 +30,14 @@ class FeatureControllerSpec extends Specification {
 
     void "test community features"() {
         when:
-        List<FeatureDTO> communityFeatures = client.features(ApplicationType.DEFAULT_OPTION, RequestInfo.LOCAL)
-                .features.findAll { it.community }
+        List<FeatureDTO> communityFeatures = client
+                .features(ApplicationType.DEFAULT_OPTION,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
+                .findAll { it.community }
 
         then:
         communityFeatures.isEmpty()
@@ -31,7 +45,12 @@ class FeatureControllerSpec extends Specification {
 
     void "test list features - spanish"() {
         when:
-        List<FeatureDTO> features = client.spanishFeatures(ApplicationType.DEFAULT_OPTION).features
+        List<FeatureDTO> features = client
+                .spanishFeatures(ApplicationType.DEFAULT_OPTION,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
         def mongoGorm = features.find { it.name == 'asciidoctor' }
 
         then:
@@ -42,7 +61,12 @@ class FeatureControllerSpec extends Specification {
 
     void "test list default features - spanish"() {
         when:
-        List<FeatureDTO> features = client.spanishDefaultFeatures(ApplicationType.DEFAULT_OPTION).features
+        List<FeatureDTO> features = client
+                .spanishDefaultFeatures(ApplicationType.DEFAULT_OPTION,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
         def assetPipeline = features.find { it.name == 'asset-pipeline-grails' }
 
         then:
@@ -53,14 +77,26 @@ class FeatureControllerSpec extends Specification {
 
     void "test list default features for application type"() {
         when:
-        def features = client.defaultFeatures(ApplicationType.PLUGIN, RequestInfo.LOCAL).features
+        def features = client
+                .defaultFeatures(ApplicationType.PLUGIN,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
 
         then:
         !features.any { it.name == 'geb' }
         features.any { it.name == 'gorm-hibernate5' }
 
         when:
-        features = client.defaultFeatures(ApplicationType.DEFAULT_OPTION, RequestInfo.LOCAL).features
+        features = client
+                .defaultFeatures(ApplicationType.DEFAULT_OPTION,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
 
         then:
         features.any { it.name == 'geb' }
@@ -68,13 +104,25 @@ class FeatureControllerSpec extends Specification {
 
     void "test list features for application type"() {
         when:
-        def features = client.features(ApplicationType.PLUGIN, RequestInfo.LOCAL).features
+        def features = client
+                .features(ApplicationType.PLUGIN,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
 
         then:
         !features.any { it.name == 'geb' }
 
         when:
-        features = client.features(ApplicationType.DEFAULT_OPTION, RequestInfo.LOCAL).features
+        features = client
+                .features(ApplicationType.DEFAULT_OPTION,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
 
         then:
         features.any { it.name == 'gorm-mongodb' }
@@ -82,7 +130,13 @@ class FeatureControllerSpec extends Specification {
 
     void "test list features for application type should NOT return default included features"() {
         when:
-        def features = client.features(ApplicationType.WEB, RequestInfo.LOCAL).features
+        def features = client
+                .features(ApplicationType.WEB,
+                        RequestInfo.LOCAL,
+                        BuildTool.DEFAULT_OPTION,
+                        TestFramework.DEFAULT_OPTION,
+                        GormImpl.DEFAULT_OPTION,
+                        JdkVersion.DEFAULT_OPTION).features
 
         then:
         !features.any { it.name == 'asset-pipeline-grails' }

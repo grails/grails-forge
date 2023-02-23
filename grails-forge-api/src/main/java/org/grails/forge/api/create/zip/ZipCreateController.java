@@ -40,7 +40,6 @@ import org.grails.forge.io.ZipOutputHandler;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,12 +78,13 @@ public class ZipCreateController extends AbstractCreateController implements Zip
     /**
      * Creates an application, generating a ZIP file as the response.
      *
-     * @param type     The application type The application type
-     * @param name     The name of the application The name of the application
-     * @param features The features The chosen features
-     * @param build    The build type (optional, defaults to Gradle)
-     * @param test     The test framework (optional, defaults to JUnit)
-     * @param gorm The GORM Implementation (optional, defaults to GORM Hibernate)
+     * @param type        The application type The application type
+     * @param name        The name of the application The name of the application
+     * @param features    The features The chosen features
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM
+     * @param javaVersion The java version
      * @return A ZIP file containing the generated application.
      */
     @Override
@@ -110,12 +110,14 @@ public class ZipCreateController extends AbstractCreateController implements Zip
     /**
      * Creates the default application type using the name of the given Zip.
      *
-     * @param type     The type
-     * @param name     The ZIP name
-     * @param features The features
-     * @param build    The build tool
-     * @param test     The test framework
-     * @param gorm The GORM Implementation
+     * @param type        The type
+     * @param name        The ZIP name
+     * @param features    The features
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM
+     * @param javaVersion The java version
+     * @param userAgent   The browser user-agent
      * @return A Zip file containing the application
      */
     @Get(uri = "/{name}.zip{?type,features,gorm,build,test}", produces = MEDIA_TYPE_APPLICATION_ZIP)
@@ -126,7 +128,7 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             )
     )
     public HttpResponse<Writable> createZip(
-            @Bindable(defaultValue = "web") ApplicationType type,
+            @Bindable(defaultValue = "WEB") ApplicationType type,
             @Pattern(regexp = "[\\w\\d-_]+") @NotBlank String name,
             @Nullable List<String> features,
             @Nullable BuildTool build,
@@ -174,8 +176,8 @@ public class ZipCreateController extends AbstractCreateController implements Zip
     }
 
     /**
-     * @return The file name to return.
      * @param project The project
+     * @return The file name to return.
      */
     protected @NonNull String getFilename(@NonNull Project project) {
         return project.getName() + ".zip";

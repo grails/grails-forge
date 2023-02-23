@@ -17,7 +17,6 @@ package org.grails.forge.api;
 
 import io.micronaut.context.BeanLocator;
 import io.micronaut.context.MessageSource;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.inject.qualifiers.Qualifiers;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
@@ -47,8 +46,10 @@ public class FeatureService implements FeatureOperations {
 
     /**
      * Default constructor.
-     * @param features The features
-     * @param beanLocator The bean locator
+     *
+     * @param features      The features
+     * @param beanLocator   The bean locator
+     * @param messageSource The {@link MessageSource} to support internationalization
      */
     public FeatureService(List<Feature> features, BeanLocator beanLocator, MessageSource messageSource) {
         this.features = features;

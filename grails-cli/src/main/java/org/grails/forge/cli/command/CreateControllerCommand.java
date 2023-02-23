@@ -16,19 +16,18 @@
 package org.grails.forge.cli.command;
 
 import io.micronaut.context.annotation.Parameter;
-import io.micronaut.context.annotation.Prototype;
 import io.micronaut.core.annotation.ReflectiveAccess;
 import io.micronaut.core.util.functional.ThrowingSupplier;
 import jakarta.inject.Inject;
 import org.grails.forge.application.Project;
 import org.grails.forge.cli.CodeGenConfig;
+import org.grails.forge.cli.command.templates.controller;
+import org.grails.forge.cli.command.templates.controllerSpec;
 import org.grails.forge.io.ConsoleOutput;
 import org.grails.forge.io.OutputHandler;
 import org.grails.forge.template.RenderResult;
 import org.grails.forge.template.RockerTemplate;
 import org.grails.forge.template.TemplateRenderer;
-import org.grails.forge.cli.command.templates.controller;
-import org.grails.forge.cli.command.templates.controllerSpec;
 import picocli.CommandLine;
 
 import java.io.IOException;

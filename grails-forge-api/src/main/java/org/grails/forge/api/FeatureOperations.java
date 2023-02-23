@@ -15,7 +15,6 @@
  */
 package org.grails.forge.api;
 
-import io.micronaut.core.annotation.Nullable;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.Options;
 
@@ -31,6 +30,7 @@ import java.util.Locale;
 public interface FeatureOperations {
     /**
      * List all the available features.
+     *
      * @param locale The locale
      * @return The available features
      */
@@ -38,8 +38,9 @@ public interface FeatureOperations {
 
     /**
      * A list of features applicable to the given application type.
+     *
      * @param locale The locale
-     * @param type The type
+     * @param type   The type
      * @return The features
      */
     default List<FeatureDTO> getFeatures(Locale locale, ApplicationType type) {
@@ -48,8 +49,9 @@ public interface FeatureOperations {
 
     /**
      * A list of features applicable to the given application type.
-     * @param locale The locale
-     * @param type The type
+     *
+     * @param locale  The locale
+     * @param type    The type
      * @param options The options
      * @return The features
      */
@@ -57,8 +59,9 @@ public interface FeatureOperations {
 
     /**
      * A list of default applicable features to the given application type.
-     * @param locale The locale
-     * @param type The type
+     *
+     * @param locale  The locale
+     * @param type    The type
      * @param options The options
      * @return list of FeatureDTO
      */

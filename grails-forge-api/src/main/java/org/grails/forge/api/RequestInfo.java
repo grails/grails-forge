@@ -42,8 +42,12 @@ public class RequestInfo {
 
     /**
      * Default constructor.
-     * @param serverURL The URL
-     * @param locale The locale
+     *
+     * @param serverURL  The URL
+     * @param path       The request path
+     * @param parameters The request parameters
+     * @param locale     The locale
+     * @param userAgent  The browser user-agent
      */
     public RequestInfo(String serverURL, String path, HttpParameters parameters, Locale locale, String userAgent) {
         this.serverURL = Objects.requireNonNull(serverURL, "URL cannot be null");
@@ -76,7 +80,7 @@ public class RequestInfo {
     }
 
     /**
-     * @param rel The relationship
+     * @param rel  The relationship
      * @param type The type
      * @return A new link
      */

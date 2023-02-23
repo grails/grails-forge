@@ -19,10 +19,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import org.grails.forge.api.RequestInfo;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.TestFramework;
+import org.grails.forge.options.*;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.reactivestreams.Publisher;
 
@@ -40,43 +37,49 @@ import java.util.List;
 public interface DiffOperations {
     /**
      * Previews an application.
-     * @param type The application type
-     * @param name The project name
-     * @param feature The feature
-     * @param buildTool The build tool
-     * @param testFramework The test framework
-     * @param lang The lang
+     *
+     * @param type        The application type
+     * @param name        The project name
+     * @param feature     The feature
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM implementation
+     * @param javaVersion The java version
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
+     * @throws IOException if an I/O error occurs
      */
     Publisher<String> diffFeature(
             @NotNull ApplicationType type,
             @Nullable String name,
             @NotBlank @NonNull String feature,
-            @Nullable BuildTool buildTool,
-            @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable BuildTool build,
+            @Nullable TestFramework test,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException;
 
     /**
      * Diffs the whole application for all selected features.
-     * @param type The application type
-     * @param name The name of the application
-     * @param features The features
-     * @param buildTool The build tool
-     * @param testFramework The test framework
-     * @param lang The lang
+     *
+     * @param type        The application type
+     * @param name        The name of the application
+     * @param features    The features
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM implementation
+     * @param javaVersion The java version
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
+     * @throws IOException if an I/O error occurs
      */
     Publisher<String> diffApp(
-            ApplicationType type,
-            String name,
+            @NotNull ApplicationType type,
+            @Nullable String name,
             @Nullable List<String> features,
-            @Nullable BuildTool buildTool,
-            @Nullable TestFramework testFramework,
-            @Nullable Language lang,
+            @Nullable BuildTool build,
+            @Nullable TestFramework test,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException;
 }

@@ -26,7 +26,6 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -41,22 +40,26 @@ public interface GitHubCreateOperation {
 
     /**
      * Creates and push application to GitHub repository.
-     * @param type The application type
-     * @param name The name of the application and GitHub repository
-     * @param features The features
-     * @param buildTool The build tool
-     * @param testFramework The test framework
-     * @param gorm The GORM
+     *
+     * @param type        The application type
+     * @param name        The name of the application and GitHub repository
+     * @param features    The features
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM
      * @param javaVersion The java version
-     * @param code The github code
+     * @param code        The GitHub code
+     * @param state       An unguessable random string. It is used to protect against cross-site request forgery attacks.
+     * @param userAgent   The browser user-agent
+     * @param requestInfo The request info
      * @return An information about newly created GitHub repository
      */
     HttpResponse<GitHubCreateDTO> createApp(
             @NonNull ApplicationType type,
             @Pattern(regexp = "[\\w\\d-_\\.]+") String name,
             @Nullable List<String> features,
-            @Nullable BuildTool buildTool,
-            @Nullable TestFramework testFramework,
+            @Nullable BuildTool build,
+            @Nullable TestFramework test,
             @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @NonNull String code,

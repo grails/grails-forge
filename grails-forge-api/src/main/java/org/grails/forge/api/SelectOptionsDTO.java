@@ -49,7 +49,8 @@ public class SelectOptionsDTO {
 
     private GormImplSelectOptions gorm;
 
-    SelectOptionsDTO() { }
+    SelectOptionsDTO() {
+    }
 
     @Creator
     public SelectOptionsDTO(ApplicationTypeSelectOptions type,
@@ -98,6 +99,9 @@ public class SelectOptionsDTO {
 
     /**
      * Build the options
+     *
+     * @param messageSource  The {@link io.micronaut.context.MessageSource} to support internationalization
+     * @param messageContext The {@link io.micronaut.context.MessageSource.MessageContext}
      * @return the supported options
      */
     public static SelectOptionsDTO make(MessageSource messageSource, MessageSource.MessageContext messageContext) {
@@ -133,19 +137,19 @@ public class SelectOptionsDTO {
                 .map(it -> new TestFrameworkDTO(it, messageSource, messageContext))
                 .collect(Collectors.toList());
 
-       TestFrameworkSelectOptions testFrameworkOpts = new TestFrameworkSelectOptions(
+        TestFrameworkSelectOptions testFrameworkOpts = new TestFrameworkSelectOptions(
                 testFrameworks,
                 new TestFrameworkDTO(TestFramework.DEFAULT_OPTION, messageSource, messageContext)
         );
 
-       List<BuildToolDTO> buildTools = Arrays.stream(BuildTool.values())
-               .map(it -> new BuildToolDTO(it, messageSource, messageContext))
-               .collect(Collectors.toList());
+        List<BuildToolDTO> buildTools = Arrays.stream(BuildTool.values())
+                .map(it -> new BuildToolDTO(it, messageSource, messageContext))
+                .collect(Collectors.toList());
 
-       BuildToolSelectOptions buildToolOpts = new BuildToolSelectOptions(
-               buildTools,
-               new BuildToolDTO(BuildTool.DEFAULT_OPTION, messageSource, messageContext)
-       );
+        BuildToolSelectOptions buildToolOpts = new BuildToolSelectOptions(
+                buildTools,
+                new BuildToolDTO(BuildTool.DEFAULT_OPTION, messageSource, messageContext)
+        );
 
         List<GormImplDTO> gormImpls = Arrays.stream(GormImpl.values())
                 .map(it -> new GormImplDTO(it, messageSource, messageContext))
@@ -156,7 +160,7 @@ public class SelectOptionsDTO {
                 new GormImplDTO(GormImpl.DEFAULT_OPTION, messageSource, messageContext)
         );
 
-       return new SelectOptionsDTO(applicationOpts, jdkVersionOpts, languageOpts, testFrameworkOpts, buildToolOpts, gormImplOpts);
+        return new SelectOptionsDTO(applicationOpts, jdkVersionOpts, languageOpts, testFrameworkOpts, buildToolOpts, gormImplOpts);
 
     }
 }

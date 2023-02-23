@@ -62,6 +62,15 @@ public class Options implements ConvertibleValues<Object> {
         this(language, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, Collections.emptyMap());
     }
 
+    public Options(TestFramework testFramework,
+                   BuildTool buildTool,
+                   GormImpl gormImpl,
+                   JdkVersion javaVersion,
+                   OperatingSystem operatingSystem) {
+
+        this(Language.DEFAULT_OPTION, testFramework, buildTool, gormImpl, javaVersion, operatingSystem, Collections.emptyMap());
+    }
+
     public Options(Language language,
                    TestFramework testFramework,
                    BuildTool buildTool,
@@ -69,6 +78,14 @@ public class Options implements ConvertibleValues<Object> {
                    OperatingSystem operatingSystem) {
 
         this(language, testFramework, buildTool, GormImpl.DEFAULT_OPTION, javaVersion, operatingSystem, Collections.emptyMap());
+    }
+
+    public Options(TestFramework testFramework,
+                   BuildTool buildTool,
+                   GormImpl gormImpl,
+                   JdkVersion javaVersion) {
+
+        this(Language.DEFAULT_OPTION, testFramework, buildTool, gormImpl, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(Language language,

@@ -28,6 +28,10 @@ import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.grails.forge.api.RequestInfo;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
@@ -35,11 +39,6 @@ import org.grails.forge.client.github.v3.GitHubRepository;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,6 +76,7 @@ public class GitHubCreateController implements GitHubCreateOperation {
      * @param build    The build type (optional, defaults to Gradle)
      * @param test     The test framework (optional, defaults to JUnit)
      * @param gorm The GORM (optional, defaults to Hibernate)
+     * @param state An unguessable random string. It is used to protect against cross-site request forgery attacks.
      * @return A json containing the generated application details.
      */
     @Override

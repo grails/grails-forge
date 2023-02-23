@@ -166,11 +166,11 @@ public class ApplicationController implements ApplicationTypeOperations {
     @Override
     @Get("/application-types/{type}/features{?gorm,build,test,javaVersion}")
     public FeatureList features(ApplicationType type,
+                                RequestInfo requestInfo,
                                 @Nullable BuildTool build,
                                 @Nullable TestFramework test,
                                 @Nullable GormImpl gorm,
-                                @Nullable JdkVersion javaVersion,
-                                RequestInfo requestInfo) {
+                                @Nullable JdkVersion javaVersion) {
         List<FeatureDTO> featureDTOList = featureOperations
                 .getFeatures(requestInfo.getLocale(),
                         type,
@@ -192,11 +192,11 @@ public class ApplicationController implements ApplicationTypeOperations {
     @Override
     @Get("/application-types/{type}/features/default{?gorm,build,test,javaVersion}")
     public FeatureList defaultFeatures(ApplicationType type,
+                                       RequestInfo requestInfo,
                                        @Nullable BuildTool build,
                                        @Nullable TestFramework test,
                                        @Nullable GormImpl gorm,
-                                       @Nullable JdkVersion javaVersion,
-                                       RequestInfo requestInfo) {
+                                       @Nullable JdkVersion javaVersion) {
         List<FeatureDTO> featureDTOList = featureOperations
                 .getDefaultFeatures(requestInfo.getLocale(),
                         type,

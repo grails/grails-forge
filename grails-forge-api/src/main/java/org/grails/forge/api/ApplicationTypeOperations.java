@@ -17,8 +17,8 @@ package org.grails.forge.api;
 
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.annotation.Get;
-import org.grails.forge.application.ApplicationType;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
@@ -52,22 +52,25 @@ public interface ApplicationTypeOperations {
      * List the type features.
      * @param type The features
      * @param serverURL The server URL
+     * @param build The build tool
+     * @param test The test framework
+     * @param gorm The GORM
+     * @param javaVersion The java version
      * @return The features
      */
     @Get("/application-types/{type}/features{?gorm,build,test,javaVersion}")
     FeatureList features(ApplicationType type,
+                         @Parameter(hidden = true) RequestInfo serverURL,
                          @Nullable BuildTool build,
                          @Nullable TestFramework test,
                          @Nullable GormImpl gorm,
-                         @Nullable JdkVersion javaVersion,
-                         @Parameter(hidden = true) RequestInfo serverURL);
-
+                         @Nullable JdkVersion javaVersion);
 
     @Get("/application-types/{type}/features/default{?gorm,build,test,javaVersion}")
     FeatureList defaultFeatures(ApplicationType type,
+                                @Parameter(hidden = true) RequestInfo serverURL,
                                 @Nullable BuildTool build,
                                 @Nullable TestFramework test,
                                 @Nullable GormImpl gorm,
-                                @Nullable JdkVersion javaVersion,
-                                @Parameter(hidden = true) RequestInfo serverURL);
+                                @Nullable JdkVersion javaVersion);
 }

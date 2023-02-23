@@ -15,15 +15,15 @@
  */
 package org.grails.forge.api.preview;
 
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.grails.forge.api.RequestInfo;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import io.swagger.v3.oas.annotations.Parameter;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,21 +31,24 @@ import java.util.List;
 public interface PreviewOperations {
     /**
      * Previews an application.
-     * @param type The application type
-     * @param name The name of the application
-     * @param features The features
-     * @param buildTool The build tool
-     * @param testFramework The test framework
-     * @param gorm The GORM
+     *
+     * @param type        The application type
+     * @param name        The name of the application
+     * @param features    The features
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM
+     * @param javaVersion The java version
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
+     * @throws IOException if an I/O error occurs
      */
     PreviewDTO previewApp(
-            ApplicationType type,
+            @NonNull ApplicationType type,
             String name,
             @Nullable List<String> features,
-            @Nullable BuildTool buildTool,
-            @Nullable TestFramework testFramework,
+            @Nullable BuildTool build,
+            @Nullable TestFramework test,
             @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException;

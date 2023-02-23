@@ -18,19 +18,19 @@ package org.grails.forge.api;
 public interface Selectable<T> {
     /**
      * The Label
-     * @return
+     * @return label
      */
     String getLabel();
 
     /**
      * The Description
-     * @return
+     * @return description
      */
     String getDescription();
 
     /**
      * The Underlying Value represented by the Option
-     * @return
+     * @return value
      */
     T getValue();
 

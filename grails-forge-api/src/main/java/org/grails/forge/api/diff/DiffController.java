@@ -61,8 +61,9 @@ public class DiffController implements DiffOperations {
 
     /**
      * Default constructor.
+     *
      * @param projectGenerator The project generator
-     * @param featureDiffer The feature differ
+     * @param featureDiffer    The feature differ
      */
     public DiffController(ProjectGenerator projectGenerator, FeatureDiffer featureDiffer) {
         this.projectGenerator = projectGenerator;
@@ -73,16 +74,16 @@ public class DiffController implements DiffOperations {
     /**
      * Returns a diff for the given application type and feature.
      *
-     * @param type The application type
-     * @param feature The feature
-     * @param build The build tool
-     * @param test The test framework
-     * @param lang The lang
+     * @param type        The application type
+     * @param feature     The feature
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM implementation
      * @param javaVersion The java version
      * @param requestInfo The request info
      * @return A string representing the difference
      */
-    @Get(uri = "/{type}/feature/{feature}{?lang,build,test,javaVersion,name}",
+    @Get(uri = "/{type}/feature/{feature}{?gorm,build,test,javaVersion,name}",
             produces = MediaType.TEXT_PLAIN)
     @Override
     @ApiResponse(responseCode = "404", description = "If no difference is found")
@@ -94,7 +95,7 @@ public class DiffController implements DiffOperations {
             @NonNull @NotBlank String feature,
             @Nullable BuildTool build,
             @Nullable TestFramework test,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) {
 
@@ -102,11 +103,10 @@ public class DiffController implements DiffOperations {
         GeneratorContext generatorContext;
         try {
             Project project = name != null ? NameUtils.parse(name) : this.project;
-            Language language = lang != null ? lang : Language.DEFAULT_OPTION;
             Options options = new Options(
-                    language,
-                    test != null ? test : language.getDefaults().getTest(),
-                    build != null ? build : language.getDefaults().getBuild(),
+                    test != null ? test : TestFramework.DEFAULT_OPTION,
+                    build != null ? build : BuildTool.DEFAULT_OPTION,
+                    gorm != null ? gorm : GormImpl.DEFAULT_OPTION,
                     javaVersion != null ? javaVersion : JdkVersion.DEFAULT_OPTION
             );
             projectGenerator = this.projectGenerator;
@@ -127,16 +127,17 @@ public class DiffController implements DiffOperations {
 
     /**
      * Diffs the whole application for all selected features.
-     * @param type The application type
-     * @param name The name of the application
-     * @param features The features
-     * @param build The build tool
-     * @param test The test framework
-     * @param lang The lang
+     *
+     * @param type        The application type
+     * @param name        The name of the application
+     * @param features    The features
+     * @param build       The build tool
+     * @param test        The test framework
+     * @param gorm        The GORM implementation
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
      */
-    @Get(uri = "/{type}/{name}{?features,lang,build,test,javaVersion}", produces = MediaType.TEXT_PLAIN)
+    @Get(uri = "/{type}/{name}{?features,gorm,build,test,javaVersion}", produces = MediaType.TEXT_PLAIN)
     @Override
     @ApiResponse(responseCode = "404", description = "If no difference is found")
     @ApiResponse(responseCode = "400", description = "If the supplied parameters are invalid")
@@ -147,18 +148,17 @@ public class DiffController implements DiffOperations {
             @Nullable List<String> features,
             @Nullable BuildTool build,
             @Nullable TestFramework test,
-            @Nullable Language lang,
+            @Nullable GormImpl gorm,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException {
         ProjectGenerator projectGenerator;
         GeneratorContext generatorContext;
         try {
             Project project = name != null ? NameUtils.parse(name) : this.project;
-            Language language = lang != null ? lang : Language.DEFAULT_OPTION;
             Options options = new Options(
-                    language,
-                    test != null ? test : language.getDefaults().getTest(),
-                    build != null ? build : language.getDefaults().getBuild(),
+                    test != null ? test : TestFramework.DEFAULT_OPTION,
+                    build != null ? build : BuildTool.DEFAULT_OPTION,
+                    gorm != null ? gorm : GormImpl.DEFAULT_OPTION,
                     javaVersion != null ? javaVersion : JdkVersion.DEFAULT_OPTION
             );
             projectGenerator = this.projectGenerator;
