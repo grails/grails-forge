@@ -13,18 +13,18 @@ micronaut:
             - ${CORS_ALLOWED_ORIGIN:`^http(|s):\/\/grails\.org$`}
           allowedMethods:
             - GET
-  starter:
-    github:
-      clientId: ${GITHUB_OAUTH_APP_CLIENT_ID}
-      clientSecret: ${GITHUB_OAUTH_APP_CLIENT_SECRET}
-      tokenPermissions: public_repo,read:user,workflow
-
   http:
     services:
       github-oauth:
         url: https://github.com
       github-api-v3:
         url: https://api.github.com
+grails:
+  forge:
+      github:
+        client-id: ${GITHUB_OAUTH_APP_CLIENT_ID}
+        client-secret: ${GITHUB_OAUTH_APP_CLIENT_SECRET}
+        token-permissions: public_repo,read:user,workflow,project
 gcp:
   http:
     client:
