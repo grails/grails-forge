@@ -8,7 +8,7 @@ Generates Grails applications.
 
 ## Installation
 
-The CLI application comes in various flavours from a universal Java applications to native applications for Windows, Linux and OS X. These are available for direct download on the [releases page](https://github.com/micronaut-projects/micronaut-starter/releases). For installation see the [Micronaut documentation](https://docs.micronaut.io/2.0.x/guide/index.html#buildCLI).
+The CLI application comes in various flavours from a universal Java applications to native applications for Windows, Linux and OS X. These are available for direct download on the [releases page](https://github.com/grails/grails-forge/releases). For installation see the [Grails documentation](https://docs.grails.org/latest/guide/index.html#buildCLI).
 
 If you prefer not to install an application to create Micronaut applications you can do so with `curl` directly from the API:
 
@@ -25,7 +25,7 @@ Run `curl https://start.grails.org` for more information on how to use the API o
 
 If you prefer a browser based user interface you can visit [Grails Forge](https://start.grails.org).
 
-The user interface is [written in React](https://github.com/grails/grails-forge-ui/tree/master/main/src/main/js/launch) and is a static single page application that simply interacts with the https://start.grails.org API.
+The user interface is [written in React](https://github.com/grails/grails-forge-ui/tree/main/app/launch) and is a static single page application that simply interacts with the https://start.grails.org API.
 
 ## API
 
@@ -47,9 +47,9 @@ See the [Snapshot Documentation](https://grails.github.io/grails-forge/snapshot/
 
 ## Snapshots and Releases
 
-Snaphots are automatically published to [Sonatype OSSRH](https://s01.oss.sonatype.org/content/repositories/snapshots/) using [Github Actions](https://github.com/grails/grails-forge/actions).
+Snapshots are automatically published to [Sonatype OSSRH](https://s01.oss.sonatype.org/content/repositories/snapshots/) using [Github Actions](https://github.com/grails/grails-forge/actions).
 
-See the documentation in the [Micronaut Docs](https://docs.micronaut.io/latest/guide/index.html#usingsnapshots) for how to configure your build to use snapshots.
+See the documentation in the [Grails Docs](https://docs.grails.org/latest/guide/index.html#usingsnapshots) for how to configure your build to use snapshots.
 
 Releases are published to Maven Central via [Github Actions](https://github.com/grails/grails-forge/actions).
 
