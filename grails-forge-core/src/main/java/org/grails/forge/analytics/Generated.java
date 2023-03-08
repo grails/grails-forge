@@ -19,10 +19,7 @@ import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.TestFramework;
+import org.grails.forge.options.*;
 import org.grails.forge.util.VersionInfo;
 
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ import java.util.Objects;
 @Introspected
 public class Generated {
     private final ApplicationType type;
-    private final Language language;
+    private final GormImpl gorm;
     private final BuildTool buildTool;
     private final TestFramework testFramework;
     private final JdkVersion jdkVersion;
@@ -42,12 +39,12 @@ public class Generated {
     @Creator
     public Generated(
             @NonNull ApplicationType type,
-            @NonNull Language language,
+            @NonNull GormImpl gorm,
             @NonNull BuildTool buildTool,
             @NonNull TestFramework testFramework,
             @NonNull JdkVersion jdkVersion) {
         this.type = Objects.requireNonNull(type, "Type cannot be null");
-        this.language = Objects.requireNonNull(language, "Language cannot be null");
+        this.gorm = Objects.requireNonNull(gorm, "GORM cannot be null");
         this.buildTool = Objects.requireNonNull(buildTool, "Build tool cannot be null");
         this.testFramework = Objects.requireNonNull(testFramework, "Test framework cannot be null");
         this.jdkVersion = Objects.requireNonNull(jdkVersion, "JDK version cannot be null");
@@ -77,8 +74,8 @@ public class Generated {
     /**
      * @return The language
      */
-    public @NonNull Language getLanguage() {
-        return language;
+    public @NonNull GormImpl getGorm() {
+        return gorm;
     }
 
     /**

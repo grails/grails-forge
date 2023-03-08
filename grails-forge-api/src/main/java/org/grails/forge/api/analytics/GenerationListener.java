@@ -45,7 +45,7 @@ public class GenerationListener {
                 .map(SelectedFeature::new).collect(Collectors.toList());
         Generated generated = new Generated(
                 context.getApplicationType(),
-                context.getLanguage(),
+                context.getGorm(),
                 context.getBuildTool(),
                 context.getTestFramework(),
                 context.getJdkVersion()

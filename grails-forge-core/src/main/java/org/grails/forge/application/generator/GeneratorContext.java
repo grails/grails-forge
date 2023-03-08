@@ -231,7 +231,7 @@ public class GeneratorContext implements DependencyContext {
     /**
      * @return The Gorm Implementation
      */
-    @NonNull public GormImpl getGormImpl() {
+    @NonNull public GormImpl getGorm() {
         return options.getGormImpl();
     }
 
