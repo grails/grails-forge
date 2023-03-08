@@ -1,0 +1,25 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+import grails.testing.gorm.DomainUnitTest
+import spock.lang.Specification
+
+class @project.getClassName()Spec extends Specification implements DomainUnitTest<@project.getClassName()> {
+
+     void "test domain constraints"() {
+        when:
+        @project.getClassName() domain = new @project.getClassName()()
+        //TODO: Set domain props here
+
+        then:
+        domain.validate()
+     }
+}

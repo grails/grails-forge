@@ -15,7 +15,6 @@
  */
 package org.grails.forge.cli
 
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
@@ -45,7 +44,7 @@ class CommandSpec extends Specification {
         killProcess()
     }
 
-    void executeGradleCommand(String command) {
+    Process executeGradleCommand(String command) {
         StringBuilder gradleCommand = new StringBuilder()
         if (spock.util.environment.OperatingSystem.current.isWindows()) {
             gradleCommand.append("gradlew.bat")
@@ -66,13 +65,14 @@ class CommandSpec extends Specification {
         }
     }
 
-    private void executeCommand(StringBuilder builder) {
+    private Process executeCommand(StringBuilder builder) {
         String[] args = builder.toString().split(" ")
         ProcessBuilder pb = new ProcessBuilder(args)
         Map<String, String> env = pb.environment()
         env["JAVA_HOME"] = System.getenv("JAVA_HOME")
         process = pb.directory(dir).start()
         process.consumeProcessOutputStream(output)
+        process
     }
 
     void killProcess() {

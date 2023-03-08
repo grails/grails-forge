@@ -9,49 +9,46 @@ import org.grails.forge.options.Language
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 
-class CreateControllerCommandSpec extends CommandSpec implements CommandFixture {
+class CreateDomainClassCommandSpec extends CommandSpec implements CommandFixture {
 
     @Shared
     @AutoCleanup
     ApplicationContext beanContext = ApplicationContext.run()
 
-
-    void "test creating a controller"() {
-
+    void "test creating a domain class"() {
         setup:
         generateProject(Language.DEFAULT_OPTION)
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
-        CreateControllerCommand command = new CreateControllerCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
-        command.controllerName = "Greeting"
+        CreateDomainClassCommand command = new CreateDomainClassCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
+        command.domainClassName  = 'Pet'
 
         when:
         Integer exitCode = command.call()
-        File output = new File(dir, "grails-app/controllers/example/grails/GreetingController.groovy")
-        File specOutput = new File(dir, "src/test/groovy/example/grails/GreetingControllerSpec.groovy")
+        File output = new File(dir, "grails-app/domain/example/grails/Pet.groovy")
+        File specOutput = new File(dir, "src/test/groovy/example/grails/PetSpec.groovy")
 
         then:
         exitCode == 0
         output.exists()
         specOutput.exists()
-        2 * consoleOutput.out({ it.contains("Rendered controller") })
+        2 * consoleOutput.out({ it.contains("Rendered domain class") })
     }
 
-    void "test app with controller"() {
+    void "test app with domain"() {
         setup:
         generateProject(Language.DEFAULT_OPTION)
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
-        CreateControllerCommand command = new CreateControllerCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
+        CreateDomainClassCommand command = new CreateDomainClassCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
 
         when:
-        command.controllerName  = 'Greeting'
+        command.domainClassName  = 'Pet'
         Integer exitCode = command.call()
         executeGradleCommand("build")
 
         then:
         exitCode == 0
         testOutputContains("BUILD SUCCESSFUL")
-
     }
 }

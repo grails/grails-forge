@@ -21,6 +21,7 @@ configurations {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut:micronaut-inject-java")
     api project(":grails-forge-core")
     api "info.picocli:picocli:${picocliVersion}"
     api "info.picocli:picocli-shell-jline3:${picocliVersion}"
