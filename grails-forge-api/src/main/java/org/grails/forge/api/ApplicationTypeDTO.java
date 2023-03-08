@@ -37,7 +37,7 @@ import java.util.List;
 @Introspected
 public class ApplicationTypeDTO extends Linkable implements Named, Described, Selectable<ApplicationType> {
 
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".application-types.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".application-types.";
     private final String name;
     private final List<FeatureDTO> features;
     private final String title;

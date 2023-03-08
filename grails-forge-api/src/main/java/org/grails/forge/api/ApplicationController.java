@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Main interface on the the starter API.
+ * Main interface on the the Grails Application Forge API.
  *
  * @author graemerocher
  * @since 1.0.0
@@ -65,16 +65,16 @@ import java.util.stream.Collectors;
 public class ApplicationController implements ApplicationTypeOperations {
 
     private final FeatureOperations featureOperations;
-    private final StarterConfiguration configuration;
+    private final GrailsForgeConfiguration configuration;
     private final MessageSource messageSource;
 
     /**
      * Default constructor.
      * @param featureOperations The feature operations.
-     * @param configuration The starter configuration
+     * @param configuration The Grails Application Forge configuration
      * @param messageSource The message source
      */
-    public ApplicationController(FeatureOperations featureOperations, StarterConfiguration configuration, MessageSource messageSource) {
+    public ApplicationController(FeatureOperations featureOperations, GrailsForgeConfiguration configuration, MessageSource messageSource) {
         this.featureOperations = featureOperations;
         this.configuration = configuration;
         this.messageSource = messageSource;

@@ -122,7 +122,7 @@ public class GitHubCreateController implements GitHubCreateOperation {
                 if (launcherURI == null) {
                     return HttpResponse.ok(new GitHubCreateDTO(repository.getUrl(), repository.getCloneUrl(), repository.getHtmlUrl()));
                 } else {
-                    return HttpResponse.temporaryRedirect(redirectService.constructLauncherRedirectUrl(repository));
+                    return HttpResponse.temporaryRedirect(redirectService.constructGrailsForgeRedirectUrl(repository));
                 }
             }
         } catch (Exception e) {
@@ -133,7 +133,7 @@ public class GitHubCreateController implements GitHubCreateOperation {
             if (launcherURI == null) {
                 throw e;
             } else {
-                return HttpResponse.temporaryRedirect(redirectService.constructLauncherErrorRedirectUrl(e.getMessage()));
+                return HttpResponse.temporaryRedirect(redirectService.constructGrailsForgeErrorRedirectUrl(e.getMessage()));
             }
         }
     }
@@ -161,7 +161,7 @@ public class GitHubCreateController implements GitHubCreateOperation {
             @Nullable @QueryValue("error_description") String errorDescription) {
         URI redirect;
         if (!StringUtils.isEmpty(error)) {
-            redirect = redirectService.constructLauncherErrorRedirectUrl(errorDescription);
+            redirect = redirectService.constructGrailsForgeErrorRedirectUrl(errorDescription);
         } else {
             redirect = redirectService.getLauncherURI();
         }

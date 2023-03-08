@@ -26,7 +26,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 /**
- * Gets Information about select options for the starter.
+ * Gets Information about select options for the Grails Forge.
  *
  * @since 2.2.0
  */
@@ -37,7 +37,7 @@ public class SelectOptionsController implements SelectOptionsOperations {
     MessageSource messageSource;
 
     /**
-     * Gets select options for the starter
+     * Gets select options for the Grails Forge
      *
      * @return Select Options and their defaults.
      */

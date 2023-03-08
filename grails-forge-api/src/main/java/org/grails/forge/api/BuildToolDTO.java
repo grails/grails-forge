@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(name = "BuildToolInfo")
 public class BuildToolDTO implements Selectable<BuildTool> {
 
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".buildTools.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".buildTools.";
 
     BuildTool value;
     String label;

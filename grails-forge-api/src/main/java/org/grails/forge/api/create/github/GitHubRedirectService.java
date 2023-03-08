@@ -19,7 +19,7 @@ import io.micronaut.context.annotation.Property;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.http.uri.UriBuilder;
 import org.grails.forge.api.RequestInfo;
-import org.grails.forge.api.StarterConfiguration;
+import org.grails.forge.api.GrailsForgeConfiguration;
 import org.grails.forge.client.github.oauth.GitHubOAuthClient;
 import org.grails.forge.client.github.v3.GitHubRepository;
 import jakarta.inject.Singleton;
@@ -45,13 +45,13 @@ public class GitHubRedirectService {
     private static final String AUTHORIZE_PATH = "/login/oauth/authorize";
 
     private final String githubOAuthUrl;
-    private final StarterConfiguration starterConfiguration;
-    private final StarterConfiguration.GitHubConfiguration gitHubConfiguration;
+    private final GrailsForgeConfiguration starterConfiguration;
+    private final GrailsForgeConfiguration.GitHubConfiguration gitHubConfiguration;
 
     public GitHubRedirectService(
             @NotNull @Property(name = OAUTH_URL) String githubOAuthUrl,
-            @NotNull StarterConfiguration starterConfiguration,
-            @NotNull StarterConfiguration.GitHubConfiguration gitHubConfiguration) {
+            @NotNull GrailsForgeConfiguration starterConfiguration,
+            @NotNull GrailsForgeConfiguration.GitHubConfiguration gitHubConfiguration) {
         this.githubOAuthUrl = githubOAuthUrl + AUTHORIZE_PATH;
         this.starterConfiguration = starterConfiguration;
         this.gitHubConfiguration = gitHubConfiguration;
@@ -83,16 +83,16 @@ public class GitHubRedirectService {
     }
 
     /**
-     * Creates redirect URI back to launcher app with details about created github repository in query parameters.
+     * Creates redirect URI back to Grails Application Forge with details about created github repository in query parameters.
      *
-     * @param gitHubRepository github repository
-     * @return URI or null if the launcher url is missing in starter
+     * @param gitHubRepository GitHub Repository
+     * @return URI or null if the Grails Application Forge URL is missing
      */
-    protected URI constructLauncherRedirectUrl(GitHubRepository gitHubRepository) {
+    protected URI constructGrailsForgeRedirectUrl(GitHubRepository gitHubRepository) {
         URI redirectUri = getLauncherURI();
         if (redirectUri == null) {
             if (LOG.isWarnEnabled()) {
-                LOG.warn("Can't construct redirect back to launcher as configuration is missing redirect uri.");
+                LOG.warn("Can't construct redirect back to Grails Application Forge as configuration is missing redirect uri.");
             }
             return null;
         }
@@ -104,23 +104,23 @@ public class GitHubRedirectService {
                     .queryParam("htmlUrl", gitHubRepository.getHtmlUrl())
                     .build();
         } catch (Exception e) {
-            String msg = "Failed to construct redirect to URI back to launcher: " + e.getMessage();
+            String msg = "Failed to construct redirect to URI back to Grails Application Forge: " + e.getMessage();
             LOG.error(msg, e);
             throw new RuntimeException(msg);
         }
     }
 
     /**
-     * Creates redirect URI back to launcher app with error message.
+     * Creates redirect URI back to Grails app forge with error message.
      *
      * @param error message
-     * @return URI or null if the launcher url is missing in starter
+     * @return URI or null if the Grails Forge url is missing
      */
-    protected URI constructLauncherErrorRedirectUrl(String error) {
+    protected URI constructGrailsForgeErrorRedirectUrl(String error) {
         URI redirectUri = getLauncherURI();
         if (redirectUri == null) {
             if (LOG.isWarnEnabled()) {
-                LOG.warn("Can't construct redirect back to launcher as configuration is missing redirect uri.");
+                LOG.warn("Can't construct redirect back to Grails Application Forge as configuration is missing redirect uri.");
             }
             return null;
         }
@@ -130,7 +130,7 @@ public class GitHubRedirectService {
                     .queryParam("error", error)
                     .build();
         } catch (Exception e) {
-            String msg = "Failed to construct error redirect to URI back to launcher: " + e.getMessage();
+            String msg = "Failed to construct error redirect to URI back to Grails Application Forge: " + e.getMessage();
             LOG.error(msg, e);
             throw new RuntimeException(msg);
         }

@@ -100,12 +100,12 @@ public class Application extends BaseCommand implements Callable<Integer> {
     }
 
     private static CommandLine createCommandLine(BeanContext beanContext, boolean noOpConsole) {
-        Application starter = beanContext.getBean(Application.class);
-        CommandLine commandLine = new CommandLine(starter, new GrailsPicocliFactory(beanContext));
+        Application application = beanContext.getBean(Application.class);
+        CommandLine commandLine = new CommandLine(application, new GrailsPicocliFactory(beanContext));
         commandLine.setExecutionExceptionHandler((ex, commandLine1, parseResult) -> EXCEPTION_HANDLER.apply(ex, commandLine1));
         commandLine.setUsageHelpWidth(100);
 
-        CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, noOpConsole ? ConsoleOutput.NOOP : starter);
+        CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, noOpConsole ? ConsoleOutput.NOOP : application);
         if (codeGenConfig != null) {
             beanContext.getBeanDefinitions(CodeGenCommand.class).stream()
                     .map(BeanDefinition::getBeanType)

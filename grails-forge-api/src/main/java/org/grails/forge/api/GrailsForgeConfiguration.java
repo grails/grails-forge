@@ -30,18 +30,19 @@ import java.util.Optional;
  * @author graemerocher
  * @since 1.0.0
  */
-@ConfigurationProperties(StarterConfiguration.PREFIX)
-public class StarterConfiguration {
+@ConfigurationProperties(GrailsForgeConfiguration.PREFIX)
+public class GrailsForgeConfiguration {
     public static final String PREFIX = "grails.forge";
 
     private URL url;
     private String path;
-    private URI redirectUri = URI.create("https://start.grails.org");
+    //TODO: Fix this before deploying
+    private URI redirectUri = URI.create("http://localhost:3000");
 
     /**
      * Default constructor.
      */
-    public StarterConfiguration() {
+    public GrailsForgeConfiguration() {
         String hostname = System.getenv(Environment.HOSTNAME);
         if (hostname != null) {
             try {

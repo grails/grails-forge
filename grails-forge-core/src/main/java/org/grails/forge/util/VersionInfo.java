@@ -45,7 +45,7 @@ public class VersionInfo {
     }
 
     /**
-     * @return The starter version
+     * @return The Grails version
      */
     public static String getVersion() {
         Package aPackage = VersionInfo.class.getPackage();
@@ -59,7 +59,7 @@ public class VersionInfo {
     }
 
     /**
-     * @return Checks whether the starter is a snapshot version.
+     * @return Checks whether the Grails is a snapshot version.
      */
     public static boolean isSnapshot() {
         return getVersion().endsWith("-SNAPSHOT");

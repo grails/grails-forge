@@ -37,7 +37,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(name = "LanguageInfo")
 @Introspected
 public class LanguageDTO extends Linkable implements Named, Described, Selectable<Language>, IncludesDefaults<LanguageDefaults> {
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".language.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".language.";
     private final String name;
     private final String extension;
     private final String description;

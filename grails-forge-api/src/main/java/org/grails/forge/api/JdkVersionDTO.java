@@ -34,7 +34,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(name = "JdkVersionInfo")
 @Introspected
 public class JdkVersionDTO extends Linkable implements Named, Described, Selectable<JdkVersion> {
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".jdkVersion.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".jdkVersion.";
     private final JdkVersion value;
     private final String name;
     private final String description;

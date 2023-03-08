@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(name = "Feature")
 public class FeatureDTO extends Linkable implements Named, Described {
 
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".features.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".features.";
 
     private final String name;
     private final String title;

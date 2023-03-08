@@ -35,7 +35,7 @@ import org.grails.forge.util.NameUtils;
 @Schema(name = "GormImplInfo")
 @Introspected
 public class GormImplDTO extends Linkable implements Named, Described, Selectable<GormImpl> {
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".gormImpl.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".gormImpl.";
     private final String name;
     private final String description;
     private final GormImpl value;

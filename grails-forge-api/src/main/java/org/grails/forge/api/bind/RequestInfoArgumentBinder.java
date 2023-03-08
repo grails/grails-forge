@@ -22,7 +22,7 @@ import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
 import org.grails.forge.api.RequestInfo;
-import org.grails.forge.api.StarterConfiguration;
+import org.grails.forge.api.GrailsForgeConfiguration;
 import jakarta.inject.Singleton;
 
 import java.util.Locale;
@@ -38,13 +38,13 @@ import java.util.Optional;
 public class RequestInfoArgumentBinder implements TypedRequestArgumentBinder<RequestInfo> {
 
     private static final Argument<RequestInfo> TYPE = Argument.of(RequestInfo.class);
-    private final StarterConfiguration configuration;
+    private final GrailsForgeConfiguration configuration;
 
     /**
      * Default constructor.
      * @param configuration The configuration
      */
-    public RequestInfoArgumentBinder(StarterConfiguration configuration) {
+    public RequestInfoArgumentBinder(GrailsForgeConfiguration configuration) {
         this.configuration = configuration;
     }
 

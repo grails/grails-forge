@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @Schema(name = "TestFrameworkInfo")
 @Introspected
 public class TestFrameworkDTO extends Linkable implements Named, Described, Selectable<TestFramework> {
-    static final String MESSAGE_PREFIX = StarterConfiguration.PREFIX + ".testFramework.";
+    static final String MESSAGE_PREFIX = GrailsForgeConfiguration.PREFIX + ".testFramework.";
     private final String name;
     private final String description;
     private final LanguageDTO defaultLanguage;
