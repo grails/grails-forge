@@ -63,7 +63,7 @@ import java.util.stream.Stream;
 public class GitHubCreateService extends AbstractCreateController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GitHubCreateService.class);
-    private static final String TOKEN_PREFIX = "token ";
+    private static final String TOKEN_PREFIX = "Bearer ";
     private static final String REPO_PREFIX = "generated";
     private static final String TMP_DIR = "/tmp";
 
