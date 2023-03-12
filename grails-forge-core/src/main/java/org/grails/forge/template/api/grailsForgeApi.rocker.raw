@@ -32,7 +32,7 @@ Available query parameters include:
 | Parameter       | Description                              | Default value                |
 +-----------------+------------------------------------------+------------------------------+
 | build           | The build system                         | gradle                       |
-| lang            | The target language                      | groovy                       |
+| gorm            | The GORM Implementation                  | HIBERNATE                    |
 | test            | The test framework                       | spock                        |
 | features        | The features you wish to include         | defaults                     |
 +-----------------+------------------------------------------+------------------------------+
@@ -45,4 +45,4 @@ To view the possible features and their descriptions visit:
 
 To create a default application:
 
-    $ curl @serverURL/create/DEFAULT/example -o example.zip
+    $ curl @serverURL/create/WEB/example -o example.zip
