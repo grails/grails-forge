@@ -20,6 +20,7 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Coordinate;
 import org.grails.forge.build.dependencies.CoordinateResolver;
+import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
@@ -61,6 +62,14 @@ class GrailsGradlePlugin implements DefaultFeature {
     @Override
     public void apply(GeneratorContext generatorContext) {
         final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("5.2.5");
+        final ApplicationType applicationType = generatorContext.getApplicationType();
+        generatorContext.addBuildscriptDependency(Dependency.builder()
+                .groupId("org.grails")
+                .lookupArtifactId("grails-gradle-plugin")
+                .buildscript());
+        if (applicationType == ApplicationType.PLUGIN || applicationType == ApplicationType.WEB_PLUGIN) {
+            generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-plugin").build());
+        }
         if (generatorContext.getFeature(GrailsWeb.class).isPresent()) {
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-web").build());
         }
