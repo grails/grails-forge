@@ -81,7 +81,7 @@ public class Application {
     }
 
     /**
-     * @return The language
+     * @return The GORM Implementation
      */
     public @NonNull GormImpl getGorm() {
         return gorm;

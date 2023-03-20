@@ -47,9 +47,9 @@ public abstract class FeatureRepository implements CrudRepository<Feature, Long>
     }
 
     @ReadOnly
-    List<TotalDTO> topLanguages() {
+    List<TotalDTO> topGorm() {
         return this.jdbcOperations
-                .prepareStatement(query("language", "application"),
+                .prepareStatement(query("gorm", "application"),
                         statement -> {
                             try (ResultSet resultSet = statement.executeQuery()) {
                                 return resultSetToTotals(resultSet);

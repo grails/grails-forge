@@ -79,7 +79,7 @@ class StoreGeneratedProjectStatsSpec extends Specification implements TestProper
         application.jdkVersion == generated.jdkVersion
         application.testFramework == generated.testFramework
         application.features.find { it.name == 'google-cloud-function' }
-        application.getGrailsVersion == VersionInfo.getGrailsVersion
+        application.grailsVersion == VersionInfo.grailsVersion
         application.dateCreated
 
         when:
@@ -91,11 +91,11 @@ class StoreGeneratedProjectStatsSpec extends Specification implements TestProper
         topFeatures[0].total == 1
 
         when:
-        def languages = featureRepository.topLanguages()
+        def gorm = featureRepository.topGorm()
 
         then:
-        languages
-        languages[0].name == 'kotlin'
+        gorm
+        gorm[0].name == 'HIBERNATE'
         featureRepository.topBuildTools()
         featureRepository.topJdkVersion()
         featureRepository.topTestFrameworks()

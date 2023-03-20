@@ -58,9 +58,9 @@ public class AnalyticsController {
         return featureRepository.topBuildTools();
     }
 
-    @Get("/top/languages")
-    List<TotalDTO> topLanguages() {
-        return featureRepository.topLanguages();
+    @Get("/top/gorm")
+    List<TotalDTO> topGorm() {
+        return featureRepository.topGorm();
     }
 
     @Get("/top/testFrameworks")
