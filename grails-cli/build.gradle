@@ -21,6 +21,7 @@ configurations {
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-inject-java")
+    annotationProcessor("io.micronaut:micronaut-graal")
     api project(":grails-forge-core")
     api "info.picocli:picocli:${picocliVersion}"
     api "info.picocli:picocli-shell-jline3:${picocliVersion}"
@@ -33,6 +34,7 @@ dependencies {
     implementation 'org.shredzone.acme4j:acme4j-utils:2.16'
     generateConfig "info.picocli:picocli-codegen:${picocliVersion}"
     compileOnly "com.google.code.findbugs:jsr305"
+    compileOnly "org.graalvm.nativeimage:svm"
     testImplementation("io.micronaut.picocli:micronaut-picocli")
     testImplementation "org.testcontainers:spock"
     testImplementation 'org.reflections:reflections:0.10.2'

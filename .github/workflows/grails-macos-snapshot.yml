@@ -1,0 +1,48 @@
+name: Mac OS X Native CLI
+on:
+  push:
+    branches:
+      - '[1-9]+.[0-9]+.x'
+  pull_request:
+    branches:
+      - '[1-9]+.[0-9]+.x'
+jobs:
+  build:
+    name: Builds OS X Native CLI
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Setup GraalVM CE
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: '21.3.0'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build the JAR
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
+          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
+        run: ./gradlew grails-cli:shadowJar --no-daemon
+      - name: Build Native Image
+        run: native-image --no-fallback -cp grails-cli/build/libs/grails-cli-*-all.jar
+      - name: Verify Build
+        run: ./grails --version
+      - name: Verify Create App
+        run: ./grails create-app test
+      - name: Package Build
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          mkdir -p grails-darwin-amd64-snapshot/bin
+          mv ./grails grails-darwin-amd64-snapshot/bin
+          cp ./LICENSE grails-darwin-amd64-snapshot/
+          zip -r grails-darwin-amd64-snapshot.zip ./grails-darwin-amd64-snapshot -x '*.DS_Store*' -x '__MAC_OSX'
+      - name: Upload Snapshot
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/1.0.x'
+        uses: actions/upload-artifact@v3
+        with:
+          name: grails-darwin-amd64-snapshot
+          path: grails-darwin-amd64-snapshot.zip
