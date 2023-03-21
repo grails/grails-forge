@@ -23,6 +23,6 @@ import java.util.stream.Stream;
 
 public class GormImplCandidates extends ArrayList<String> {
     public GormImplCandidates() {
-        super(Stream.of(GormImpl.values()).map(bt -> bt.toString().toLowerCase()).collect(Collectors.toList()));
+        super(Stream.of(GormImpl.values()).map(gi -> gi.toString().toLowerCase()).collect(Collectors.toList()));
     }
 }
