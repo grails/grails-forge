@@ -27,7 +27,7 @@ jobs:
           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
         run: ./gradlew grails-cli:shadowJar --no-daemon
       - name: Build Native Image
-        run: native-image --no-fallback -cp grails-cli/build/libs/micronaut-cli-*-all.jar
+        run: native-image --no-fallback -cp grails-cli/build/libs/grails-cli-*-all.jar
       - name: Verify Build
         run: ./grails --version
       - name: Verify Create App
