@@ -55,6 +55,7 @@ import java.util.function.BiFunction;
         LanguageConverter.class,
         BuildToolCandidates.class,
         BuildToolConverter.class,
+        GormImplCandidates.class,
         GormImplConverter.class,
         CommonOptionsMixin.class,
         TestFrameworkCandidates.class,
