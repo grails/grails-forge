@@ -124,7 +124,7 @@ jobs:
         with:
           arguments: grails-cli:shadowJar --no-daemon
       - name: Build Native Image
-        run: native-image --no-fallback -cp grails-cli/build/libs/grails-cli-*-all.jar
+        run: native-image --no-fallback --allow-incomplete-classpath -cp grails-cli/build/libs/grails-cli-*-all.jar
       - name: Verify Build
         run: ./grails --version
       - name: Package Build
@@ -176,7 +176,7 @@ jobs:
         with:
           arguments: grails-cli:shadowJar --no-daemon
       - name: Build Native Image
-        run: native-image --no-fallback -cp grails-cli/build/libs/grails-cli-*-all.jar
+        run: native-image --no-fallback --allow-incomplete-classpath -cp grails-cli/build/libs/grails-cli-*-all.jar
       - name: Verify Build
         run: ./grails --version
       - name: Package Build
@@ -224,7 +224,7 @@ jobs:
           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
       - name: Build Native Image
         shell: powershell
-        run: native-image.cmd --no-fallback -cp build/libs/cli.jar
+        run: native-image.cmd --no-fallback --allow-incomplete-classpath -cp build/libs/cli.jar
       - name: Verify Build (Powershell)
         run: ./grails.exe --version
       - name: Verify Create App (Powershell)
