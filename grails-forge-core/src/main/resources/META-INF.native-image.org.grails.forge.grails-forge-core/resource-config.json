@@ -1,0 +1,12 @@
+{
+  "resources": [
+    {"pattern":"assets/.*$"},
+    {"pattern":"gradle/.*$"},
+    {"pattern":"gsp/.*$"},
+    {"pattern":"i18n/.*$"},
+    {"pattern":".gitkeep"},
+    {"pattern":"springloaded/.*$"},
+    {"pattern":"\\Qgrails-versions.properties\\E"},
+    {"pattern":"pom.xml"}
+  ]
+}
