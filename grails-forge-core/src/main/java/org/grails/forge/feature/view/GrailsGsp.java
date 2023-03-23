@@ -28,7 +28,6 @@ import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.URLTemplate;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
