@@ -14,6 +14,16 @@ sourceSets {
     }
 }
 
+configurations.all {
+    it.resolutionStrategy {
+        it.eachDependency { details ->
+            if (details.requested.group.startsWith("com.fasterxml.jackson")) {
+                details.useVersion("2.15.0-rc1")
+            }
+        }
+    }
+}
+
 dependencies {
     api platform("io.micronaut:micronaut-bom:$micronautVersion")
     api "com.fizzed:rocker-runtime:$rockerVersion"
