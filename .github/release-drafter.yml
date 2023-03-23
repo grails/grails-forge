@@ -1,5 +1,9 @@
 name-template: $RESOLVED_VERSION
 tag-template: v$RESOLVED_VERSION
+autolabeler:
+  - label: 'type: dependency upgrade'
+    body:
+      - '/Update dependency.*/'
 categories:
   - title: ✨ Features
     labels:
