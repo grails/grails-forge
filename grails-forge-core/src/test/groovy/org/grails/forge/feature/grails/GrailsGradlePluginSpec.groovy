@@ -18,8 +18,8 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
         final String gradleProps = output["gradle.properties"]
 
         then:
-        gradleProps.contains("grailsGradlePluginVersion=5.3.0")
-        gradleProps.contains("grailsVersion=6.0.0-M1")
+        gradleProps.contains("grailsGradlePluginVersion=6.0.0-M2")
+        gradleProps.contains("grailsVersion=6.0.0-M2")
     }
 
     void "test dependencies are present for buildSrc"() {
@@ -28,7 +28,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
                 .renderBuildSrc()
 
         then:
-        template.contains('implementation("org.grails:grails-gradle-plugin:5.3.0")')
+        template.contains('implementation("org.grails:grails-gradle-plugin:6.0.0-M2")')
     }
 
     void "test buildSrc is present for buildscript dependencies"() {
@@ -38,7 +38,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
         expect:
         buildSrcBuildGradle != null
-        buildSrcBuildGradle.contains("implementation(\"org.grails:grails-gradle-plugin:5.3.0\")")
+        buildSrcBuildGradle.contains("implementation(\"org.grails:grails-gradle-plugin:6.0.0-M2\")")
 
     }
 

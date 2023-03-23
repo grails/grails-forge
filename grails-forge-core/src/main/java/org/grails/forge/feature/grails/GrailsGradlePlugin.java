@@ -61,7 +61,7 @@ class GrailsGradlePlugin implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("5.2.5");
+        final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("6.0.0-M2");
         final ApplicationType applicationType = generatorContext.getApplicationType();
         generatorContext.addBuildscriptDependency(Dependency.builder()
                 .groupId("org.grails")

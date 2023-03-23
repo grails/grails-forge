@@ -19,6 +19,7 @@ import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.build.dependencies.CoordinateResolver;
 import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.Category;
@@ -38,6 +39,12 @@ import java.util.Set;
 
 @Singleton
 public class AssetPipeline implements DefaultFeature {
+
+    private final CoordinateResolver coordinateResolver;
+
+    public AssetPipeline(CoordinateResolver coordinateResolver) {
+        this.coordinateResolver = coordinateResolver;
+    }
 
     @NonNull
     @Override
@@ -60,7 +67,7 @@ public class AssetPipeline implements DefaultFeature {
     public void apply(GeneratorContext generatorContext) {
         generatorContext.addBuildPlugin(GradlePlugin.builder()
                 .id("com.bertramlabs.asset-pipeline")
-                .lookupArtifactId("asset-pipeline-grails")
+                .lookupArtifactId("asset-pipeline-gradle")
                 .extension(new RockerWritable(assetPipelineExtension.template()))
                 .build());
 
