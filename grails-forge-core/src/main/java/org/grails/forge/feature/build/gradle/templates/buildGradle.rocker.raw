@@ -35,6 +35,13 @@ repositories {
     maven { url "https://repo.grails.org/grails/core/" }
 }
 
+configurations {
+    all {
+        resolutionStrategy.force 'org.codehaus.groovy:groovy-xml:3.0.13'
+        resolutionStrategy.force 'org.yaml:snakeyaml:1.33'
+    }
+}
+
 @dependencies.template(applicationType, project, features, gradleBuild)
 
 @if (features.mainClass().isPresent()) {
