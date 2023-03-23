@@ -18,7 +18,6 @@ package org.grails.forge.feature.asciidoctor;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
-import org.grails.forge.build.BuildProperties;
 import org.grails.forge.build.dependencies.Coordinate;
 import org.grails.forge.build.dependencies.CoordinateResolver;
 import org.grails.forge.build.gradle.GradlePlugin;
@@ -54,7 +53,6 @@ public class Asciidoctor implements Feature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        BuildProperties props = generatorContext.getBuildProperties();
         if (generatorContext.getBuildTool().isGradle()) {
             final String asciidoctorjVersion = coordinateResolver.resolve("asciidoctorj")
                     .map(Coordinate::getVersion).orElse("2.1.0");
