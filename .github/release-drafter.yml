@@ -1,6 +1,12 @@
 name-template: $RESOLVED_VERSION
 tag-template: v$RESOLVED_VERSION
 autolabeler:
+  - label: 'type: enhancement'
+    body:
+      - '/(Configure|Support|Feature|Add).*/i'
+  - label: 'type: bug'
+    title:
+      - '/fix/i'
   - label: 'type: dependency upgrade'
     body:
       - '/Update dependency.*/'
