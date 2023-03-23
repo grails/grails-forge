@@ -32,7 +32,7 @@ public class URLTemplate implements Template {
     }
 
     public URLTemplate(String path, URL url, boolean executable) {
-        this.path = Objects.requireNonNull(path, "Path cannot be null");
+        this.path = path;
         this.url = Objects.requireNonNull(url, "Resource not found for path: " + path);
         this.executable = executable;
     }
