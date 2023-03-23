@@ -18,9 +18,7 @@ package org.grails.forge.build.gradle;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import org.grails.forge.build.BuildPlugin;
-import org.grails.forge.build.dependencies.Coordinate;
-import org.grails.forge.build.dependencies.CoordinateResolver;
-import org.grails.forge.build.dependencies.LookupFailedException;
+import org.grails.forge.build.dependencies.*;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.template.Writable;
 
@@ -104,7 +102,7 @@ public class GradlePlugin implements BuildPlugin {
     public BuildPlugin resolved(CoordinateResolver coordinateResolver) {
         Coordinate coordinate = coordinateResolver.resolve(artifactId)
                 .orElseThrow(() -> new LookupFailedException(artifactId));
-        return new GradlePlugin(id, coordinate.getVersion(), null, extension, settingsExtension, false, order, buildImports);
+        return new GradlePlugin(id, coordinate.getVersion(), artifactId, extension, settingsExtension, false, order, buildImports);
     }
 
     @Override
@@ -130,13 +128,16 @@ public class GradlePlugin implements BuildPlugin {
 
     public static final class Builder {
 
+        private Scope scope = Scope.BUILD;
         private String id;
         private String artifactId;
         private String version;
         private Writable extension;
         private Writable settingsExtension;
         private boolean requiresLookup;
+        private boolean pom = false;
         private int order = 0;
+        private boolean template = false;
         private Set<String> buildImports = new HashSet<>();
 
         private Builder() { }
@@ -155,9 +156,13 @@ public class GradlePlugin implements BuildPlugin {
 
         @NonNull
         public GradlePlugin.Builder lookupArtifactId(@NonNull String artifactId) {
-            this.artifactId = artifactId;
-            this.requiresLookup = true;
-            return this;
+            if (template) {
+                return copy().lookupArtifactId(artifactId);
+            } else {
+                this.artifactId = artifactId;
+                this.requiresLookup = true;
+                return this;
+            }
         }
 
         @NonNull
@@ -184,8 +189,32 @@ public class GradlePlugin implements BuildPlugin {
             return this;
         }
 
+        public GradlePlugin.Builder template() {
+            this.template = true;
+            return this;
+        }
+
+        public GradlePlugin.Builder pom(boolean pom) {
+            this.pom = pom;
+            return this;
+        }
+
         public GradlePlugin build() {
             return new GradlePlugin(id, version, artifactId, extension, settingsExtension, requiresLookup, order, buildImports);
+        }
+
+        private GradlePlugin.Builder copy() {
+            GradlePlugin.Builder builder = new GradlePlugin.Builder();
+            if (requiresLookup) {
+                builder.lookupArtifactId(artifactId);
+            } else {
+                builder.id(id);
+                builder.version(version);
+            }
+            if (extension != null) {
+                builder.extension(extension);
+            }
+            return builder.order(order).pom(pom);
         }
     }
 
