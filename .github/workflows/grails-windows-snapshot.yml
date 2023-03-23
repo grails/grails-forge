@@ -47,7 +47,7 @@ jobs:
           Copy-Item "./LICENSE" -Destination "./grails-win-amd64-snapshot"
           Compress-Archive -Path "./grails-win-amd64-snapshot" -Update -DestinationPath ./grails-win-amd64-snapshot.zip
       - name: Publish artifact
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/1.0.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
         uses: actions/upload-artifact@v3
         with:
           name: grails-win-amd64-snapshot

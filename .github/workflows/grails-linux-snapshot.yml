@@ -41,7 +41,7 @@ jobs:
           cp ./LICENSE grails-linux-amd64-snapshot/
           zip -r grails-linux-amd64-snapshot.zip ./grails-linux-amd64-snapshot
       - name: Upload Snapshot
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/1.0.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
         uses: actions/upload-artifact@v3
         with:
           name: grails-linux-amd64-snapshot
