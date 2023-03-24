@@ -84,7 +84,7 @@ jobs:
         run: |
           echo "Setting new Grails snapshot version"
           sed -i "s/^grailsVersion.*$/grailsVersion\=${{ steps.post_release.outputs.next_version }}-SNAPSHOT/" gradle.properties
-      - uses: stefanzweifel/git-auto-commit-action@v4.13.1
+      - uses: stefanzweifel/git-auto-commit-action@v4.16.0
         continue-on-error: true
         with:
           commit_message: Back Grails version to snapshot
