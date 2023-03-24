@@ -13,6 +13,7 @@ GradleBuild gradleBuild
 
 @if(!gradleBuild.getBuildscriptDependencies().isEmpty()) {
 repositories {
+    mavenCentral()
     maven { url "https://repo.grails.org/grails/core/" }
 }
 dependencies {
