@@ -76,7 +76,7 @@ public class GrailsGsp implements DefaultFeature {
     @Override
     public void apply(GeneratorContext generatorContext) {
         final Map<String, Object> config = generatorContext.getConfiguration();
-        config.put("mime.disable.accept.header.userAgents", Arrays.asList("Gecko", "WebKit", "Presto", "Trident"));
+        config.put("grails.mime.disable.accept.header.userAgents", Arrays.asList("Gecko", "WebKit", "Presto", "Trident"));
         config.put("grails.mime.types.all", "*/*");
         config.put("grails.mime.types.atom", "application/atom+xml");
         config.put("grails.mime.types.css", "text/css");
@@ -85,7 +85,7 @@ public class GrailsGsp implements DefaultFeature {
         config.put("grails.mime.types.html", Arrays.asList("text/html", "application/xhtml+xml"));
         config.put("grails.mime.types.js", "text/javascript");
         config.put("grails.mime.types.json", Arrays.asList("application/json", "text/json"));
-        config.put("grails.mime.types.mutlipartForm", "multipart/form-data");
+        config.put("grails.mime.types.multipartForm", "multipart/form-data");
         config.put("grails.mime.types.pdf", "application/pdf");
         config.put("grails.mime.types.rss", "application/rss+xml");
         config.put("grails.mime.types.text", "text/plain");
