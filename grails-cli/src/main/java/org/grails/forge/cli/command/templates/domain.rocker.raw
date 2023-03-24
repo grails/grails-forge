@@ -9,7 +9,6 @@ package @project.getPackageName()
 
 }
 
-
 class @project.getClassName() {
 
     static constraints = {
