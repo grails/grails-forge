@@ -90,7 +90,7 @@ public class GrailsGsp implements DefaultFeature {
         config.put("grails.mime.types.rss", "application/rss+xml");
         config.put("grails.mime.types.text", "text/plain");
         config.put("grails.mime.types.hal", Arrays.asList("application/hal+json", "application/hal+xml"));
-        config.put("grails.mime.types.xml", "application/atom+xml");
+        config.put("grails.mime.types.xml", Arrays.asList("text/xml", "application/xml"));
         config.put("grails.views.gsp.encoding", "UTF-8");
         config.put("grails.views.gsp.htmlcodec", "xml");
         config.put("grails.views.gsp.codecs.expression", "html");
