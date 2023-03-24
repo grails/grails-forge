@@ -31,7 +31,7 @@ dependencies {
     api "io.micronaut:micronaut-http"
     api "io.micronaut:micronaut-http-client"
     api "io.github.java-diff-utils:java-diff-utils:4.12"
-    api "org.eclipse.jgit:org.eclipse.jgit:6.4.0.202211300538-r"
+    api "org.eclipse.jgit:org.eclipse.jgit:6.5.0.202303070854-r"
     implementation "org.yaml:snakeyaml:1.33"
     implementation 'com.typesafe:config:1.4.2'
     implementation 'org.apache.commons:commons-compress:1.23.0'
