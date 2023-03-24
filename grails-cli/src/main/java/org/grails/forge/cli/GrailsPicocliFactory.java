@@ -31,7 +31,7 @@ import java.util.Optional;
 }, accessType = {TypeHint.AccessType.ALL_DECLARED_CONSTRUCTORS, TypeHint.AccessType.ALL_DECLARED_FIELDS})
 class GrailsPicocliFactory implements CommandLine.IFactory {
 
-    private final CommandLine.IFactory defaultFactory;
+    private final CommandLine.IFactory defaultFactory = CommandLine.defaultFactory();
     private final BeanContext beanContext;
 
     public GrailsPicocliFactory() {
@@ -40,7 +40,6 @@ class GrailsPicocliFactory implements CommandLine.IFactory {
 
     public GrailsPicocliFactory(BeanContext beanContext) {
         this.beanContext = beanContext;
-        defaultFactory = CommandLine.defaultFactory();
     }
 
     @Override
