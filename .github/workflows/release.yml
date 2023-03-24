@@ -214,7 +214,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build JAR File
         uses: gradle/gradle-build-action@v2
-        shell: powershell
         with:
           arguments: grails-cli:copyShadowJar --no-daemon
         env:
