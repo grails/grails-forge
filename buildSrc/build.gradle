@@ -31,7 +31,7 @@ dependencies {
     implementation "io.spring.nohttp:nohttp-gradle:0.0.11"
     implementation "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
     implementation "io.github.groovylang.groovydoc:io.github.groovylang.groovydoc.gradle.plugin:1.0.1"
-    implementation "io.github.gradle-nexus:publish-plugin:1.1.0"
+    implementation "io.github.gradle-nexus:publish-plugin:1.3.0"
 }
 
 gradlePlugin {
