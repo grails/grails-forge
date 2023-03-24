@@ -68,7 +68,7 @@ public class AssetPipeline implements DefaultFeature {
         generatorContext.addBuildscriptDependency(Dependency.builder()
                 .groupId("com.bertramlabs.plugins")
                 .lookupArtifactId("asset-pipeline-gradle")
-                .build());
+                .buildscript());
         generatorContext.addBuildPlugin(GradlePlugin.builder()
                 .id("com.bertramlabs.asset-pipeline")
                 .extension(new RockerWritable(assetPipelineExtension.template()))
