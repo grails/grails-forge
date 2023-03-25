@@ -1,0 +1,35 @@
+The best way to install Grails on Unix systems is with http://sdkman.io/[SDKMAN] which greatly simplifies installing
+and managing multiple Grails versions.
+
+Before updating make sure you have latest version of SDKMAN installed. If not, run
+
+[source,bash]
+----
+$ sdk update
+----
+
+In order to install Grails, run following command:
+
+[source,bash]
+----
+$ sdk install grails
+----
+
+You can also specify the version to the `sdk install` command.
+
+[source,bash,subs="attributes"]
+----
+$ sdk install grails {project-version}
+----
+
+You can find more information about SDKMAN usage on the http://sdkman.io/usage[SDKMAN Docs]
+
+You should now be able to run the Grails CLI.
+
+[source,bash]
+----
+$ grails
+| Starting interactive mode...
+| Enter a command name to run. Use TAB for completion:
+grails>
+----

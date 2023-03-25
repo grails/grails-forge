@@ -1,0 +1,7 @@
+introduction: Introduction
+installation: 
+  title: Installation
+  installSdkman: Install with SDKman
+  installWindows: Install through Binary on Windows
+  installFromSource: Build & Install from Source
+releaseHistory: Release History
