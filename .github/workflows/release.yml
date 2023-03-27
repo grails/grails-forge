@@ -46,9 +46,6 @@ jobs:
           SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }}
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
-          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
         with:
           arguments: -Psigning.secretKeyRingFile=${{ github.workspace }}/secring.gpg publishToSonatype closeAndReleaseSonatypeStagingRepository
       - name: Upload CLI Zip
@@ -67,7 +64,7 @@ jobs:
         env:
           BETA: ${{ contains(steps.release_version.outputs.release_version, 'M') || contains(steps.release_version.outputs.release_version, 'RC') }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          BASE_BRANCH: master
+          BASE_BRANCH: 6.0.x
           BRANCH: gh-pages
           FOLDER: build/docs
           VERSION: ${{ steps.release_version.outputs.release_version }}
