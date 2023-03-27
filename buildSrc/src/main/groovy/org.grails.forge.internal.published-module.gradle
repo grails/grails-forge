@@ -14,29 +14,6 @@ ext."signing.password" = project.hasProperty("signing.password") ? project.getPr
 def ossUser = System.getenv("SONATYPE_USERNAME") ?: project.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
 def ossPass = System.getenv("SONATYPE_PASSWORD") ?: project.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
 
-if (ossUser && ossPass) {
-    if (ext."signing.keyId" && ext."signing.password") {
-        afterEvaluate {
-            if (project.extensions.findByType(PublishingExtension).publications.findByName('maven')) {
-                signing {
-                    required { !project.version.endsWith("-SNAPSHOT") && !project.hasProperty("skipSigning") }
-                    sign publishing.publications.maven
-                }
-                tasks.withType(Sign) {
-                    onlyIf { !project.version.endsWith("-SNAPSHOT") }
-                }
-            }
-        }
-    }
-
-    //do not generate extra load on Nexus with new staging repository if signing fails
-    tasks.withType(io.github.gradlenexus.publishplugin.InitializeNexusStagingRepository).configureEach {
-        if (!tasks.withType(Sign).empty) {
-            shouldRunAfter(tasks.withType(Sign))
-        }
-    }
-}
-
 ext.pomInfo = {
     if (project.extensions.getByType(ExtraPropertiesExtension).has('startPomInfo')) {
         ext.startPomInfo.delegate = delegate
@@ -214,6 +191,29 @@ project.afterEvaluate {
 
                 }
             }
+        }
+    }
+}
+
+if (ossUser && ossPass) {
+    if (ext."signing.keyId" && ext."signing.password") {
+        afterEvaluate {
+            if (project.extensions.findByType(PublishingExtension).publications.findByName('maven')) {
+                signing {
+                    required { !project.version.endsWith("-SNAPSHOT") && !project.hasProperty("skipSigning") }
+                    sign publishing.publications.maven
+                }
+                tasks.withType(Sign) {
+                    onlyIf { !project.version.endsWith("-SNAPSHOT") }
+                }
+            }
+        }
+    }
+
+    //do not generate extra load on Nexus with new staging repository if signing fails
+    tasks.withType(io.github.gradlenexus.publishplugin.InitializeNexusStagingRepository).configureEach {
+        if (!tasks.withType(Sign).empty) {
+            shouldRunAfter(tasks.withType(Sign))
         }
     }
 }
