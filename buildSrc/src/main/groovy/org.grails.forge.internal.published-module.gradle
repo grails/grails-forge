@@ -13,6 +13,7 @@ ext."signing.password" = project.hasProperty("signing.password") ? project.getPr
 
 def ossUser = System.getenv("SONATYPE_USERNAME") ?: project.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
 def ossPass = System.getenv("SONATYPE_PASSWORD") ?: project.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
+def ossStagingProfileId = System.getenv("SONATYPE_STAGING_PROFILE_ID") ?: project.hasProperty("sonatypeOssStagingProfileId") ? project.sonatypeOssStagingProfileId : ''
 
 ext.pomInfo = {
     if (project.extensions.getByType(ExtraPropertiesExtension).has('startPomInfo')) {

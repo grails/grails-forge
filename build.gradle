@@ -8,6 +8,7 @@ group "org.grails.forge"
 
 def ossUser = System.getenv("SONATYPE_USERNAME") ?: rootProject.hasProperty("sonatypeOssUsername") ? project.sonatypeOssUsername : ''
 def ossPass = System.getenv("SONATYPE_PASSWORD") ?: rootProject.hasProperty("sonatypeOssPassword") ? project.sonatypeOssPassword : ''
+def ossStagingProfileId = System.getenv("SONATYPE_STAGING_PROFILE_ID") ?: project.hasProperty("sonatypeOssStagingProfileId") ? project.sonatypeOssStagingProfileId : ''
 
 if (!ossUser.isEmpty() && !ossPass.isEmpty()) {
     String version = String.valueOf(rootProject.getVersion());
@@ -20,9 +21,9 @@ if (!ossUser.isEmpty() && !ossPass.isEmpty()) {
                 allowInsecureProtocol = rootProject.hasProperty("allowInsecurePublishing")
                 username = ossUser
                 password = ossPass
-                stagingProfileId = System.getenv("SONATYPE_STAGING_PROFILE_ID")
-                nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-                snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+                stagingProfileId = ossStagingProfileId
+                nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
+                snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             }
         }
     }
