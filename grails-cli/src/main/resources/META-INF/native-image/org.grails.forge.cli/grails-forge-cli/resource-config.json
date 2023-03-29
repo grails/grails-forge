@@ -1,5 +1,7 @@
 {
-  "resources": [
-    {"pattern":"org/jline/utils/.*$"}
-  ]
+  "resources": {
+    "includes": [
+      {"pattern":"org/jline/utils/.*$"}
+    ]
+  }
 }
