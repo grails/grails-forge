@@ -36,7 +36,7 @@ public class GrailsForgeConfiguration {
 
     private URL url;
     private String path;
-    private URI redirectUri = URI.create("https://start.grails.org/");
+    private URI redirectUri = URI.create("http://localhost:3000/");
 
     /**
      * Default constructor.
