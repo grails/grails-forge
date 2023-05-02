@@ -4,8 +4,8 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
     gradlePluginPortal()
+    mavenCentral()
 }
 
 configurations.all {
