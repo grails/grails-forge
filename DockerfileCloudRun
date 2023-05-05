@@ -2,7 +2,7 @@
 # See the grails-forge-web-netty subproject for the implementation
 
 # Stage 1: Build the JAR
-FROM gradle:7.6.1 as gradle
+FROM gradle:8.1.1 as gradle
 COPY --chown=gradle . /home/app
 WORKDIR /home/app
 RUN gradle grails-forge-web-netty:shadowJar --no-daemon
