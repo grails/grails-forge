@@ -131,6 +131,6 @@ tasks.withType(GroovyCompile).configureEach {
     groovyOptions.forkOptions.jvmArgs.add('-Dgroovy.parameters=true')
 }
 
-tasks.withType(org.groovy.lang.groovydoc.tasks.GroovydocTask).configureEach {
+tasks.withType(Groovydoc).configureEach {
     classpath += project.configurations.documentation
 }
