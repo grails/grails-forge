@@ -22,7 +22,7 @@ import io.micronaut.http.annotation.QueryValue;
  * GitHub Oauth operations.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 public interface GitHubOAuthOperations {
 

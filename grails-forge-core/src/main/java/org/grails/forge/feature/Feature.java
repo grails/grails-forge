@@ -29,7 +29,7 @@ import org.grails.forge.application.generator.GeneratorContext;
  * project.
  *
  * @author James Kleeh
- * @since 2.0.0
+ * @since 6.0.0
  */
 @Indexed(Feature.class)
 public interface Feature extends Named, Ordered, Described {

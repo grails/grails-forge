@@ -27,7 +27,7 @@ import java.util.List;
  * Repository for storing generated applications.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @JdbcRepository(dialect = Dialect.POSTGRES)
 public interface ApplicationRepository extends PageableRepository<Application, Long> {

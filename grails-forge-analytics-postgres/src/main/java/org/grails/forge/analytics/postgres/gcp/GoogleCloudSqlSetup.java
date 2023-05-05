@@ -28,7 +28,7 @@ import jakarta.inject.Singleton;
  * Configuration for the Cloud SQL environment.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Singleton
 @Requires(env = Environment.GOOGLE_COMPUTE)

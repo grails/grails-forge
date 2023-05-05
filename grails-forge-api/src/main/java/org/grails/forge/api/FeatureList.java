@@ -24,7 +24,7 @@ import java.util.List;
  * Models a list of features.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Schema(description = "A list of features")
 @Introspected

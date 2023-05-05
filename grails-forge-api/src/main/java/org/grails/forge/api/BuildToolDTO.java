@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * DTO objects for {@link BuildTool}.
  *
- * @since 2.2.0
+ * @since 6.0.0
  */
 @Introspected
 @Schema(name = "BuildToolInfo")

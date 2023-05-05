@@ -25,7 +25,7 @@ import java.util.Map;
  * Information about the application.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Introspected
 @Schema(name = "Version")

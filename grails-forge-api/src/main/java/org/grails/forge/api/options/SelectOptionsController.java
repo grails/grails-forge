@@ -28,7 +28,7 @@ import jakarta.inject.Singleton;
 /**
  * Gets Information about select options for the Grails Forge.
  *
- * @since 2.2.0
+ * @since 6.0.0
  */
 @Controller("/select-options")
 public class SelectOptionsController implements SelectOptionsOperations {

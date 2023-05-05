@@ -24,7 +24,7 @@ import io.micronaut.http.client.annotation.Client;
  * GitHub OAuth client.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Client(id = GitHubOAuthClient.SERVICE_ID, path = "/login/oauth")
 @Requires(property = "micronaut.http.services." + GitHubOAuthClient.SERVICE_ID)

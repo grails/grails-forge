@@ -28,7 +28,7 @@ import java.util.Objects;
  * Models a selected application feature.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @MappedEntity
 public class Feature {

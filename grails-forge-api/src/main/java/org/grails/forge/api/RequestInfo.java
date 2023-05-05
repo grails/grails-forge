@@ -26,7 +26,7 @@ import java.util.Objects;
  * The server URL.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Hidden
 public class RequestInfo {

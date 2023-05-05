@@ -28,7 +28,7 @@ import java.util.Objects;
  * Models application environment configuration to specify where the configuration is rooted
  * for the given configuration values (key/value pairs).
  *
- * @since 2.3.0
+ * @since 6.0.0
  */
 public class Configuration extends LinkedHashMap<String, Object> {
 

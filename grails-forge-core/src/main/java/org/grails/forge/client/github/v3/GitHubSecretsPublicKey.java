@@ -23,7 +23,7 @@ import io.micronaut.core.annotation.Introspected;
  * GitHub secrets public key used for secrets encryption.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Introspected
 public class GitHubSecretsPublicKey {

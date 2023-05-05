@@ -39,7 +39,7 @@ import java.util.Set;
  * Models a generated application.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @MappedEntity
 public class Application {

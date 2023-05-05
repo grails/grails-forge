@@ -30,7 +30,7 @@ import org.grails.forge.util.NameUtils;
  * DTO objects for {@link GormImpl}.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Schema(name = "GormImplInfo")
 @Introspected

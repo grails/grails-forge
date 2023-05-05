@@ -27,7 +27,7 @@ import java.util.function.BiFunction;
  * Feature Utility class for IO operations.
  *
  * @author Puneet Behl
- * @since 1.0.0
+ * @since 6.0.0
  */
 public class IOFeatureUtil {
 

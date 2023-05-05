@@ -34,7 +34,7 @@ import java.util.UUID;
  * Redirect service.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Singleton
 @Requires(property = GitHubRedirectService.OAUTH_URL)

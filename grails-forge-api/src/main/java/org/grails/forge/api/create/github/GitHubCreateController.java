@@ -50,7 +50,7 @@ import java.util.List;
  * GitHub create controller.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Controller
 @ExecuteOn(TaskExecutors.IO)

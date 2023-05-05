@@ -25,7 +25,7 @@ import java.util.Locale;
  * API to expose information about features.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public interface FeatureOperations {
     /**

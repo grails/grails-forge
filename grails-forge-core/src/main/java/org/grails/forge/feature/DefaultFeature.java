@@ -27,7 +27,7 @@ import java.util.Set;
  * then the feature is not a default feature.
  *
  * @author James Kleeh
- * @since 2.0.0
+ * @since 6.0.0
  */
 public interface DefaultFeature extends Feature {
 

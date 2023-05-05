@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * Aggregator for {@link SelectOptionDTO}.
  *
- * @since 2.2.0
+ * @since 6.0.0
  */
 @Schema(name = "SelectOptions")
 @Introspected

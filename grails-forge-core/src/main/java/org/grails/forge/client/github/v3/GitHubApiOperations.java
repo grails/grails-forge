@@ -28,7 +28,7 @@ import io.micronaut.http.annotation.Put;
  * GitHub Oauth operations.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 public interface GitHubApiOperations {
 

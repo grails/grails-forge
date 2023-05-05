@@ -19,7 +19,7 @@ package org.grails.forge.feature;
  * Category a feature belongs to.
  *
  * @author Álvaro Sánchez-Mariscal
- * @since 2.0.0
+ * @since 6.0.0
  */
 public class Category {
     public static final String API                  = "API";

@@ -21,7 +21,7 @@ import io.micronaut.core.annotation.Introspected;
 
 /**
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Introspected
 public class GitHubSecret {

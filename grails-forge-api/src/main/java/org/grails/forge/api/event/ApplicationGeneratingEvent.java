@@ -22,7 +22,7 @@ import org.grails.forge.application.generator.GeneratorContext;
  * An event fired when an application is generated.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public class ApplicationGeneratingEvent extends ApplicationEvent {
 

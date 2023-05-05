@@ -32,7 +32,7 @@ import java.util.Optional;
  * Binds the Server URL.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Singleton
 public class RequestInfoArgumentBinder implements TypedRequestArgumentBinder<RequestInfo> {

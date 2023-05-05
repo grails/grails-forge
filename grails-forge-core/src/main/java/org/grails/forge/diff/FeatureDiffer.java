@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Methods for diffing projects and features.
  *
- * @since 1.0.0
+ * @since 6.0.0
  * @author jameskleeh
  * @author graemerocher
  */

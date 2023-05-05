@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
  * Main interface on the the Grails Application Forge API.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @OpenAPIDefinition(
         info = @Info(

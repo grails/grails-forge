@@ -46,7 +46,7 @@ import java.util.Map;
  * Previews an application contents.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Controller("/preview")
 public class PreviewController extends AbstractCreateController implements PreviewOperations {

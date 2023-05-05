@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Interface to implement to provide analytics.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public interface AnalyticsOperations {
 

@@ -26,7 +26,7 @@ import java.util.Map;
  * A preview of the contents.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Introspected
 @Schema(name = "Preview", description = "Previews the contents of the generated ZIP")

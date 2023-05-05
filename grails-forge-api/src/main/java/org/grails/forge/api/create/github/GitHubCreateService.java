@@ -56,7 +56,7 @@ import java.util.stream.Stream;
  * GitHub create service.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Singleton
 @Requires(beans = GitHubOAuthClient.class)

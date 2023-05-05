@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * Implements the {@link FeatureOperations} interface.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Singleton
 public class FeatureService implements FeatureOperations {

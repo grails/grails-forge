@@ -55,7 +55,7 @@ import java.util.Set;
  * A context object used when generating projects.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public class GeneratorContext implements DependencyContext {
 

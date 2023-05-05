@@ -49,7 +49,7 @@ import java.util.List;
  * A controller for performing Diffs.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Controller("/diff")
 public class DiffController implements DiffOperations {

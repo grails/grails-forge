@@ -24,7 +24,7 @@ import io.micronaut.core.annotation.Introspected;
  *
  * @author Pavol Gressa
  * @see <a href="https://docs.github.com/en/rest/reference/users">Api reference users</a>
- * @since 2.2
+ * @since 6.0.0
  */
 @Introspected
 public class GitHubUser {

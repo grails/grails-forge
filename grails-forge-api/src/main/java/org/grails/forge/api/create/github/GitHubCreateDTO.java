@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * Create application in GitHub repository.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Introspected
 @Schema(name = "GitHubCreate", description = "Details of created GitHub repository with Micronaut application.")

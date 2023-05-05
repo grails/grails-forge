@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * Represents an application feature.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Introspected
 @Schema(name = "Feature")

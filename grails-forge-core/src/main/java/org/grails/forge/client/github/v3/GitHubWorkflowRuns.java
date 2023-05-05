@@ -25,7 +25,7 @@ import java.util.List;
  * GitHub workflow runs.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Introspected
 public class GitHubWorkflowRuns {

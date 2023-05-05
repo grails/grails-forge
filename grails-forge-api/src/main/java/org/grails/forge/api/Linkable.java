@@ -27,7 +27,7 @@ import java.util.Map;
  * A linkable type.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Introspected
 public abstract class Linkable {

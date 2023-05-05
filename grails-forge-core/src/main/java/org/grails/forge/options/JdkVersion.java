@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * JDK versions.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public enum JdkVersion {
     JDK_11(11),

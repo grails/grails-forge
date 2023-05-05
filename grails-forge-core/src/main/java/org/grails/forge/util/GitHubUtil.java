@@ -35,7 +35,7 @@ import java.util.stream.StreamSupport;
  * Utility class for GitHub operations.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 public class GitHubUtil {
 

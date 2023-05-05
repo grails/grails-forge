@@ -43,7 +43,7 @@ import java.util.List;
  * Abstract implementation of a create controller.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public abstract class AbstractCreateController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCreateController.class);

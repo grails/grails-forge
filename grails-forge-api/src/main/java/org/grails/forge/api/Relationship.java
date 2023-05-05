@@ -24,7 +24,7 @@ import java.util.Locale;
  * Relationship types.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 public enum Relationship implements Named, CharSequence {
     SELF,

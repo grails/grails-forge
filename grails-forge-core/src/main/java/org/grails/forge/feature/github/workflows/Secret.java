@@ -19,7 +19,7 @@ package org.grails.forge.feature.github.workflows;
  * GitHub secret.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 public class Secret {
 

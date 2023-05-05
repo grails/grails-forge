@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * DTO objects for {@link TestFramework}.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Schema(name = "TestFrameworkInfo")
 @Introspected

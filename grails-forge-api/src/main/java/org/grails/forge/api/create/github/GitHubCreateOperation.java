@@ -34,7 +34,7 @@ import java.util.List;
  * Defines the signature for creating an application in Github repository.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 public interface GitHubCreateOperation {
 

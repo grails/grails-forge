@@ -23,7 +23,7 @@ import io.micronaut.http.client.annotation.Client;
  * GitHub API v3 operations.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 @Client(id = GitHubApiClient.SERVICE_ID)
 @Requires(property = "micronaut.http.services." + GitHubApiClient.SERVICE_ID)

@@ -26,7 +26,7 @@ import java.util.List;
  * GitHub workflow feature.
  *
  * @author Pavol Gressa
- * @since 2.2
+ * @since 6.0.0
  */
 public abstract class GitHubWorkflowFeature implements Feature {
 

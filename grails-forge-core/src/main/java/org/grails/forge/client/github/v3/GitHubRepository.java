@@ -25,7 +25,7 @@ import io.micronaut.core.annotation.Nullable;
  *
  * @author Pavol Gressa
  * @see <a href="https://docs.github.com/en/rest/reference/repos">Api reference repositories</a>
- * @since 2.2
+ * @since 6.0.0
  */
 @Introspected
 public class GitHubRepository {

@@ -56,7 +56,7 @@ import java.util.List;
  * Implements the {@link ZipCreateOperation} interface for applications.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Controller
 @ExecuteOn(TaskExecutors.IO)

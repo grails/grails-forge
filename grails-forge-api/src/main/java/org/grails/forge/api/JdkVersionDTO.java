@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * DTO objects for {@link JdkVersion}.
  *
  * @author graemerocher
- * @since 1.0.0
+ * @since 6.0.0
  */
 @Schema(name = "JdkVersionInfo")
 @Introspected
