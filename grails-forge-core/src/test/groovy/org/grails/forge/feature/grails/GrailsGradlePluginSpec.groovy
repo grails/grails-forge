@@ -28,7 +28,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
                 .renderBuildSrc()
 
         then:
-        template.contains('implementation("org.grails:grails-gradle-plugin:6.0.0-M2")')
+        template.contains('implementation("org.grails:grails-gradle-plugin:6.0.0-SNAPSHOT")')
     }
 
     void "test buildSrc is present for buildscript dependencies"() {
@@ -38,7 +38,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
         expect:
         buildSrcBuildGradle != null
-        buildSrcBuildGradle.contains("implementation(\"org.grails:grails-gradle-plugin:6.0.0-M2\")")
+        buildSrcBuildGradle.contains("implementation(\"org.grails:grails-gradle-plugin:6.0.0-SNAPSHOT\")")
 
     }
 
