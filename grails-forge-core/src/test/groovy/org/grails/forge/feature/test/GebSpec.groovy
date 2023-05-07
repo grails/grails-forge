@@ -45,7 +45,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         final def buildGradle = output["build.gradle"]
 
         expect:
-        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"2.7\"")
+        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
         buildGradle.contains("webdriverBinaries")
         buildGradle.contains("chromedriver '2.32'")
         buildGradle.contains("geckodriver '0.19.0'")
