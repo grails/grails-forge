@@ -90,13 +90,13 @@ public class AssetPipeline implements DefaultFeature {
         generatorContext.addTemplate("database-save_png", new URLTemplate("grails-app/assets/images/skin/database_save.png", classLoader.getResource("assets/images/skin/database_save.png")));
         generatorContext.addTemplate("database-table_png", new URLTemplate("grails-app/assets/images/skin/database_table.png", classLoader.getResource("assets/images/skin/database_table.png")));
         generatorContext.addTemplate("exclamation_png", new URLTemplate("grails-app/assets/images/skin/exclamation.png", classLoader.getResource("assets/images/skin/exclamation.png")));
-        generatorContext.addTemplate("house_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/house.png")));
-        generatorContext.addTemplate("information_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/information.png")));
-        generatorContext.addTemplate("sorted_asc_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/sorted_asc.png")));
-        generatorContext.addTemplate("sorted_desc_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/sorted_desc.png")));
+        generatorContext.addTemplate("house_png", new URLTemplate("grails-app/assets/images/skin/house.png", classLoader.getResource("assets/images/skin/house.png")));
+        generatorContext.addTemplate("information_png", new URLTemplate("grails-app/assets/images/skin/information.png", classLoader.getResource("assets/images/skin/information.png")));
+        generatorContext.addTemplate("sorted_asc_gif", new URLTemplate("grails-app/assets/images/skin/sorted_asc.gif", classLoader.getResource("assets/images/skin/sorted_asc.gif")));
+        generatorContext.addTemplate("sorted_desc_gif", new URLTemplate("grails-app/assets/images/skin/sorted_desc.gif", classLoader.getResource("assets/images/skin/sorted_desc.gif")));
 
         generatorContext.addTemplate("application_js", new URLTemplate("grails-app/assets/javascripts/application.js", classLoader.getResource("assets/javascripts/application.js")));
-        generatorContext.addTemplate("bootstrap-bundle_js", new URLTemplate("grails-app/assets/javascripts/bootstrap-bundle.js", classLoader.getResource("assets/javascripts/bootstrap-bundle.js")));
+        generatorContext.addTemplate("bootstrap_bundle_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.bundle.js", classLoader.getResource("assets/javascripts/bootstrap.bundle.js")));
         generatorContext.addTemplate("bootstrap_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.js", classLoader.getResource("assets/javascripts/bootstrap.js")));
         generatorContext.addTemplate("jquery-3_5_1_js", new URLTemplate("grails-app/assets/javascripts/jquery-3.5.1.js", classLoader.getResource("assets/javascripts/jquery-3.5.1.js")));
         generatorContext.addTemplate("popper_js", new URLTemplate("grails-app/assets/javascripts/popper.js", classLoader.getResource("assets/javascripts/popper.js")));
