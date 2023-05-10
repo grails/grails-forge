@@ -23,14 +23,9 @@ import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
-import org.grails.forge.util.IOFeatureUtil;
+import org.grails.forge.template.URLTemplate;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.ProviderNotFoundException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Set;
 
 @Singleton
@@ -65,15 +60,24 @@ public class GrailsDefaultPlugins implements DefaultFeature {
                             .compile());
                 });
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("i18n")).getPath());
-        try {
-            IOFeatureUtil.walk(path, (name, urlTemplate) -> {
-                generatorContext.addTemplate(name, urlTemplate);
-                return generatorContext;
-            });
-        } catch (IOException | ProviderNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        generatorContext.addTemplate("message_properties", new URLTemplate("grails-app/i18n/message.properties", classLoader.getResource("i18n/message.properties"), false));
+        generatorContext.addTemplate("message_cs_properties", new URLTemplate("grails-app/i18n/message_cs.properties", classLoader.getResource("i18n/message_cs.properties")));
+        generatorContext.addTemplate("message_da_properties", new URLTemplate("grails-app/i18n/message_da.properties", classLoader.getResource("i18n/message_da.properties")));
+        generatorContext.addTemplate("message_de_properties", new URLTemplate("grails-app/i18n/message_de.properties", classLoader.getResource("i18n/message_de.properties")));
+        generatorContext.addTemplate("message_es_properties", new URLTemplate("grails-app/i18n/message_es.properties", classLoader.getResource("i18n/message_es.properties")));
+        generatorContext.addTemplate("message_fr_properties", new URLTemplate("grails-app/i18n/message_fr.properties", classLoader.getResource("i18n/message_fr.properties")));
+        generatorContext.addTemplate("message_it_properties", new URLTemplate("grails-app/i18n/message_it.properties", classLoader.getResource("i18n/message_it.properties")));
+        generatorContext.addTemplate("message_ja_properties", new URLTemplate("grails-app/i18n/message_ja.properties", classLoader.getResource("i18n/message_ja.properties")));
+        generatorContext.addTemplate("message_nb_properties", new URLTemplate("grails-app/i18n/message_nb.properties", classLoader.getResource("i18n/message_nb.properties")));
+        generatorContext.addTemplate("message_nl_properties", new URLTemplate("grails-app/i18n/message_nl.properties", classLoader.getResource("i18n/message_nl.properties")));
+        generatorContext.addTemplate("message_pl_properties", new URLTemplate("grails-app/i18n/message_pl.properties", classLoader.getResource("i18n/message_pl.properties")));
+        generatorContext.addTemplate("message_pt_BR_properties", new URLTemplate("grails-app/i18n/message_pt_BR.properties", classLoader.getResource("i18n/message_pt_BR.properties")));
+        generatorContext.addTemplate("message_pt_PT_properties", new URLTemplate("grails-app/i18n/message_pt_PT.properties", classLoader.getResource("i18n/message_pt_PT.properties")));
+        generatorContext.addTemplate("message_ru_properties", new URLTemplate("grails-app/i18n/message_ru.properties", classLoader.getResource("i18n/message_ru.properties")));
+        generatorContext.addTemplate("message_sk_properties", new URLTemplate("grails-app/i18n/message_sk.properties", classLoader.getResource("i18n/message_sk.properties")));
+        generatorContext.addTemplate("message_sv_properties", new URLTemplate("grails-app/i18n/message_sv.properties", classLoader.getResource("i18n/message_sv.properties")));
+        generatorContext.addTemplate("message_th_properties", new URLTemplate("grails-app/i18n/message_th.properties", classLoader.getResource("i18n/message_th.properties")));
+        generatorContext.addTemplate("message_zh_CN_properties", new URLTemplate("grails-app/i18n/message_zh_CN.properties", classLoader.getResource("i18n/message_zh_CN.properties")));
     }
 
     @Override

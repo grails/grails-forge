@@ -28,13 +28,8 @@ import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.assetPipeline.templates.assetPipelineExtension;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.RockerWritable;
-import org.grails.forge.util.IOFeatureUtil;
+import org.grails.forge.template.URLTemplate;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.ProviderNotFoundException;
-import java.util.Objects;
 import java.util.Set;
 
 @Singleton
@@ -80,15 +75,40 @@ public class AssetPipeline implements DefaultFeature {
                 .runtime());
 
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource("assets")).getPath());
-        try {
-            IOFeatureUtil.walk(path, (name, template) -> {
-                generatorContext.addTemplate(name, template);
-                return generatorContext;
-            });
-        } catch (IOException | ProviderNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        generatorContext.addTemplate("advancedgrails_svg", new URLTemplate("grails-app/assets/images/advancedgrails.svg", classLoader.getResource("assets/images/advancedgrails.svg")));
+        generatorContext.addTemplate("apple-touch-icon_png", new URLTemplate("grails-app/assets/images/apple-touch-icon.png", classLoader.getResource("assets/images/apple-touch-icon.png")));
+        generatorContext.addTemplate("apple-touch-icon-retina_png", new URLTemplate("grails-app/assets/images/apple-touch-icon-retina.png", classLoader.getResource("assets/images/apple-touch-icon-retina.png")));
+        generatorContext.addTemplate("documentation_svg", new URLTemplate("grails-app/assets/images/documentation.svg", classLoader.getResource("assets/images/documentation.svg")));
+        generatorContext.addTemplate("favicon_ico", new URLTemplate("grails-app/assets/images/favicon.ico", classLoader.getResource("assets/images/favicon.ico")));
+        generatorContext.addTemplate("grails_svg", new URLTemplate("grails-app/assets/images/grails.svg", classLoader.getResource("assets/images/grails.svg")));
+        generatorContext.addTemplate("grails-cupsonly-logo-white_svg", new URLTemplate("grails-app/assets/images/grails-cupsonly-logo-white.svg", classLoader.getResource("assets/images/grails-cupsonly-logo-white.svg")));
+        generatorContext.addTemplate("slack_svg", new URLTemplate("grails-app/assets/images/slack.svg", classLoader.getResource("assets/images/slack.svg")));
+        generatorContext.addTemplate("spinner_gif", new URLTemplate("grails-app/assets/images/spinner.gif", classLoader.getResource("assets/images/spinner.gif")));
+        generatorContext.addTemplate("database-add_png", new URLTemplate("grails-app/assets/images/skin/database_add.png", classLoader.getResource("assets/images/skin/database_add.png")));
+        generatorContext.addTemplate("database-delete_png", new URLTemplate("grails-app/assets/images/skin/database_delete.png", classLoader.getResource("assets/images/skin/database_delete.png")));
+        generatorContext.addTemplate("database-edit_png", new URLTemplate("grails-app/assets/images/skin/database_edit.png", classLoader.getResource("assets/images/skin/database_edit.png")));
+        generatorContext.addTemplate("database-save_png", new URLTemplate("grails-app/assets/images/skin/database_save.png", classLoader.getResource("assets/images/skin/database_save.png")));
+        generatorContext.addTemplate("database-table_png", new URLTemplate("grails-app/assets/images/skin/database_table.png", classLoader.getResource("assets/images/skin/database_table.png")));
+        generatorContext.addTemplate("exclamation_png", new URLTemplate("grails-app/assets/images/skin/exclamation.png", classLoader.getResource("assets/images/skin/exclamation.png")));
+        generatorContext.addTemplate("house_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/house.png")));
+        generatorContext.addTemplate("information_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/information.png")));
+        generatorContext.addTemplate("sorted_asc_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/sorted_asc.png")));
+        generatorContext.addTemplate("sorted_desc_png", new URLTemplate("grails-app/assets/images/skin/database-table.png", classLoader.getResource("assets/images/skin/sorted_desc.png")));
+
+        generatorContext.addTemplate("application_js", new URLTemplate("grails-app/assets/javascripts/application.js", classLoader.getResource("assets/javascripts/application.js")));
+        generatorContext.addTemplate("bootstrap-bundle_js", new URLTemplate("grails-app/assets/javascripts/bootstrap-bundle.js", classLoader.getResource("assets/javascripts/bootstrap-bundle.js")));
+        generatorContext.addTemplate("bootstrap_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.js", classLoader.getResource("assets/javascripts/bootstrap.js")));
+        generatorContext.addTemplate("jquery-3_5_1_js", new URLTemplate("grails-app/assets/javascripts/jquery-3.5.1.js", classLoader.getResource("assets/javascripts/jquery-3.5.1.js")));
+        generatorContext.addTemplate("popper_js", new URLTemplate("grails-app/assets/javascripts/popper.js", classLoader.getResource("assets/javascripts/popper.js")));
+
+        generatorContext.addTemplate("application_css", new URLTemplate("grails-app/assets/stylesheets/application.css", classLoader.getResource("assets/stylesheets/application.css")));
+        generatorContext.addTemplate("bootstrap_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap.css", classLoader.getResource("assets/stylesheets/bootstrap.css")));
+        generatorContext.addTemplate("bootstrap-grid_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap-grid.css", classLoader.getResource("assets/stylesheets/bootstrap-grid.css")));
+        generatorContext.addTemplate("bootstrap-reboot_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap-reboot.css", classLoader.getResource("assets/stylesheets/bootstrap-reboot.css")));
+        generatorContext.addTemplate("errors_css", new URLTemplate("grails-app/assets/stylesheets/errors.css", classLoader.getResource("assets/stylesheets/errors.css")));
+        generatorContext.addTemplate("grails_css", new URLTemplate("grails-app/assets/stylesheets/grails.css", classLoader.getResource("assets/stylesheets/grails.css")));
+        generatorContext.addTemplate("main_css", new URLTemplate("grails-app/assets/stylesheets/main.css", classLoader.getResource("assets/stylesheets/main.css")));
+        generatorContext.addTemplate("mobile_css", new URLTemplate("grails-app/assets/stylesheets/mobile.css", classLoader.getResource("assets/stylesheets/mobile.css")));
     }
 
     @Override
