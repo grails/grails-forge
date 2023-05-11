@@ -30,8 +30,8 @@ class GrailsDefaultPluginsSpec extends ApplicationContextSpec implements Command
 
         expect:
         output.containsKey("grails-app/i18n/messages.properties")
-        Arrays.asList("cs", "da", "de", "es", "fr", "it", "ja", "nb", "nl", "pl", "pt_BR", "pt_PT", "ru", "sv", "th", "zh_CN", "zn")
-                .any(prop -> { !output.containsKey("grails-app/i81n/message_" + prop + ".properties") })
+        !(Arrays.asList("cs", "da", "de", "es", "fr", "it", "ja", "nb", "nl", "pl", "pt_BR", "pt_PT", "ru", "sk", "sv", "th", "zh_CN")
+                .findAll {prop -> { !output.containsKey("grails-app/i18n/messages_" + prop + ".properties") }})
     }
 
 }
