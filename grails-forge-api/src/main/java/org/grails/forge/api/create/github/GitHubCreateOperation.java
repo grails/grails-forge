@@ -26,6 +26,7 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
+import org.grails.forge.options.ServletImpl;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -47,6 +48,7 @@ public interface GitHubCreateOperation {
      * @param build       The build tool
      * @param test        The test framework
      * @param gorm        The GORM
+     * @param servlet     The Servlet
      * @param javaVersion The java version
      * @param code        The GitHub code
      * @param state       An unguessable random string. It is used to protect against cross-site request forgery attacks.
@@ -61,6 +63,7 @@ public interface GitHubCreateOperation {
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @NonNull String code,
             @NonNull String state,

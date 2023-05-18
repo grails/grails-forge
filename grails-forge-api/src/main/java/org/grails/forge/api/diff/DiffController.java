@@ -79,11 +79,12 @@ public class DiffController implements DiffOperations {
      * @param build       The build tool
      * @param test        The test framework
      * @param gorm        The GORM implementation
+     * @param servlet     The Servlet implementation
      * @param javaVersion The java version
      * @param requestInfo The request info
      * @return A string representing the difference
      */
-    @Get(uri = "/{type}/feature/{feature}{?gorm,build,test,javaVersion,name}",
+    @Get(uri = "/{type}/feature/{feature}{?gorm,servlet,build,test,javaVersion,name}",
             produces = MediaType.TEXT_PLAIN)
     @Override
     @ApiResponse(responseCode = "404", description = "If no difference is found")
@@ -96,6 +97,7 @@ public class DiffController implements DiffOperations {
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) {
 
@@ -107,6 +109,7 @@ public class DiffController implements DiffOperations {
                     test != null ? test : TestFramework.DEFAULT_OPTION,
                     build != null ? build : BuildTool.DEFAULT_OPTION,
                     gorm != null ? gorm : GormImpl.DEFAULT_OPTION,
+                    servlet != null ? servlet : ServletImpl.DEFAULT_OPTION,
                     javaVersion != null ? javaVersion : JdkVersion.DEFAULT_OPTION
             );
             projectGenerator = this.projectGenerator;
@@ -133,11 +136,11 @@ public class DiffController implements DiffOperations {
      * @param features    The features
      * @param build       The build tool
      * @param test        The test framework
-     * @param gorm        The GORM implementation
+     * @param servlet     The Servlet implementation
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
      */
-    @Get(uri = "/{type}/{name}{?features,gorm,build,test,javaVersion}", produces = MediaType.TEXT_PLAIN)
+    @Get(uri = "/{type}/{name}{?features,gorm,servlet,build,test,javaVersion}", produces = MediaType.TEXT_PLAIN)
     @Override
     @ApiResponse(responseCode = "404", description = "If no difference is found")
     @ApiResponse(responseCode = "400", description = "If the supplied parameters are invalid")
@@ -149,6 +152,7 @@ public class DiffController implements DiffOperations {
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException {
         ProjectGenerator projectGenerator;
@@ -159,6 +163,7 @@ public class DiffController implements DiffOperations {
                     test != null ? test : TestFramework.DEFAULT_OPTION,
                     build != null ? build : BuildTool.DEFAULT_OPTION,
                     gorm != null ? gorm : GormImpl.DEFAULT_OPTION,
+                    servlet != null ? servlet : ServletImpl.DEFAULT_OPTION,
                     javaVersion != null ? javaVersion : JdkVersion.DEFAULT_OPTION
             );
             projectGenerator = this.projectGenerator;

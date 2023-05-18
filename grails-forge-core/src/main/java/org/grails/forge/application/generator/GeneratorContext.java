@@ -236,6 +236,13 @@ public class GeneratorContext implements DependencyContext {
     }
 
     /**
+     * @return The Servlet Implementation
+     */
+    @NonNull public ServletImpl getServlet() {
+        return options.getServletImpl();
+    }
+
+    /**
      * @return The project
      */
     @NonNull public Project getProject() {

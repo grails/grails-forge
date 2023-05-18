@@ -22,6 +22,7 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
+import org.grails.forge.options.ServletImpl;
 
 /**
  * Operations on application types.
@@ -55,22 +56,25 @@ public interface ApplicationTypeOperations {
      * @param build The build tool
      * @param test The test framework
      * @param gorm The GORM
+     * @param servlet The Servlet
      * @param javaVersion The java version
      * @return The features
      */
-    @Get("/application-types/{type}/features{?gorm,build,test,javaVersion}")
+    @Get("/application-types/{type}/features{?gorm,servlet,build,test,javaVersion}")
     FeatureList features(ApplicationType type,
                          @Parameter(hidden = true) RequestInfo serverURL,
                          @Nullable BuildTool build,
                          @Nullable TestFramework test,
                          @Nullable GormImpl gorm,
+                         @Nullable ServletImpl servlet,
                          @Nullable JdkVersion javaVersion);
 
-    @Get("/application-types/{type}/features/default{?gorm,build,test,javaVersion}")
+    @Get("/application-types/{type}/features/default{?gorm,servlet,build,test,javaVersion}")
     FeatureList defaultFeatures(ApplicationType type,
                                 @Parameter(hidden = true) RequestInfo serverURL,
                                 @Nullable BuildTool build,
                                 @Nullable TestFramework test,
                                 @Nullable GormImpl gorm,
+                                @Nullable ServletImpl servlet,
                                 @Nullable JdkVersion javaVersion);
 }

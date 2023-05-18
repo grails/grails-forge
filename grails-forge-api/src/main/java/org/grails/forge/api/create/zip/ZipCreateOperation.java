@@ -24,6 +24,7 @@ import org.grails.forge.api.TestFramework;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
+import org.grails.forge.options.ServletImpl;
 import org.grails.forge.options.JdkVersion;
 
 import javax.validation.constraints.Pattern;
@@ -46,6 +47,7 @@ public interface ZipCreateOperation {
      * @param build       The build tool
      * @param test        The test framework
      * @param gorm        The GORM
+     * @param servlet     The Servlet
      * @param javaVersion The java version
      * @param userAgent   The browser user-agent
      * @return An HTTP response that emits a writable
@@ -57,6 +59,7 @@ public interface ZipCreateOperation {
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header(HttpHeaders.USER_AGENT) String userAgent
     );

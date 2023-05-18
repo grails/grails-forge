@@ -6,6 +6,7 @@ import org.grails.forge.application.ApplicationType
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.GormImpl
 import org.grails.forge.options.JdkVersion
+import org.grails.forge.options.ServletImpl
 import spock.lang.Specification
 
 @MicronautTest
@@ -22,6 +23,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
 
         then:
@@ -36,6 +38,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
                 .findAll { it.community }
 
@@ -50,6 +53,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
         def mongoGorm = features.find { it.name == 'asciidoctor' }
 
@@ -66,6 +70,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
         def assetPipeline = features.find { it.name == 'asset-pipeline-grails' }
 
@@ -83,6 +88,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
 
         then:
@@ -96,6 +102,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
 
         then:
@@ -110,6 +117,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
 
         then:
@@ -122,6 +130,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
 
         then:
@@ -136,6 +145,7 @@ class FeatureControllerSpec extends Specification {
                         BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
+                        ServletImpl.DEFAULT_OPTION,
                         JdkVersion.DEFAULT_OPTION).features
 
         then:

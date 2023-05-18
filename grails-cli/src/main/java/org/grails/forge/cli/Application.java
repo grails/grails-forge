@@ -27,6 +27,8 @@ import picocli.CommandLine;
 import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 
+
+
 @CommandLine.Command(name = "grails", description = {
         "Grails CLI command line interface for generating projects and services.",
         "Application generation commands are:",
@@ -57,6 +59,8 @@ import java.util.function.BiFunction;
         BuildToolConverter.class,
         GormImplCandidates.class,
         GormImplConverter.class,
+        ServletImplCandidates.class,
+        ServletImplConverter.class,
         CommonOptionsMixin.class,
         TestFrameworkCandidates.class,
         TestFrameworkConverter.class
