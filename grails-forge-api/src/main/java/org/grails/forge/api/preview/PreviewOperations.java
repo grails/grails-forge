@@ -24,6 +24,7 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
+import org.grails.forge.options.ServletImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +39,7 @@ public interface PreviewOperations {
      * @param build       The build tool
      * @param test        The test framework
      * @param gorm        The GORM
+     * @param servlet     The Servlet
      * @param javaVersion The java version
      * @param requestInfo The request info
      * @return An HTTP response that emits a writable
@@ -50,6 +52,7 @@ public interface PreviewOperations {
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Parameter(hidden = true) RequestInfo requestInfo) throws IOException;
 }

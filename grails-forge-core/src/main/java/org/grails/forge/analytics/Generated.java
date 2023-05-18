@@ -30,6 +30,7 @@ import java.util.Objects;
 public class Generated {
     private final ApplicationType type;
     private final GormImpl gorm;
+    private final ServletImpl servlet;
     private final BuildTool buildTool;
     private final TestFramework testFramework;
     private final JdkVersion jdkVersion;
@@ -40,11 +41,13 @@ public class Generated {
     public Generated(
             @NonNull ApplicationType type,
             @NonNull GormImpl gorm,
+            @NonNull ServletImpl servlet,
             @NonNull BuildTool buildTool,
             @NonNull TestFramework testFramework,
             @NonNull JdkVersion jdkVersion) {
         this.type = Objects.requireNonNull(type, "Type cannot be null");
         this.gorm = Objects.requireNonNull(gorm, "GORM cannot be null");
+        this.servlet = Objects.requireNonNull(servlet, "Embedded Servlet cannot be null");
         this.buildTool = Objects.requireNonNull(buildTool, "Build tool cannot be null");
         this.testFramework = Objects.requireNonNull(testFramework, "Test framework cannot be null");
         this.jdkVersion = Objects.requireNonNull(jdkVersion, "JDK version cannot be null");
@@ -72,10 +75,18 @@ public class Generated {
     }
 
     /**
-     * @return The language
+     * @return The GORM Implementation
      */
     public @NonNull GormImpl getGorm() {
         return gorm;
+    }
+
+
+    /**
+     * @return The Embedded Servlet Implementation
+     */
+    public @NonNull ServletImpl getServlet() {
+        return servlet;
     }
 
     /**

@@ -19,6 +19,7 @@ import org.grails.forge.options.GormImpl
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
+import org.grails.forge.options.ServletImpl
 import org.grails.forge.options.TestFramework
 
 class BuildBuilder implements ProjectFixture, ContextFixture {
@@ -30,6 +31,7 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
     private ApplicationType applicationType
     private JdkVersion jdkVersion
     private GormImpl gormImpl
+    private ServletImpl servletImpl
     private OperatingSystem operatingSystem
     private Project project
     private ApplicationContext ctx
@@ -39,16 +41,19 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         this.ctx = ctx
         this.buildTool = BuildTool.GRADLE
         this.gormImpl = GormImpl.DEFAULT_OPTION
+        this.servletImpl = ServletImpl.DEFAULT_OPTION
         this.operatingSystem = OperatingSystem.DEFAULT
         this.language = Language.GROOVY
     }
 
     BuildBuilder(ApplicationContext ctx,
                  BuildTool buildTool,
-                 GormImpl gormImpl) {
+                 GormImpl gormImpl,
+                 ServletImpl servletImpl) {
         this.ctx = ctx
         this.buildTool = buildTool
         this.gormImpl = gormImpl;
+        this.servletImpl = servletImpl;
     }
 
 
@@ -87,6 +92,11 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         this
     }
 
+    BuildBuilder servletImpl(ServletImpl servletImpl) {
+        this.servletImpl = servletImpl
+        this
+    }
+
     BuildBuilder project(Project project) {
         this.project = project
         this
@@ -100,7 +110,7 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         Project project = this.project ?: buildProject()
         JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
-        final Options options = new Options(language, testFramework, buildTool, gormImpl, jdkVersion, operatingSystem)
+        final Options options = new Options(language, testFramework, buildTool, gormImpl, servletImpl, jdkVersion, operatingSystem)
         Features features = getFeatures(featureNames, options, type)
 
         if (buildTool.isGradle()) {
@@ -142,7 +152,7 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
     GeneratorContext createGeneratorContextAndApplyFeatures(Options options, Features features, Project project, ApplicationType type) {
         GeneratorContext ctx = new GeneratorContext(project, type, options, null, features.features, ctx.getBean(CoordinateResolver))
-        features.features.each {feat -> feat.apply(ctx)}
+        features.features.each { feat -> feat.apply(ctx) }
         ctx
     }
 

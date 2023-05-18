@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Main interface on the the Grails Application Forge API.
+ * Main interface on the Grails Application Forge API.
  *
  * @author graemerocher
  * @since 6.0.0
@@ -164,12 +164,13 @@ public class ApplicationController implements ApplicationTypeOperations {
      * @return The features
      */
     @Override
-    @Get("/application-types/{type}/features{?gorm,build,test,javaVersion}")
+    @Get("/application-types/{type}/features{?gorm,servlet,build,test,javaVersion}")
     public FeatureList features(ApplicationType type,
                                 RequestInfo requestInfo,
                                 @Nullable BuildTool build,
                                 @Nullable TestFramework test,
                                 @Nullable GormImpl gorm,
+                                @Nullable ServletImpl servlet,
                                 @Nullable JdkVersion javaVersion) {
         List<FeatureDTO> featureDTOList = featureOperations
                 .getFeatures(requestInfo.getLocale(),
@@ -178,6 +179,7 @@ public class ApplicationController implements ApplicationTypeOperations {
                                 test != null ? test.toTestFramework() : null,
                                 build == null ? BuildTool.DEFAULT_OPTION : build,
                                 gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
+                                servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,
                                 javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
                         getOperatingSystem(requestInfo.getUserAgent())));
 
@@ -190,12 +192,13 @@ public class ApplicationController implements ApplicationTypeOperations {
     }
 
     @Override
-    @Get("/application-types/{type}/features/default{?gorm,build,test,javaVersion}")
+    @Get("/application-types/{type}/features/default{?gorm,servlet,build,test,javaVersion}")
     public FeatureList defaultFeatures(ApplicationType type,
                                        RequestInfo requestInfo,
                                        @Nullable BuildTool build,
                                        @Nullable TestFramework test,
                                        @Nullable GormImpl gorm,
+                                       @Nullable ServletImpl servlet,
                                        @Nullable JdkVersion javaVersion) {
         List<FeatureDTO> featureDTOList = featureOperations
                 .getDefaultFeatures(requestInfo.getLocale(),
@@ -204,6 +207,7 @@ public class ApplicationController implements ApplicationTypeOperations {
                                 test != null ? test.toTestFramework() : null,
                                 build == null ? BuildTool.DEFAULT_OPTION : build,
                                 gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
+                                servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,
                                 javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
                                 getOperatingSystem(requestInfo.getUserAgent())));
 

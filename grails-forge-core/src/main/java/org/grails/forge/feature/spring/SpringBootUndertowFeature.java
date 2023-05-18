@@ -20,6 +20,11 @@ import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
+import org.grails.forge.feature.Feature;
+import org.grails.forge.options.Options;
+import org.grails.forge.options.ServletImpl;
+
+import java.util.Set;
 
 @Singleton
 public class SpringBootUndertowFeature extends SpringBootEmbeddedServlet {
@@ -46,5 +51,10 @@ public class SpringBootUndertowFeature extends SpringBootEmbeddedServlet {
                 .groupId("org.springframework.boot")
                 .artifactId("spring-boot-starter-undertow")
                 .compile());
+    }
+
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return selectedFeatures.stream().anyMatch(f -> f instanceof SpringBootUndertowFeature) || options.getServletImpl() == ServletImpl.UNDERTOW;
     }
 }

@@ -40,6 +40,7 @@ import org.grails.forge.io.ZipOutputHandler;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
+import org.grails.forge.options.ServletImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,6 +85,7 @@ public class ZipCreateController extends AbstractCreateController implements Zip
      * @param build       The build tool
      * @param test        The test framework
      * @param gorm        The GORM
+     * @param servlet     The Servlet
      * @param javaVersion The java version
      * @return A ZIP file containing the generated application.
      */
@@ -102,9 +104,10 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header(HttpHeaders.USER_AGENT) String userAgent) {
-        return generateAppIntoZipFile(type, name, features, build, test, gorm, javaVersion, userAgent);
+        return generateAppIntoZipFile(type, name, features, build, test, gorm, servlet, javaVersion, userAgent);
     }
 
     /**
@@ -116,11 +119,12 @@ public class ZipCreateController extends AbstractCreateController implements Zip
      * @param build       The build tool
      * @param test        The test framework
      * @param gorm        The GORM
+     * @param servlet     The Servlet
      * @param javaVersion The java version
      * @param userAgent   The browser user-agent
      * @return A Zip file containing the application
      */
-    @Get(uri = "/{name}.zip{?type,features,gorm,build,test}", produces = MEDIA_TYPE_APPLICATION_ZIP)
+    @Get(uri = "/{name}.zip{?type,features,gorm,servlet,build,test}", produces = MEDIA_TYPE_APPLICATION_ZIP)
     @ApiResponse(
             description = "A ZIP file containing the generated application.",
             content = @Content(
@@ -134,9 +138,10 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header("User-Agent") String userAgent) {
-        return generateAppIntoZipFile(type, name, features, build, test, gorm, javaVersion, userAgent);
+        return generateAppIntoZipFile(type, name, features, build, test, gorm, servlet, javaVersion, userAgent);
     }
 
     public HttpResponse<Writable> generateAppIntoZipFile(
@@ -146,10 +151,11 @@ public class ZipCreateController extends AbstractCreateController implements Zip
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Nullable String userAgent) {
 
-        GeneratorContext generatorContext = createProjectGeneratorContext(type, name, features, buildTool, testFramework, gorm, javaVersion, userAgent);
+        GeneratorContext generatorContext = createProjectGeneratorContext(type, name, features, buildTool, testFramework, gorm, servlet, javaVersion, userAgent);
         MutableHttpResponse<Writable> response = HttpResponse.created(new Writable() {
             @Override
             public void writeTo(OutputStream outputStream, @Nullable Charset charset) throws IOException {

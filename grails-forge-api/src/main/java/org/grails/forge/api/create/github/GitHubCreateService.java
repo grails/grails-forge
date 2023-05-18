@@ -38,6 +38,7 @@ import org.grails.forge.io.OutputHandler;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.GormImpl;
 import org.grails.forge.options.JdkVersion;
+import org.grails.forge.options.ServletImpl;
 import org.grails.forge.util.GitHubUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +91,7 @@ public class GitHubCreateService extends AbstractCreateController {
             @Nullable BuildTool build,
             @Nullable TestFramework test,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @NonNull String code,
             @NonNull String state,
@@ -100,7 +102,7 @@ public class GitHubCreateService extends AbstractCreateController {
         GitHubUser gitHubUser = getGitHubUser(authToken);
 
         GeneratorContext generatorContext = createProjectGeneratorContext(
-                type, name, features, build, test, gorm, javaVersion, userAgent);
+                type, name, features, build, test, gorm, servlet, javaVersion, userAgent);
 
         String repoName = generatorContext.getProject().getName();
         String repoDescription = String.format("Grails %s Application", generatorContext.getProject().getNaturalName());

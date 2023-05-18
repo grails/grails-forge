@@ -13,21 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.forge.feature.spring;
+package org.grails.forge.options;
 
-import org.grails.forge.feature.Category;
-import org.grails.forge.feature.DefaultFeature;
-import org.grails.forge.feature.OneOfFeature;
+import io.micronaut.core.annotation.NonNull;
 
-abstract class SpringBootEmbeddedServlet implements OneOfFeature, DefaultFeature {
+/**
+ * Servlet Implementation.
+ *
+ * @author puneetbehl
+ * @since 6.0.0
+ */
+public enum ServletImpl {
+    NONE("NONE"),
+    TOMCAT("spring-boot-starter-tomcat"),
+    JETTY("spring-boot-starter-jetty"),
+    UNDERTOW("spring-boot-starter-undertow");
 
-    @Override
-    public Class<?> getFeatureClass() {
-        return SpringBootEmbeddedServlet.class;
+    public static final ServletImpl DEFAULT_OPTION = TOMCAT;
+    private final String featureName;
+
+    ServletImpl(String featureName) {
+        this.featureName = featureName;
     }
 
-    @Override
-    public String getCategory() {
-        return Category.SERVER;
+    @NonNull
+    public String getName() {
+        return featureName;
     }
 }

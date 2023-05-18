@@ -60,6 +60,10 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     GormImpl gormImpl;
 
     @ReflectiveAccess
+    @CommandLine.Option(names = {"-s", "--servlet"}, paramLabel = "Servlet Implementation", description = "Which Servlet Implementation to configure. Possible values: ${COMPLETION-CANDIDATES}.", completionCandidates = ServletImplCandidates.class, converter = ServletImplConverter.class)
+    ServletImpl servletImpl;
+
+    @ReflectiveAccess
     @CommandLine.Option(names = {"-i", "--inplace"}, description = "Create a service using the current directory")
     boolean inplace;
 
@@ -98,7 +102,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     public Integer call() throws Exception {
         if (listFeatures) {
             new ListFeatures(availableFeatures,
-                    new Options(lang, test, build, gormImpl, getJdkVersion(), getOperatingSystem()),
+                    new Options(lang, test, build, gormImpl, servletImpl, getJdkVersion(), getOperatingSystem()),
                     applicationType,
                     getOperatingSystem(),
                     contextFactory).output(this);
@@ -124,7 +128,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     }
 
     public void generate(Project project, OutputHandler outputHandler) throws Exception {
-        Options options = new Options(lang, test, build, gormImpl, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
+        Options options = new Options(lang, test, build, gormImpl, servletImpl, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
 
         projectGenerator.generate(applicationType, project, options, getOperatingSystem(), getSelectedFeatures(), outputHandler, this);
     }

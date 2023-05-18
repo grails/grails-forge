@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.forge.feature.spring;
+package org.grails.forge.cli.command;
 
-import org.grails.forge.feature.Category;
-import org.grails.forge.feature.DefaultFeature;
-import org.grails.forge.feature.OneOfFeature;
+import org.grails.forge.options.ServletImpl;
 
-abstract class SpringBootEmbeddedServlet implements OneOfFeature, DefaultFeature {
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-    @Override
-    public Class<?> getFeatureClass() {
-        return SpringBootEmbeddedServlet.class;
-    }
-
-    @Override
-    public String getCategory() {
-        return Category.SERVER;
+public class ServletImplCandidates extends ArrayList<String> {
+    public ServletImplCandidates() {
+        super(Stream.of(ServletImpl.values()).map(servlet -> servlet.toString().toLowerCase()).collect(Collectors.toList()));
     }
 }

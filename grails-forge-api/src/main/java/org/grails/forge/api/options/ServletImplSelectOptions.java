@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.forge.feature.spring;
+package org.grails.forge.api.options;
 
-import org.grails.forge.feature.Category;
-import org.grails.forge.feature.DefaultFeature;
-import org.grails.forge.feature.OneOfFeature;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.grails.forge.api.SelectOptionDTO;
+import org.grails.forge.api.ServletImplDTO;
 
-abstract class SpringBootEmbeddedServlet implements OneOfFeature, DefaultFeature {
+import java.util.List;
 
-    @Override
-    public Class<?> getFeatureClass() {
-        return SpringBootEmbeddedServlet.class;
+@Schema(name = "ServletImplSelectOptions")
+public class ServletImplSelectOptions extends SelectOptionDTO<ServletImplDTO> {
+    public ServletImplSelectOptions(List<ServletImplDTO> options, ServletImplDTO defaultOption) {
+        super(options, defaultOption);
     }
 
     @Override
-    public String getCategory() {
-        return Category.SERVER;
+    public List<ServletImplDTO> getOptions() {
+        return super.getOptions();
+    }
+
+    @Override
+    public ServletImplDTO getDefaultOption() {
+        return super.getDefaultOption();
     }
 }

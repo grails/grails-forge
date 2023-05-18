@@ -69,6 +69,7 @@ public abstract class AbstractCreateController {
             @Nullable BuildTool buildTool,
             @Nullable TestFramework testFramework,
             @Nullable GormImpl gorm,
+            @Nullable ServletImpl servlet,
             @Nullable JdkVersion javaVersion,
             @Nullable @Header(HttpHeaders.USER_AGENT) String userAgent) {
         Project project;
@@ -81,6 +82,7 @@ public abstract class AbstractCreateController {
         GeneratorContext generatorContext;
         try {
             GormImpl gormImpl = gorm != null ? gorm : GormImpl.DEFAULT_OPTION;
+            ServletImpl servletImpl = servlet != null ? servlet : ServletImpl.DEFAULT_OPTION;
             Language lang = Language.DEFAULT_OPTION;
             generatorContext = projectGenerator.createGeneratorContext(
                     type,
@@ -89,6 +91,7 @@ public abstract class AbstractCreateController {
                             testFramework != null ? testFramework.toTestFramework() : lang.getDefaults().getTest(),
                             buildTool == null ? lang.getDefaults().getBuild() : buildTool,
                             gormImpl == null ? GormImpl.DEFAULT_OPTION : gormImpl,
+                            servletImpl == null ? ServletImpl.DEFAULT_OPTION : servletImpl,
                             javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
                             getOperatingSystem(userAgent)),
                     getOperatingSystem(userAgent),

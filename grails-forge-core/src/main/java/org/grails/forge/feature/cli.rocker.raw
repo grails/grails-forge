@@ -2,6 +2,7 @@
 @import org.grails.forge.options.TestFramework
 @import org.grails.forge.options.BuildTool
 @import org.grails.forge.options.GormImpl
+@import org.grails.forge.options.ServletImpl
 @import org.grails.forge.application.Project
 @import org.grails.forge.application.ApplicationType
 @import java.util.List
@@ -12,6 +13,7 @@ Language language,
 TestFramework testFramework,
 BuildTool buildTool,
 GormImpl gormImpl,
+ServletImpl servletImpl,
 Project project,
 List<String> features,
 ApplicationType applicationType
@@ -23,4 +25,5 @@ testFramework: @testFramework.getName()
 sourceLanguage: @language.getName()
 buildTool: @buildTool.getName()
 gormImpl: @gormImpl.getName()
+servletImpl: @servletImpl.getName()
 features: @features.toString()

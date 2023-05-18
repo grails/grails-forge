@@ -86,6 +86,7 @@ public class DefaultProjectGenerator implements ProjectGenerator {
                                 generatorContext.getTestFramework(),
                                 generatorContext.getBuildTool(),
                                 generatorContext.getGorm(),
+                                generatorContext.getServlet(),
                                 generatorContext.getProject(),
                                 features,
                                 applicationType)));

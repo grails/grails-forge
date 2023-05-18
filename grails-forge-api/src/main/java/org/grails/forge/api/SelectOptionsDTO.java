@@ -49,6 +49,8 @@ public class SelectOptionsDTO {
 
     private GormImplSelectOptions gorm;
 
+    private ServletImplSelectOptions servlet;
+
     SelectOptionsDTO() {
     }
 
@@ -58,13 +60,15 @@ public class SelectOptionsDTO {
                             LanguageSelectOptions lang,
                             TestFrameworkSelectOptions test,
                             BuildToolSelectOptions build,
-                            GormImplSelectOptions gorm) {
+                            GormImplSelectOptions gorm,
+                            ServletImplSelectOptions servlet) {
         this.type = type;
         this.jdkVersion = jdkVersion;
         this.lang = lang;
         this.test = test;
         this.build = build;
         this.gorm = gorm;
+        this.servlet = servlet;
     }
 
     @Schema(description = "supported options for application type")
@@ -95,6 +99,11 @@ public class SelectOptionsDTO {
     @Schema(description = "supported options for GORM Implementation")
     public GormImplSelectOptions getGorm() {
         return gorm;
+    }
+
+    @Schema(description = "supported options for Servlet Implementation")
+    public ServletImplSelectOptions getServlet() {
+        return servlet;
     }
 
     /**
@@ -160,7 +169,17 @@ public class SelectOptionsDTO {
                 new GormImplDTO(GormImpl.DEFAULT_OPTION, messageSource, messageContext)
         );
 
-        return new SelectOptionsDTO(applicationOpts, jdkVersionOpts, languageOpts, testFrameworkOpts, buildToolOpts, gormImplOpts);
+        List<ServletImplDTO> servletImpls = Arrays.stream(ServletImpl.values())
+                .map(it -> new ServletImplDTO(it, messageSource, messageContext))
+                .collect(Collectors.toList());
+
+        ServletImplSelectOptions servletImplOpts = new ServletImplSelectOptions(
+                servletImpls,
+                new ServletImplDTO(ServletImpl.DEFAULT_OPTION, messageSource, messageContext)
+        );
+
+
+        return new SelectOptionsDTO(applicationOpts, jdkVersionOpts, languageOpts, testFrameworkOpts, buildToolOpts, gormImplOpts, servletImplOpts);
 
     }
 }

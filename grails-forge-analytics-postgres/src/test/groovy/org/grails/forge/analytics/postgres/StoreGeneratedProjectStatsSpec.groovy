@@ -15,6 +15,7 @@ import org.grails.forge.application.ApplicationType
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.GormImpl
+import org.grails.forge.options.ServletImpl
 import org.grails.forge.options.TestFramework
 import org.grails.forge.util.VersionInfo
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
@@ -56,6 +57,7 @@ class StoreGeneratedProjectStatsSpec extends Specification implements TestProper
         def generated = new Generated(
                 ApplicationType.WEB,
                 GormImpl.HIBERNATE,
+                ServletImpl.TOMCAT,
                 BuildTool.GRADLE,
                 TestFramework.SPOCK,
                 JdkVersion.JDK_11

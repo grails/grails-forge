@@ -25,10 +25,7 @@ import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
 import org.grails.forge.feature.validation.FeatureValidator;
 import org.grails.forge.io.ConsoleOutput;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.GormImpl;
-import org.grails.forge.options.Language;
-import org.grails.forge.options.Options;
+import org.grails.forge.options.*;
 
 import java.util.Collections;
 import java.util.IdentityHashMap;
@@ -65,6 +62,7 @@ public class ContextFactory {
         Language language = determineLanguage(options.getLanguage(), features);
         Options newOptions = options.withLanguage(language)
                 .withGormImpl(determineGormImpl(options.getGormImpl()))
+                .withServletImpl(determineServletImpl(options.getServletImpl()))
                 .withBuildTool(determineBuildTool(language, options.getBuildTool()));
 
         availableFeatures.getAllFeatures()
@@ -111,5 +109,12 @@ public class ContextFactory {
             gormImpl = GormImpl.DEFAULT_OPTION;
         }
         return gormImpl;
+    }
+
+    ServletImpl determineServletImpl(ServletImpl servletImpl) {
+        if (servletImpl == null) {
+            servletImpl = ServletImpl.DEFAULT_OPTION;
+        }
+        return servletImpl;
     }
 }
