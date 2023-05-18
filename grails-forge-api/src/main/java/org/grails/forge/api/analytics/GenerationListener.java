@@ -46,6 +46,7 @@ public class GenerationListener {
         Generated generated = new Generated(
                 context.getApplicationType(),
                 context.getGorm(),
+                context.getServlet(),
                 context.getBuildTool(),
                 context.getTestFramework(),
                 context.getJdkVersion()
