@@ -77,7 +77,7 @@ public class VersionInfo {
         if (grailsVersion != null) {
             return grailsVersion.toString();
         }
-        return "6.0.0-SNAPSHOT";
+        return "6.0.0-M3";
     }
 
     /**
