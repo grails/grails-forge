@@ -24,8 +24,10 @@ import io.micronaut.core.annotation.NonNull;
  * @since 6.0.0
  */
 public enum ServletImpl {
+    NONE("NONE"),
     TOMCAT("spring-boot-starter-tomcat"),
-    JETTY("spring-boot-starter-jetty");
+    JETTY("spring-boot-starter-jetty"),
+    UNDERTOW("spring-boot-starter-undertow");
 
     public static final ServletImpl DEFAULT_OPTION = TOMCAT;
     private final String featureName;

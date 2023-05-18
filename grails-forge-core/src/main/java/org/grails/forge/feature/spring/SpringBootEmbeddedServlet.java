@@ -16,9 +16,10 @@
 package org.grails.forge.feature.spring;
 
 import org.grails.forge.feature.Category;
+import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.OneOfFeature;
 
-abstract class SpringBootEmbeddedServlet implements OneOfFeature {
+abstract class SpringBootEmbeddedServlet implements OneOfFeature, DefaultFeature {
 
     @Override
     public Class<?> getFeatureClass() {
