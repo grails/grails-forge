@@ -97,13 +97,29 @@ public class AssetPipeline implements DefaultFeature {
 
         generatorContext.addTemplate("application_js", new URLTemplate("grails-app/assets/javascripts/application.js", classLoader.getResource("assets/javascripts/application.js")));
         generatorContext.addTemplate("bootstrap_bundle_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.bundle.js", classLoader.getResource("assets/javascripts/bootstrap.bundle.js")));
+        generatorContext.addTemplate("bootstrap_bundle_js_map", new URLTemplate("grails-app/assets/javascripts/bootstrap.bundle.js.map", classLoader.getResource("assets/javascripts/bootstrap.bundle.js.map")));
+        generatorContext.addTemplate("bootstrap_bundle_min_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.bundle.min.js", classLoader.getResource("assets/javascripts/bootstrap.bundle.min.js")));
+        generatorContext.addTemplate("bootstrap_bundle_min_js_map", new URLTemplate("grails-app/assets/javascripts/bootstrap.bundle.min.js.map", classLoader.getResource("assets/javascripts/bootstrap.bundle.min.js.map")));
         generatorContext.addTemplate("bootstrap_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.js", classLoader.getResource("assets/javascripts/bootstrap.js")));
+        generatorContext.addTemplate("bootstrap_js_map", new URLTemplate("grails-app/assets/javascripts/bootstrap.js.map", classLoader.getResource("assets/javascripts/bootstrap.js.map")));
+        generatorContext.addTemplate("bootstrap_min_js", new URLTemplate("grails-app/assets/javascripts/bootstrap.min.js", classLoader.getResource("assets/javascripts/bootstrap.min.js")));
+        generatorContext.addTemplate("bootstrap_min_js_map", new URLTemplate("grails-app/assets/javascripts/bootstrap.min.js.map", classLoader.getResource("assets/javascripts/bootstrap.min.js.map")));
         generatorContext.addTemplate("jquery-3_5_1_js", new URLTemplate("grails-app/assets/javascripts/jquery-3.5.1.js", classLoader.getResource("assets/javascripts/jquery-3.5.1.js")));
+        generatorContext.addTemplate("jquery-3_5_1_min_js", new URLTemplate("grails-app/assets/javascripts/jquery-3.5.1.min.js", classLoader.getResource("assets/javascripts/jquery-3.5.1.min.js")));
+        generatorContext.addTemplate("jquery-3_5_1_min_js_map", new URLTemplate("grails-app/assets/javascripts/jquery-3.5.1.min.js.map", classLoader.getResource("assets/javascripts/jquery-3.5.1.min.js.map")));
         generatorContext.addTemplate("popper_js", new URLTemplate("grails-app/assets/javascripts/popper.js", classLoader.getResource("assets/javascripts/popper.js")));
+        generatorContext.addTemplate("popper_min_js", new URLTemplate("grails-app/assets/javascripts/popper.min.js", classLoader.getResource("assets/javascripts/popper.min.js")));
+        generatorContext.addTemplate("popper_min_js_map", new URLTemplate("grails-app/assets/javascripts/popper.min.js.map", classLoader.getResource("assets/javascripts/popper.min.js.map")));
 
         generatorContext.addTemplate("application_css", new URLTemplate("grails-app/assets/stylesheets/application.css", classLoader.getResource("assets/stylesheets/application.css")));
         generatorContext.addTemplate("bootstrap_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap.css", classLoader.getResource("assets/stylesheets/bootstrap.css")));
+        generatorContext.addTemplate("bootstrap_css_map", new URLTemplate("grails-app/assets/stylesheets/bootstrap.css.map", classLoader.getResource("assets/stylesheets/bootstrap.css.map")));
+        generatorContext.addTemplate("bootstrap_min_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap.min.css", classLoader.getResource("assets/stylesheets/bootstrap.min.css")));
+        generatorContext.addTemplate("bootstrap_min_css_map", new URLTemplate("grails-app/assets/stylesheets/bootstrap.min.css.map", classLoader.getResource("assets/stylesheets/bootstrap.min.css.map")));
         generatorContext.addTemplate("bootstrap-grid_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap-grid.css", classLoader.getResource("assets/stylesheets/bootstrap-grid.css")));
+        generatorContext.addTemplate("bootstrap-grid_css_map", new URLTemplate("grails-app/assets/stylesheets/bootstrap-grid.css.map", classLoader.getResource("assets/stylesheets/bootstrap-grid.css.map")));
+        generatorContext.addTemplate("bootstrap-grid_min_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap-grid.min.css", classLoader.getResource("assets/stylesheets/bootstrap-grid.min.css")));
+        generatorContext.addTemplate("bootstrap-grid_min_css_map", new URLTemplate("grails-app/assets/stylesheets/bootstrap-grid.min.css.map", classLoader.getResource("assets/stylesheets/bootstrap-grid.min.css.map")));
         generatorContext.addTemplate("bootstrap-reboot_css", new URLTemplate("grails-app/assets/stylesheets/bootstrap-reboot.css", classLoader.getResource("assets/stylesheets/bootstrap-reboot.css")));
         generatorContext.addTemplate("errors_css", new URLTemplate("grails-app/assets/stylesheets/errors.css", classLoader.getResource("assets/stylesheets/errors.css")));
         generatorContext.addTemplate("grails_css", new URLTemplate("grails-app/assets/stylesheets/grails.css", classLoader.getResource("assets/stylesheets/grails.css")));
