@@ -1,3 +1,9 @@
+==== 6.0.0-M4
+
+* In the previous release, the grailsVersion and grailsGradlePlugin version points to the 6.0.0-SNAPSHOT for a newly created Grails application. This Release fix the problem by correctly pointing them to 6.0.0-M4.
+* There was no embedded servlet selected by default, but this release select Embedded Tomcat as the default servlet implementation.
+* Add New Option for selecting the Embedded Servlet implementation between Tomcat, Jetty, Undertow, or None.
+
 ==== 6.0.0-M3
 
 * Initial Milestone Release
