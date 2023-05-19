@@ -275,7 +275,7 @@ jobs:
           GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
       - name: Grails SDK Major Release
-        if: startsWith(steps.release_version.outputs.release_version, '6.0')
+        if: startsWith(steps.release_version.outputs.release_version, '6.0') && !contains(steps.release_version.outputs.release_version, 'M') && !contains(steps.release_version.outputs.release_version, 'RC')
         uses: gradle/gradle-build-action@v2
         with:
           arguments: sdkMajorRelease
