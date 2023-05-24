@@ -38,7 +38,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
         expect:
         buildSrcBuildGradle != null
-        buildSrcBuildGradle.contains("implementation(\"org.grails:grails-gradle-plugin:6.0.0-RC1)")
+        buildSrcBuildGradle.contains("implementation(\"org.grails:grails-gradle-plugin:6.0.0-RC1\")")
 
     }
 
