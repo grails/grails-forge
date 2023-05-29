@@ -15,6 +15,7 @@
  */
 package org.grails.forge.feature.logging;
 
+import org.grails.forge.application.ApplicationType;
 import org.grails.forge.feature.Category;
 import org.grails.forge.feature.OneOfFeature;
 
@@ -23,6 +24,11 @@ public interface LoggingFeature extends OneOfFeature {
     @Override
     default Class<?> getFeatureClass() {
         return LoggingFeature.class;
+    }
+
+    @Override
+    default boolean supports(ApplicationType applicationType) {
+        return true;
     }
 
     @Override

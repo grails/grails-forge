@@ -6,17 +6,18 @@ import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.*
 import spock.lang.Unroll
 
-class LogbackSpec extends ApplicationContextSpec implements CommandOutputFixture {
+class LogbackGroovyConfigSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     @Unroll
     void "test grails-logging dependency is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ['logback'])
+        def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ['logbackGroovy'])
 
         then:
         output.containsKey("build.gradle")
         def build = output.get("build.gradle")
         build.contains("implementation(\"org.grails:grails-logging\")")
+        build.contains("implementation(\"io.github.virtualdogbert:logback-groovy-config:1.12.3\")")
 
         where:
         applicationType << ApplicationType.values().toList()
@@ -25,10 +26,10 @@ class LogbackSpec extends ApplicationContextSpec implements CommandOutputFixture
     @Unroll
     void "test logback.xml config file is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ['logback'])
+        def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ['logbackGroovy'])
 
         then:
-        output.containsKey("grails-app/conf/logback.xml")
+        output.containsKey("grails-app/conf/logback-config.groovy")
 
         where:
         applicationType << ApplicationType.values().toList()

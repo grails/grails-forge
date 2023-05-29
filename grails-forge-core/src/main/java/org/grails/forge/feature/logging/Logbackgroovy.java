@@ -20,30 +20,29 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
-import org.grails.forge.feature.logging.template.logback;
+import org.grails.forge.feature.logging.template.logbackgroovy;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.RockerTemplate;
 
 import java.util.Set;
 
 @Singleton
-public class Logback implements LoggingFeature {
+public class Logbackgroovy implements LoggingFeature {
 
     @Override
     public String getName() {
-        return "logback";
+        return "logbackGroovy";
     }
 
     @Override
     public String getTitle() {
-        return "Logback Logging";
+        return "Logback Logging with Groovy config";
     }
 
     @Override
     public String getDescription() {
-        return "Adds Logback Logging";
+        return "Adds Logback Logging with Groovy config";
     }
 
     @Override
@@ -54,14 +53,27 @@ public class Logback implements LoggingFeature {
     @Override
     public void apply(GeneratorContext generatorContext) {
         OperatingSystem operatingSystem = generatorContext.getOperatingSystem();
+
         boolean jansi = false;
+
         if (operatingSystem != OperatingSystem.WINDOWS) {
             jansi = true;
         }
-        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback.xml", logback.template(jansi)));
+
+        String projectName = generatorContext.getProject().getName();
+        String packageName = generatorContext.getProject().getPackageName();
+
+        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback-config.groovy", logbackgroovy.template(projectName, packageName, jansi)));
+
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.grails")
                 .artifactId("grails-logging")
+                .compile());
+
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("io.github.virtualdogbert")
+                .artifactId("logback-groovy-config")
+                .version("1.12.3")
                 .compile());
     }
 
