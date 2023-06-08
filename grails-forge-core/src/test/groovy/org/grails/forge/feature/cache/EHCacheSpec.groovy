@@ -17,8 +17,8 @@ class EHCacheSpec extends ApplicationContextSpec implements CommandOutputFixture
 
         then:
         readme
-        readme.contains("https://docs.grails.org/6.0.0-M4/guide/index.html")
-        readme.contains("https://docs.grails.org/6.0.0-M4/api/index.html")
+        readme.contains("https://docs.grails.org/6.0.0-RC1/guide/index.html")
+        readme.contains("https://docs.grails.org/6.0.0-RC1/api/index.html")
         readme.contains("https://guides.grails.org/index.html")
     }
 
