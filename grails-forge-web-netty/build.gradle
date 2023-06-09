@@ -1,45 +1,39 @@
 plugins {
-    id "org.grails.forge.internal.convention"
-    id "com.github.johnrengelman.shadow"
-    id "application"
+    id("com.github.johnrengelman.shadow")
+    id("io.micronaut.application") version "3.7.10"
 }
 
-configurations {
-    // for dependencies that are needed for development only
-    developmentOnly
+version project.projectVersion
+group "org.grails.forge"
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    developmentOnly platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation project(":grails-forge-api")
-    implementation "io.micronaut:micronaut-inject"
-    implementation "io.micronaut:micronaut-http-server-netty"
-    implementation "io.micronaut.gcp:micronaut-gcp-http-client:4.10.2"
-//    implementation "io.micronaut.servlet:micronaut-http-server-jetty:1.0.0.M2"
-
-    runtimeOnly "ch.qos.logback:logback-classic:1.4.7"
-
-    testCompileOnly "io.micronaut:micronaut-inject-groovy"
-    testImplementation "io.micronaut.test:micronaut-test-spock"
-    testImplementation "io.micronaut:micronaut-http-client"
+    implementation(project(":grails-forge-api"))
+    implementation("io.micronaut.gcp:micronaut-gcp-http-client")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    testCompileOnly("io.micronaut:micronaut-inject-groovy")
+    testImplementation("io.micronaut.test:micronaut-test-spock")
+    testImplementation("io.micronaut:micronaut-http-client")
 }
-
 tasks.named("test", Test) {
     useJUnitPlatform()
     classpath += configurations.developmentOnly
 }
-
 application {
     mainClass = "org.grails.forge.netty.Application"
 }
-
-tasks.named("shadowJar") {
-    mergeServiceFiles()
-    manifest {
-        attributes 'Main-Class': 'org.grails.forge.netty.Application'
-    }
-}
-
 tasks.named("run") {
     classpath += configurations.developmentOnly
+}
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("org.grails.forge.*")
+    }
 }
