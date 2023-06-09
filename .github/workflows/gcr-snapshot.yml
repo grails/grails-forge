@@ -1,0 +1,38 @@
+name: Snapshot to GCR
+on:
+  push:
+    branches:
+      - 6.0.x
+jobs:
+  deploy:
+    name: Setup Gcloud Account
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:snapshot
+    steps:
+      - name: Login
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_email: ${{ secrets.GCP_EMAIL }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Run Tests
+        run: ./gradlew grails-forge-api:test grails-forge-web-netty:test
+      - name: Build Docker image
+        run: |
+          ./gradlew grails-forge-web-netty:dockerBuildNative -PdockerImageName="$IMAGE_NAME"
+      - name: Push image to Google Cloud Container Registry
+        run: |
+          ./gradlew grails-forge-web-netty:dockerPushNative -PdockerImageName="$IMAGE_NAME"
+      - name: Deploy Docker image
+        run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
+
