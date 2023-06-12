@@ -34,5 +34,5 @@ jobs:
         run: |
           ./gradlew grails-forge-web-netty:dockerPush -PdockerImageName="$IMAGE_NAME"
       - name: Deploy Docker image
-        run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
+        run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-snapshot --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
 
