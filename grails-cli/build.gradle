@@ -11,7 +11,7 @@ sourceSets {
 }
 
 ext {
-    picocliVersion = '4.7.3'
+    picocliVersion = '4.7.4'
 }
 
 configurations.all {
