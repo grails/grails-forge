@@ -11,6 +11,7 @@ micronaut:
         web:
           allowedOrigins:
             - ${CORS_ALLOWED_ORIGIN:`^http(|s):\/\/grails\.org$`}
+            - https://grails.github.io/grails-forge-ui
           allowedMethods:
             - GET
   http:
