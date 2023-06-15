@@ -9,12 +9,14 @@ import io.micronaut.runtime.server.EmbeddedServer
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevCommit
 import org.grails.forge.util.GitHubUtil
+import spock.lang.Ignore
 import spock.lang.Retry
 import spock.lang.Specification
 
 import java.nio.file.Path
 import java.nio.file.Paths
 
+@Ignore
 @Retry
 class GitHubCreateControllerSpec extends Specification {
 

@@ -19,7 +19,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
         then:
         gradleProps.contains("grailsGradlePluginVersion=6.0.0-RC1")
-        gradleProps.contains("grailsVersion=6.0.0-M4")
+        gradleProps.contains("grailsVersion=6.0.0-RC1")
     }
 
     void "test dependencies are present for buildSrc"() {
