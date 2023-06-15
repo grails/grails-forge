@@ -20,15 +20,11 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.feature.Feature;
-import org.grails.forge.feature.logging.template.logbackgroovy;
-import org.grails.forge.options.Options;
+import org.grails.forge.feature.logging.template.logbackGroovy;
 import org.grails.forge.template.RockerTemplate;
 
-import java.util.Set;
-
 @Singleton
-public class Logbackgroovy implements LoggingFeature {
+public class LogbackGroovy implements LoggingFeature {
 
     @Override
     public String getName() {
@@ -42,7 +38,7 @@ public class Logbackgroovy implements LoggingFeature {
 
     @Override
     public String getDescription() {
-        return "Adds Logback Logging with Groovy config";
+        return "Gives you the ability to use groovy to configure logback instead of XML.";
     }
 
     @Override
@@ -63,7 +59,7 @@ public class Logbackgroovy implements LoggingFeature {
         String projectName = generatorContext.getProject().getName();
         String packageName = generatorContext.getProject().getPackageName();
 
-        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback-config.groovy", logbackgroovy.template(projectName, packageName, jansi)));
+        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback-config.groovy", logbackGroovy.template(projectName, packageName, jansi)));
 
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.grails")

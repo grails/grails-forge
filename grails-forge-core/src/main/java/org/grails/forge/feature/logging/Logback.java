@@ -29,7 +29,7 @@ import org.grails.forge.template.RockerTemplate;
 import java.util.Set;
 
 @Singleton
-public class Logback implements LoggingFeature {
+public class Logback implements LoggingFeature, DefaultFeature {
 
     @Override
     public String getName() {
@@ -48,7 +48,12 @@ public class Logback implements LoggingFeature {
 
     @Override
     public boolean isVisible() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return selectedFeatures.stream().noneMatch(f -> f instanceof LoggingFeature);
     }
 
     @Override
