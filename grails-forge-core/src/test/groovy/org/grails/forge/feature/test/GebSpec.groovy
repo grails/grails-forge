@@ -2,6 +2,7 @@ package org.grails.forge.feature.test
 
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.application.ApplicationType
+import org.grails.forge.application.OperatingSystem
 import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
@@ -47,9 +48,22 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         expect:
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
         buildGradle.contains("webdriverBinaries")
-        buildGradle.contains("chromedriver '2.32'")
-        buildGradle.contains("geckodriver '0.19.0'")
-        buildGradle.contains("iedriverserver '3.8.0'")
-        buildGradle.contains("edgedriver '86.0.601.0'")
+        buildGradle.contains("chromedriver '110.0.5481.77'")
+        buildGradle.contains("geckodriver '0.32.2'")
+        buildGradle.contains("edgedriver '110.0.1587.57'")
+    }
+
+    void "test webdriver binaries gradle configurations for windows OS"() {
+        given:
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11, OperatingSystem.WINDOWS))
+        final def buildGradle = output["build.gradle"]
+
+        expect:
+        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        buildGradle.contains("webdriverBinaries")
+        buildGradle.contains("chromedriver '110.0.5481.77'")
+        buildGradle.contains("geckodriver '0.32.2'")
+        buildGradle.contains("iedriverserver '3.141.59'")
+        buildGradle.contains("edgedriver '110.0.1587.57'")
     }
 }

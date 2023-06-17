@@ -1,10 +1,13 @@
 @import org.grails.forge.application.Project;
+@import org.grails.forge.application.OperatingSystem;
 
-@args(Project project)
+@args(Project project, OperatingSystem os)
 
 webdriverBinaries {
-    chromedriver '2.32'
-    geckodriver '0.19.0'
-    iedriverserver '3.8.0'
-    edgedriver '86.0.601.0'
+    chromedriver '110.0.5481.77'
+    geckodriver '0.32.2'
+@if (os == OperatingSystem.WINDOWS) {
+    iedriverserver '3.141.59'
+}
+    edgedriver '110.0.1587.57'
 }

@@ -47,7 +47,7 @@ public class Geb implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return options.getOperatingSystem() != OperatingSystem.MACOS_ARCH64 && applicationType == ApplicationType.WEB;
+        return applicationType == ApplicationType.WEB;
     }
 
     @NonNull
@@ -100,7 +100,7 @@ public class Geb implements DefaultFeature {
             generatorContext.addBuildPlugin(GradlePlugin.builder()
                     .id("com.github.erdi.webdriver-binaries")
                     .lookupArtifactId("webdriver-binaries-gradle-plugin")
-                    .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject())))
+                    .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject(), generatorContext.getOperatingSystem())))
                     .build());
 
             generatorContext.addDependency(Dependency.builder()
