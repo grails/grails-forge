@@ -69,7 +69,7 @@ public class LogbackGroovy implements LoggingFeature {
         generatorContext.addDependency(Dependency.builder()
                 .groupId("io.github.virtualdogbert")
                 .artifactId("logback-groovy-config")
-                .version("1.12.3")
+                .version("1.12.4")
                 .compile());
     }
 
