@@ -20,7 +20,7 @@ trait CommandOutputFixture {
         beanContext.getBean(ProjectGenerator).generate(type,
                 NameUtils.parse("example.grails.foo"),
                 options,
-                OperatingSystem.LINUX,
+                options.operatingSystem,
                 features,
                 handler,
                 ConsoleOutput.NOOP
@@ -38,7 +38,7 @@ trait CommandOutputFixture {
         beanContext.getBean(ProjectGenerator).generate(type,
                 NameUtils.parse("example.grails.foo"),
                 options,
-                OperatingSystem.LINUX,
+                options.operatingSystem,
                 features,
                 handler,
                 ConsoleOutput.NOOP
