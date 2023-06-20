@@ -18,6 +18,7 @@ package org.grails.forge.feature.view;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
@@ -66,7 +67,7 @@ public class Scaffolding implements DefaultFeature {
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return true;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
     }
 
     @Override
@@ -78,6 +79,14 @@ public class Scaffolding implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.fusesource.jansi")
+                .lookupArtifactId("jansi")
+                .runtime());
 
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.grails.plugins")
+                .artifactId("scaffolding")
+                .compile());
     }
 }

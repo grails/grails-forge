@@ -80,6 +80,12 @@ abstract class CommandSpec extends Specification {
                 .build()
     }
 
+    BuildResult executeGradle(String... arguments) {
+        gradleRunner.withProjectDir(dir)
+                .withArguments(arguments)
+                .build()
+    }
+
     void generateProject(Language lang,
                          BuildTool buildTool = BuildTool.DEFAULT_OPTION,
                          OperatingSystem operatingSystem = OperatingSystem.LINUX,

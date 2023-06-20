@@ -28,6 +28,11 @@
             <version>2.3.1</version>
         </dependency>
         <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>1.18</version>
+        </dependency>
+        <dependency>
             <groupId>org.grails</groupId>
             <artifactId>grails-gradle-plugin</artifactId>
             <version>6.0.0-RC1</version>
@@ -83,7 +88,7 @@
             <version>2.1.1</version>
         </dependency>
         <dependency>
-            <groupId>gradle.plugin.com.github.erdi.webdriver-binaries</groupId>
+            <groupId>com.github.erdi</groupId>
             <artifactId>webdriver-binaries-gradle-plugin</artifactId>
             <version>3.0</version>
         </dependency>
