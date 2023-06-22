@@ -19,7 +19,7 @@ import java.nio.charset.Charset
 conversionRule 'clr', ColorConverter
 conversionRule 'wex', WhitespaceThrowableProxyConverter
 
-// See http://logback.qos.ch/manual/groovy.html for details on configuration
+// See https://logback.qos.ch/manual/groovy.html for details on configuration
 
 String LOG_NAME = System.getenv('LOG_NAME') ?: System.getProperty('log.name') ?: '@projectName'
 String TARGET_LOG_DIRECTORY = System.getenv('TARGET_LOG_DIRECTORY') ?: System.getProperty('target.log.directory') ?:"."
@@ -63,7 +63,6 @@ appender("ROLLING_FILE", RollingFileAppender) {
 }
 
 root(logLevel, ['STDOUT','ROLLING_FILE'])
-
 
 if (Environment.isDevelopmentMode() && TARGET_LOG_DIRECTORY != null) {
     appender("FULL_STACKTRACE", FileAppender) {
