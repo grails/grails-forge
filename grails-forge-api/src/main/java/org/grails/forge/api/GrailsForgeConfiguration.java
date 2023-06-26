@@ -57,7 +57,7 @@ public class GrailsForgeConfiguration {
      * @return The URI to redirect to when visiting via the browser
      */
     public Optional<URI> getRedirectUri() {
-        return Optional.of(URI.create("https://start.grails.org/"));
+        return Optional.of(URI.create(redirectUrl));
     }
 
     /**
