@@ -1,15 +1,19 @@
 plugins {
-    id "org.grails.forge.internal.convention"
-    id 'com.google.cloud.tools.jib' version '3.3.2'
-    id "application"
+    id("com.github.johnrengelman.shadow")
+    id("io.micronaut.application") version "3.7.10"
+}
+
+version project.projectVersion
+group "org.grails.forge"
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    annotationProcessor "io.micronaut.data:micronaut-data-processor"
-    annotationProcessor "io.micronaut:micronaut-graal"
-
-    implementation project(":grails-forge-core")
-    implementation "io.micronaut:micronaut-http-server-netty"
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut:micronaut-graal")
+    implementation(project(":grails-forge-core"))
     runtimeOnly "ch.qos.logback:logback-classic:1.4.8"
     implementation("io.micronaut.data:micronaut-data-jdbc")
     implementation 'org.postgresql:postgresql:42.6.0'
@@ -18,9 +22,30 @@ dependencies {
     implementation 'io.micronaut.flyway:micronaut-flyway'
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
     testImplementation "io.micronaut:micronaut-http-client"
-    testImplementation "io.micronaut.test:micronaut-test-spock"
     testImplementation "org.testcontainers:postgresql"
     testImplementation "ch.qos.logback:logback-classic:1.4.8"
 }
+application {
+    mainClass = "org.grails.forge.analytics.postgres.Main"
+}
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("org.grails.forge.*")
+    }
+}
+tasks.named('dockerfileNative') {
+    // https://www.graalvm.org/latest/docs/getting-started/container-images/
+    baseImage("ghcr.io/graalvm/jdk:ol8-java17-22.3.2")
+}
 
-mainClassName = 'org.grails.forge.analytics.postgres.Main'
+tasks.named("dockerBuildNative") {
+    images = [project.hasProperty("dockerImageName") ? project.getProperty("dockerImageName") : "grailsforge"]
+}
+
+tasks.named("dockerBuild") {
+    images = [project.hasProperty("dockerImageName") ? project.getProperty("dockerImageName") : "grailsforge"]
+}
