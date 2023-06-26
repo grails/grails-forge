@@ -158,3 +158,81 @@ Cat the `key.json` content and paste it into the `GCP_CREDENTIALS` secret value.
 Now you just need to create a YAML file telling which commands your workflow should run. In your project directory, create a folder called `.github` and create another one inside it called `workflows`.
 
 See the workflows in this project for examples.
+
+## Cloud SQL Setup
+
+![Cloud SQL Admin API Enable Screenshot](docs/enable-cloud-sql-admin-api.png)
+
+### Cloud SQL Instance
+
+Create an instance of Cloud SQL:
+
+![](docs/cloud_sql_create_intance.png)
+
+Choose PostgreSQL as your database engine: 
+
+![](docs/choose-postgresql.png)
+
+![Enable Compute Engine API](docs/enable-compute-engine-api.png)
+
+Configure it with the following options: 
+
+![](docs/dbinstance-options.png)
+
+### Databases
+
+Create two databases `grailsforge-production` and `grailsforge-snapshot`
+
+![Cloud SQL Databases Screenshot](docs/create-two-databases.png)
+
+## Cloud Run environment variables
+
+### Latest Env
+
+#### Cloud Run grailsforge-latest
+
+| Name   | Value                                         | 
+|:-------|:----------------------------------------------|
+| `MICRONAUT_ENV_DEDUCTION` | `false`                                       |
+| `MICRONAUT_ENVIRONMENTS` | `gcp`                                         |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_READ_TIMEOUT` | `20s`                                         |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_URL` | URL of cloud run `grailsforge-analytics-latest` |
+
+### Cloud Run grailsforge-analytics-latest
+
+| Name                                             | Value                                                          | 
+|:-------------------------------------------------|:---------------------------------------------------------------|
+| `CLOUD_SQL_CONNECTION_NAME`                      | `grailsforge:us-central1:grailsforge-postgresdb`                                                               |
+| `DB_NAME`                                        | `grailsforge-production` |
+| `MICRONAUT_ENV_DEDUCTION`                        | `false`                                                        |
+| `MICRONAUT_ENVIRONMENTS`                         | `gcp`                                                          |
+| `DATASOURCES_DEFAULT_USERNAME`                    | `***`
+| `DATASOURCES_DEFAULT_PASSWORD`                    | `***`
+| `DATASOURCES_DEFAULT_URL` | `jdbc:postgresql:///grailsforge-production` |
+
+
+### Snapshot Env
+
+### Cloud Run grailsforge-snapshot
+
+| Name   | Value                                            | 
+|:-------|:-------------------------------------------------|
+| `MICRONAUT_ENV_DEDUCTION` | `false`                                          |
+| `MICRONAUT_ENVIRONMENTS` | `gcp`                                            |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_READ_TIMEOUT` | `20s`                                            |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_URL` | URL of cloud run `grailsforge-analytics-snapshot` |
+
+
+### Cloud Run grailsforge-analytics-latest
+
+| Name                                             | Value                                            | 
+|:-------------------------------------------------|:-------------------------------------------------|
+| `CLOUD_SQL_CONNECTION_NAME`                      | `grailsforge:us-central1:grailsforge-postgresdb` |
+| `DB_NAME`                                        | `grailsforge-snapshot`                           |
+| `MICRONAUT_ENV_DEDUCTION`                        | `false`                                          |
+| `MICRONAUT_ENVIRONMENTS`                         | `gcp`                                            |
+| `DATASOURCES_DEFAULT_USERNAME`                    | `***`                                            
+| `DATASOURCES_DEFAULT_PASSWORD`                    | `***`                                            
+| `DATASOURCES_DEFAULT_URL` | `jdbc:postgresql:///grailsforge-snapshot`        |
+
+
