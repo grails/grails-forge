@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
 @Client("analytics")
 public interface AnalyticsClient extends AnalyticsOperations {
 
-    String SERVICE_ANALYTICS = "micronaut.http.services.analytics";
+    String SERVICE_ANALYTICS = "micronaut.http.services.analytics.url";
 
     @Override
     @Post("/analytics/report")
