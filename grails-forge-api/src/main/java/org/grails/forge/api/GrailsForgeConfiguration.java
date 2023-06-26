@@ -33,10 +33,11 @@ import java.util.Optional;
 @ConfigurationProperties(GrailsForgeConfiguration.PREFIX)
 public class GrailsForgeConfiguration {
     public static final String PREFIX = "grails.forge";
+    private static final String DEFAULT_REDIRECT_URL = "https://grails.github.io/grails-forge-ui/";
 
     private URL url;
     private String path;
-    private URI redirectUri = URI.create("https://start.grails.org/");
+    private String redirectUrl = DEFAULT_REDIRECT_URL;
 
     /**
      * Default constructor.
@@ -56,15 +57,22 @@ public class GrailsForgeConfiguration {
      * @return The URI to redirect to when visiting via the browser
      */
     public Optional<URI> getRedirectUri() {
-        return Optional.ofNullable(redirectUri);
+        return Optional.of(URI.create("https://start.grails.org/"));
+    }
+
+    /**
+     * @return The URL to redirect to when visiting via the browser
+     */
+    public String getRedirectUrl() {
+        return redirectUrl;
     }
 
     /**
      * Sets the URI to redirect to when visiting via the browser.
      * @param redirectUri The redirect URI
      */
-    public void setRedirectUri(@Nullable URI redirectUri) {
-        this.redirectUri = redirectUri;
+    public void setRedirectUrl(@Nullable String redirectUri) {
+        this.redirectUrl = redirectUrl;
     }
 
     /**
