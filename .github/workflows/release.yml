@@ -89,7 +89,7 @@ jobs:
           commit_author: ${{ env.GIT_USER_NAME }} <${{ env.GIT_USER_EMAIL }}>
           file_pattern: gradle.properties
   deploy:
-    name: Setup Gcloud Account
+    name: Deploy To Google Cloud Run
     runs-on: ubuntu-latest
     needs: [build]
     env:
