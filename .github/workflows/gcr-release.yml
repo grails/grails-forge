@@ -17,7 +17,7 @@ jobs:
       - name: Set the current release version
         id: release_version
         run: |
-          release_version=${GITHUB_REF:11}
+          release_version=6.0.0-RC1
           sed -i "s/^projectVersion.*$/projectVersion\=${release_version}/" gradle.properties
           echo "release_version=${release_version}" >> $GITHUB_OUTPUT
       - name: Login
