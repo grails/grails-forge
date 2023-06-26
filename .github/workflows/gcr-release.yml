@@ -37,7 +37,7 @@ jobs:
         run: ./gradlew grails-forge-api:test grails-forge-web-netty:test
       - name: Build and Push Docker image and deploy to Cloud Run
         env:
-          IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:6.0.0-RC1"
+          IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ steps.release_version.outputs.release_version }}
         run: |
           echo $IMAGE_NAME
           ./gradlew grails-forge-web-netty:dockerBuild -PdockerImageName="$IMAGE_NAME"
