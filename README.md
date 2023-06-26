@@ -59,7 +59,9 @@ A release is performed with the following steps:
 * [Monitor the Workflow](https://github.com/grails/grails-forge/actions?query=workflow%3ARelease) to check it passed successfully.
 * Celebrate!
 
+## Architecture
 
+![Grails Forge Architecture](grailsforgearchitecture.jpeg)
 
 ## Distribution to Google Cloud Run via GitHub Actions
 
