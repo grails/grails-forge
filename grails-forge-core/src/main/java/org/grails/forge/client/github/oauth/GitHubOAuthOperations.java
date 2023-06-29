@@ -15,6 +15,9 @@
  */
 package org.grails.forge.client.github.oauth;
 
+import io.micronaut.http.HttpHeaders;
+import io.micronaut.http.annotation.Header;
+import io.micronaut.http.annotation.Headers;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.QueryValue;
 
@@ -27,6 +30,6 @@ import io.micronaut.http.annotation.QueryValue;
 public interface GitHubOAuthOperations {
 
     @Post(value = "/access_token")
-    AccessToken accessToken(@QueryValue("client_id") String clientId, @QueryValue("client_secret") String clientSecret, @QueryValue String code, @QueryValue String state);
+    AccessToken accessToken(@Header(HttpHeaders.USER_AGENT) String userAgent, @QueryValue("client_id") String clientId, @QueryValue("client_secret") String clientSecret, @QueryValue String code, @QueryValue String state);
 
 }

@@ -26,6 +26,7 @@ grails:
         client-id: ${GITHUB_OAUTH_APP_CLIENT_ID}
         client-secret: ${GITHUB_OAUTH_APP_CLIENT_SECRET}
         token-permissions: public_repo,read:user
+        user-agent: ${GITHUB_USER_AGENT}
 gcp:
   http:
     client:
