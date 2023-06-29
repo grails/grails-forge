@@ -141,11 +141,12 @@ public class GitHubCreateService extends AbstractCreateController {
     private GitHubRepository createGitHubRepository(String authToken, String repoName, String repoDescription,
                                                     GitHubUser gitHubUser) {
         try {
-            if (gitHubApiClient.getRepository(authToken, gitHubUser.getLogin(), repoName) != null) {
+            if (gitHubApiClient.getRepository(gitHubConfiguration.getUserAgent(), authToken, gitHubUser.getLogin(), repoName) != null) {
                 throw new IllegalArgumentException("Repository " + repoName + " already exists.");
             }
 
-            GitHubRepository githubRepository = gitHubApiClient.createRepository(authToken,
+            GitHubRepository githubRepository = gitHubApiClient.createRepository(gitHubConfiguration.getUserAgent(),
+                    authToken,
                     new GitHubRepository(repoName, repoDescription));
 
             if (LOG.isDebugEnabled()) {
@@ -159,7 +160,7 @@ public class GitHubCreateService extends AbstractCreateController {
 
     private AccessToken getGitHubAccessToken(String code, String state) {
         try {
-            return gitHubOAuthClient.accessToken(gitHubConfiguration.getClientId(),
+            return gitHubOAuthClient.accessToken(gitHubConfiguration.getUserAgent(), gitHubConfiguration.getClientId(),
                     gitHubConfiguration.getClientSecret(), code, state);
         } catch (HttpClientResponseException e) {
             throw new RuntimeException("Failed to get user access token.");
@@ -168,7 +169,7 @@ public class GitHubCreateService extends AbstractCreateController {
 
     private GitHubUser getGitHubUser(String authToken) {
         try {
-            GitHubUser gitHubUser = gitHubApiClient.getUser(authToken);
+            GitHubUser gitHubUser = gitHubApiClient.getUser(gitHubConfiguration.getUserAgent(), authToken);
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Fetched user " + gitHubUser);
             }

@@ -42,7 +42,7 @@ Reload your terminal or `source` your shell profile with `source`:
 $ source ~/.bash_profile
 ----
 
-You are now be able to run the Grails CLI.
+You will now be able to run the Grails CLI.
 
 [source,bash]
 ----

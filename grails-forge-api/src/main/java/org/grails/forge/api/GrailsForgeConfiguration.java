@@ -100,10 +100,21 @@ public class GrailsForgeConfiguration {
     @ConfigurationProperties(GitHubConfiguration.PREFIX)
     public static class GitHubConfiguration {
         public static final String PREFIX = "github";
+        public static final String DEFAULT_USER_AGENT = "https://grails.github.io/grails-forge-ui/";
 
         private String clientId;
         private String clientSecret;
         private String tokenPermissions;
+
+        private String userAgent = DEFAULT_USER_AGENT;
+
+        public String getUserAgent() {
+            return userAgent;
+        }
+
+        public void setUserAgent(String userAgent) {
+            this.userAgent = userAgent;
+        }
 
         /**
          * @return GitHub OAuth App client id

@@ -30,6 +30,7 @@ class GitHubApiMockedController implements GitHubApiOperations {
     @Override
     @Post(value = "/user/repos", processes = [GitHubApiClient.GITHUB_V3_TYPE, MediaType.APPLICATION_JSON])
     GitHubRepository createRepository(
+            @Header(HttpHeaders.USER_AGENT) String userAgent,
             @Header(HttpHeaders.AUTHORIZATION) String oauthToken,
             @Body GitHubRepository gitHubRepository) {
         Path temp = Files.createTempDirectory('test-github-create')
@@ -41,6 +42,7 @@ class GitHubApiMockedController implements GitHubApiOperations {
     @Override
     @Get(value = "/repos/{owner}/{repo}", processes = [GitHubApiClient.GITHUB_V3_TYPE])
     GitHubRepository getRepository(
+            @Header(HttpHeaders.USER_AGENT) String userAgent,
             @Header(HttpHeaders.AUTHORIZATION) String oauthToken,
             @PathVariable String owner,
             @PathVariable String repo) {
@@ -48,33 +50,33 @@ class GitHubApiMockedController implements GitHubApiOperations {
     }
 
     @Override
-    void deleteRepository(@Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo) {
+    void deleteRepository(@Header(HttpHeaders.USER_AGENT) String userAgent, @Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo) {
         // no-op
     }
 
     @Override
     @Get(value = "/user", processes = [GitHubApiClient.GITHUB_V3_TYPE, MediaType.APPLICATION_JSON])
-    GitHubUser getUser(@Header(HttpHeaders.AUTHORIZATION) String oauthToken) {
+    GitHubUser getUser(@Header(HttpHeaders.USER_AGENT) String userAgent, @Header(HttpHeaders.AUTHORIZATION) String oauthToken) {
         return new GitHubUser("login", "email", "name")
     }
 
     @Override
-    void createSecret(@Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo, @PathVariable String secretName, @Body GitHubSecret secret) {
+    void createSecret(@Header(HttpHeaders.USER_AGENT) String userAgent, @Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo, @PathVariable String secretName, @Body GitHubSecret secret) {
         // no-op
     }
 
     @Override
-    GitHubSecretsPublicKey getSecretPublicKey(@Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo) {
+    GitHubSecretsPublicKey getSecretPublicKey(@Header(HttpHeaders.USER_AGENT) String userAgent, @Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo) {
         return null
     }
 
     @Override
-    GitHubWorkflowRuns listWorkflows(@Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo) {
+    GitHubWorkflowRuns listWorkflows(@Header(HttpHeaders.USER_AGENT) String userAgent, @Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo) {
         return null
     }
 
     @Override
-    GitHubWorkflowRun getWorkflowRun(@Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo, @PathVariable Long runId) {
+    GitHubWorkflowRun getWorkflowRun(@Header(HttpHeaders.USER_AGENT) String userAgent, @Header(HttpHeaders.AUTHORIZATION) String oauthToken, @PathVariable String owner, @PathVariable String repo, @PathVariable Long runId) {
         return null
     }
 }

@@ -28,9 +28,7 @@ import io.micronaut.http.client.annotation.Client;
  */
 @Client(id = GitHubOAuthClient.SERVICE_ID, path = "/login/oauth")
 @Requires(property = "micronaut.http.services." + GitHubOAuthClient.SERVICE_ID)
-@Header(name = "User-Agent", value = "https://start.grails.org/")
 @Header(name = "Accept", value = MediaType.APPLICATION_JSON)
 public interface GitHubOAuthClient extends GitHubOAuthOperations {
     String SERVICE_ID = "github-oauth";
-    String SERVICE_URL = "https://github.com";
 }
