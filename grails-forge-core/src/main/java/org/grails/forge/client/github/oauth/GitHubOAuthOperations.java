@@ -17,7 +17,6 @@ package org.grails.forge.client.github.oauth;
 
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.annotation.Header;
-import io.micronaut.http.annotation.Headers;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.QueryValue;
 

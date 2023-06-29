@@ -80,8 +80,7 @@ public class Generated {
     public @NonNull GormImpl getGorm() {
         return gorm;
     }
-
-
+    
     /**
      * @return The Embedded Servlet Implementation
      */
