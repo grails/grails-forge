@@ -86,10 +86,10 @@ jobs:
       - name: Build Docker image
         # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
         run: |
-          ./gradlew grails-forge-web-netty:dockerBuild -PdockerImageName="$IMAGE_NAME"
+          ./gradlew grails-forge-web-netty:dockerBuildNative -PdockerImageName="$IMAGE_NAME"
       - name: Push image to Google Cloud Container Registry
         run: |
-          ./gradlew grails-forge-web-netty:dockerPush -PdockerImageName="$IMAGE_NAME"
+          ./gradlew grails-forge-web-netty:dockerPushNative -PdockerImageName="$IMAGE_NAME"
       - name: Deploy Docker image
         run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-snapshot --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
   deployAnalytics:
