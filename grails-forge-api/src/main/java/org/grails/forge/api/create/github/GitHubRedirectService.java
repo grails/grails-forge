@@ -65,7 +65,7 @@ public class GitHubRedirectService {
      */
     protected URI constructOAuthRedirectUrl(RequestInfo requestInfo) {
         try {
-            UriBuilder uriBuilder = UriBuilder.of('https://grails.github.io/grails-forge-ui/').path(requestInfo.getPath());
+            UriBuilder uriBuilder = UriBuilder.of("https://grails.github.io/grails-forge-ui/").path(requestInfo.getPath());
             requestInfo.getParameters().forEachValue(uriBuilder::queryParam);
             URI redirectUri = uriBuilder.build();
 
