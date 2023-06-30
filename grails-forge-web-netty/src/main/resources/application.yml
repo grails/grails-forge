@@ -25,7 +25,7 @@ grails:
       github:
         client-id: ${GITHUB_OAUTH_APP_CLIENT_ID}
         client-secret: ${GITHUB_OAUTH_APP_CLIENT_SECRET}
-        token-permissions: public_repo,read:user
+        token-permissions: public_repo,read:user,workflow
         user-agent: ${GITHUB_USER_AGENT:'https://grails.github.io/grails-forge-ui/'}
 gcp:
   http:
