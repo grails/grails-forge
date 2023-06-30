@@ -92,7 +92,7 @@ jobs:
       - name: Deploy Docker image
         run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-snapshot --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
   deployAnalytics:
-    name: Setup Gcloud Account
+    name: Deploy Analytics To Google Cloud Run
     runs-on: ubuntu-latest
     needs: [build]
     env:
