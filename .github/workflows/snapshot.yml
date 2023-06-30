@@ -61,6 +61,7 @@ jobs:
   deploy:
     name: Deploy To Google Cloud Run
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     needs: [build]
     env:
       IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:snapshot
@@ -94,6 +95,7 @@ jobs:
   deployAnalytics:
     name: Deploy Analytics To Google Cloud Run
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     needs: [build]
     env:
       IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}-analytics:snapshot
