@@ -126,6 +126,7 @@ public class GitHubCreateService extends AbstractCreateController {
                 LOG.debug("Successfully pushed application to " + githubRepository);
             }
         } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
             throw new RuntimeException("Failed to push to created repository: " + githubRepository.getUrl());
         } finally {
             try {
@@ -154,6 +155,7 @@ public class GitHubCreateService extends AbstractCreateController {
             }
             return githubRepository;
         } catch (HttpClientResponseException e) {
+            LOG.error(e.getMessage(), e);
             throw new RuntimeException("Failed to create repository " + repoName);
         }
     }
@@ -163,6 +165,7 @@ public class GitHubCreateService extends AbstractCreateController {
             return gitHubOAuthClient.accessToken(gitHubConfiguration.getUserAgent(), gitHubConfiguration.getClientId(),
                     gitHubConfiguration.getClientSecret(), code, state);
         } catch (HttpClientResponseException e) {
+            LOG.error(e.getMessage(), e);
             throw new RuntimeException("Failed to get user access token.");
         }
     }
@@ -175,6 +178,7 @@ public class GitHubCreateService extends AbstractCreateController {
             }
             return gitHubUser;
         } catch (HttpClientResponseException e) {
+            LOG.error(e.getMessage(), e);
             throw new RuntimeException("Failed to get user.");
         }
     }
