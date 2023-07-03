@@ -97,7 +97,7 @@ jobs:
           GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
         with:
-          arguments: grails-forge-web-netty:dockerBuildNative -PdockerImageName=${ env.IMAGE_NAME }}
+          arguments: grails-forge-web-netty:dockerBuildNative -PdockerImageName=${{ env.IMAGE_NAME }}
       - name: Push image to Google Cloud Container Registry
         uses: gradle/gradle-build-action@v2
         env:
