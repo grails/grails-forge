@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - '[6-9]+.[0-9]+.x'
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
