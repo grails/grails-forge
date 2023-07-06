@@ -26,12 +26,10 @@ import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.*;
 import org.grails.forge.feature.test.template.groovyJunit;
 import org.grails.forge.feature.test.template.webdriverBinariesPlugin;
-import org.grails.forge.options.DefaultTestRockerModelProvider;
-import org.grails.forge.options.Options;
-import org.grails.forge.options.TestFramework;
-import org.grails.forge.options.TestRockerModelProvider;
+import org.grails.forge.options.*;
 import org.grails.forge.template.RockerTemplate;
 import org.grails.forge.template.RockerWritable;
+import org.grails.forge.feature.test.template.gebConfig;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -123,6 +121,10 @@ public class Geb implements DefaultFeature {
                     .groupId("org.seleniumhq.selenium")
                     .lookupArtifactId("selenium-firefox-driver")
                     .testRuntime());
+            generatorContext.addDependency(Dependency.builder()
+                    .groupId("org.seleniumhq.selenium")
+                    .lookupArtifactId("selenium-safari-driver")
+                    .testRuntime());
 
             TestFramework testFramework = generatorContext.getTestFramework();
             String integrationTestSourcePath = generatorContext.getIntegrationTestSourcePath("/{packagePath}/{className}");
@@ -132,6 +134,8 @@ public class Geb implements DefaultFeature {
             generatorContext.addTemplate("applicationTest",
                     new RockerTemplate(integrationTestSourcePath, provider.findModel(generatorContext.getLanguage(), testFramework))
             );
+            generatorContext.addTemplate("gebConfig",
+                    new RockerTemplate("src/integration-test/resources/GebConfig.groovy", gebConfig.template(project)));
         }
     }
 }

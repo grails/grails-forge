@@ -20,6 +20,7 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Coordinate;
 import org.grails.forge.build.dependencies.CoordinateResolver;
+import org.grails.forge.build.dependencies.LookupFailedException;
 import org.grails.forge.build.gradle.GradleBuild;
 import org.grails.forge.build.gradle.GradleBuildCreator;
 import org.grails.forge.build.gradle.GradlePlugin;
@@ -37,6 +38,7 @@ import org.grails.forge.template.RockerTemplate;
 import org.grails.forge.template.URLTemplate;
 
 import java.util.Set;
+import java.util.function.Function;
 
 @Singleton
 public class Gradle implements BuildFeature {
@@ -79,9 +81,12 @@ public class Gradle implements BuildFeature {
                 build
         )));
 
+
+        final Function<String, Coordinate> coordinateResolver = (artifactId) -> { return resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId)); };
         generatorContext.addTemplate("build", new RockerTemplate(buildTool.getBuildFileName(), buildGradle.template(
                 generatorContext.getApplicationType(),
                 generatorContext.getProject(),
+                coordinateResolver,
                 generatorContext.getFeatures(),
                 build
         )));

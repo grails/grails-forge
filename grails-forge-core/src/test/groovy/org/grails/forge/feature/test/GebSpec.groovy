@@ -27,6 +27,25 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver:4.10.0\")")
     }
 
+    void "test GebConfig.groovy file is present"() {
+        given:
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+
+        expect:
+        output.containsKey('src/integration-test/resources/GebConfig.groovy')
+    }
+
+    void "test build.gradle contains logic to force selenium version"() {
+        given:
+        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def buildGradle = output["build.gradle"]
+
+        expect:
+        buildGradle.contains("if (details.requested.group == 'org.seleniumhq.selenium') {\n" +
+                "                details.useVersion('4.10.0')\n" +
+                "            }")
+    }
+
     @Unroll
     void "test feature geb is not supported for #applicationType application"(ApplicationType applicationType) {
         when:

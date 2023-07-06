@@ -1,5 +1,8 @@
+@import java.util.function.Function;
 @import org.grails.forge.application.ApplicationType
+@import org.grails.forge.build.dependencies.CoordinateResolver
 @import org.grails.forge.application.Project
+@import org.grails.forge.build.dependencies.Coordinate
 @import org.grails.forge.build.gradle.GradleBuild
 @import org.grails.forge.build.gradle.GradleDsl
 @import org.grails.forge.build.gradle.GradlePlugin
@@ -10,9 +13,12 @@
 @args (
 ApplicationType applicationType,
 Project project,
+Function<String, Coordinate> coordinateResolver,
 Features features,
 GradleBuild gradleBuild
 )
+
+@seleniumVersion => { @coordinateResolver.apply("selenium-api").getVersion() }
 
 @for (String importLine : gradleBuild.getPluginsImports()) {
 @(importLine)
@@ -38,6 +44,13 @@ repositories {
 configurations {
     all {
         resolutionStrategy.force 'org.codehaus.groovy:groovy-xml:3.0.13'
+        @if (features.contains("geb")) {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details->
+            if (details.requested.group == 'org.seleniumhq.selenium') {
+                details.useVersion('@seleniumVersion')
+            }
+        }
+        }
     }
 }
 

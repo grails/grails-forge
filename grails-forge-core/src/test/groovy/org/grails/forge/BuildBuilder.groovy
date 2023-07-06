@@ -6,7 +6,9 @@ import org.grails.forge.application.ApplicationType
 import org.grails.forge.application.OperatingSystem
 import org.grails.forge.application.Project
 import org.grails.forge.application.generator.GeneratorContext
+import org.grails.forge.build.dependencies.Coordinate
 import org.grails.forge.build.dependencies.CoordinateResolver
+import org.grails.forge.build.dependencies.LookupFailedException
 import org.grails.forge.build.gradle.GradleBuild
 import org.grails.forge.build.gradle.GradleBuildCreator
 import org.grails.forge.feature.Features
@@ -14,13 +16,9 @@ import org.grails.forge.feature.build.gradle.templates.buildGradle
 import org.grails.forge.feature.build.gradle.templates.buildSrcBuildGradle
 import org.grails.forge.fixture.ContextFixture
 import org.grails.forge.fixture.ProjectFixture
-import org.grails.forge.options.BuildTool
-import org.grails.forge.options.GormImpl
-import org.grails.forge.options.JdkVersion
-import org.grails.forge.options.Language
-import org.grails.forge.options.Options
-import org.grails.forge.options.ServletImpl
-import org.grails.forge.options.TestFramework
+import org.grails.forge.options.*
+
+import java.util.function.Function
 
 class BuildBuilder implements ProjectFixture, ContextFixture {
 
@@ -115,7 +113,9 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
         if (buildTool.isGradle()) {
             GradleBuild build = gradleBuild(options, features, project, type)
-            return buildGradle.template(type, project, features, build).render().toString()
+            CoordinateResolver resolver = ctx.getBean(CoordinateResolver);
+            Function<String, Coordinate> coordinateResolver = (artifactId) -> resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId))
+            return buildGradle.template(type, project, coordinateResolver, features, build).render().toString()
         }
         null
     }
