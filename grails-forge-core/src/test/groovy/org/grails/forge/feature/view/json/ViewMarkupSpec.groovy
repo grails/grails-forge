@@ -31,9 +31,9 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
         template.contains("implementation(\"org.grails.plugins:views-markup\"")
     }
 
-    void "test default gson views are present"() {
+    void "test default gml views are present"() {
         when:
-        final def output = generate(ApplicationType.REST_API, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.REST_API, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
 
         then:
         output.containsKey("grails-app/views/application/index.gml")
@@ -46,7 +46,7 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
     @Unroll
     void "test views-markup gradle plugins and dependencies are present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
         final String build = output['build.gradle']
 
         then:
@@ -61,7 +61,7 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
     @Unroll
     void "test views-markup gradle plugins and dependencies are NOT present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
         final String build = output['build.gradle']
 
         then:
