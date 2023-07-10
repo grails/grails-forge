@@ -21,6 +21,7 @@ import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Coordinate;
 import org.grails.forge.build.dependencies.CoordinateResolver;
 import org.grails.forge.build.dependencies.Dependency;
+import org.grails.forge.build.dependencies.LookupFailedException;
 import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
@@ -61,7 +62,8 @@ class GrailsGradlePlugin implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("6.0.0-M4");
+        final String artifactId = "grails-gradle-plugin";
+        final Coordinate grailsGradlePluginCoordinate = resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId));
         final ApplicationType applicationType = generatorContext.getApplicationType();
         generatorContext.addBuildscriptDependency(Dependency.builder()
                 .groupId("org.grails")
@@ -76,6 +78,6 @@ class GrailsGradlePlugin implements DefaultFeature {
         if (generatorContext.getFeature(GrailsGsp.class).isPresent()) {
             generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
         }
-        generatorContext.getBuildProperties().put("grailsGradlePluginVersion", grailsGradlePluginVersion);
+        generatorContext.getBuildProperties().put("grailsGradlePluginVersion", grailsGradlePluginCoordinate.getVersion());
     }
 }

@@ -45,7 +45,43 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"\${grailsGradlePluginVersion}\"")
-        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"\${grailsGradlePluginVersion}\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.0.0-RC1\"")
+        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.0.0-RC1\"")
+        settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"3.4.7\"")
+    }
+
+    void "test settings.gradle for REST-API"() {
+        given:
+        final def output = generate(ApplicationType.REST_API, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final String settingsGradle = output["settings.gradle"]
+
+        expect:
+        settingsGradle.contains("pluginManagement")
+        settingsGradle.contains("repositories")
+        settingsGradle.contains("mavenLocal()")
+        settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
+        settingsGradle.contains("gradlePluginPortal()")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.0.0-RC1\"")
+        settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.0.0-RC1\"")
+        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.0.0-RC1\"")
+        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"3.4.7\"")
+    }
+
+    void "test settings.gradle for REST-API for markup-views"() {
+        given:
+        final def output = generate(ApplicationType.REST_API, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
+        final String settingsGradle = output["settings.gradle"]
+
+        expect:
+        settingsGradle.contains("pluginManagement")
+        settingsGradle.contains("repositories")
+        settingsGradle.contains("mavenLocal()")
+        settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
+        settingsGradle.contains("gradlePluginPortal()")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.0.0-RC1\"")
+        settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.0.0-RC1\"")
+        settingsGradle.contains("id \"org.grails.plugins.views-markup\" version \"3.0.0-RC1\"")
+        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.0.0-RC1\"")
+        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"3.4.7\"")
     }
 }

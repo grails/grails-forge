@@ -46,7 +46,7 @@ public class GrailsWeb implements DefaultFeature {
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return true;
+        return applicationType != ApplicationType.PLUGIN;
     }
 
     @Override

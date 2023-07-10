@@ -1,12 +1,22 @@
+@import java.util.function.Function;
 @import org.grails.forge.application.Project
+@import org.grails.forge.build.dependencies.CoordinateResolver
+@import org.grails.forge.build.dependencies.Coordinate
 @import org.grails.forge.build.gradle.GradleBuild
 @import org.grails.forge.feature.Features
 
-@args (Project project, GradleBuild gradleBuild, Features features, String grailsGradlePluginVersion)
+@args (
+Project project,
+GradleBuild gradleBuild,
+Function<String, Coordinate> coordinateResolver,
+Features features)
+
+@grailsGradlePluginVersion => { @coordinateResolver.apply("grails-gradle-plugin").getVersion() }
+@viewsGradlePluginVersion => { @coordinateResolver.apply("views-gradle").getVersion() }
+@assetPipelineVersion => { @coordinateResolver.apply("asset-pipeline-grails").getVersion() }
 
 @gradleBuild.renderSettingsExtensions()
 
-@if(features.contains("grails-gradle-plugin")) {
 pluginManagement {
     repositories {
         mavenLocal()
@@ -14,9 +24,22 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        id "org.grails.grails-web" version "${grailsGradlePluginVersion}"
-        id "org.grails.grails-gsp" version "${grailsGradlePluginVersion}"
+        @if(features.contains("grails-web")) {
+        id "org.grails.grails-web" version "@grailsGradlePluginVersion"
+        }
+        @if(features.contains("grails-gsp")) {
+        id "org.grails.grails-gsp" version "@grailsGradlePluginVersion"
+        }
+        @if(features.contains("views-json")) {
+        id "org.grails.plugins.views-json" version "@viewsGradlePluginVersion"
+        }
+        @if(features.contains("views-markup"))  {
+        id "org.grails.plugins.views-markup" version "@viewsGradlePluginVersion"
+        }
+        @if(features.contains("asset-pipeline-grails")) {
+        id "com.bertramlabs.asset-pipeline" version "@assetPipelineVersion"
+        }
     }
 }
-}
+
 rootProject.name="@project.getName()"
