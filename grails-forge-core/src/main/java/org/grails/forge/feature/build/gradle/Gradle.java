@@ -82,7 +82,7 @@ public class Gradle implements BuildFeature {
         )));
 
 
-        final Function<String, Coordinate> coordinateResolver = (artifactId) -> { return resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId)); };
+        final Function<String, Coordinate> coordinateResolver = (artifactId) -> resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId));
         generatorContext.addTemplate("build", new RockerTemplate(buildTool.getBuildFileName(), buildGradle.template(
                 generatorContext.getApplicationType(),
                 generatorContext.getProject(),
@@ -95,8 +95,7 @@ public class Gradle implements BuildFeature {
         generatorContext.addTemplate("gitignore", new RockerTemplate(".gitignore", gitignore.template()));
         generatorContext.addTemplate("projectProperties", new RockerTemplate("gradle.properties", gradleProperties.template(generatorContext.getBuildProperties().getProperties())));
         String settingsFile = "settings.gradle";
-        final String grailsGradlePluginVersion = resolver.resolve("grails-gradle-plugin").map(Coordinate::getVersion).orElse("5.2.5");
-        generatorContext.addTemplate("gradleSettings", new RockerTemplate(settingsFile, settingsGradle.template(generatorContext.getProject(), build, generatorContext.getFeatures(), grailsGradlePluginVersion)));
+        generatorContext.addTemplate("gradleSettings", new RockerTemplate(settingsFile, settingsGradle.template(generatorContext.getProject(), build, coordinateResolver, generatorContext.getFeatures())));
     }
 
     private void configureDefaultGradleProps(GeneratorContext generatorContext) {

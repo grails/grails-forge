@@ -26,8 +26,6 @@ import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.view.GrailsGsp;
-import org.grails.forge.feature.view.json.ViewJson;
-import org.grails.forge.feature.view.markup.ViewMarkup;
 import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.options.Options;
 
