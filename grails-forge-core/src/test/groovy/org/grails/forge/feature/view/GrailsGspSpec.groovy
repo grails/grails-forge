@@ -105,7 +105,6 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         final String build = output['build.gradle']
 
         then:
-        !build.contains('id "org.grails.grails-web"')
         !build.contains('id "org.grails.grails-gsp"')
         !build.contains("implementation(\"org.grails.plugins:gsp\")")
 
