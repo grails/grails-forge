@@ -21,10 +21,9 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradlePlugin;
-import org.grails.forge.feature.Category;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
-import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.feature.view.GrailsViews;
 import org.grails.forge.feature.view.json.templates.*;
 import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.options.Options;
@@ -35,12 +34,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Singleton
-public class ViewJson implements DefaultFeature {
-
-    private final GrailsWeb grailsWeb;
+public class ViewJson extends GrailsViews implements DefaultFeature {
 
     public ViewJson(GrailsWeb grailsWeb) {
-        this.grailsWeb = grailsWeb;
+        super(grailsWeb);
     }
 
     @Override
@@ -58,13 +55,6 @@ public class ViewJson implements DefaultFeature {
     @NonNull
     public String getDescription() {
         return "JSON views are written in Groovy, end with the file extension gson and reside in the grails-app/views directory. They provide a DSL for producing output in the JSON format.";
-    }
-
-    @Override
-    public void processSelectedFeatures(FeatureContext featureContext) {
-        if (!featureContext.isPresent(GrailsWeb.class) && grailsWeb != null) {
-            featureContext.addFeature(grailsWeb);
-        }
     }
 
     @Override
@@ -111,26 +101,7 @@ public class ViewJson implements DefaultFeature {
     }
 
     @Override
-    public boolean supports(ApplicationType applicationType) {
-        return true;
-    }
-
-    @Override
-    public String getCategory() {
-        return Category.VIEW;
-    }
-
-    @Override
-    public String getDocumentation() {
-        return "https://views.grails.org/";
-    }
-
-    @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.REST_API;
-    }
-
-    protected String getViewFolderPath() {
-        return "grails-app/views/";
+        return applicationType == ApplicationType.REST_API && selectedFeatures.stream().noneMatch(f -> f instanceof GrailsViews);
     }
 }
