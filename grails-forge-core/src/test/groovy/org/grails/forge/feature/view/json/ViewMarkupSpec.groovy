@@ -17,6 +17,7 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
         then:
         features.contains("grails-web")
         features.contains("views-markup")
+        !features.contains("views-json")
     }
 
     void "test dependencies are present for Gradle"() {
@@ -29,6 +30,8 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
         template.contains("id \"org.grails.grails-web\"")
         template.contains("id \"org.grails.plugins.views-markup\"")
         template.contains("implementation(\"org.grails.plugins:views-markup\"")
+        !template.contains("id \"org.grails.plugins.views-json\"")
+        !template.contains("id \"org.grails.plugins.views-json-testing-support\"")
     }
 
     void "test default gml views are present"() {
@@ -53,24 +56,11 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
         build.contains("id \"org.grails.grails-web\"")
         build.contains("id \"org.grails.plugins.views-markup\"")
         build.contains("implementation(\"org.grails.plugins:views-markup\"")
+        !build.contains("id \"org.grails.plugins.views-json\"")
+        !build.contains("implementation(\"org.grails.plugins:views-json\"")
+        !build.contains("implementation(\"org.grails.plugins:views-json-testing-support\"")
 
         where:
         applicationType << [ApplicationType.REST_API]
-    }
-
-    @Unroll
-    void "test views-markup gradle plugins and dependencies are NOT present for #applicationType application"() {
-        when:
-        final def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
-        final String build = output['build.gradle']
-
-        then:
-        !build.contains("id \"org.grails.plugins.views-json\"")
-        !build.contains("implementation(\"org.grails.plugins:views-json\"")
-        !build.contains("implementation(\"org.grails.plugins:views-json-templates\"")
-        !build.contains("testImplementation(\"org.grails.plugins:views-json-testing-support\"")
-
-        where:
-        applicationType << [ApplicationType.WEB, ApplicationType.WEB_PLUGIN, ApplicationType.PLUGIN]
     }
 }

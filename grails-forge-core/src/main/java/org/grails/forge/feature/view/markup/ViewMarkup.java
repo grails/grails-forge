@@ -17,13 +17,11 @@ package org.grails.forge.feature.view.markup;
 
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
-import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradlePlugin;
-import org.grails.forge.feature.Category;
 import org.grails.forge.feature.Feature;
-import org.grails.forge.feature.FeatureContext;
+import org.grails.forge.feature.view.GrailsViews;
 import org.grails.forge.feature.view.markup.templates.*;
 import org.grails.forge.feature.web.GrailsWeb;
 import org.grails.forge.template.RockerTemplate;
@@ -32,12 +30,10 @@ import java.util.Arrays;
 import java.util.Map;
 
 @Singleton
-public class ViewMarkup implements Feature {
-
-    private final GrailsWeb grailsWeb;
+public class ViewMarkup extends GrailsViews implements Feature {
 
     public ViewMarkup(GrailsWeb grailsWeb) {
-        this.grailsWeb = grailsWeb;
+        super(grailsWeb);
     }
 
     @Override
@@ -55,13 +51,6 @@ public class ViewMarkup implements Feature {
     @NonNull
     public String getDescription() {
         return "Markup views are written in Groovy, end with the file extension gml and reside in the grails-app/views directory. They provide a DSL for producing output in the XML.";
-    }
-
-    @Override
-    public void processSelectedFeatures(FeatureContext featureContext) {
-        if (!featureContext.isPresent(GrailsWeb.class) && grailsWeb != null) {
-            featureContext.addFeature(grailsWeb);
-        }
     }
 
     @Override
@@ -98,22 +87,4 @@ public class ViewMarkup implements Feature {
         generatorContext.addTemplate("notFound_gml", new RockerTemplate(getViewFolderPath() + "notFound.gml", notFound.template()));
     }
 
-    @Override
-    public boolean supports(ApplicationType applicationType) {
-        return true;
-    }
-
-    @Override
-    public String getCategory() {
-        return Category.VIEW;
-    }
-
-    @Override
-    public String getDocumentation() {
-        return "https://views.grails.org/";
-    }
-
-    protected String getViewFolderPath() {
-        return "grails-app/views/";
-    }
 }
