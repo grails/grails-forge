@@ -164,10 +164,9 @@ public class ApplicationController implements ApplicationTypeOperations {
      * @return The features
      */
     @Override
-    @Get("/application-types/{type}/features{?gorm,servlet,build,test,javaVersion}")
+    @Get("/application-types/{type}/features{?gorm,servlet,test,javaVersion}")
     public FeatureList features(ApplicationType type,
                                 RequestInfo requestInfo,
-                                @Nullable BuildTool build,
                                 @Nullable TestFramework test,
                                 @Nullable GormImpl gorm,
                                 @Nullable ServletImpl servlet,
@@ -176,7 +175,6 @@ public class ApplicationController implements ApplicationTypeOperations {
                 .getFeatures(requestInfo.getLocale(),
                         type,
                         new Options(test != null ? test.toTestFramework() : null,
-                                build == null ? BuildTool.DEFAULT_OPTION : build,
                                 gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
                                 servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,
                                 javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,
@@ -191,10 +189,9 @@ public class ApplicationController implements ApplicationTypeOperations {
     }
 
     @Override
-    @Get("/application-types/{type}/features/default{?gorm,servlet,build,test,javaVersion}")
+    @Get("/application-types/{type}/features/default{?gorm,servlet,test,javaVersion}")
     public FeatureList defaultFeatures(ApplicationType type,
                                        RequestInfo requestInfo,
-                                       @Nullable BuildTool build,
                                        @Nullable TestFramework test,
                                        @Nullable GormImpl gorm,
                                        @Nullable ServletImpl servlet,
@@ -203,7 +200,6 @@ public class ApplicationController implements ApplicationTypeOperations {
                 .getDefaultFeatures(requestInfo.getLocale(),
                         type,
                         new Options(test != null ? test.toTestFramework() : null,
-                                build == null ? BuildTool.DEFAULT_OPTION : build,
                                 gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
                                 servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,
                                 javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,

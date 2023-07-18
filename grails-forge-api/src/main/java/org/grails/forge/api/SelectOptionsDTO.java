@@ -18,11 +18,11 @@ package org.grails.forge.api;
 import io.micronaut.context.MessageSource;
 import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.grails.forge.api.options.*;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.options.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.grails.forge.options.TestFramework;
+import org.grails.forge.options.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,8 +45,6 @@ public class SelectOptionsDTO {
 
     private TestFrameworkSelectOptions test;
 
-    private BuildToolSelectOptions build;
-
     private GormImplSelectOptions gorm;
 
     private ServletImplSelectOptions servlet;
@@ -59,14 +57,12 @@ public class SelectOptionsDTO {
                             JdkVersionSelectOptions jdkVersion,
                             LanguageSelectOptions lang,
                             TestFrameworkSelectOptions test,
-                            BuildToolSelectOptions build,
                             GormImplSelectOptions gorm,
                             ServletImplSelectOptions servlet) {
         this.type = type;
         this.jdkVersion = jdkVersion;
         this.lang = lang;
         this.test = test;
-        this.build = build;
         this.gorm = gorm;
         this.servlet = servlet;
     }
@@ -89,11 +85,6 @@ public class SelectOptionsDTO {
     @Schema(description = "supported options for test frameworks")
     public TestFrameworkSelectOptions getTest() {
         return test;
-    }
-
-    @Schema(description = "supported options for build tools")
-    public BuildToolSelectOptions getBuild() {
-        return build;
     }
 
     @Schema(description = "supported options for GORM Implementation")
@@ -151,15 +142,6 @@ public class SelectOptionsDTO {
                 new TestFrameworkDTO(TestFramework.DEFAULT_OPTION, messageSource, messageContext)
         );
 
-        List<BuildToolDTO> buildTools = Arrays.stream(BuildTool.values())
-                .map(it -> new BuildToolDTO(it, messageSource, messageContext))
-                .collect(Collectors.toList());
-
-        BuildToolSelectOptions buildToolOpts = new BuildToolSelectOptions(
-                buildTools,
-                new BuildToolDTO(BuildTool.DEFAULT_OPTION, messageSource, messageContext)
-        );
-
         List<GormImplDTO> gormImpls = Arrays.stream(GormImpl.values())
                 .map(it -> new GormImplDTO(it, messageSource, messageContext))
                 .collect(Collectors.toList());
@@ -179,7 +161,7 @@ public class SelectOptionsDTO {
         );
 
 
-        return new SelectOptionsDTO(applicationOpts, jdkVersionOpts, languageOpts, testFrameworkOpts, buildToolOpts, gormImplOpts, servletImplOpts);
+        return new SelectOptionsDTO(applicationOpts, jdkVersionOpts, languageOpts, testFrameworkOpts, gormImplOpts, servletImplOpts);
 
     }
 }

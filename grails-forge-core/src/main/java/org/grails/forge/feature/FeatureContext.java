@@ -20,18 +20,11 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.feature.test.TestFeature;
 import org.grails.forge.io.ConsoleOutput;
-import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.JdkVersion;
-import org.grails.forge.options.Language;
 import org.grails.forge.options.Options;
 import org.grails.forge.options.TestFramework;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toSet;
@@ -94,10 +87,6 @@ public class FeatureContext {
 
     public TestFramework getTestFramework() {
         return options.getTestFramework();
-    }
-
-    public BuildTool getBuildTool() {
-        return options.getBuildTool();
     }
 
     public JdkVersion getJavaVersion() {

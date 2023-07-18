@@ -107,7 +107,6 @@ public class DiffController implements DiffOperations {
             Project project = name != null ? NameUtils.parse(name) : this.project;
             Options options = new Options(
                     test != null ? test : TestFramework.DEFAULT_OPTION,
-                    build != null ? build : BuildTool.DEFAULT_OPTION,
                     gorm != null ? gorm : GormImpl.DEFAULT_OPTION,
                     servlet != null ? servlet : ServletImpl.DEFAULT_OPTION,
                     javaVersion != null ? javaVersion : JdkVersion.DEFAULT_OPTION
@@ -161,7 +160,6 @@ public class DiffController implements DiffOperations {
             Project project = name != null ? NameUtils.parse(name) : this.project;
             Options options = new Options(
                     test != null ? test : TestFramework.DEFAULT_OPTION,
-                    build != null ? build : BuildTool.DEFAULT_OPTION,
                     gorm != null ? gorm : GormImpl.DEFAULT_OPTION,
                     servlet != null ? servlet : ServletImpl.DEFAULT_OPTION,
                     javaVersion != null ? javaVersion : JdkVersion.DEFAULT_OPTION

@@ -48,10 +48,6 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     TestFramework test;
 
     @ReflectiveAccess
-    @CommandLine.Option(names = {"-b", "--build"}, paramLabel = "BUILD-TOOL", description = "Which build tool to configure. Possible values: ${COMPLETION-CANDIDATES}.", completionCandidates = BuildToolCandidates.class, converter = BuildToolConverter.class)
-    BuildTool build;
-
-    @ReflectiveAccess
     @CommandLine.Option(names = {"-g", "--gorm"}, paramLabel = "GORM Implementation", description = "Which GORM Implementation to configure. Possible values: ${COMPLETION-CANDIDATES}.", completionCandidates = GormImplCandidates.class, converter = GormImplConverter.class)
     GormImpl gormImpl;
 
@@ -98,7 +94,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     public Integer call() throws Exception {
         if (listFeatures) {
             new ListFeatures(availableFeatures,
-                    new Options(test, build, gormImpl, servletImpl, getJdkVersion(), getOperatingSystem()),
+                    new Options(test, gormImpl, servletImpl, getJdkVersion(), getOperatingSystem()),
                     applicationType,
                     getOperatingSystem(),
                     contextFactory).output(this);
@@ -124,7 +120,7 @@ public abstract class CreateCommand extends BaseCommand implements Callable<Inte
     }
 
     public void generate(Project project, OutputHandler outputHandler) throws Exception {
-        Options options = new Options(test, build, gormImpl, servletImpl, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
+        Options options = new Options(test, gormImpl, servletImpl, getJdkVersion(), getOperatingSystem(), getAdditionalOptions());
 
         projectGenerator.generate(applicationType, project, options, getOperatingSystem(), getSelectedFeatures(), outputHandler, this);
     }

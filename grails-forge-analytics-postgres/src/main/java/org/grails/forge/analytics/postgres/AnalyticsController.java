@@ -80,7 +80,6 @@ public class AnalyticsController {
         Application application = new Application(
                 generated.getType(),
                 generated.getGorm(),
-                generated.getBuildTool(),
                 generated.getTestFramework(),
                 generated.getJdkVersion(),
                 generated.getGrailsVersion()

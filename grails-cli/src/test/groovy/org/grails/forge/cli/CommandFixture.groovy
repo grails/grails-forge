@@ -20,32 +20,16 @@ trait CommandFixture {
 
     abstract File getDir()
 
-    void generateProject(Language language,
-                         BuildTool buildTool = BuildTool.GRADLE,
-                         List<String> features = [],
-                         ApplicationType applicationType = ApplicationType.DEFAULT_OPTION) {
+    void generateProject(ApplicationType applicationType = ApplicationType.DEFAULT_OPTION,
+                         String[] features) {
         beanContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
-                new Options(TestFramework.DEFAULT_OPTION, buildTool),
+                new Options(),
                 OperatingSystem.MACOS_ARCH64,
-                features,
+                features.toList(),
                 new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
                 ConsoleOutput.NOOP)
     }
-
-    void generateProject(Options options,
-                         List<String> features = [],
-                         ApplicationType applicationType = ApplicationType.WEB) {
-        beanContext.getBean(ProjectGenerator).generate(applicationType,
-                NameUtils.parse("example.grails.foo"),
-                options,
-                OperatingSystem.MACOS_ARCH64,
-                features,
-                new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
-                ConsoleOutput.NOOP
-        )
-    }
-
 
     ThrowingSupplier<OutputHandler, IOException> getOutputHandler(ConsoleOutput consoleOutput) {
         return () -> new FileSystemOutputHandler(dir, consoleOutput)

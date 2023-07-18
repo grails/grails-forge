@@ -6,7 +6,6 @@ import org.grails.forge.application.ApplicationType
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
@@ -39,7 +38,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
 
     void "test default gson views are present"() {
         when:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
 
         then:
         output.containsKey("grails-app/views/application/index.gson")
@@ -52,7 +51,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
     @Unroll
     void "test views-json gradle plugins and dependencies are present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String build = output['build.gradle']
 
         then:
@@ -69,7 +68,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
     @Unroll
     void "test views-json gradle plugins and dependencies are NOT present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String build = output['build.gradle']
 
         then:
@@ -84,7 +83,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
 
     void "test mime configurations"() {
         when:
-        final GeneratorContext ctx = buildGeneratorContext(["views-json"], new Options(null, BuildTool.GRADLE), ApplicationType.REST_API)
+        final GeneratorContext ctx = buildGeneratorContext(["views-json"], new Options(null), ApplicationType.REST_API)
 
         then:
         ctx.getConfiguration().get("grails.mime.disable.accept.header.userAgents") == Arrays.asList("Gecko", "WebKit", "Presto", "Trident")

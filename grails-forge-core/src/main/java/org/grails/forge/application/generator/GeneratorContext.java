@@ -23,11 +23,7 @@ import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.application.Project;
 import org.grails.forge.build.BuildPlugin;
 import org.grails.forge.build.BuildProperties;
-import org.grails.forge.build.dependencies.Coordinate;
-import org.grails.forge.build.dependencies.CoordinateResolver;
-import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.build.dependencies.DependencyContext;
-import org.grails.forge.build.dependencies.LookupFailedException;
+import org.grails.forge.build.dependencies.*;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.Features;
 import org.grails.forge.feature.config.ApplicationConfiguration;
@@ -41,15 +37,7 @@ import org.grails.forge.template.Template;
 import org.grails.forge.template.Writable;
 import org.grails.forge.util.VersionInfo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A context object used when generating projects.
@@ -92,9 +80,7 @@ public class GeneratorContext implements DependencyContext {
         this.features = new Features(this, features, options);
         this.options = options;
         String grailsVersion = VersionInfo.getGrailsVersion();
-        if (options.getBuildTool().isGradle()) {
-            buildProperties.put("grailsVersion", grailsVersion);
-        }
+        buildProperties.put("grailsVersion", grailsVersion);
     }
 
     /**
@@ -212,13 +198,6 @@ public class GeneratorContext implements DependencyContext {
     @NonNull
     public TestFramework getTestFramework() {
         return options.getTestFramework();
-    }
-
-    /**
-     * @return The build tool
-     */
-    @NonNull public BuildTool getBuildTool() {
-        return options.getBuildTool();
     }
 
     /**

@@ -5,7 +5,6 @@ import org.grails.forge.BuildBuilder
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.BuildTool
 
 class MongoGormSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -37,7 +36,7 @@ class MongoGormSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
     void "test dependencies are present for gradle"() {
         when:
-        String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        String template = new BuildBuilder(beanContext)
                 .features(["gorm-mongodb"])
                 .render()
 

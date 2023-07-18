@@ -3,7 +3,6 @@ package org.grails.forge.api
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.grails.forge.application.ApplicationType
-import org.grails.forge.options.BuildTool
 import org.grails.forge.options.GormImpl
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.ServletImpl
@@ -20,7 +19,6 @@ class FeatureControllerSpec extends Specification {
         List<FeatureDTO> features = client
                 .features(ApplicationType.DEFAULT_OPTION,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -35,7 +33,6 @@ class FeatureControllerSpec extends Specification {
         List<FeatureDTO> communityFeatures = client
                 .features(ApplicationType.DEFAULT_OPTION,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -50,7 +47,6 @@ class FeatureControllerSpec extends Specification {
         when:
         List<FeatureDTO> features = client
                 .spanishFeatures(ApplicationType.DEFAULT_OPTION,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -67,7 +63,6 @@ class FeatureControllerSpec extends Specification {
         when:
         List<FeatureDTO> features = client
                 .spanishDefaultFeatures(ApplicationType.DEFAULT_OPTION,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -85,7 +80,6 @@ class FeatureControllerSpec extends Specification {
         def features = client
                 .defaultFeatures(ApplicationType.PLUGIN,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -99,7 +93,6 @@ class FeatureControllerSpec extends Specification {
         features = client
                 .defaultFeatures(ApplicationType.DEFAULT_OPTION,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -114,7 +107,6 @@ class FeatureControllerSpec extends Specification {
         def features = client
                 .features(ApplicationType.PLUGIN,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -127,7 +119,6 @@ class FeatureControllerSpec extends Specification {
         features = client
                 .features(ApplicationType.DEFAULT_OPTION,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,
@@ -142,7 +133,6 @@ class FeatureControllerSpec extends Specification {
         def features = client
                 .features(ApplicationType.WEB,
                         RequestInfo.LOCAL,
-                        BuildTool.DEFAULT_OPTION,
                         TestFramework.DEFAULT_OPTION,
                         GormImpl.DEFAULT_OPTION,
                         ServletImpl.DEFAULT_OPTION,

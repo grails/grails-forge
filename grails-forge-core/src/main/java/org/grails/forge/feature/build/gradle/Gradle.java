@@ -71,7 +71,7 @@ public class Gradle implements BuildFeature {
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("idea").build());
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("groovy").build());
 
-        BuildTool buildTool = generatorContext.getBuildTool();
+        BuildTool buildTool = BuildTool.DEFAULT_OPTION;
         GradleBuild build = dependencyResolver.create(generatorContext);
 
         generatorContext.addTemplate("buildSrc/build", new RockerTemplate("buildSrc/" + buildTool.getBuildFileName(), buildSrcBuildGradle.template(
@@ -109,6 +109,6 @@ public class Gradle implements BuildFeature {
     public boolean shouldApply(ApplicationType applicationType,
                                Options options,
                                Set<Feature> selectedFeatures) {
-        return options.getBuildTool().isGradle();
+        return true;
     }
 }

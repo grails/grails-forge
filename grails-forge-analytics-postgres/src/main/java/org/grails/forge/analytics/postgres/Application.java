@@ -18,15 +18,10 @@ package org.grails.forge.analytics.postgres;
 import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.data.annotation.DateCreated;
-import io.micronaut.data.annotation.GeneratedValue;
-import io.micronaut.data.annotation.Id;
-import io.micronaut.data.annotation.MappedEntity;
-import io.micronaut.data.annotation.Relation;
+import io.micronaut.data.annotation.*;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.options.BuildTool;
-import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.GormImpl;
+import org.grails.forge.options.JdkVersion;
 import org.grails.forge.options.TestFramework;
 
 import javax.validation.constraints.NotBlank;
@@ -50,7 +45,6 @@ public class Application {
     private Set<Feature> features = Collections.emptySet();
     private final ApplicationType type;
     private final GormImpl gorm;
-    private final BuildTool buildTool;
     private final TestFramework testFramework;
     private final JdkVersion jdkVersion;
     private final String grailsVersion;
@@ -61,13 +55,11 @@ public class Application {
     public Application(
             @NonNull ApplicationType type,
             @NonNull GormImpl gorm,
-            @NonNull BuildTool buildTool,
             @NonNull TestFramework testFramework,
             @NonNull JdkVersion jdkVersion,
             @NonNull @NotBlank String grailsVersion) {
         this.type = Objects.requireNonNull(type, "Type cannot be null");
         this.gorm = Objects.requireNonNull(gorm, "Gorm cannot be null");
-        this.buildTool = Objects.requireNonNull(buildTool, "Build tool cannot be null");
         this.testFramework = Objects.requireNonNull(testFramework, "Test framework cannot be null");
         this.jdkVersion = Objects.requireNonNull(jdkVersion, "JDK version cannot be null");
         this.grailsVersion = Objects.requireNonNull(grailsVersion, "Grails version cannot be null");
@@ -85,13 +77,6 @@ public class Application {
      */
     public @NonNull GormImpl getGorm() {
         return gorm;
-    }
-
-    /**
-     * @return The build tool
-     */
-    public @NonNull BuildTool getBuildTool() {
-        return buildTool;
     }
 
     /**

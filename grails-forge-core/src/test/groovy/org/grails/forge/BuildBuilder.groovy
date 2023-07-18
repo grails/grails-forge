@@ -22,7 +22,6 @@ import java.util.function.Function
 
 class BuildBuilder implements ProjectFixture, ContextFixture {
 
-    private BuildTool buildTool
     private List<String> features
     private TestFramework testFramework
     private ApplicationType applicationType
@@ -36,26 +35,17 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
     BuildBuilder(ApplicationContext ctx) {
         this.ctx = ctx
-        this.buildTool = BuildTool.GRADLE
         this.gormImpl = GormImpl.DEFAULT_OPTION
         this.servletImpl = ServletImpl.DEFAULT_OPTION
         this.operatingSystem = OperatingSystem.DEFAULT
     }
 
     BuildBuilder(ApplicationContext ctx,
-                 BuildTool buildTool,
                  GormImpl gormImpl,
                  ServletImpl servletImpl) {
         this.ctx = ctx
-        this.buildTool = buildTool
         this.gormImpl = gormImpl;
         this.servletImpl = servletImpl;
-    }
-
-
-    BuildBuilder(ApplicationContext ctx, BuildTool buildTool) {
-        this.ctx = ctx
-        this.buildTool = buildTool
     }
 
     BuildBuilder features(List<String> features) {
@@ -100,16 +90,13 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         Project project = this.project ?: buildProject()
         JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
-        final Options options = new Options(testFramework, buildTool, gormImpl, servletImpl, jdkVersion, operatingSystem)
+        final Options options = new Options(testFramework, gormImpl, servletImpl, jdkVersion, operatingSystem)
         Features features = getFeatures(featureNames, options, type)
 
-        if (buildTool.isGradle()) {
-            GradleBuild build = gradleBuild(options, features, project, type)
-            CoordinateResolver resolver = ctx.getBean(CoordinateResolver);
-            Function<String, Coordinate> coordinateResolver = (artifactId) -> resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId))
-            return buildGradle.template(type, project, coordinateResolver, features, build).render().toString()
-        }
-        null
+        GradleBuild build = gradleBuild(options, features, project, type)
+        CoordinateResolver resolver = ctx.getBean(CoordinateResolver);
+        Function<String, Coordinate> coordinateResolver = (artifactId) -> resolver.resolve(artifactId).orElseThrow(() -> new LookupFailedException(artifactId))
+        return buildGradle.template(type, project, coordinateResolver, features, build).render().toString()
     }
 
     String renderBuildSrc() {
@@ -119,14 +106,11 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         Project project = this.project ?: buildProject()
         JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
-        Options options = new Options(testFramework, buildTool, jdkVersion)
+        Options options = new Options(testFramework, jdkVersion)
         Features features = getFeatures(featureNames, options, type)
 
-        if (buildTool.isGradle()) {
-            GradleBuild build = gradleBuild(options, features, project, type)
-            return buildSrcBuildGradle.template(type, project, features, build).render().toString()
-        }
-        null
+        GradleBuild build = gradleBuild(options, features, project, type)
+        return buildSrcBuildGradle.template(type, project, features, build).render().toString()
     }
 
     private GradleBuildCreator getGradleDependencyResolver() {

@@ -1,6 +1,7 @@
 package org.grails.forge.cli.command
 
 import io.micronaut.context.ApplicationContext
+import org.grails.forge.application.ApplicationType
 import org.grails.forge.cli.CodeGenConfig
 import org.grails.forge.cli.CommandFixture
 import org.grails.forge.cli.CommandSpec
@@ -17,7 +18,7 @@ class CreateDomainClassCommandSpec extends CommandSpec implements CommandFixture
 
     void "test creating a domain class"() {
         setup:
-        generateProject(Language.DEFAULT_OPTION)
+        generateProject(ApplicationType.WEB)
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
         CreateDomainClassCommand command = new CreateDomainClassCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
@@ -37,7 +38,7 @@ class CreateDomainClassCommandSpec extends CommandSpec implements CommandFixture
 
     void "test app with domain"() {
         setup:
-        generateProject(Language.DEFAULT_OPTION)
+        generateProject(ApplicationType.WEB)
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
         CreateDomainClassCommand command = new CreateDomainClassCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)

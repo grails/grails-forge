@@ -4,7 +4,6 @@ import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.BuildTool
 import spock.lang.Unroll
 
 class EHCacheSpec extends ApplicationContextSpec implements CommandOutputFixture {
@@ -24,7 +23,7 @@ class EHCacheSpec extends ApplicationContextSpec implements CommandOutputFixture
     @Unroll
     void 'test gradle cache-ehcache feature'() {
         when:
-        String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        String template = new BuildBuilder(beanContext)
                 .features(['cache-ehcache'])
                 .render()
 

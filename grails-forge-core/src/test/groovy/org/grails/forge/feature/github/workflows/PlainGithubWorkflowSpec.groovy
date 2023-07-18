@@ -16,7 +16,7 @@ class PlainGithubWorkflowSpec extends BeanContextSpec implements CommandOutputFi
     void 'test github workflow is created for #buildTool'(BuildTool buildTool, String workflowName) {
         when:
         def output = generate(ApplicationType.WEB,
-                new Options(TestFramework.SPOCK, buildTool, JdkVersion.JDK_11),
+                new Options(TestFramework.SPOCK, JdkVersion.JDK_11),
                 [PlainGithubWorkflowFeature.NAME])
         def workflow = output[".github/workflows/${workflowName}"]
 
@@ -33,7 +33,7 @@ class PlainGithubWorkflowSpec extends BeanContextSpec implements CommandOutputFi
     void 'test github gradle workflow java version for #version'(JdkVersion version) {
         when:
         def output = generate(ApplicationType.WEB,
-                new Options(TestFramework.JUNIT, BuildTool.GRADLE, version),
+                new Options(TestFramework.JUNIT, version),
                 [PlainGithubWorkflowFeature.NAME])
         def workflow = output['.github/workflows/gradle.yml']
 

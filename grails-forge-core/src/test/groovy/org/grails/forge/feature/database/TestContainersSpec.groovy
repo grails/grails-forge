@@ -2,7 +2,6 @@ package org.grails.forge.feature.database
 
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
-import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.TestFramework
 
@@ -106,7 +105,7 @@ class TestContainersSpec extends ApplicationContextSpec {
 
     void "test there is a dependency for every non embedded driver feature"() {
         when:
-        String gradleTemplate = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        String gradleTemplate = new BuildBuilder(beanContext)
                 .jdkVersion(JdkVersion.JDK_11)
                 .features(['testcontainers', driverFeature.getName()])
                 .render()

@@ -45,19 +45,6 @@ class CreateAppCommandSpec extends CommandSpec implements CommandFixture {
         out.toString().contains("Application created")
     }
 
-    void "test creating a project with an invalid build tool"() {
-        given:
-        ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        System.setErr(new PrintStream(baos))
-
-        when:
-        PicocliRunner.run(CreateAppCommand, ctx, "temp",  "--build", "xyz")
-
-        then:
-        noExceptionThrown()
-        baos.toString().contains("Invalid build tool selection: xyz")
-    }
-
     void "test creating a project with an invalid gorm implementation"() {
         given:
         ByteArrayOutputStream baos = new ByteArrayOutputStream()

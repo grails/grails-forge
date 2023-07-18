@@ -53,19 +53,17 @@ public class Asciidoctor implements Feature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        if (generatorContext.getBuildTool().isGradle()) {
-            final String asciidoctorjVersion = coordinateResolver.resolve("asciidoctorj")
-                    .map(Coordinate::getVersion).orElse("2.1.0");
-            final String asciidoctorjDiagramVersion = coordinateResolver.resolve("asciidoctorj-diagram")
-                    .map(Coordinate::getVersion).orElse("1.5.18");
-            generatorContext.addTemplate("asciidocGradle", new RockerTemplate("gradle/asciidoc.gradle", asciidocGradle.template(asciidoctorjVersion, asciidoctorjDiagramVersion)));
+        final String asciidoctorjVersion = coordinateResolver.resolve("asciidoctorj")
+                .map(Coordinate::getVersion).orElse("2.1.0");
+        final String asciidoctorjDiagramVersion = coordinateResolver.resolve("asciidoctorj-diagram")
+                .map(Coordinate::getVersion).orElse("1.5.18");
+        generatorContext.addTemplate("asciidocGradle", new RockerTemplate("gradle/asciidoc.gradle", asciidocGradle.template(asciidoctorjVersion, asciidoctorjDiagramVersion)));
 
-            generatorContext.addBuildPlugin(GradlePlugin.builder()
-                    .id("org.asciidoctor.jvm.convert")
-                    .lookupArtifactId("asciidoctor-gradle-jvm")
-                    .build());
+        generatorContext.addBuildPlugin(GradlePlugin.builder()
+                .id("org.asciidoctor.jvm.convert")
+                .lookupArtifactId("asciidoctor-gradle-jvm")
+                .build());
 
-        }
         generatorContext.addTemplate("indexAdoc", new RockerTemplate("src/docs/asciidoc/index.adoc", indexAdoc.template()));
     }
 

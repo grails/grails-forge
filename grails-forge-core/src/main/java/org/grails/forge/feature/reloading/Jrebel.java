@@ -39,15 +39,13 @@ public class Jrebel implements ReloadingFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        if (generatorContext.getBuildTool().isGradle()) {
-            generatorContext.getBuildProperties().addComment("TODO: Replace with agent path from JRebel installation; see documentation");
-            generatorContext.getBuildProperties().addComment("rebelAgent=-agentpath:~/bin/jrebel/lib/jrebel6/lib/libjrebel64.dylib");
-            generatorContext.addBuildPlugin(GradlePlugin.builder()
-                    .id("org.zeroturnaround.gradle.jrebel")
-                    .lookupArtifactId("gradle-jrebel-plugin")
-                    .build());
-            generatorContext.addHelpLink("JRebel Gradle Plugin", "https://plugins.gradle.org/plugin/org.zeroturnaround.gradle.jrebel");
-        }
+        generatorContext.getBuildProperties().addComment("TODO: Replace with agent path from JRebel installation; see documentation");
+        generatorContext.getBuildProperties().addComment("rebelAgent=-agentpath:~/bin/jrebel/lib/jrebel6/lib/libjrebel64.dylib");
+        generatorContext.addBuildPlugin(GradlePlugin.builder()
+                .id("org.zeroturnaround.gradle.jrebel")
+                .lookupArtifactId("gradle-jrebel-plugin")
+                .build());
+        generatorContext.addHelpLink("JRebel Gradle Plugin", "https://plugins.gradle.org/plugin/org.zeroturnaround.gradle.jrebel");
     }
 
     @Override

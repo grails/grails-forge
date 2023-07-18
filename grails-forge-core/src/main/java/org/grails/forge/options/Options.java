@@ -35,7 +35,6 @@ public class Options implements ConvertibleValues<Object> {
     private final ConvertibleValuesMap<Object> additionalOptions;
 
     public Options(TestFramework testFramework,
-                   BuildTool buildTool,
                    GormImpl gormImpl,
                    ServletImpl servletImpl,
                    JdkVersion javaVersion,
@@ -43,7 +42,7 @@ public class Options implements ConvertibleValues<Object> {
                    Map<String, Object> additionalOptions) {
 
         this.testFramework = testFramework;
-        this.buildTool = buildTool;
+        this.buildTool = BuildTool.DEFAULT_OPTION;
         this.gormImpl = gormImpl;
         this.servletImpl = servletImpl;
         this.javaVersion = javaVersion;
@@ -52,51 +51,41 @@ public class Options implements ConvertibleValues<Object> {
     }
 
     public Options(TestFramework testFramework,
-                   BuildTool buildTool,
                    GormImpl gormImpl,
                    ServletImpl servletImpl,
                    JdkVersion javaVersion,
                    OperatingSystem operatingSystem) {
 
-        this(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, Collections.emptyMap());
+        this(testFramework, gormImpl, servletImpl, javaVersion, operatingSystem, Collections.emptyMap());
     }
 
     public Options(TestFramework testFramework,
-                   BuildTool buildTool,
                    JdkVersion javaVersion,
                    OperatingSystem operatingSystem) {
 
-        this(testFramework, buildTool, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, javaVersion, operatingSystem, Collections.emptyMap());
+        this(testFramework, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, javaVersion, operatingSystem, Collections.emptyMap());
     }
 
     public Options(TestFramework testFramework,
-                   BuildTool buildTool,
                    GormImpl gormImpl,
                    ServletImpl servletImpl,
                    JdkVersion javaVersion) {
 
-        this(testFramework, buildTool, gormImpl, servletImpl, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
+        this(testFramework, gormImpl, servletImpl, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(TestFramework testFramework,
-                   BuildTool buildTool,
                    JdkVersion javaVersion) {
 
-        this(testFramework, buildTool, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
-    }
-
-    public Options(TestFramework testFramework,
-                   BuildTool buildTool) {
-
-        this(testFramework, buildTool, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+        this(testFramework, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, javaVersion, OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options(TestFramework testFramework) {
-        this(testFramework, BuildTool.DEFAULT_OPTION, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+        this(testFramework, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public Options() {
-        this(TestFramework.DEFAULT_OPTION, BuildTool.GRADLE, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
+        this(TestFramework.DEFAULT_OPTION, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), OperatingSystem.DEFAULT, Collections.emptyMap());
     }
 
     public OperatingSystem getOperatingSystem() {
@@ -139,26 +128,22 @@ public class Options implements ConvertibleValues<Object> {
     }
 
     public Options withOperatingSystem(OperatingSystem operatingSystem) {
-        return new Options(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(testFramework, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withTestFramework(TestFramework testFramework) {
-        return new Options(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
-    }
-
-    public Options withBuildTool(BuildTool buildTool) {
-        return new Options(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(testFramework, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withGormImpl(GormImpl gormImpl) {
-        return new Options(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(testFramework, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withServletImpl(ServletImpl servletImpl) {
-        return new Options(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(testFramework, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 
     public Options withJavaVersion(JdkVersion javaVersion) {
-        return new Options(testFramework, buildTool, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
+        return new Options(testFramework, gormImpl, servletImpl, javaVersion, operatingSystem, additionalOptions.asMap());
     }
 }

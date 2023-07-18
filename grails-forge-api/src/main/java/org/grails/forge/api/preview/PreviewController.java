@@ -93,7 +93,6 @@ public class PreviewController extends AbstractCreateController implements Previ
                     project,
                     new Options(
                             test != null ? test.toTestFramework() : null,
-                            build == null ? BuildTool.DEFAULT_OPTION : build,
                             gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
                             servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,
                             javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,

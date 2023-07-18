@@ -3,8 +3,6 @@ package org.grails.forge.feature.asciidoctor
 import io.micronaut.core.version.SemanticVersion
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
-import org.grails.forge.options.BuildTool
-import org.grails.forge.options.Language
 import spock.lang.Unroll
 
 class AsciidoctorSpec extends ApplicationContextSpec {
@@ -12,7 +10,7 @@ class AsciidoctorSpec extends ApplicationContextSpec {
     @Unroll
     void 'test gradle asciidoctor feature'() {
         when:
-        String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        String template = new BuildBuilder(beanContext)
                 .features(['asciidoctor'])
                 .render()
 

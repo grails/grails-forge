@@ -11,7 +11,7 @@ class LogbackGroovyConfigSpec extends ApplicationContextSpec implements CommandO
     @Unroll
     void "test grails-logging dependency is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ['logbackGroovy'])
+        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ['logbackGroovy'])
 
         then:
         output.containsKey("build.gradle")
@@ -26,7 +26,7 @@ class LogbackGroovyConfigSpec extends ApplicationContextSpec implements CommandO
     @Unroll
     void "test logback.xml config file is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ['logbackGroovy'])
+        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ['logbackGroovy'])
 
         then:
         output.containsKey("grails-app/conf/logback-config.groovy")

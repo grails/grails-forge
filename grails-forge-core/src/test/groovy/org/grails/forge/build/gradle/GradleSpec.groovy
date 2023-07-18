@@ -3,7 +3,6 @@ package org.grails.forge.build.gradle
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.application.ApplicationType
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
@@ -12,7 +11,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test build properties"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String gradleProps = output["gradle.properties"]
 
         expect:
@@ -24,7 +23,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test build gradle"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String buildGradle = output["build.gradle"]
 
         expect:
@@ -35,7 +34,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String settingsGradle = output["settings.gradle"]
 
         expect:
@@ -51,7 +50,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle for REST-API"() {
         given:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String settingsGradle = output["settings.gradle"]
 
         expect:
@@ -68,7 +67,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle for REST-API for markup-views"() {
         given:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["views-markup"])
         final String settingsGradle = output["settings.gradle"]
 
         expect:

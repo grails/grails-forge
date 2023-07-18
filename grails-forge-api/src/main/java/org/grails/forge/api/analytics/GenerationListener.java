@@ -47,7 +47,6 @@ public class GenerationListener {
                 context.getApplicationType(),
                 context.getGorm(),
                 context.getServlet(),
-                context.getBuildTool(),
                 context.getTestFramework(),
                 context.getJdkVersion()
         );

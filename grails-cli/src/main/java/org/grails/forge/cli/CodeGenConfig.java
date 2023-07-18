@@ -25,7 +25,6 @@ import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.io.ConsoleOutput;
 import org.grails.forge.io.FileSystemOutputHandler;
-import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.Language;
 import org.grails.forge.options.Options;
 import org.grails.forge.options.TestFramework;
@@ -36,11 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Introspected
@@ -50,7 +45,6 @@ public class CodeGenConfig {
     private String defaultPackage;
     private TestFramework testFramework;
     private Language sourceLanguage;
-    private BuildTool buildTool;
     private List<String> features;
 
     private boolean legacy;
@@ -93,14 +87,6 @@ public class CodeGenConfig {
 
     public void setFeatures(List<String> features) {
         this.features = features;
-    }
-
-    public BuildTool getBuildTool() {
-        return buildTool;
-    }
-
-    public void setBuildTool(BuildTool buildTool) {
-        this.buildTool = buildTool;
     }
 
     public boolean isLegacy() {
@@ -158,18 +144,12 @@ public class CodeGenConfig {
 
                     AvailableFeatures availableFeatures = beanContext.getBean(AvailableFeatures.class, Qualifiers.byName(codeGenConfig.getApplicationType().getName()));
 
-                    if (new File(directory, "build.gradle").exists()) {
-                        codeGenConfig.setBuildTool(BuildTool.GRADLE);
-                    } else {
-                        return null;
-                    }
-
                     codeGenConfig.setFeatures(availableFeatures.getAllFeatures()
                             .filter(f -> f instanceof DefaultFeature)
                             .map(DefaultFeature.class::cast)
                             .filter(f -> f.shouldApply(
                                     codeGenConfig.getApplicationType(),
-                                    new Options(codeGenConfig.getTestFramework(), codeGenConfig.getBuildTool(), VersionInfo.getJavaVersion()),
+                                    new Options(codeGenConfig.getTestFramework(), VersionInfo.getJavaVersion()),
                                     new HashSet<>()))
                             .map(Feature::getName)
                             .collect(Collectors.toList()));

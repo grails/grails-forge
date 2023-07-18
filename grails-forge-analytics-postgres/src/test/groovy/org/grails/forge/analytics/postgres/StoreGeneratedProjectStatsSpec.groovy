@@ -58,7 +58,6 @@ class StoreGeneratedProjectStatsSpec extends Specification implements TestProper
                 ApplicationType.WEB,
                 GormImpl.HIBERNATE,
                 ServletImpl.TOMCAT,
-                BuildTool.GRADLE,
                 TestFramework.SPOCK,
                 JdkVersion.JDK_11
         )
@@ -76,7 +75,6 @@ class StoreGeneratedProjectStatsSpec extends Specification implements TestProper
         then:
         application.type == generated.type
         application.gorm == generated.gorm
-        application.buildTool == generated.buildTool
         application.jdkVersion == generated.jdkVersion
         application.testFramework == generated.testFramework
         application.features.find { it.name == 'google-cloud-function' }

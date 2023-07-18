@@ -4,7 +4,6 @@ import org.grails.forge.BeanContextSpec
 import org.grails.forge.BuildBuilder
 import org.grails.forge.application.ApplicationType
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
@@ -13,7 +12,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
     void "test build gradle file and gradle properties"() {
         when:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final String gradleProps = output["gradle.properties"]
 
         then:
@@ -23,7 +22,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
     void "test dependencies are present for buildSrc"() {
         when:
-        final String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        final String template = new BuildBuilder(beanContext)
                 .renderBuildSrc()
 
         then:
@@ -32,7 +31,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
     void "test buildSrc is present for buildscript dependencies"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
 
         expect:

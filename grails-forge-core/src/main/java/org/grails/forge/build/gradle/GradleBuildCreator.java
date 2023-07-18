@@ -19,6 +19,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.order.OrderUtil;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.generator.GeneratorContext;
+import org.grails.forge.options.BuildTool;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,8 +29,7 @@ public class GradleBuildCreator {
 
     @NonNull
     public GradleBuild create(@NonNull GeneratorContext generatorContext) {
-        GradleDsl gradleDsl = generatorContext
-                .getBuildTool()
+        GradleDsl gradleDsl = BuildTool.DEFAULT_OPTION
                 .getGradleDsl()
                 .orElseThrow(() -> new IllegalArgumentException("GradleBuildCreator can only create Gradle builds"));
         List<GradlePlugin> gradlePlugins = generatorContext.getBuildPlugins()

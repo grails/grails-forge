@@ -87,7 +87,6 @@ public abstract class AbstractCreateController {
                     type,
                     project,
                     new Options(testFramework != null ? testFramework.toTestFramework() : org.grails.forge.options.TestFramework.DEFAULT_OPTION,
-                            buildTool == null ? BuildTool.DEFAULT_OPTION : buildTool,
                             gormImpl == null ? GormImpl.DEFAULT_OPTION : gormImpl,
                             servletImpl == null ? ServletImpl.DEFAULT_OPTION : servletImpl,
                             javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,

@@ -35,7 +35,7 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
 
     void "test default gml views are present"() {
         when:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["views-markup"])
 
         then:
         output.containsKey("grails-app/views/application/index.gml")
@@ -48,7 +48,7 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
     @Unroll
     void "test views-markup gradle plugins and dependencies are present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["views-markup"])
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["views-markup"])
         final String build = output['build.gradle']
 
         then:

@@ -62,13 +62,11 @@ public class ShadePlugin implements Feature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        if (generatorContext.getBuildTool().isGradle()) {
-            generatorContext.addHelpLink("Shadow Gradle Plugin", "https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow");
-            GradlePlugin.Builder builder = GradlePlugin.builder()
-                    .id("com.github.johnrengelman.shadow")
-                    .lookupArtifactId("shadow");
-            generatorContext.addBuildPlugin(builder.build());
+        generatorContext.addHelpLink("Shadow Gradle Plugin", "https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow");
+        GradlePlugin.Builder builder = GradlePlugin.builder()
+                .id("com.github.johnrengelman.shadow")
+                .lookupArtifactId("shadow");
+        generatorContext.addBuildPlugin(builder.build());
 
-        }
     }
 }

@@ -4,7 +4,6 @@ import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
 import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.BuildTool
 
 class MongoSyncSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -29,7 +28,7 @@ class MongoSyncSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
     void "test mongo sync dependencies are present for gradle"() {
         when:
-        String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
+        String template = new BuildBuilder(beanContext)
                 .features(["mongo-sync"])
                 .render()
 

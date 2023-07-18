@@ -62,8 +62,7 @@ public class ContextFactory {
         Options newOptions = options
                 .withTestFramework(determineTestFramework(options.getTestFramework()))
                 .withGormImpl(determineGormImpl(options.getGormImpl()))
-                .withServletImpl(determineServletImpl(options.getServletImpl()))
-                .withBuildTool(determineBuildTool(options.getBuildTool()));
+                .withServletImpl(determineServletImpl(options.getServletImpl()));
 
         availableFeatures.getAllFeatures()
                 .filter(f -> f instanceof DefaultFeature)

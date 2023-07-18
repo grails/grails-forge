@@ -1,6 +1,7 @@
 package org.grails.forge.cli.command
 
 import io.micronaut.context.ApplicationContext
+import org.grails.forge.application.ApplicationType
 import org.grails.forge.cli.CodeGenConfig
 import org.grails.forge.cli.CommandFixture
 import org.grails.forge.cli.CommandSpec
@@ -19,7 +20,7 @@ class CreateControllerCommandSpec extends CommandSpec implements CommandFixture 
     void "test creating a controller"() {
 
         setup:
-        generateProject(Language.DEFAULT_OPTION)
+        generateProject(ApplicationType.WEB)
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
         CreateControllerCommand command = new CreateControllerCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
@@ -39,7 +40,7 @@ class CreateControllerCommandSpec extends CommandSpec implements CommandFixture 
 
     void "test app with controller"() {
         setup:
-        generateProject(Language.DEFAULT_OPTION)
+        generateProject(ApplicationType.WEB)
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
         CreateControllerCommand command = new CreateControllerCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)

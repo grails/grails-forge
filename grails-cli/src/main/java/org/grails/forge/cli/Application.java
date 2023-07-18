@@ -53,10 +53,6 @@ import java.util.function.BiFunction;
 @Prototype
 @TypeHint({
         Application.class,
-        LanguageCandidates.class,
-        LanguageConverter.class,
-        BuildToolCandidates.class,
-        BuildToolConverter.class,
         GormImplCandidates.class,
         GormImplConverter.class,
         ServletImplCandidates.class,
