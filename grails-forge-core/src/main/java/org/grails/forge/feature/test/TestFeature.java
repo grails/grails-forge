@@ -17,15 +17,17 @@ package org.grails.forge.feature.test;
 
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
-import org.grails.forge.feature.DefaultFeature;
-import org.grails.forge.feature.Feature;
+import org.grails.forge.feature.Category;
 import org.grails.forge.feature.FeaturePhase;
-import org.grails.forge.options.Options;
+import org.grails.forge.feature.OneOfFeature;
 import org.grails.forge.options.TestFramework;
 
-import java.util.Set;
+public interface TestFeature extends OneOfFeature {
 
-public interface TestFeature extends DefaultFeature {
+    @Override
+    default Class<?> getFeatureClass() {
+        return TestFeature.class;
+    }
 
     @Override
     default boolean isVisible() {
@@ -35,6 +37,11 @@ public interface TestFeature extends DefaultFeature {
     @Override
     default int getOrder() {
         return FeaturePhase.TEST.getOrder();
+    }
+
+    @Override
+    default String getCategory() {
+        return Category.VALIDATION;
     }
 
     @Override
@@ -52,17 +59,6 @@ public interface TestFeature extends DefaultFeature {
 
     default boolean isSpock() {
         return getTestFramework() == TestFramework.SPOCK;
-    }
-
-    @Override
-    default boolean shouldApply(ApplicationType applicationType,
-                                Options options,
-                                Set<Feature> selectedFeatures) {
-        TestFramework selectedTest = options.getTestFramework();
-        if (selectedTest == null) {
-            selectedTest = options.getLanguage().getDefaults().getTest();
-        }
-        return supports(applicationType) && selectedTest == getTestFramework();
     }
 
     @Override

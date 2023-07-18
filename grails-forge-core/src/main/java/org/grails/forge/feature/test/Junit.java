@@ -17,12 +17,18 @@ package org.grails.forge.feature.test;
 
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
+import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
+import org.grails.forge.feature.DefaultFeature;
+import org.grails.forge.feature.Feature;
+import org.grails.forge.options.Options;
 import org.grails.forge.options.TestFramework;
 
+import java.util.Set;
+
 @Singleton
-public class Junit implements TestFeature {
+public class Junit implements TestFeature, DefaultFeature {
 
     @Override
     public String getTitle() {
@@ -54,4 +60,8 @@ public class Junit implements TestFeature {
         return TestFramework.JUNIT;
     }
 
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return options.getTestFramework() == TestFramework.JUNIT;
+    }
 }

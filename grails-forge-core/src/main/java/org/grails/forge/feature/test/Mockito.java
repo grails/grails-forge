@@ -51,7 +51,7 @@ public class Mockito implements DefaultFeature {
 
     @Override
     public String getCategory() {
-        return Category.DEV_TOOLS;
+        return Category.VALIDATION;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Mockito implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return true;
+        return selectedFeatures.stream().anyMatch(f -> f instanceof TestFeature);
     }
 
     @Override

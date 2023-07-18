@@ -16,12 +16,18 @@
 package org.grails.forge.feature.test;
 
 import jakarta.inject.Singleton;
+import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
+import org.grails.forge.feature.DefaultFeature;
+import org.grails.forge.feature.Feature;
+import org.grails.forge.options.Options;
 import org.grails.forge.options.TestFramework;
 
+import java.util.Set;
+
 @Singleton
-public class Spock implements TestFeature {
+public class Spock implements TestFeature, DefaultFeature {
 
     @Override
     public String getName() {
@@ -42,4 +48,8 @@ public class Spock implements TestFeature {
         return TestFramework.SPOCK;
     }
 
+    @Override
+    public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
+        return options.getTestFramework() == null || options.getTestFramework() == TestFramework.SPOCK;
+    }
 }
