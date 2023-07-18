@@ -120,10 +120,12 @@ tasks.withType(Test).configureEach {
     if (groovyVersion?.startsWith("3")) {
         useJUnitPlatform()
     }
-    retry {
-        maxRetries.set(2)
-        maxFailures.set(20)
-        failOnPassedAfterRetry.set(false)
+    if (System.getenv("CI") == 'true') {
+        retry {
+            maxRetries.set(2)
+            maxFailures.set(20)
+            failOnPassedAfterRetry.set(false)
+        }
     }
 }
 
