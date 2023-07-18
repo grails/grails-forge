@@ -89,7 +89,7 @@ public class ViewJson extends GrailsViews implements DefaultFeature {
                 .compile());
 
         generatorContext.addDependency(Dependency.builder()
-                .groupId("org.grails.plugins")
+                .groupId("org.grails")
                 .artifactId("views-json-testing-support")
                 .test());
 

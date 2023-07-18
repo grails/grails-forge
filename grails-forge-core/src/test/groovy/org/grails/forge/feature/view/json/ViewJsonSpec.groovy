@@ -35,7 +35,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
         template.contains("id \"org.grails.plugins.views-json\"")
         template.contains("implementation(\"org.grails.plugins:views-json\"")
         template.contains("implementation(\"org.grails.plugins:views-json-templates\"")
-        template.contains("testImplementation(\"org.grails.plugins:views-json-testing-support\"")
+        template.contains("testImplementation(\"org.grails:views-json-testing-support\"")
     }
 
     void "test default gson views are present"() {
@@ -61,7 +61,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
         build.contains("id \"org.grails.plugins.views-json\"")
         build.contains("implementation(\"org.grails.plugins:views-json\"")
         build.contains("implementation(\"org.grails.plugins:views-json-templates\"")
-        build.contains("testImplementation(\"org.grails.plugins:views-json-testing-support\"")
+        build.contains("testImplementation(\"org.grails:views-json-testing-support\"")
 
         where:
         applicationType << [ApplicationType.REST_API]
@@ -77,7 +77,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
         !build.contains("id \"org.grails.plugins.views-json\"")
         !build.contains("implementation(\"org.grails.plugins:views-json\"")
         !build.contains("implementation(\"org.grails.plugins:views-json-templates\"")
-        !build.contains("testImplementation(\"org.grails.plugins:views-json-testing-support\"")
+        !build.contains("testImplementation(\"org.grails:views-json-testing-support\"")
 
         where:
         applicationType << [ApplicationType.WEB, ApplicationType.WEB_PLUGIN, ApplicationType.PLUGIN]

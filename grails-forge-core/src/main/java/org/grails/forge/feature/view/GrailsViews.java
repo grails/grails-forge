@@ -23,7 +23,7 @@ import org.grails.forge.feature.web.GrailsWeb;
 
 public abstract class GrailsViews implements OneOfFeature {
 
-    public GrailsWeb grailsWeb;
+    private GrailsWeb grailsWeb;
 
     public GrailsViews(GrailsWeb grailsWeb) {
         this.grailsWeb = grailsWeb;
@@ -47,6 +47,10 @@ public abstract class GrailsViews implements OneOfFeature {
     @Override
     public String getDocumentation() {
         return "https://views.grails.org/";
+    }
+
+    public GrailsWeb getGrailsWeb() {
+        return grailsWeb;
     }
 
     public String getViewFolderPath() {

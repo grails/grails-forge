@@ -31,7 +31,6 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
         template.contains("id \"org.grails.plugins.views-markup\"")
         template.contains("implementation(\"org.grails.plugins:views-markup\"")
         !template.contains("id \"org.grails.plugins.views-json\"")
-        !template.contains("id \"org.grails.plugins.views-json-testing-support\"")
     }
 
     void "test default gml views are present"() {
@@ -58,7 +57,7 @@ class ViewMarkupSpec extends ApplicationContextSpec implements CommandOutputFixt
         build.contains("implementation(\"org.grails.plugins:views-markup\"")
         !build.contains("id \"org.grails.plugins.views-json\"")
         !build.contains("implementation(\"org.grails.plugins:views-json\"")
-        !build.contains("implementation(\"org.grails.plugins:views-json-testing-support\"")
+        !build.contains("implementation(\"org.grails:views-json-testing-support\"")
 
         where:
         applicationType << [ApplicationType.REST_API]
