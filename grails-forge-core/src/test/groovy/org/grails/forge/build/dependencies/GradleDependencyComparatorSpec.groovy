@@ -11,7 +11,6 @@ class GradleDependencyComparatorSpec extends Specification {
     void "sort based on gradle configuration"() {
         given:
         def ctx = Stub(GeneratorContext) {
-            getLanguage() >> Language.GROOVY
             getTestFramework() >> TestFramework.JUNIT
         }
         List<GradleDependency> dependencies =

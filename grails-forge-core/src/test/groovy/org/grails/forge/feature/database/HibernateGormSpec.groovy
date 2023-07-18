@@ -8,7 +8,6 @@ import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
-import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
 
@@ -50,7 +49,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
 
     void "test buildSrc is present for buildscript dependencies"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
 
         expect:

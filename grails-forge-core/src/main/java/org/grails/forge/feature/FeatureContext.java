@@ -92,10 +92,6 @@ public class FeatureContext {
         }).collect(collectingAndThen(toSet(), Collections::unmodifiableSet));
     }
 
-    public Language getLanguage() {
-        return options.getLanguage();
-    }
-
     public TestFramework getTestFramework() {
         return options.getTestFramework();
     }

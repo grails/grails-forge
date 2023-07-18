@@ -13,7 +13,6 @@ import org.grails.forge.feature.FeatureContext
 import org.grails.forge.feature.Features
 import org.grails.forge.feature.validation.FeatureValidator
 import org.grails.forge.io.ConsoleOutput
-import org.grails.forge.options.BuildTool
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
@@ -35,11 +34,8 @@ trait ContextFixture {
     }
 
     Features getFeatures(List<String> features,
-                         Language language = null,
-                         TestFramework testFramework = null,
-                         BuildTool buildTool = BuildTool.GRADLE,
                          ApplicationType applicationType = ApplicationType.WEB) {
-        Options options = new Options(language, testFramework, buildTool)
+        Options options = new Options(TestFramework.DEFAULT_OPTION)
         return getFeatures(features, options, applicationType)
     }
 
@@ -54,7 +50,7 @@ trait ContextFixture {
     }
 
     FeatureContext buildFeatureContext(List<String> selectedFeatures,
-                                       Options options = new Options(null, null, BuildTool.GRADLE),
+                                       Options options = new Options(),
                                        ApplicationType applicationType = ApplicationType.WEB) {
 
         AvailableFeatures availableFeatures = beanContext.getBean(AvailableFeatures, Qualifiers.byName(applicationType.name))
@@ -69,7 +65,7 @@ trait ContextFixture {
     }
 
     GeneratorContext buildGeneratorContext(List<String> selectedFeatures,
-                                           Options options = new Options(null, null, BuildTool.GRADLE),
+                                           Options options = new Options(),
                                            ApplicationType applicationType = ApplicationType.WEB) {
         if (this instanceof ProjectFixture) {
             ContextFactory factory = beanContext.getBean(ContextFactory)
@@ -84,7 +80,7 @@ trait ContextFixture {
 
     GeneratorContext buildGeneratorContext(List<String> selectedFeatures,
                                            Consumer<GeneratorContext> mutate,
-                                           Options options = new Options(null, null, BuildTool.GRADLE),
+                                           Options options = new Options(),
                                            ApplicationType applicationType = ApplicationType.WEB) {
         if (this instanceof ProjectFixture) {
             ContextFactory factory = beanContext.getBean(ContextFactory)

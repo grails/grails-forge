@@ -92,7 +92,7 @@ public class FeatureDiffer {
         projectGenerator.generate(
                 applicationType,
                 project,
-                new Options(generatorContext.getLanguage(), generatorContext.getTestFramework(), generatorContext.getBuildTool(), generatorContext.getJdkVersion()),
+                new Options(generatorContext.getTestFramework(), generatorContext.getBuildTool(), generatorContext.getJdkVersion()),
                 generatorContext.getOperatingSystem(),
                 Collections.emptyList(),
                 outputHandler,

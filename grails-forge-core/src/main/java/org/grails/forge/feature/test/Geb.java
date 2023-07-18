@@ -45,7 +45,7 @@ public class Geb implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.WEB;
+        return applicationType == ApplicationType.WEB && options.getTestFramework() != TestFramework.JUNIT;
     }
 
     @NonNull
@@ -132,7 +132,7 @@ public class Geb implements DefaultFeature {
             TestRockerModelProvider provider = new DefaultTestRockerModelProvider(org.grails.forge.feature.test.template.spock.template(project),
                     groovyJunit.template(project));
             generatorContext.addTemplate("applicationTest",
-                    new RockerTemplate(integrationTestSourcePath, provider.findModel(generatorContext.getLanguage(), testFramework))
+                    new RockerTemplate(integrationTestSourcePath, provider.findModel(Language.DEFAULT_OPTION, testFramework))
             );
             generatorContext.addTemplate("gebConfig",
                     new RockerTemplate("src/integration-test/resources/GebConfig.groovy", gebConfig.template(project)));

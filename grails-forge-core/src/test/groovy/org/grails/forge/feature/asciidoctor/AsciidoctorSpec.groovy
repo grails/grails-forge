@@ -10,10 +10,9 @@ import spock.lang.Unroll
 class AsciidoctorSpec extends ApplicationContextSpec {
 
     @Unroll
-    void 'test gradle asciidoctor feature for language=#language'() {
+    void 'test gradle asciidoctor feature'() {
         when:
         String template = new BuildBuilder(beanContext, BuildTool.GRADLE)
-                .language(language)
                 .features(['asciidoctor'])
                 .render()
 
@@ -33,9 +32,6 @@ class AsciidoctorSpec extends ApplicationContextSpec {
         then:
         noExceptionThrown()
         semanticVersionOptional.isPresent()
-
-        where:
-        language << Language.values().toList()
     }
 
 }

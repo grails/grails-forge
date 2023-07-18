@@ -11,7 +11,7 @@ class CreateControllerSpec extends CommandSpec {
     @Ignore
     void "test create-controller command"() {
         when:
-        generateProject(Language.DEFAULT_OPTION)
+        generateProjectWithDefaults()
         applicationContext.createBean(CodeGenConfig.class, new CodeGenConfig())
 
         then:

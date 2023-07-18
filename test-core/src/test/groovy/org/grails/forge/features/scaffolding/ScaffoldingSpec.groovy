@@ -9,7 +9,7 @@ class ScaffoldingSpec extends CommandSpec {
     void "test generate-controller command"() {
 
         given:
-        generateProject(Language.DEFAULT_OPTION)
+        generateProjectWithDefaults()
 
         when:
         final File domainPkg = new File(dir, "grails-app/domain/example/grails")

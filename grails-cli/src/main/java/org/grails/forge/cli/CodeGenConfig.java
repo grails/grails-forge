@@ -169,7 +169,7 @@ public class CodeGenConfig {
                             .map(DefaultFeature.class::cast)
                             .filter(f -> f.shouldApply(
                                     codeGenConfig.getApplicationType(),
-                                    new Options(codeGenConfig.getSourceLanguage(), codeGenConfig.getTestFramework(), codeGenConfig.getBuildTool(), VersionInfo.getJavaVersion()),
+                                    new Options(codeGenConfig.getTestFramework(), codeGenConfig.getBuildTool(), VersionInfo.getJavaVersion()),
                                     new HashSet<>()))
                             .map(Feature::getName)
                             .collect(Collectors.toList()));

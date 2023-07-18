@@ -175,8 +175,7 @@ public class ApplicationController implements ApplicationTypeOperations {
         List<FeatureDTO> featureDTOList = featureOperations
                 .getFeatures(requestInfo.getLocale(),
                         type,
-                        new Options(Language.DEFAULT_OPTION,
-                                test != null ? test.toTestFramework() : null,
+                        new Options(test != null ? test.toTestFramework() : null,
                                 build == null ? BuildTool.DEFAULT_OPTION : build,
                                 gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
                                 servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,
@@ -203,8 +202,7 @@ public class ApplicationController implements ApplicationTypeOperations {
         List<FeatureDTO> featureDTOList = featureOperations
                 .getDefaultFeatures(requestInfo.getLocale(),
                         type,
-                        new Options(Language.DEFAULT_OPTION,
-                                test != null ? test.toTestFramework() : null,
+                        new Options(test != null ? test.toTestFramework() : null,
                                 build == null ? BuildTool.DEFAULT_OPTION : build,
                                 gorm == null ? GormImpl.DEFAULT_OPTION : gorm,
                                 servlet == null ? ServletImpl.DEFAULT_OPTION : servlet,

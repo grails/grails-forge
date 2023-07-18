@@ -5,7 +5,6 @@ import org.grails.forge.application.ApplicationType
 import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
-import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
 
@@ -13,7 +12,7 @@ class GrailsDefaultPluginsSpec extends ApplicationContextSpec implements Command
 
     void "test that default grails plugins are present"() {
         given:
-        final Map<String, String> output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final Map<String, String> output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final String buildGradle = output["build.gradle"]
 
         expect:
@@ -26,7 +25,7 @@ class GrailsDefaultPluginsSpec extends ApplicationContextSpec implements Command
 
     void "test i18n message properties files are present"() {
         given:
-        final Map<String, String> output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final Map<String, String> output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
 
         expect:
         output.containsKey("grails-app/i18n/messages.properties")

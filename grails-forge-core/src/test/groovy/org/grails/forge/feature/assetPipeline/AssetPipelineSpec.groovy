@@ -7,7 +7,6 @@ import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
-import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
 import spock.lang.Unroll
@@ -24,7 +23,7 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
 
     void "test buildSrc is present for buildscript dependencies"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
         final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
 
         expect:
@@ -52,7 +51,7 @@ assets {
 
     void "test assets files are present"() {
         given:
-        final Map<String, String> output = generate(ApplicationType.WEB, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        final Map<String, String> output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
 
         expect:
         output.containsKey("grails-app/assets/images/advancedgrails.svg")
@@ -92,7 +91,7 @@ assets {
     @Unroll
     void "test feature asset-pipeline-grails is not supported for #applicationType application"(ApplicationType applicationType) {
         when:
-        generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["asset-pipeline-grails"])
+        generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11), ["asset-pipeline-grails"])
 
         then:
         def e = thrown(IllegalArgumentException)

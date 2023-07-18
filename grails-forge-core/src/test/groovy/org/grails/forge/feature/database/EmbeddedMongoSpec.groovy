@@ -5,7 +5,6 @@ import org.grails.forge.BuildBuilder
 import org.grails.forge.application.generator.GeneratorContext
 import org.grails.forge.feature.Features
 import org.grails.forge.fixture.CommandOutputFixture
-import org.grails.forge.options.Language
 
 class EmbeddedMongoSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
@@ -21,7 +20,6 @@ class EmbeddedMongoSpec extends ApplicationContextSpec implements CommandOutputF
         when:
         String template = new BuildBuilder(beanContext)
                 .features(["embedded-mongodb"])
-                .language(Language.GROOVY)
                 .render()
 
         then:

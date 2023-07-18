@@ -5,7 +5,6 @@ import org.grails.forge.application.ApplicationType
 import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
-import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
 import spock.lang.Unroll
@@ -17,7 +16,7 @@ class SpringBootSpec extends BeanContextSpec implements CommandOutputFixture {
         when:
         def output = generate(
                 applicationType,
-                new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11)
+                new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11)
         )
         final String build = output['build.gradle']
 
@@ -36,7 +35,7 @@ class SpringBootSpec extends BeanContextSpec implements CommandOutputFixture {
         when:
         def output = generate(
                 ApplicationType.PLUGIN,
-                new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11)
+                new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11)
         )
         final String build = output['build.gradle']
 

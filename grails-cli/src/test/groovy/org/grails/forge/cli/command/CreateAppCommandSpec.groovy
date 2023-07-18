@@ -71,19 +71,6 @@ class CreateAppCommandSpec extends CommandSpec implements CommandFixture {
         baos.toString().contains("Invalid GORM implementation selection: xyz")
     }
 
-    void "test creating a project with an invalid language"() {
-        given:
-        ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        System.setErr(new PrintStream(baos))
-
-        when:
-        PicocliRunner.run(CreateAppCommand, ctx, "temp",  "--lang", "xyz")
-
-        then:
-        noExceptionThrown()
-        baos.toString().contains("Invalid language selection: xyz")
-    }
-
     void "community and preview features are labelled as such"() {
         given:
         ByteArrayOutputStream baos = new ByteArrayOutputStream()

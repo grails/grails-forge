@@ -11,7 +11,7 @@ class LogbackSpec extends ApplicationContextSpec implements CommandOutputFixture
     @Unroll
     void "test grails-logging dependency is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
 
         then:
         output.containsKey("build.gradle")
@@ -25,7 +25,7 @@ class LogbackSpec extends ApplicationContextSpec implements CommandOutputFixture
     @Unroll
     void "test logback.xml config file is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(Language.GROOVY, TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
+        def output = generate(applicationType, new Options(TestFramework.SPOCK, BuildTool.GRADLE, JdkVersion.JDK_11))
 
         then:
         output.containsKey("grails-app/conf/logback.xml")

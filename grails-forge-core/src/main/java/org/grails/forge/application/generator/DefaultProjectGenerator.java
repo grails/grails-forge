@@ -28,6 +28,7 @@ import org.grails.forge.feature.FeatureContext;
 import org.grails.forge.feature.cli;
 import org.grails.forge.io.ConsoleOutput;
 import org.grails.forge.io.OutputHandler;
+import org.grails.forge.options.Language;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.RenderResult;
 import org.grails.forge.template.RockerTemplate;
@@ -82,7 +83,7 @@ public class DefaultProjectGenerator implements ProjectGenerator {
 
         generatorContext.addTemplate("grailsCli",
                 new RockerTemplate("grails-cli.yml",
-                        cli.template(generatorContext.getLanguage(),
+                        cli.template(Language.DEFAULT_OPTION,
                                 generatorContext.getTestFramework(),
                                 generatorContext.getBuildTool(),
                                 generatorContext.getGorm(),

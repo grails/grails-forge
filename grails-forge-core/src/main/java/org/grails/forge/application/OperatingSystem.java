@@ -25,6 +25,7 @@ public enum OperatingSystem {
     SOLARIS;
 
     public static final OperatingSystem DEFAULT = OperatingSystem.LINUX;
+    public static final OperatingSystem DEFAULT_OPTION = OperatingSystem.LINUX;
     private final String architecture;
 
     OperatingSystem(String architecture) {

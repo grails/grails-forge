@@ -6,7 +6,6 @@ import org.grails.forge.feature.github.workflows.plain.PlainGithubWorkflowFeatur
 import org.grails.forge.fixture.CommandOutputFixture
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.JdkVersion
-import org.grails.forge.options.Language
 import org.grails.forge.options.Options
 import org.grails.forge.options.TestFramework
 import spock.lang.Unroll
@@ -17,7 +16,7 @@ class PlainGithubWorkflowSpec extends BeanContextSpec implements CommandOutputFi
     void 'test github workflow is created for #buildTool'(BuildTool buildTool, String workflowName) {
         when:
         def output = generate(ApplicationType.WEB,
-                new Options(Language.GROOVY, TestFramework.SPOCK, buildTool, JdkVersion.JDK_11),
+                new Options(TestFramework.SPOCK, buildTool, JdkVersion.JDK_11),
                 [PlainGithubWorkflowFeature.NAME])
         def workflow = output[".github/workflows/${workflowName}"]
 
@@ -34,7 +33,7 @@ class PlainGithubWorkflowSpec extends BeanContextSpec implements CommandOutputFi
     void 'test github gradle workflow java version for #version'(JdkVersion version) {
         when:
         def output = generate(ApplicationType.WEB,
-                new Options(Language.GROOVY, TestFramework.JUNIT, BuildTool.GRADLE, version),
+                new Options(TestFramework.JUNIT, BuildTool.GRADLE, version),
                 [PlainGithubWorkflowFeature.NAME])
         def workflow = output['.github/workflows/gradle.yml']
 

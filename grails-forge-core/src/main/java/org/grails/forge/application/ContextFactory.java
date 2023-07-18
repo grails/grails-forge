@@ -59,11 +59,11 @@ public class ContextFactory {
             }
         }
 
-        Language language = determineLanguage(options.getLanguage(), features);
-        Options newOptions = options.withLanguage(language)
+        Options newOptions = options
+                .withTestFramework(determineTestFramework(options.getTestFramework()))
                 .withGormImpl(determineGormImpl(options.getGormImpl()))
                 .withServletImpl(determineServletImpl(options.getServletImpl()))
-                .withBuildTool(determineBuildTool(language, options.getBuildTool()));
+                .withBuildTool(determineBuildTool(options.getBuildTool()));
 
         availableFeatures.getAllFeatures()
                 .filter(f -> f instanceof DefaultFeature)
@@ -87,6 +87,13 @@ public class ContextFactory {
         return new GeneratorContext(project, featureContext.getApplicationType(), featureContext.getOptions(), featureContext.getOperatingSystem(), featureList, coordinateResolver);
     }
 
+    TestFramework determineTestFramework(TestFramework testFramework) {
+        if (testFramework == null) {
+            testFramework = TestFramework.DEFAULT_OPTION;
+        }
+        return testFramework;
+    }
+
     Language determineLanguage(Language language, Set<Feature> features) {
         if (language == null) {
             language = Language.infer(features);
@@ -97,9 +104,9 @@ public class ContextFactory {
         return language;
     }
 
-    BuildTool determineBuildTool(Language language, BuildTool buildTool) {
+    BuildTool determineBuildTool(BuildTool buildTool) {
         if (buildTool == null) {
-            buildTool = language.getDefaults().getBuild();
+            buildTool = BuildTool.GRADLE;
         }
         return buildTool;
     }

@@ -22,6 +22,7 @@ import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Coordinate;
 import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.dependencies.DependencyCoordinate;
+import org.grails.forge.options.Language;
 import org.grails.forge.template.Writable;
 
 import java.util.Comparator;
@@ -57,7 +58,7 @@ public class GradleDependency extends DependencyCoordinate {
         super(dependency);
         gradleConfiguration = GradleConfiguration.of(
                 dependency.getScope(),
-                generatorContext.getLanguage(),
+                Language.DEFAULT_OPTION,
                 generatorContext.getTestFramework()
         ).orElseThrow(() ->
                 new IllegalArgumentException(String.format("Cannot map the dependency scope: [%s] to a Gradle specific scope", dependency.getScope())));

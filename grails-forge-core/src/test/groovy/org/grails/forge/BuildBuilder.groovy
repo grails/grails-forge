@@ -24,7 +24,6 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
     private BuildTool buildTool
     private List<String> features
-    private Language language
     private TestFramework testFramework
     private ApplicationType applicationType
     private JdkVersion jdkVersion
@@ -41,7 +40,6 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         this.gormImpl = GormImpl.DEFAULT_OPTION
         this.servletImpl = ServletImpl.DEFAULT_OPTION
         this.operatingSystem = OperatingSystem.DEFAULT
-        this.language = Language.GROOVY
     }
 
     BuildBuilder(ApplicationContext ctx,
@@ -62,11 +60,6 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
     BuildBuilder features(List<String> features) {
         this.features = features
-        this
-    }
-
-    BuildBuilder language(Language language) {
-        this.language = language
         this
     }
 
@@ -102,13 +95,12 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
     String render() {
         List<String> featureNames = this.features ?: []
-        Language language = this.language ?: Language.DEFAULT_OPTION
-        TestFramework testFramework = this.testFramework ?: language.defaults.test
+        TestFramework testFramework = this.testFramework ?: TestFramework.SPOCK
         ApplicationType type = this.applicationType ?: ApplicationType.WEB
         Project project = this.project ?: buildProject()
         JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
-        final Options options = new Options(language, testFramework, buildTool, gormImpl, servletImpl, jdkVersion, operatingSystem)
+        final Options options = new Options(testFramework, buildTool, gormImpl, servletImpl, jdkVersion, operatingSystem)
         Features features = getFeatures(featureNames, options, type)
 
         if (buildTool.isGradle()) {
@@ -122,13 +114,12 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
 
     String renderBuildSrc() {
         List<String> featureNames = this.features ?: []
-        Language language = this.language ?: Language.DEFAULT_OPTION
-        TestFramework testFramework = this.testFramework ?: language.defaults.test
+        TestFramework testFramework = this.testFramework ?: TestFramework.SPOCK
         ApplicationType type = this.applicationType ?: ApplicationType.WEB
         Project project = this.project ?: buildProject()
         JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
 
-        Options options = new Options(language, testFramework, buildTool, jdkVersion)
+        Options options = new Options(testFramework, buildTool, jdkVersion)
         Features features = getFeatures(featureNames, options, type)
 
         if (buildTool.isGradle()) {

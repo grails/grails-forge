@@ -67,11 +67,9 @@ abstract class CommandSpec extends Specification {
         return Collections.EMPTY_MAP
     }
 
-    String executeBuild(BuildTool buildTool, String command) {
+    String executeBuild(String command) {
         String output = null
-        if (buildTool.isGradle()) {
-            output = executeGradle(command).getOutput()
-        }
+        output = executeGradle(command).getOutput()
         return output
     }
 
@@ -87,15 +85,13 @@ abstract class CommandSpec extends Specification {
                 .build()
     }
 
-    void generateProject(Language lang,
-                         BuildTool buildTool = BuildTool.DEFAULT_OPTION,
-                         OperatingSystem operatingSystem = OperatingSystem.LINUX,
+    void generateProject(OperatingSystem operatingSystem = OperatingSystem.LINUX,
                          List<String> features = [],
                          ApplicationType applicationType = ApplicationType.WEB,
                          TestFramework testFramework = TestFramework.DEFAULT_OPTION) {
         applicationContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
-                new Options(lang, testFramework, buildTool),
+                new Options(testFramework),
                 operatingSystem,
                 features,
                 new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
@@ -107,28 +103,12 @@ abstract class CommandSpec extends Specification {
             List<String> features = []) {
         applicationContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
-                new Options(Language.DEFAULT_OPTION, TestFramework.DEFAULT_OPTION, BuildTool.DEFAULT_OPTION),
+                new Options(TestFramework.DEFAULT_OPTION),
                 OperatingSystem.DEFAULT_OPTION,
                 features,
                 new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
                 ConsoleOutput.NOOP
         )
-    }
-
-    void generateProject(Project project,
-                         Language lang = Language.DEFAULT_OPTION,
-                         BuildTool buildTool = BuildTool.DEFAULT_OPTION,
-                         OperatingSystem operatingSystem = OperatingSystem.LINUX,
-                         List<String> features = [],
-                         ApplicationType applicationType = ApplicationType.WEB,
-                         TestFramework testFramework = TestFramework.DEFAULT_OPTION) {
-        applicationContext.getBean(ProjectGenerator).generate(applicationType,
-                project,
-                new Options(lang, testFramework, buildTool),
-                operatingSystem,
-                features,
-                new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
-                ConsoleOutput.NOOP)
     }
 
     PollingConditions getDefaultPollingConditions() {

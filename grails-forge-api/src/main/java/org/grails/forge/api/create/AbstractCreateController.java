@@ -83,13 +83,11 @@ public abstract class AbstractCreateController {
         try {
             GormImpl gormImpl = gorm != null ? gorm : GormImpl.DEFAULT_OPTION;
             ServletImpl servletImpl = servlet != null ? servlet : ServletImpl.DEFAULT_OPTION;
-            Language lang = Language.DEFAULT_OPTION;
             generatorContext = projectGenerator.createGeneratorContext(
                     type,
                     project,
-                    new Options(lang,
-                            testFramework != null ? testFramework.toTestFramework() : lang.getDefaults().getTest(),
-                            buildTool == null ? lang.getDefaults().getBuild() : buildTool,
+                    new Options(testFramework != null ? testFramework.toTestFramework() : org.grails.forge.options.TestFramework.DEFAULT_OPTION,
+                            buildTool == null ? BuildTool.DEFAULT_OPTION : buildTool,
                             gormImpl == null ? GormImpl.DEFAULT_OPTION : gormImpl,
                             servletImpl == null ? ServletImpl.DEFAULT_OPTION : servletImpl,
                             javaVersion == null ? JdkVersion.DEFAULT_OPTION : javaVersion,

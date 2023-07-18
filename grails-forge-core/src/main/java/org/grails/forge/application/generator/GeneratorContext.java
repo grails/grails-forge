@@ -207,13 +207,6 @@ public class GeneratorContext implements DependencyContext {
     }
 
     /**
-     * @return The language
-     */
-    @NonNull public Language getLanguage() {
-        return options.getLanguage();
-    }
-
-    /**
      * @return The test framework
      */
     @NonNull
@@ -299,28 +292,24 @@ public class GeneratorContext implements DependencyContext {
     }
 
     public String getSourcePath(String path) {
-        return getLanguage().getSourcePath(path);
+        return Language.DEFAULT_OPTION.getSourcePath(path);
     }
 
     public String getTestSourcePath(String path) {
-        return getTestFramework().getSourcePath(path, getLanguage());
+        return getTestFramework().getSourcePath(path, Language.DEFAULT_OPTION);
     }
 
     public String getIntegrationTestSourcePath(String path) {
-        return getTestFramework().getIntegrationSourcePath(path, getLanguage());
+        return getTestFramework().getIntegrationSourcePath(path, Language.DEFAULT_OPTION);
     }
 
     RockerModel parseModel(RockerModel javaTemplate,
                            RockerModel groovyTemplate) {
-        switch (getLanguage()) {
-            case GROOVY:
-            default:
-                return groovyTemplate;
-        }
+       return groovyTemplate;
     }
 
     public void addTemplate(String name, String path, TestRockerModelProvider testRockerModelProvider) {
-        RockerModel rockerModel = testRockerModelProvider.findModel(getLanguage(), getTestFramework());
+        RockerModel rockerModel = testRockerModelProvider.findModel(Language.DEFAULT_OPTION, getTestFramework());
         if (rockerModel != null) {
             addTemplate(name, new RockerTemplate(path, rockerModel));
         }

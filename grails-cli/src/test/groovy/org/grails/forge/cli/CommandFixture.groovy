@@ -11,6 +11,7 @@ import org.grails.forge.io.OutputHandler
 import org.grails.forge.options.BuildTool
 import org.grails.forge.options.Language
 import org.grails.forge.options.Options
+import org.grails.forge.options.TestFramework
 import org.grails.forge.util.NameUtils
 
 trait CommandFixture {
@@ -25,7 +26,7 @@ trait CommandFixture {
                          ApplicationType applicationType = ApplicationType.DEFAULT_OPTION) {
         beanContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
-                new Options(language, null, buildTool),
+                new Options(TestFramework.DEFAULT_OPTION, buildTool),
                 OperatingSystem.MACOS_ARCH64,
                 features,
                 new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
