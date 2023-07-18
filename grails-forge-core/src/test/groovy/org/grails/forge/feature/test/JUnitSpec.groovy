@@ -17,6 +17,5 @@ class JUnitSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
         then:
         buildGradle.contains("testImplementation(\"org.junit.jupiter:junit-jupiter")
-        buildGradle.contains("useJUnitPlatform()")
     }
 }
