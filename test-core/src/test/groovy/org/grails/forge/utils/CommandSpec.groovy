@@ -34,6 +34,7 @@ import org.grails.forge.util.NameUtils
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
 
 import java.nio.file.Files
 
@@ -91,11 +92,23 @@ abstract class CommandSpec extends Specification {
                          OperatingSystem operatingSystem = OperatingSystem.LINUX,
                          List<String> features = [],
                          ApplicationType applicationType = ApplicationType.WEB,
-                         TestFramework testFramework = null) {
+                         TestFramework testFramework = TestFramework.DEFAULT_OPTION) {
         applicationContext.getBean(ProjectGenerator).generate(applicationType,
                 NameUtils.parse("example.grails.foo"),
                 new Options(lang, testFramework, buildTool),
                 operatingSystem,
+                features,
+                new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
+                ConsoleOutput.NOOP
+        )
+    }
+
+    void generateProjectWithDefaults(ApplicationType applicationType = ApplicationType.WEB,
+            List<String> features = []) {
+        applicationContext.getBean(ProjectGenerator).generate(applicationType,
+                NameUtils.parse("example.grails.foo"),
+                new Options(Language.DEFAULT_OPTION, TestFramework.DEFAULT_OPTION, BuildTool.DEFAULT_OPTION),
+                OperatingSystem.DEFAULT_OPTION,
                 features,
                 new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
                 ConsoleOutput.NOOP
@@ -116,6 +129,16 @@ abstract class CommandSpec extends Specification {
                 features,
                 new FileSystemOutputHandler(dir, ConsoleOutput.NOOP),
                 ConsoleOutput.NOOP)
+    }
+
+    PollingConditions getDefaultPollingConditions() {
+        new PollingConditions(timeout: 120, initialDelay: 3, delay: 1, factor: 1)
+    }
+
+    void testOutputContains(String output, String value) {
+        defaultPollingConditions.eventually {
+            assert output.toString().contains(value)
+        }
     }
 
     ThrowingSupplier<OutputHandler, IOException> getOutputHandler(ConsoleOutput consoleOutput) {
