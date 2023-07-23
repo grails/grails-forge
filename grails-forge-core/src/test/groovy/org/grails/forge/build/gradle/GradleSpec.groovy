@@ -45,7 +45,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("gradlePluginPortal()")
         settingsGradle.contains("id \"org.grails.grails-web\" version \"6.0.0-SNAPSHOT\"")
         settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.0.0-SNAPSHOT\"")
-        settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"3.4.7\"")
+        settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
     }
 
     void "test settings.gradle for REST-API"() {
@@ -62,7 +62,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("id \"org.grails.grails-web\" version \"6.0.0-SNAPSHOT\"")
         settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.0.0\"")
         !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.0.0-SNAPSHOT\"")
-        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"3.4.7\"")
+        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
     }
 
     void "test settings.gradle for REST-API for markup-views"() {
@@ -80,6 +80,6 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("id \"org.grails.plugins.views-markup\" version \"3.0.0\"")
         !settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.0.0\"")
         !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.0.0-SNAPSHOT\"")
-        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"3.4.7\"")
+        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
     }
 }
