@@ -119,17 +119,37 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - name: Run Tests
-        run: ./gradlew grails-forge-api:test grails-forge-web-netty:test
-      - name: Build and Push Docker image and deploy to Cloud Run
+        uses: gradle/gradle-build-action@v2
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+        with:
+          arguments: grails-forge-api:test grails-forge-web-netty:test
+      - name: Build Docker image
+        # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
+        uses: gradle/gradle-build-action@v2
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ steps.release_version.outputs.release_version }}
-        # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+        with:
+          arguments: grails-forge-web-netty:dockerBuildNative -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: Push image to Google Cloud Container Registry
+        uses: gradle/gradle-build-action@v2
+        env:
+          IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ steps.release_version.outputs.release_version }}
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+        with:
+          arguments: grails-forge-web-netty:dockerPushNative -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: Deploy Docker image
         run: |
-          ./gradlew grails-forge-web-netty:dockerBuild -PdockerImageName="$IMAGE_NAME"
-          ./gradlew grails-forge-web-netty:dockerPush -PdockerImageName="$IMAGE_NAME" 
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-latest --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
-          version="$(echo "${release_version//./}" | tr '[A-Z]' '[a-z]')"
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-$version --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
+        gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-latest --image $IMAGE_NAME --region us-central1 --update-env-vars=HOSTNAME="https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app",GITHUB_OAUTH_APP_CLIENT_ID=${{ secrets.GH_OAUTH_SNAPSHOT_CLIENT_ID }},GITHUB_OAUTH_APP_CLIENT_SECRET=${{ secrets.GH_OAUTH_SNAPSHOT_CLIENT_SECRET }} --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
+        version="$(echo "${release_version//./}" | tr '[A-Z]' '[a-z]')
+        gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-$version --image $IMAGE_NAME --region us-central1 --update-env-vars=HOSTNAME="https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app",GITHUB_OAUTH_APP_CLIENT_ID=${{ secrets.GH_OAUTH_SNAPSHOT_CLIENT_ID }},GITHUB_OAUTH_APP_CLIENT_SECRET=${{ secrets.GH_OAUTH_SNAPSHOT_CLIENT_SECRET }} --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
   deployanalytics:
     name: Deploy Analytics To Google Cloud Run
     runs-on: ubuntu-latest
@@ -161,17 +181,38 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - name: Run Tests
-        run: ./gradlew grails-forge-analytics-postgres:test
-      - name: Build and Push Docker image and deploy to Cloud Run
+        uses: gradle/gradle-build-action@v2
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+        with:
+          arguments: grails-forge-analytics-postgres:test
+      - name: Build Docker image
+        uses: gradle/gradle-build-action@v2
+        # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}-analytics:${{ steps.release_version.outputs.release_version }}
-        # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+        with:
+          arguments: grails-forge-analytics-postgres:dockerBuildNative -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: Push image to Google Cloud Container Registry
+        uses: gradle/gradle-build-action@v2
+        env:
+          IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}-analytics:${{ steps.release_version.outputs.release_version }}
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
+          GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+        with:
+          arguments: grails-forge-analytics-postgres:dockerPushNative -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: Deploy Docker image
         run: |
-          ./gradlew grails-forge-analytics-postgres:dockerBuild -PdockerImageName="$IMAGE_NAME"
-          ./gradlew grails-forge-analytics-postgres:dockerPush -PdockerImageName="$IMAGE_NAME" 
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-analytics-latest --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
+          gcloud components install beta --quiet
+          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-analytics-latest --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
           version="$(echo "${release_version//./}" | tr '[A-Z]' '[a-z]')"
-          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-analytics-$version --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated
+          gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-analytics-$version --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
   linux:
     name: Release Linux Native CLI
     runs-on: ubuntu-latest
