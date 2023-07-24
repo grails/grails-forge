@@ -99,6 +99,7 @@ public class Gradle implements BuildFeature {
     }
 
     private void configureDefaultGradleProps(GeneratorContext generatorContext) {
+        generatorContext.getBuildProperties().put("version", "0.1");
         generatorContext.getBuildProperties().put("org.gradle.caching", "true");
         generatorContext.getBuildProperties().put("org.gradle.daemon", "true");
         generatorContext.getBuildProperties().put("org.gradle.parallel", "true");
