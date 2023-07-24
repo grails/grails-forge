@@ -80,7 +80,11 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         applicationType << [ApplicationType.WEB, ApplicationType.REST_API]
     }
   
-    void "ApplicationController is not present for #applicationType application type"() {      
+    void "ApplicationController is not present for #applicationType application type"() {
+        when:
+        def output = generate(applicationType)
+
+        then:
         !output.containsKey("grails-app/controllers/example/grails/ApplicationController.groovy")
 
         where:
