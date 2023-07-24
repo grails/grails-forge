@@ -23,6 +23,7 @@ import org.grails.forge.build.gradle.GradlePlugin;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.grails.templates.applicationController;
+import org.grails.forge.feature.grails.templates.plugin;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.RockerTemplate;
 
@@ -60,6 +61,10 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
                 generatorContext.addTemplate("applicationController", new RockerTemplate("grails-app/controllers/{packagePath}/ApplicationController.groovy",
                         applicationController.template(generatorContext.getProject())));
             }
+        }
+        if (applicationType == ApplicationType.PLUGIN || applicationType == ApplicationType.WEB_PLUGIN) {
+            generatorContext.addTemplate("plugin", new RockerTemplate(generatorContext.getSourcePath("/{packagePath}/{className}GrailsPlugin"),
+                    plugin.template(generatorContext.getProject(), applicationType)));
         }
     }
 

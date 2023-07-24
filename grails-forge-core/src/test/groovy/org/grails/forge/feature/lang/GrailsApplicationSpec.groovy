@@ -57,11 +57,30 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         output.containsKey("grails-app/controllers/example/grails/ApplicationController.groovy")
     }
 
-    void "ApplicationController is not present for #applicationType application type"() {
+    void "PluginDescriptor is generated for #applicationType application type"() {
         when:
         def output = generate(applicationType)
 
         then:
+        output.containsKey('src/main/groovy/example/grails/FooGrailsPlugin.groovy')
+        def pluginGroovy = output.get("src/main/groovy/example/grails/FooGrailsPlugin.groovy")
+
+        where:
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.WEB_PLUGIN]
+    }
+
+    void "PluginDescriptor is NOT generated for #applicationType application type"() {
+        when:
+        def output = generate(applicationType)
+
+        then:
+        !output.containsKey('src/main/groovy/example/grails/FooGrailsPlugin.groovy')
+
+        where:
+        applicationType << [ApplicationType.WEB, ApplicationType.REST_API]
+    }
+  
+    void "ApplicationController is not present for #applicationType application type"() {      
         !output.containsKey("grails-app/controllers/example/grails/ApplicationController.groovy")
 
         where:
