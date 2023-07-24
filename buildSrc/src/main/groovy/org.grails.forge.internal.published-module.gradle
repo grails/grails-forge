@@ -73,7 +73,7 @@ project.afterEvaluate {
                         .forUseAtConfigurationTime()
                         .orNull
                 def externalRepoPassword = providers.systemProperty("org.grails.publishing.password")
-                        .forUseAtConfigurationTime()
+
                         .orNull
 
                 maven {
@@ -97,6 +97,8 @@ project.afterEvaluate {
         publications {
             if (project.extensions.findByType(PublishingExtension).publications.empty) {
                 maven(MavenPublication) { publication ->
+                    artifactId = project.getName()
+                    version = project.getVersion()
                     if (!project.name.endsWith("bom")) {
                         versionMapping {
                             usage('java-api') {
