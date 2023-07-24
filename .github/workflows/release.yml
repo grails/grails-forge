@@ -379,6 +379,7 @@ jobs:
           asset_name: grails-win-amd64-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
   sdkman:
+    if: false
     name: Release to SDKMAN!
     runs-on: ubuntu-latest
     env:
