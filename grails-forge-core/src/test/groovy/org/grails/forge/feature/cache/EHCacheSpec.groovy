@@ -8,16 +8,15 @@ import spock.lang.Unroll
 
 class EHCacheSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
-    void 'test readme.md with feature cache-ehcache contains links to micronaut docs'() {
+    void 'test readme.md with feature cache-ehcache contains links to documentation'() {
         when:
         def output = generate(['cache-ehcache'])
         def readme = output["README.md"]
 
         then:
         readme
-        readme.contains("https://docs.grails.org/6.0.0/guide/index.html")
-        readme.contains("https://docs.grails.org/6.0.0/api/index.html")
-        readme.contains("https://guides.grails.org/index.html")
+        readme.contains("[https://www.ehcache.org/](https://www.ehcache.org/)")
+        readme.contains("[Grails EHCache Plugin documentation](https://grails-plugins.github.io/grails-cache-ehcache/latest/)")
     }
 
     @Unroll
