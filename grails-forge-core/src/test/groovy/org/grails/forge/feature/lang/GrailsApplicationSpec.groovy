@@ -49,6 +49,25 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         applicationType << [ApplicationType.PLUGIN, ApplicationType.WEB_PLUGIN]
     }
 
+    void "REST-API application should have ApplicationController"() {
+        when:
+        def output = generate(ApplicationType.REST_API)
+
+        then:
+        output.containsKey("grails-app/controllers/example/grails/ApplicationController.groovy")
+    }
+
+    void "ApplicationController is not present for #applicationType application type"() {
+        when:
+        def output = generate(applicationType)
+
+        then:
+        !output.containsKey("grails-app/controllers/example/grails/ApplicationController.groovy")
+
+        where:
+        applicationType << [ApplicationType.WEB, ApplicationType.PLUGIN, ApplicationType.WEB_PLUGIN]
+    }
+
     void "test build plugins"() {
         given:
         final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
