@@ -96,5 +96,10 @@ tasks.withType(Test) {
 }
 }
 
+@if (features.contains("grails-gsp”")) {
+tasks.withType(War).configureEach { War war ->
+    war.dependsOn compileGroovyPages
+}
+}
 
 @gradleBuild.renderExtensions()
