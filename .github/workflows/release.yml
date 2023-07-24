@@ -147,6 +147,7 @@ jobs:
           arguments: grails-forge-web-netty:dockerPushNative -PdockerImageName=${{ env.IMAGE_NAME }}
       - name: Deploy Docker image
         env:
+          release_version: ${{ steps.release_version.outputs.release_version }}
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ steps.release_version.outputs.release_version }}
         run: |
           gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-latest --image $IMAGE_NAME --region us-central1 --update-env-vars=HOSTNAME="https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app",GITHUB_OAUTH_APP_CLIENT_ID=${{ secrets.GH_OAUTH_SNAPSHOT_CLIENT_ID }},GITHUB_OAUTH_APP_CLIENT_SECRET=${{ secrets.GH_OAUTH_SNAPSHOT_CLIENT_SECRET }} --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
@@ -211,6 +212,7 @@ jobs:
           arguments: grails-forge-analytics-postgres:dockerPushNative -PdockerImageName=${{ env.IMAGE_NAME }}
       - name: Deploy Docker image
         env:
+          release_version: ${{ steps.release_version.outputs.release_version }}
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ steps.release_version.outputs.release_version }}
         run: |
           gcloud components install beta --quiet
