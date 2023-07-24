@@ -49,6 +49,29 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         applicationType << [ApplicationType.PLUGIN, ApplicationType.WEB_PLUGIN]
     }
 
+    void "PluginDescriptor is generated for #applicationType application type"() {
+        when:
+        def output = generate(applicationType)
+
+        then:
+        output.containsKey('src/main/groovy/example/grails/FooGrailsPlugin.groovy')
+        def pluginGroovy = output.get("src/main/groovy/example/grails/FooGrailsPlugin.groovy")
+
+        where:
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.WEB_PLUGIN]
+    }
+
+    void "PluginDescriptor is NOT generated for #applicationType application type"() {
+        when:
+        def output = generate(applicationType)
+
+        then:
+        !output.containsKey('src/main/groovy/example/grails/FooGrailsPlugin.groovy')
+
+        where:
+        applicationType << [ApplicationType.WEB, ApplicationType.REST_API]
+    }
+
     void "test build plugins"() {
         given:
         final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
