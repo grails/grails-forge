@@ -22,6 +22,7 @@ micronaut:
         url: https://api.github.com
 grails:
   forge:
+      redirect-url: ${GITHUB_REDIRECT_URL:'https://grails.github.io/grails-forge-ui/'}
       github:
         client-id: ${GITHUB_OAUTH_APP_CLIENT_ID}
         client-secret: ${GITHUB_OAUTH_APP_CLIENT_SECRET}
