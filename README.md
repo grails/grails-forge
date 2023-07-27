@@ -191,54 +191,56 @@ Create two databases `grailsforge-production` and `grailsforge-snapshot`
 
 #### Cloud Run grailsforge-latest
 
-| Name   | Value                                         | 
-|:-------|:----------------------------------------------|
-| `MICRONAUT_ENV_DEDUCTION` | `false`                                       |
-| `MICRONAUT_ENVIRONMENTS` | `gcp`                                         |
-| `MICRONAUT_HTTP_SERVICES_ANALYTICS_READ_TIMEOUT` | `20s`                                         |
-| `MICRONAUT_HTTP_SERVICES_ANALYTICS_URL` | URL of cloud run `grailsforge-analytics-latest` |
-| `GITHUB_OAUTH_APP_CLIENT_ID` | The Client ID shared after creating GitHub OAuth App |
-| `GITHUB_OAUTH_APP_CLIENT_SECRET` | The Client secret shared after creating the GitHub OAuth app |
-| `GITHUB_USER_AGENT` | URL of the grails-forge-ui static website. For example, `https://start.grails.org/`. The default value is `https://grails.github.io/grails-forge-ui/`. |
+| Name                                             | Value                                                                                                                                  | 
+|:-------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
+| `MICRONAUT_ENV_DEDUCTION`                        | `false`                                                                                                                                |
+| `MICRONAUT_ENVIRONMENTS`                         | `gcp`                                                                                                                                  |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_READ_TIMEOUT` | `20s`                                                                                                                                  |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_URL`          | URL of cloud run `grailsforge-analytics-latest`                                                                                        |
+| `GITHUB_OAUTH_APP_CLIENT_ID`                     | The Client ID shared after creating GitHub OAuth App                                                                                   |
+| `GITHUB_OAUTH_APP_CLIENT_SECRET`                 | The Client secret shared after creating the GitHub OAuth app                                                                           |
+| `GITHUB_USER_AGENT`                              | URL of the grails-forge-ui static website. For example, `https://start.grails.org/`. The default value is `https://start.grails.org/`. |
+| `GITHUB_REDIRECT_URL`                            | URL of the grails-forge-ui static website. For example, `https://start.grails.org/`. The default value is `https://start.grails.org/`. |
 
 ### Cloud Run grailsforge-analytics-latest
 
-| Name                                             | Value                                                          | 
-|:-------------------------------------------------|:---------------------------------------------------------------|
-| `CLOUD_SQL_CONNECTION_NAME`                      | `grailsforge:us-central1:grailsforge-postgresdb`                                                               |
-| `DB_NAME`                                        | `grailsforge-production` |
-| `MICRONAUT_ENV_DEDUCTION`                        | `false`                                                        |
-| `MICRONAUT_ENVIRONMENTS`                         | `gcp`                                                          |
-| `DATASOURCES_DEFAULT_USERNAME`                    | `***`
-| `DATASOURCES_DEFAULT_PASSWORD`                    | `***`
-| `DATASOURCES_DEFAULT_URL` | `jdbc:postgresql:///grailsforge-production` |
+| Name                           | Value                                            | 
+|:-------------------------------|:-------------------------------------------------|
+| `CLOUD_SQL_CONNECTION_NAME`    | `grailsforge:us-central1:grailsforge-postgresdb` |
+| `DB_NAME`                      | `grailsforge-production`                         |
+| `MICRONAUT_ENV_DEDUCTION`      | `false`                                          |
+| `MICRONAUT_ENVIRONMENTS`       | `gcp`                                            |
+| `DATASOURCES_DEFAULT_USERNAME` | `***`                                            |
+| `DATASOURCES_DEFAULT_PASSWORD` | `***`                                            |
+| `DATASOURCES_DEFAULT_URL`      | `jdbc:postgresql:///grailsforge-production`      |
 
 
 ### Snapshot Env
 
 ### Cloud Run grailsforge-snapshot
 
-| Name   | Value                                            | 
-|:-------|:-------------------------------------------------|
-| `MICRONAUT_ENV_DEDUCTION` | `false`                                          |
-| `MICRONAUT_ENVIRONMENTS` | `gcp`                                            |
-| `MICRONAUT_HTTP_SERVICES_ANALYTICS_READ_TIMEOUT` | `20s`                                            |
-| `MICRONAUT_HTTP_SERVICES_ANALYTICS_URL` | URL of cloud run `grailsforge-analytics-snapshot` |
-| `GITHUB_OAUTH_APP_CLIENT_ID` | The Client ID shared after creating GitHub OAuth App |
-| `GITHUB_OAUTH_APP_CLIENT_SECRET` | The Client secret shared after creating the GitHub OAuth app |
-| `GITHUB_USER_AGENT` | URL of the grails-forge-ui static website. For example, `https://start.grails.org/`. The default value is `https://grails.github.io/grails-forge-ui/`. |
+| Name                                             | Value                                                                                                                                                  | 
+|:-------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `MICRONAUT_ENV_DEDUCTION`                        | `false`                                                                                                                                                |
+| `MICRONAUT_ENVIRONMENTS`                         | `gcp`                                                                                                                                                  |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_READ_TIMEOUT` | `20s`                                                                                                                                                  |
+| `MICRONAUT_HTTP_SERVICES_ANALYTICS_URL`          | URL of cloud run `grailsforge-analytics-snapshot`                                                                                                      |
+| `GITHUB_OAUTH_APP_CLIENT_ID`                     | The Client ID shared after creating GitHub OAuth App                                                                                                   |
+| `GITHUB_OAUTH_APP_CLIENT_SECRET`                 | The Client secret shared after creating the GitHub OAuth app                                                                                           |
+| `GITHUB_USER_AGENT`                              | URL of the grails-forge-ui static website. For example, `https://start.grails.org/`. The default value is `https://grails.github.io/grails-forge-ui/`. |
+| `GITHUB_REDIRECT_URL`                            | URL of the grails-forge-ui static website. For example, `https://start.grails.org/`. The default value is `https://grails.github.io/grails-forge-ui/`. |
 
 
 ### Cloud Run grailsforge-analytics-latest
 
-| Name                                             | Value                                            | 
-|:-------------------------------------------------|:-------------------------------------------------|
-| `CLOUD_SQL_CONNECTION_NAME`                      | `grailsforge:us-central1:grailsforge-postgresdb` |
-| `DB_NAME`                                        | `grailsforge-snapshot`                           |
-| `MICRONAUT_ENV_DEDUCTION`                        | `false`                                          |
-| `MICRONAUT_ENVIRONMENTS`                         | `gcp`                                            |
-| `DATASOURCES_DEFAULT_USERNAME`                    | `***`                                            
-| `DATASOURCES_DEFAULT_PASSWORD`                    | `***`                                            
-| `DATASOURCES_DEFAULT_URL` | `jdbc:postgresql:///grailsforge-snapshot`        |
+| Name                           | Value                                            | 
+|:-------------------------------|:-------------------------------------------------|
+| `CLOUD_SQL_CONNECTION_NAME`    | `grailsforge:us-central1:grailsforge-postgresdb` |
+| `DB_NAME`                      | `grailsforge-snapshot`                           |
+| `MICRONAUT_ENV_DEDUCTION`      | `false`                                          |
+| `MICRONAUT_ENVIRONMENTS`       | `gcp`                                            |
+| `DATASOURCES_DEFAULT_USERNAME` | `***`                                            |
+| `DATASOURCES_DEFAULT_PASSWORD` | `***`                                            |
+| `DATASOURCES_DEFAULT_URL`      | `jdbc:postgresql:///grailsforge-snapshot`        |
 
 
