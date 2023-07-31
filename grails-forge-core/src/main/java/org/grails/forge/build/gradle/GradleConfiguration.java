@@ -32,6 +32,7 @@ public enum GradleConfiguration implements Ordered {
     IMPLEMENTATION("implementation", 4),
     COMPILE_ONLY("compileOnly", 5),
     CONSOLE("console", 6),
+    DEVELOPMENT_ONLY("developmentOnly", 2),
     RUNTIME_ONLY("runtimeOnly", 7),
     TEST_ANNOTATION_PROCESSOR("testAnnotationProcessor", 8),
     TEST_KAPT("kaptTest", 9),
@@ -84,6 +85,9 @@ public enum GradleConfiguration implements Ordered {
                         return Optional.of(GradleConfiguration.IMPLEMENTATION);
                     }
                     return Optional.of(GradleConfiguration.RUNTIME_ONLY);
+                }
+                if (scope.getPhases().contains(Phase.DEVELOPMENT_ONLY)) {
+                    return Optional.of(GradleConfiguration.DEVELOPMENT_ONLY);
                 }
                 if (scope.getPhases().contains(Phase.COMPILATION)) {
                     return Optional.of(GradleConfiguration.COMPILE_ONLY);
