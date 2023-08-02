@@ -61,9 +61,11 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         given:
         final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
         final def buildGradle = output["build.gradle"]
+        final def settingGradle = output["settings.gradle"]
 
         expect:
-        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
         buildGradle.contains("chromedriver '110.0.5481.77'")
         buildGradle.contains("geckodriver '0.32.2'")
@@ -74,9 +76,11 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         given:
         final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11, OperatingSystem.WINDOWS))
         final def buildGradle = output["build.gradle"]
+        final def settingGradle = output["settings.gradle"]
 
         expect:
-        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
         buildGradle.contains("chromedriver '110.0.5481.77'")
         buildGradle.contains("geckodriver '0.32.2'")
