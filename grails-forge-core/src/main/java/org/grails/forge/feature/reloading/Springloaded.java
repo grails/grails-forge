@@ -46,6 +46,11 @@ public class Springloaded implements ReloadingFeature {
     }
 
     @Override
+    public boolean isVisible() {
+        return false;
+    }
+
+    @Override
     public void processSelectedFeatures(FeatureContext featureContext) {
         int jdkVersion = featureContext.getJavaVersion().majorVersion();
         if (jdkVersion >= 9) {
