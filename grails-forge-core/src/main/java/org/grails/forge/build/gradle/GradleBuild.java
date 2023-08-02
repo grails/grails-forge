@@ -80,6 +80,11 @@ public class GradleBuild {
     }
 
     @NonNull
+    public List<GradlePlugin> getPluginsWithVersion() {
+        return plugins.stream().filter(plugin -> plugin.getVersion() != null).collect(Collectors.toList());
+    }
+
+    @NonNull
     public String renderExtensions() {
         return renderWritableExtensions(Stream.concat(
                 buildscriptDependencies.stream().map(GradleDependency::getExtension).filter(Objects::nonNull),
