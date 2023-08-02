@@ -25,7 +25,7 @@ GradleBuild gradleBuild
 }
 plugins {
 @for (GradlePlugin gradlePlugin : gradleBuild.getPlugins()) {
-    id "@gradlePlugin.getId()" @(gradlePlugin.getVersion() != null ? "version \"" + gradlePlugin.getVersion() + "\"" : "")
+    id "@gradlePlugin.getId()"
 }
 }
 

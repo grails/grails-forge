@@ -3,6 +3,7 @@
 @import org.grails.forge.build.dependencies.CoordinateResolver
 @import org.grails.forge.build.dependencies.Coordinate
 @import org.grails.forge.build.gradle.GradleBuild
+@import org.grails.forge.build.gradle.GradlePlugin
 @import org.grails.forge.feature.Features
 
 @args (
@@ -39,6 +40,10 @@ pluginManagement {
         @if(features.contains("asset-pipeline-grails")) {
         id "com.bertramlabs.asset-pipeline" version "@assetPipelineVersion"
         }
+
+    @for (GradlePlugin gradlePlugin : gradleBuild.getPluginsWithVersion()) {
+        id "@gradlePlugin.getId()" version "@gradlePlugin.getVersion()"
+    }
     }
 }
 

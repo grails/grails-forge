@@ -1,35 +1,63 @@
 package org.grails.forge.feature.asciidoctor
 
-import io.micronaut.core.version.SemanticVersion
 import org.grails.forge.ApplicationContextSpec
-import org.grails.forge.BuildBuilder
-import spock.lang.Unroll
+import org.grails.forge.application.ApplicationType
+import org.grails.forge.feature.Features
+import org.grails.forge.fixture.CommandOutputFixture
+import org.grails.forge.options.JdkVersion
+import org.grails.forge.options.Options
+import org.grails.forge.options.TestFramework
 
-class AsciidoctorSpec extends ApplicationContextSpec {
+class AsciidoctorSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
-    @Unroll
     void 'test gradle asciidoctor feature'() {
         when:
-        String template = new BuildBuilder(beanContext)
-                .features(['asciidoctor'])
-                .render()
+        final Features features = getFeatures(["asciidoctor"])
 
         then:
-        template.contains("apply from: \"gradle/asciidoc.gradle\"")
+        features.contains("asciidoctor")
+    }
 
-        when:
-        String pluginId = 'org.asciidoctor.jvm.convert'
-        String applyPlugin = 'id "' + pluginId + '" version "'
+    void "test asciidoctor gradle configurations"() {
+        given:
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["asciidoctor"])
+        final def buildGradle = output["build.gradle"]
+        final def settingGradle = output["settings.gradle"]
 
-        then:
-        template.contains(applyPlugin)
+        expect:
+        settingGradle.contains("id \"org.asciidoctor.jvm.convert\" version \"4.0.0-alpha.1\"")
+        buildGradle.contains("apply from: \"gradle/asciidoc.gradle\"")
+    }
 
-        when:
-        Optional<SemanticVersion> semanticVersionOptional = parseCommunityGradlePluginVersion(pluginId, template).map(SemanticVersion::new)
+    void "test asciidoctor gradle configurations"() {
+        given:
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["asciidoctor"])
+        final def asciidocGradle = output["gradle/asciidoc.gradle"]
 
-        then:
-        noExceptionThrown()
-        semanticVersionOptional.isPresent()
+        expect:
+        asciidocGradle.contains("""asciidoctorj {
+    version '2.1.0'
+    modules {
+        diagram {
+            version '1.5.18'
+        }
+    }
+
+    options doctype: "book", ruby: "erubis"
+
+    attributes "sourcedir": "src/docs/asciidoc",
+               "source-highlighter": "coderay",
+               "toc": "left",
+               "idprefix": "",
+               "idseparator": "-",
+               "icons": "font",
+               "setanchors": "",
+               "listing-caption": "",
+               "imagesdir": "images",
+               "project-version": "\$project.version",
+               "revnumber": "\$project.version"
+}
+""")
     }
 
 }
