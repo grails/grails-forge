@@ -11,7 +11,7 @@ micronaut:
         web:
           allowed-origins:
             - https://grails.github.io
-            - ${CORS_ALLOWED_ORIGIN:https://start.grails.org}
+            - ${CORS_ALLOWED_ORIGIN:'https://start.grails.org'}
           allowedMethods:
             - GET
   http:
