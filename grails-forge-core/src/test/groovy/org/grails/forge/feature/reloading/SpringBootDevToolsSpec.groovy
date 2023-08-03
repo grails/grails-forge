@@ -32,7 +32,7 @@ class SpringBootDevToolsSpec extends ApplicationContextSpec implements CommandOu
 
     void "test there can be only one of Reloading feature"() {
         when:
-        getFeatures(beanContext.getBeansOfType(ReloadingFeature.class)*.name)
+        getFeatures(["spring-boot-devtools", "jrebel"])
 
         then:
         def ex = thrown(IllegalArgumentException)

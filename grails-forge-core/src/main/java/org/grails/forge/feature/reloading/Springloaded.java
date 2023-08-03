@@ -16,7 +16,6 @@
 package org.grails.forge.feature.reloading;
 
 import jakarta.inject.Singleton;
-import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeatureContext;
@@ -43,6 +42,11 @@ public class Springloaded implements ReloadingFeature {
     @Override
     public String getDescription() {
         return "Adds support for class reloading with Spring Loaded";
+    }
+
+    @Override
+    public boolean isVisible() {
+        return false;
     }
 
     @Override
