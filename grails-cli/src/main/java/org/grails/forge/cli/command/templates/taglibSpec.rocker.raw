@@ -1,0 +1,21 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+import grails.testing.web.taglib.TagLibUnitTest
+import spock.lang.Specification
+
+class @project.getClassName()TagLibSpec extends Specification implements TagLibUnitTest<@project.getClassName()TagLib> {
+
+     void "test simple tag as method"() {
+       expect:
+       tagLib.simple()
+     }
+}
