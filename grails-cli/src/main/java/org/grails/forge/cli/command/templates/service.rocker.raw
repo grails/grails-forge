@@ -1,0 +1,20 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+import groovy.transform.CompileStatic
+
+@@CompileStatic
+class @project.getClassName()Service {
+
+    def doSomething() {
+
+    }
+}
