@@ -1,5 +1,13 @@
+@import org.grails.forge.application.ApplicationType
+
+@args (
+    org.grails.forge.application.ApplicationType applicationType
+)
 
 assets {
+@if (applicationType == ApplicationType.WEB_PLUGIN) {
+    packagePlugin = true
+}
     minifyJs = true
     minifyCss = true
 }
