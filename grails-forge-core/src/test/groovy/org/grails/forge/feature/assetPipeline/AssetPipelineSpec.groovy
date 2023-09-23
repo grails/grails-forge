@@ -48,6 +48,24 @@ assets {
 }''')
     }
 
+    void "test extension packagePlugin is set for application #applicationType"() {
+        when:
+        final String template = new BuildBuilder(beanContext)
+                .applicationType(applicationType)
+                .features(["asset-pipeline-grails"])
+                .render()
+
+        then:
+        template.contains('''
+assets {
+    packagePlugin = true
+    minifyJs = true
+    minifyCss = true
+}''')
+        where:
+        applicationType << [ApplicationType.WEB_PLUGIN]
+    }
+
     void "test assets files are present"() {
         given:
         final Map<String, String> output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
