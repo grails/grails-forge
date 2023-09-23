@@ -1,0 +1,21 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+import grails.testing.services.ServiceUnitTest
+import spock.lang.Specification
+
+class @project.getClassName()ServiceSpec extends Specification implements ServiceUnitTest<@project.getClassName()Service> {
+
+     void "test something"() {
+        expect:
+        service.doSomething()
+     }
+}
