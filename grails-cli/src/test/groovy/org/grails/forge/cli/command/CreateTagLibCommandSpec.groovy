@@ -54,7 +54,7 @@ class CreateTagLibCommandSpec extends CommandSpec implements CommandFixture {
         testOutputContains("SimpleTagLibSpec > test simple tag as method FAILED")
 
         when:
-        new File(dir, "grails-app/taglib/example/grails/SimpleTagLib.groovy").text = '''package com.example
+        new File(dir, "grails-app/taglib/example/grails/SimpleTagLib.groovy").text = '''package example.grails
 
 class SimpleTagLib {
 
