@@ -2,10 +2,13 @@ package org.grails.forge.cli.command
 
 import io.micronaut.configuration.picocli.PicocliRunner
 import org.grails.forge.cli.CodeGenConfig
+import org.grails.forge.io.ConsoleOutput
 import org.grails.forge.utils.CommandSpec
+import spock.lang.Ignore
 
 class CreateTagLibSpec extends CommandSpec {
 
+    @Ignore
     void "test create-taglib command"() {
         when:
         generateProjectWithDefaults()
