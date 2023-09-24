@@ -1,0 +1,18 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+
+class @project.getClassName()TagLib {
+
+    def simple = { attrs, body ->
+
+    }
+}
