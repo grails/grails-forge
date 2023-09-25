@@ -1,0 +1,24 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+import grails.testing.web.interceptor.InterceptorUnitTest
+import spock.lang.Specification
+
+class @project.getClassName()InterceptorSpec extends Specification implements InterceptorUnitTest<@project.getClassName()Interceptor> {
+
+    void "test interceptor matching"() {
+        when:
+        withRequest(controller: "@project.getClassName().toLowerCase()")
+
+        then:
+        interceptor.doesMatch()
+    }
+}
