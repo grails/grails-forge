@@ -110,7 +110,7 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         output.containsKey("grails-app/init/example/grails/BootStrap.groovy")
 
         where:
-        applicationType << ApplicationType.values()
+        applicationType << ApplicationType.values().toList()
 
     }
 }
