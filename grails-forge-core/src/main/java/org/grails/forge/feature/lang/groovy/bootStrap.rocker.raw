@@ -1,0 +1,13 @@
+@import org.grails.forge.application.Project
+
+@args(Project project)
+
+package @project.getPackageName()
+
+class BootStrap {
+
+    def init = { servletContext ->
+    }
+    def destroy = {
+    }
+}

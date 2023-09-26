@@ -99,4 +99,17 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
         expect:
         buildGradle.contains("war")
     }
+
+    void "test BootStrap.groovy is present for application type #applicationType"() {
+
+        when:
+        def output = generate(applicationType)
+
+        then
+        output.containsKey("grails-app/init/example/grails/BootStrap.groovy")
+
+        where:
+        applicationType << ApplicationType.values()
+
+    }
 }
