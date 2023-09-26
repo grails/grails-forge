@@ -3,9 +3,12 @@ package org.grails.forge.cli.command
 import io.micronaut.configuration.picocli.PicocliRunner
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.env.Environment
+import org.grails.forge.application.ApplicationType
 import org.grails.forge.application.WebAvailableFeatures
+import org.grails.forge.cli.CodeGenConfig
 import org.grails.forge.cli.CommandFixture
 import org.grails.forge.cli.CommandSpec
+import org.grails.forge.io.ConsoleOutput
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 
