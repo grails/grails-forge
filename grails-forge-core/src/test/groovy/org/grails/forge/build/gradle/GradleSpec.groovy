@@ -18,7 +18,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         gradleProps.contains("org.gradle.caching=true")
         gradleProps.contains("org.gradle.daemon=true")
         gradleProps.contains("org.gradle.parallel=true")
-        gradleProps.contains("org.gradle.jvmArgs=-Dfile.encoding=UTF-8 -Xmx1024M")
+        gradleProps.contains("org.gradle.jvmargs=-Dfile.encoding=UTF-8 -Xmx1024M")
     }
 
     void "test build gradle"() {

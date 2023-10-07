@@ -103,7 +103,7 @@ public class Gradle implements BuildFeature {
         generatorContext.getBuildProperties().put("org.gradle.caching", "true");
         generatorContext.getBuildProperties().put("org.gradle.daemon", "true");
         generatorContext.getBuildProperties().put("org.gradle.parallel", "true");
-        generatorContext.getBuildProperties().put("org.gradle.jvmArgs", "-Dfile.encoding=UTF-8 -Xmx1024M");
+        generatorContext.getBuildProperties().put("org.gradle.jvmargs", "-Dfile.encoding=UTF-8 -Xmx1024M");
     }
 
     @Override
