@@ -26,7 +26,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
                 .renderBuildSrc()
 
         then:
-        template.contains('implementation("org.grails:grails-gradle-plugin:6.0.0")')
+        template.contains('implementation("org.grails:grails-gradle-plugin:6.1.0-SNAPSHOT")')
     }
 
     void "test buildSrc is present for buildscript dependencies"() {
