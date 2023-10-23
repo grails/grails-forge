@@ -78,7 +78,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up JDK
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.13.0
         with:
           distribution: 'adopt'
           java-version: '11'
@@ -128,7 +128,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up JDK
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@v3.13.0
         with:
           distribution: 'adopt'
           java-version: '11'
