@@ -64,8 +64,8 @@ public class Gradle implements BuildFeature {
 
         generatorContext.addTemplate("gradleWrapperJar", new BinaryTemplate(WRAPPER_JAR, classLoader.getResource(WRAPPER_JAR)));
         generatorContext.addTemplate("gradleWrapperProperties", new URLTemplate(WRAPPER_PROPS, classLoader.getResource(WRAPPER_PROPS)));
-        generatorContext.addTemplate("gradleWrapper", new URLTemplate("gradlew", classLoader.getResource("gradle/gradlew"), true));
-        generatorContext.addTemplate("gradleWrapperBat", new URLTemplate("gradlew.bat", classLoader.getResource("gradle/gradlew.bat"), false));
+        generatorContext.addTemplate("gradleWrapper", new BinaryTemplate("gradlew", classLoader.getResource("gradle/gradlew"), true));
+        generatorContext.addTemplate("gradleWrapperBat", new BinaryTemplate("gradlew.bat", classLoader.getResource("gradle/gradlew.bat"), false));
 
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("eclipse").build());
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("idea").build());
