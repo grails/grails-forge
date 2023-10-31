@@ -23,6 +23,10 @@ public class BinaryTemplate extends URLTemplate {
         super(path, url);
     }
 
+    public BinaryTemplate(String path, URL url, boolean executable) {
+        super(path, url, executable);
+    }
+
     @Override
     public boolean isBinary() {
         return true;
