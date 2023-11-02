@@ -51,7 +51,6 @@ public class SpringBootJettyFeature extends SpringBootEmbeddedServlet {
                 .groupId("org.springframework.boot")
                 .artifactId("spring-boot-starter-jetty")
                 .compile());
-        generatorContext.getBuildProperties().put("jetty.version", "10.0");
     }
 
     @Override
