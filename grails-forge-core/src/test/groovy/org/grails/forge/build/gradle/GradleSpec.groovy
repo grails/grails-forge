@@ -43,8 +43,8 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.0-SNAPSHOT\"")
-        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.0\"")
+        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.0\"")
         settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
     }
 
@@ -59,9 +59,9 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.0\"")
         settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.0.0\"")
-        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.0\"")
         !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
     }
 
@@ -76,10 +76,10 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.0\"")
         settingsGradle.contains("id \"org.grails.plugins.views-markup\" version \"3.0.0\"")
         !settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.0.0\"")
-        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.0\"")
         !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
     }
 }
