@@ -1,10 +1,10 @@
 name: Manual Deploy to GCP
 on:
   workflow_dispatch:
-  inputs:
-    release:
-      description: 'Release version'
-      required: true
+    inputs:
+      release:
+        description: 'Release version'
+        required: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
