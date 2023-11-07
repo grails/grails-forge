@@ -44,7 +44,8 @@ public class GrailsVersionProvider implements IVersionProvider {
 
     public String[] getVersion() {
         return new String[] {
-                "Grails Version: " + VersionInfo.getGrailsVersion()
+                "Grails Version: " + VersionInfo.getGrailsVersion(),
+                "JVM Version: " + System.getProperty("java.version")
         };
     }
 }
