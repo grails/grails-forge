@@ -406,7 +406,7 @@ jobs:
           GVM_SDKVENDOR_KEY: ${{ secrets.GVM_SDKVENDOR_KEY }}
           GVM_SDKVENDOR_TOKEN: ${{ secrets.GVM_SDKVENDOR_TOKEN }}
       - name: Grails SDK Major Release
-        if: startsWith(steps.release_version.outputs.release_version, '6.0') && !contains(steps.release_version.outputs.release_version, 'M') && !contains(steps.release_version.outputs.release_version, 'RC')
+        if: startsWith(steps.release_version.outputs.release_version, '6.') && !contains(steps.release_version.outputs.release_version, 'M') && !contains(steps.release_version.outputs.release_version, 'RC')
         uses: gradle/gradle-build-action@v2
         with:
           arguments: sdkMajorRelease
