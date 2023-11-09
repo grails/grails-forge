@@ -18,11 +18,11 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
         expect:
         buildGradle.contains("testImplementation(\"org.grails.plugins:geb\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-api:4.14.1\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-support:4.14.1\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver:4.14.1\")")
-        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver:4.14.1\")")
-        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver:4.14.1\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-api\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-support\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver\")")
+        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver\")")
+        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver\")")
     }
 
     void "test GebConfig.groovy file is present"() {
