@@ -41,7 +41,7 @@ class PropertiesSpec extends BeanContextSpec implements CommandOutputFixture {
         def output = generate(ApplicationType.WEB, generatorContext)
 
         then:
-        output["grails-app/conf/application.properties"].readLines().find {it == 'info.app.name=foo' }
+        output["grails-app/conf/application.properties"].readLines().find {it == /info.app.name=@info.app.name@/ }
         output["grails-app/conf/bootstrap.properties"].readLines().find { it == 'abc=123' }
         output["src/test/resources/application-test.properties"].readLines().find { it == 'abc=456' }
         output["grails-app/conf/application-prod.properties"].readLines().find { it == 'abc=789' }

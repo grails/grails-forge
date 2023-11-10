@@ -22,7 +22,6 @@ import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.FeaturePhase;
 import org.grails.forge.options.Options;
-import org.grails.forge.util.VersionInfo;
 
 import java.util.Map;
 import java.util.Set;
@@ -53,9 +52,9 @@ public class AppName implements DefaultFeature {
     @Override
     public void apply(GeneratorContext generatorContext) {
         Map<String, Object> appNameConfig = generatorContext.getConfiguration();
-        appNameConfig.put("info.app.name", generatorContext.getProject().getPropertyName());
-        appNameConfig.put("info.app.version", "0.1");
-        appNameConfig.put("info.app.grailsVersion", VersionInfo.getGrailsVersion());
+        appNameConfig.put("info.app.name", "@info.app.name@");
+        appNameConfig.put("info.app.version", "@info.app.version@");
+        appNameConfig.put("info.app.grailsVersion", "@info.app.grailsVersion@");
     }
 
     @Override
