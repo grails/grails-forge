@@ -29,7 +29,6 @@ plugins {
 }
 }
 
-version "0.1"
 group = "@project.getPackageName()"
 
 @if (features.contains("asciidoctor")) {
