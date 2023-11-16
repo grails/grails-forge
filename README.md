@@ -10,16 +10,16 @@ Generates Grails applications.
 
 The CLI application comes in various flavours from a universal Java applications to native applications for Windows, Linux and OS X. These are available for direct download on the [releases page](https://github.com/grails/grails-forge/releases). For installation see the [Grails documentation](https://docs.grails.org/latest/guide/index.html#buildCLI).
 
-If you prefer not to install an application to create Micronaut applications you can do so with `curl` directly from the API:
+If you prefer not to install an application to create Grails applications you can do so with `curl` directly from the API:
 
 ```bash
-$ curl --location --request GET 'https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app/create/web/com.example.demo?gorm=HIBERNATE&servlet=TOMCAT&test=SPOCK&javaVersion=JDK_11' --output demo.zip
+$ curl -L 'https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app/demo.zip' -o demo.zip
 $ unzip demo.zip -d demo
 $ cd demo
 $ ./gradlew run
 ```
 
-Run `curl https://forge.grails.org` for more information on how to use the API or see the API documentation referenced below.
+Run `curl https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app/` for more information on how to use the API or see the API documentation referenced below.
 
 ## UI
 
