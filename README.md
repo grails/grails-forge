@@ -13,7 +13,7 @@ The CLI application comes in various flavours from a universal Java applications
 If you prefer not to install an application to create Micronaut applications you can do so with `curl` directly from the API:
 
 ```bash
-$ curl https://forge.grails.org/demo.zip -o demo.zip
+$ curl --location --request GET 'https://grailsforge-latest-cjmq3uyfcq-uc.a.run.app/create/web/com.example.demo?gorm=HIBERNATE&servlet=TOMCAT&test=SPOCK&javaVersion=JDK_11' --output demo.zip
 $ unzip demo.zip -d demo
 $ cd demo
 $ ./gradlew run
