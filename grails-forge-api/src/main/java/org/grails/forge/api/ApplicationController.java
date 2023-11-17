@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  */
 @OpenAPIDefinition(
         info = @Info(
-                title = "Grails Application Forge",
+                title = "Grails Forge",
                 version = "${api.version}",
                 description = "API for Creating Grails Applications",
                 license = @License(name = "Apache 2.0")
