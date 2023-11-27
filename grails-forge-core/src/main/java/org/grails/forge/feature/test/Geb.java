@@ -110,21 +110,15 @@ public class Geb implements DefaultFeature {
                     .map(name -> "selenium-" + name)
                     .forEach(name -> generatorContext.addDependency(Dependency.builder()
                             .groupId("org.seleniumhq.selenium")
-                            .lookupArtifactId(name)
+                            .artifactId(name)
                             .test()));
 
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.seleniumhq.selenium")
-                    .lookupArtifactId("selenium-chrome-driver")
-                    .testRuntime());
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.seleniumhq.selenium")
-                    .lookupArtifactId("selenium-firefox-driver")
-                    .testRuntime());
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.seleniumhq.selenium")
-                    .lookupArtifactId("selenium-safari-driver")
-                    .testRuntime());
+            Stream.of("chrome", "firefox", "safari")
+                    .map(name -> "selenium-" + name + "-driver")
+                    .forEach(name -> generatorContext.addDependency(Dependency.builder()
+                            .groupId("org.seleniumhq.selenium")
+                            .artifactId(name)
+                            .testRuntime()));
 
             TestFramework testFramework = generatorContext.getTestFramework();
             String integrationTestSourcePath = generatorContext.getIntegrationTestSourcePath("/{packagePath}/{className}");
