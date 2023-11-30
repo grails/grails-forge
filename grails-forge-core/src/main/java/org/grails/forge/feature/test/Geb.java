@@ -99,6 +99,7 @@ public class Geb implements DefaultFeature {
                     .id("com.github.erdi.webdriver-binaries")
                     .lookupArtifactId("webdriver-binaries-gradle-plugin")
                     .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject(), generatorContext.getOperatingSystem())))
+                            .version("3.2")
                     .build());
 
             generatorContext.addDependency(Dependency.builder()
