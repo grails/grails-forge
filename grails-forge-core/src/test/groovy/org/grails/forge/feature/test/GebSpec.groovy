@@ -64,7 +64,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         final def settingGradle = output["settings.gradle"]
 
         expect:
-        settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.2\"")
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
         buildGradle.contains("chromedriver '110.0.5481.77'")
@@ -79,7 +79,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         final def settingGradle = output["settings.gradle"]
 
         expect:
-        settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.0\"")
+        settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.2\"")
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
         buildGradle.contains("chromedriver '110.0.5481.77'")

@@ -95,7 +95,7 @@
         <dependency>
             <groupId>com.github.erdi</groupId>
             <artifactId>webdriver-binaries-gradle-plugin</artifactId>
-            <version>3.0</version>
+            <version>3.2</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
