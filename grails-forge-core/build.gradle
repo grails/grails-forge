@@ -34,7 +34,7 @@ dependencies {
     api "org.eclipse.jgit:org.eclipse.jgit:5.11.1.202105131744-r"
     implementation "org.yaml:snakeyaml:2.0"
     implementation 'com.typesafe:config:1.4.3'
-    implementation 'org.apache.commons:commons-compress:1.23.0'
+    implementation 'org.apache.commons:commons-compress:1.25.0'
     compileOnly "com.google.code.findbugs:jsr305"
     testImplementation "org.codehaus.groovy:groovy-yaml"
 }
