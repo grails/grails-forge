@@ -16,7 +16,7 @@ dependencies {
     implementation(project(":grails-forge-core"))
     runtimeOnly "ch.qos.logback:logback-classic:1.4.14"
     implementation("io.micronaut.data:micronaut-data-jdbc")
-    implementation 'org.postgresql:postgresql:42.6.0'
+    implementation 'org.postgresql:postgresql:42.7.1'
     implementation 'com.google.cloud.sql:postgres-socket-factory:1.15.1'
     implementation "io.micronaut.sql:micronaut-jdbc-hikari"
     implementation 'io.micronaut.flyway:micronaut-flyway'
