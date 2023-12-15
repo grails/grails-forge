@@ -66,7 +66,7 @@ jobs:
         env:
           BETA: ${{ contains(steps.release_version.outputs.release_version, 'M') || contains(steps.release_version.outputs.release_version, 'RC') }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          BASE_BRANCH: 6.0.x
+          BASE_BRANCH: 6.1.x
           BRANCH: gh-pages
           FOLDER: build/docs
           VERSION: ${{ steps.release_version.outputs.release_version }}
@@ -398,7 +398,7 @@ jobs:
           sed -i "s/^projectVersion.*$/projectVersion\=${release_version}/" gradle.properties
           echo ::set-output name=release_version::${release_version}
       - name: Grails SDK Minor Release
-        if: contains(steps.release_version.outputs.release_version, 'M') || contains(steps.release_version.outputs.release_version, 'RC')
+        if: contains(steps.release_version.outputs.release_version, 'M')
         uses: gradle/gradle-build-action@v2
         with:
           arguments: sdkMinorRelease
@@ -406,7 +406,7 @@ jobs:
           GVM_SDKVENDOR_KEY: ${{ secrets.GVM_SDKVENDOR_KEY }}
           GVM_SDKVENDOR_TOKEN: ${{ secrets.GVM_SDKVENDOR_TOKEN }}
       - name: Grails SDK Major Release
-        if: startsWith(steps.release_version.outputs.release_version, '6.') && !contains(steps.release_version.outputs.release_version, 'M') && !contains(steps.release_version.outputs.release_version, 'RC')
+        if: startsWith(steps.release_version.outputs.release_version, '6.') && !contains(steps.release_version.outputs.release_version, 'M')
         uses: gradle/gradle-build-action@v2
         with:
           arguments: sdkMajorRelease
