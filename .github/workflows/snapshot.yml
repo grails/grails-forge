@@ -200,7 +200,7 @@ jobs:
           zip -r grails-linux-amd64-snapshot.zip ./grails-linux-amd64-snapshot
       - name: Upload Snapshot
         if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: grails-linux-amd64-snapshot
           path: grails-linux-amd64-snapshot.zip
@@ -242,7 +242,7 @@ jobs:
           zip -r grails-darwin-amd64-snapshot.zip ./grails-darwin-amd64-snapshot -x '*.DS_Store*' -x '__MAC_OSX'
       - name: Upload Snapshot
         if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: grails-darwin-amd64-snapshot
           path: grails-darwin-amd64-snapshot.zip
@@ -289,7 +289,7 @@ jobs:
           Compress-Archive -Path "./grails-win-amd64-snapshot" -Update -DestinationPath ./grails-win-amd64-snapshot.zip
       - name: Publish artifact
         if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: grails-win-amd64-snapshot
           path: ./grails-win-amd64-snapshot.zip
