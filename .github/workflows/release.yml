@@ -36,7 +36,7 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4.16.0
         continue-on-error: true
         with:
-          commit_message: "[skip ci]" Update grailsVersion to ${{ steps.release_version.outputs.value }}
+          commit_message: Update grailsVersion to ${{ steps.release_version.outputs.value }}
           commit_user_name: ${{ env.GIT_USER_NAME }}
           commit_user_email: ${{ env.GIT_USER_EMAIL }}
           commit_author: ${{ env.GIT_USER_NAME }} <${{ env.GIT_USER_EMAIL }}>
