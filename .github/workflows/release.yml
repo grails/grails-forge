@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_version: ${{ steps.release_version.outputs.value }}
-    permissions:
-      contents: write
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
       GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
@@ -28,13 +26,11 @@ jobs:
           java-version: '11'
       - name: Set the current release version
         id: release_version
-        continue-on-error: true
         run: |
           echo "Update grailsVersion to ${{steps.release_version.outputs.value}}"
-          sed -i "s/^grailsVersion.*$/grailsVersion\=${{ steps.release_version.outputs.value }}/" gradle.properties
-          echo ::set-output name=value::${GITHUB_REF:11}
+          sed -i "s/^grailsVersion.*$/grailsVersion\=${GITHUB_REF:11}/" gradle.properties
+          echo "value=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
       - uses: stefanzweifel/git-auto-commit-action@v4.16.0
-        continue-on-error: true
         with:
           commit_message: Update grailsVersion to ${{ steps.release_version.outputs.value }}
           commit_user_name: ${{ env.GIT_USER_NAME }}
