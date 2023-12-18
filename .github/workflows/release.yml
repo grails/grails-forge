@@ -28,8 +28,8 @@ jobs:
         id: release_version
         run: |
           echo "Update grailsVersion to ${{steps.release_version.outputs.value}}"
-          sed -i "s/^grailsVersion.*$/grailsVersion\=${{GITHUB_REF:11}}/" gradle.properties
-          echo "value=${{GITHUB_REF:11}}" >> $GITHUB_OUTPUT
+          sed -i "s/^grailsVersion.*$/grailsVersion\=${GITHUB_REF:11}/" gradle.properties
+          echo "value=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
       - uses: stefanzweifel/git-auto-commit-action@v4.16.0
         with:
           commit_message: Update grailsVersion to ${{ steps.release_version.outputs.value }}
