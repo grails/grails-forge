@@ -111,7 +111,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v${{GITHUB_REF:11}}
+          ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Login
         uses: google-github-actions/setup-gcloud@v0
@@ -173,7 +173,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v${{GITHUB_REF:11}}
+          ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Login
         uses: google-github-actions/setup-gcloud@v0
@@ -236,7 +236,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v${{GITHUB_REF:11}}
+          ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Setup GraalVM CE
         uses: graalvm/setup-graalvm@v1.1.5
@@ -283,7 +283,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v${{GITHUB_REF:11}}
+          ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Setup GraalVM CE
         uses: graalvm/setup-graalvm@v1.1.5
@@ -330,7 +330,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v${{GITHUB_REF:11}}
+          ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Setup GraalVM CE
         uses: graalvm/setup-graalvm@v1.1.5
@@ -385,7 +385,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: v${{GITHUB_REF:11}}
+          ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Grails SDK Minor Release
         if: contains(needs.build.outputs.release_version, 'M')
