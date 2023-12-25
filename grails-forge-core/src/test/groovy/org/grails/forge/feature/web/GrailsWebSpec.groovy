@@ -27,6 +27,7 @@ class GrailsWebSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
 
         then:
+        config.grails.controllers.defaultScope == 'singleton'
         config.grails.views.default.codec == 'html'
     }
 }
