@@ -43,6 +43,8 @@ public abstract class GormFeature implements DefaultFeature {
     }
 
     protected void applyDefaultGormConfig(Map<String, Object> config) {
-        config.put("grails.gorm.reactor.events", isGormReactorEventsEnabled());
+        if (isGormReactorEventsEnabled()) {
+            config.put("grails.events.spring", true);
+        }
     }
 }
