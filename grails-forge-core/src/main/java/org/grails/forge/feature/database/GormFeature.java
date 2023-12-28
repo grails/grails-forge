@@ -24,11 +24,6 @@ import java.util.Map;
 public abstract class GormFeature implements DefaultFeature {
 
     @Override
-    public boolean isPreview() {
-        return false;
-    }
-
-    @Override
     public boolean supports(ApplicationType applicationType) {
         return true;
     }
