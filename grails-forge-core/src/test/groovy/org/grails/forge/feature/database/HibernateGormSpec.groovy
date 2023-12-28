@@ -65,7 +65,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
         ctx.configuration.containsKey("dataSource.url")
         ctx.configuration.containsKey("dataSource.pooled")
         ctx.configuration.containsKey("dataSource.jmxExport")
-        ctx.configuration.containsKey("hibernate.hbm2ddl.auto")
+        ctx.configuration.containsKey("dataSource.dbCreate")
         ctx.configuration.containsKey("hibernate.cache.queries")
         ctx.configuration.containsKey("hibernate.cache.use_second_level_cache")
         ctx.configuration.containsKey("hibernate.cache.use_query_cache")
