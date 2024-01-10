@@ -24,8 +24,7 @@ dependencies {
 }
 
 configurations.configureEach {
-    // Needed for Gradle 7.6 (Groovy 3.0.13) compatibility
-    // with Grails Gradle Plugin 6.1.x (Groovy 3.0.11).
+    // Needed for Gradle compatibility with Grails Gradle Plugin.
     // (Only needed when there are files in buildSrc/src/*/groovy)
-    resolutionStrategy.force 'org.codehaus.groovy:groovy-xml:3.0.13'
+    resolutionStrategy.force "org.codehaus.groovy:groovy-xml:${GroovySystem.version}"
 }
