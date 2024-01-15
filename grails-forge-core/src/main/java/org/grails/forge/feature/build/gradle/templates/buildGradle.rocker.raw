@@ -42,7 +42,6 @@ repositories {
 
 configurations {
     all {
-        resolutionStrategy.force 'org.codehaus.groovy:groovy-xml:3.0.13'
         @if (features.contains("geb")) {
         resolutionStrategy.eachDependency { DependencyResolveDetails details->
             if (details.requested.group == 'org.seleniumhq.selenium') {

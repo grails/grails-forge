@@ -22,3 +22,9 @@ dependencies {
 }
 }
 }
+
+configurations.configureEach {
+    // Needed for Gradle compatibility with Grails Gradle Plugin.
+    // (Only needed when there are files in buildSrc/src/*/groovy)
+    resolutionStrategy.force "org.codehaus.groovy:groovy-xml:${GroovySystem.version}"
+}
