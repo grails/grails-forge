@@ -74,7 +74,7 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
         applyDefaultGormConfig(config);
         config.put("dataSource.pooled", true);
         config.put("dataSource.jmxExport", true);
-        config.put("hibernate.hbm2ddl.auto", "update");
+        config.put("dataSource.dbCreate", "update");
         config.put("hibernate.cache.queries", false);
         config.put("hibernate.cache.use_second_level_cache", false);
         config.put("hibernate.cache.use_query_cache", false);
