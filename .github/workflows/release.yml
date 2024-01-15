@@ -115,7 +115,7 @@ jobs:
           ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Login
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
@@ -177,7 +177,7 @@ jobs:
           ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Login
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
