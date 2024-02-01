@@ -27,8 +27,9 @@ jobs:
       - name: Set the current release version
         id: release_version
         run: |
-          echo "Update grailsVersion to ${{steps.release_version.outputs.value}}"
+          echo "Update grailsVersion to ${GITHUB_REF:11}"
           sed -i "s/^grailsVersion.*$/grailsVersion\=${GITHUB_REF:11}/" gradle.properties
+          sed -i "s/grailsVersion=${GITHUB_REF:11}-SNAPSHOT/grailsVersion\=${GITHUB_REF:11}/" grails-forge-core/src/test/groovy/org/grails/forge/feature/grails/GrailsGradlePluginSpec.groovy
           echo "value=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
       - uses: stefanzweifel/git-auto-commit-action@v4.16.0
         with:
@@ -49,7 +50,6 @@ jobs:
           SECRING_FILE: ${{ secrets.SECRING_FILE }}
         run: echo $SECRING_FILE | base64 -d > ${{ github.workspace }}/secring.gpg
       - name: Publish to Maven Central
-        if: false # Disabled until we have a new release
         uses: gradle/gradle-build-action@v2
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
@@ -71,7 +71,6 @@ jobs:
           asset_name: grails-cli-${{ steps.release_version.outputs.value }}.zip
           asset_content_type: application/zip
       - name: Publish to Github Pages
-        if: success() && false # Disabled until we have a new release
         uses: micronaut-projects/github-pages-deploy-action@master
         env:
           BETA: ${{ contains(steps.release_version.outputs.value, 'M') }}
@@ -92,6 +91,7 @@ jobs:
         run: |
           echo "Setting new Grails snapshot version"
           sed -i "s/^grailsVersion.*$/grailsVersion\=${{ steps.post_release.outputs.next_version }}-SNAPSHOT/" gradle.properties
+          sed -i "s/grailsVersion=${GITHUB_REF:11}/grailsVersion\=${{ steps.post_release.outputs.next_version }}-SNAPSHOT/" grails-forge-core/src/test/groovy/org/grails/forge/feature/grails/GrailsGradlePluginSpec.groovy
       - uses: stefanzweifel/git-auto-commit-action@v4.16.0
         continue-on-error: true
         with:
@@ -375,7 +375,6 @@ jobs:
           asset_content_type: application/zip
   sdkman:
     name: Release to SDKMAN!
-    if : false # Disabled until we have a new release
     runs-on: ubuntu-latest
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
