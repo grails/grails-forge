@@ -23,11 +23,11 @@ import java.io.IOException;
 import org.grails.forge.application.Project;
 import org.grails.forge.cli.CodeGenConfig;
 import org.grails.forge.cli.command.templates.job;
+import org.grails.forge.feature.other.GrailsQuartz;
 import org.grails.forge.io.ConsoleOutput;
 import org.grails.forge.io.OutputHandler;
 import org.grails.forge.template.RenderResult;
 import org.grails.forge.template.RockerTemplate;
-import org.grails.forge.template.TemplateRenderer;
 import picocli.CommandLine;
 
 @CommandLine.Command(name = CreateJobCommand.NAME, description = "Creates a new Quartz scheduled job")
@@ -52,11 +52,14 @@ public class CreateJobCommand extends CodeGenCommand {
 
     @Override
     public boolean applies() {
-        return true;
+        return config.getFeatures().contains(GrailsQuartz.FEATURE_NAME);
     }
 
     @Override
     public Integer call() throws Exception {
+        if (!applies()) {
+            throw new IllegalArgumentException("Please first select Grails Quartz Plugin");
+        }
         final Project project = getProject(jobName);
         final RenderResult result = getTemplateRenderer(project)
             .render(new RockerTemplate("grails-app/jobs/{packagePath}/{className}Job.groovy", job.template(project)), overwrite);
