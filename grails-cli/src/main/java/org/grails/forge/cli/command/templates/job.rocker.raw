@@ -1,0 +1,22 @@
+@import org.grails.forge.application.Project
+
+@args (
+    Project project
+)
+
+@if(project.getPackageName() != null) {
+package @project.getPackageName()
+
+}
+
+
+class @project.getClassName()Job {
+
+    static triggers = {
+        simple repeatInterval: 5000l // execute job once in 5 seconds
+    }
+
+    def execute() {
+        // execute job
+    }
+}
