@@ -88,10 +88,6 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
                 .artifactId("hibernate5")
                 .compile());
         generatorContext.addDependency(Dependency.builder()
-                .groupId("org.hibernate")
-                .lookupArtifactId("hibernate-core")
-                .compile());
-        generatorContext.addDependency(Dependency.builder()
                 .groupId("org.glassfish.web")
                 .lookupArtifactId("el-impl")
                 .runtime());
