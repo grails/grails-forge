@@ -24,6 +24,11 @@ import java.util.function.Function;
 
 public interface ConfigurationFeature extends OneOfFeature {
 
+    String ENV_KEY = "environments";
+    String DEV_ENV_KEY = "development";
+    String TEST_ENV_KEY = "test";
+    String PROD_ENV_KEY = "production";
+
     @Override
     default Class<?> getFeatureClass() {
         return ConfigurationFeature.class;
