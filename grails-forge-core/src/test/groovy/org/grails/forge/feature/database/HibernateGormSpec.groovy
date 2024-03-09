@@ -33,7 +33,6 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
         template.contains("runtimeOnly(\"org.glassfish.web:el-impl:2.2.1-b05\")")
         template.contains("runtimeOnly(\"org.apache.tomcat:tomcat-jdbc\")")
         template.contains("runtimeOnly(\"com.h2database:h2\")")
-        template.contains("runtimeOnly(\"javax.xml.bind:jaxb-api:2.3.1\")")
     }
 
     void "test dependencies are present for buildSrc"() {

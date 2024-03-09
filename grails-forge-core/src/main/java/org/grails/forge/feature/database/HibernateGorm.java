@@ -99,10 +99,6 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
                 .groupId("org.apache.tomcat")
                 .artifactId("tomcat-jdbc")
                 .runtime());
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("javax.xml.bind")
-                .lookupArtifactId("jaxb-api")
-                .runtime());
     }
 
     @Override
