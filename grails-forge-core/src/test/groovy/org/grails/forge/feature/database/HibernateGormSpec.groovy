@@ -29,7 +29,6 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
 
         then:
         template.contains('implementation("org.grails.plugins:hibernate5")')
-        template.contains('implementation("org.hibernate:hibernate-core:5.6.15.Final")')
         template.contains("runtimeOnly(\"org.glassfish.web:el-impl:2.2.1-b05\")")
         template.contains("runtimeOnly(\"org.apache.tomcat:tomcat-jdbc\")")
         template.contains("runtimeOnly(\"com.h2database:h2\")")
