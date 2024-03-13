@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.grails.forge.feature.config.ConfigurationFeature.DEV_ENV_KEY;
+import static org.grails.forge.feature.config.ConfigurationFeature.TEST_ENV_KEY;
+import static org.grails.forge.feature.config.ConfigurationFeature.PROD_ENV_KEY;
 import static org.grails.forge.feature.config.ConfigurationFeature.ENV_KEY;
 
 /**
@@ -36,11 +38,21 @@ public interface DatabaseDriverConfigurationFeature extends Feature {
 
     String getPasswordKey();
 
+    String getDbCreateKey();
+
     default void applyDefaultConfig(DatabaseDriverFeature dbFeature, Map<String, Object> config) {
-        Optional.ofNullable(dbFeature.getJdbcUrl()).ifPresent(url -> config.put(ENV_KEY + "." + DEV_ENV_KEY + "." + getUrlKey(), url));
+        Optional.ofNullable(dbFeature.getJdbcUrl()).ifPresent(url -> config.put(getUrlKey(), url));
         Optional.ofNullable(dbFeature.getDriverClass()).ifPresent(driver -> config.put(getDriverKey(), driver));
         Optional.ofNullable(dbFeature.getDefaultUser()).ifPresent(user -> config.put(getUsernameKey(), user));
         Optional.ofNullable(dbFeature.getDefaultPassword()).ifPresent(pass -> config.put(getPasswordKey(), pass));
+
+        config.put(ENV_KEY + "." + DEV_ENV_KEY + "." + getDbCreateKey(), "create-drop");
+        Optional.ofNullable(dbFeature.getJdbcUrl()).ifPresent(url -> config.put(ENV_KEY + "." + DEV_ENV_KEY + "." + getUrlKey(), url));
+        config.put(ENV_KEY + "." + TEST_ENV_KEY + "." + getDbCreateKey(), "update");
+        Optional.ofNullable(dbFeature.getJdbcUrl()).ifPresent(url -> config.put(ENV_KEY + "." + TEST_ENV_KEY + "." + getUrlKey(), url));
+        config.put(ENV_KEY + "." + PROD_ENV_KEY + "." + getDbCreateKey(), "none");
+        Optional.ofNullable(dbFeature.getJdbcUrl()).ifPresent(url -> config.put(ENV_KEY + "." + PROD_ENV_KEY + "." + getUrlKey(), url));
+
         final Map<String, Object> additionalConfig = dbFeature.getAdditionalConfig();
         if (!additionalConfig.isEmpty()) {
             config.putAll(additionalConfig);

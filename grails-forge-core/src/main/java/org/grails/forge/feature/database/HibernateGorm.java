@@ -37,6 +37,7 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
     private static final String DRIVER_KEY = PREFIX + "driverClassName";
     private static final String USERNAME_KEY = PREFIX + "username";
     private static final String PASSWORD_KEY = PREFIX + "password";
+    private static final String DB_CREATE_KEY = PREFIX + "dbCreate";
 
     private final DatabaseDriverFeature defaultDbFeature;
 
@@ -123,6 +124,11 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
     @Override
     public String getPasswordKey() {
         return PASSWORD_KEY;
+    }
+
+    @Override
+    public String getDbCreateKey() {
+        return DB_CREATE_KEY;
     }
 
     @Override

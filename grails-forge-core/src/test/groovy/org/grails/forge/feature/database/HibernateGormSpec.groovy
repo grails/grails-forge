@@ -80,6 +80,11 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
         def config = new YamlSlurper().parseText(applicationYaml)
 
         then:
+        config.environments.development.dataSource.dbCreate == 'create-drop'
+        config.environments.test.dataSource.dbCreate == 'update'
+        config.environments.production.dataSource.dbCreate == 'none'
         config.environments.development.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
+        config.environments.test.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
+        config.environments.production.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
     }
 }
