@@ -240,7 +240,7 @@ jobs:
           ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1.1.5
+        uses: graalvm/setup-graalvm@v1.1.9
         with:
           version: '21.3.3.1'
           java-version: '11'
@@ -287,7 +287,7 @@ jobs:
           ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1.1.5
+        uses: graalvm/setup-graalvm@v1.1.9
         with:
           version: '21.3.3.1'
           java-version: '11'
@@ -334,7 +334,7 @@ jobs:
           ref: v${{ needs.build.outputs.release_version }}
           token: ${{ secrets.GH_TOKEN }}
       - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1.1.5
+        uses: graalvm/setup-graalvm@v1.1.9
         with:
           version: '21.3.3.1'
           java-version: '11'
