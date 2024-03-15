@@ -16,7 +16,7 @@
     },
     {
       "matchPackagePatterns": [
-        "^com\\.bertramlabs\\.plugins:asset-pipeline"
+        "^com\\.bertramlabs\\.plugins:asset-pipeline.*"
       ],
       "groupName": "asset-pipeline"
     }
