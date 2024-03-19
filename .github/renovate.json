@@ -13,12 +13,6 @@
         "^org\\.seleniumhq\\.selenium"
       ],
       "groupName": "selenium monorepo"
-    },
-    {
-      "matchPackagePatterns": [
-        "^com\\.bertramlabs\\.plugins:asset-pipeline.*"
-      ],
-      "groupName": "asset-pipeline"
     }
   ]
 }

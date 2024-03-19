@@ -27,7 +27,7 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
 
         expect:
         buildSrcBuildGradle != null
-        buildSrcBuildGradle.contains("implementation(\"com.bertramlabs.plugins:asset-pipeline-gradle:4.4.0\")")
+        buildSrcBuildGradle.contains("implementation(\"com.bertramlabs.plugins:asset-pipeline-gradle:4.3.0\")")
 
     }
 
@@ -40,7 +40,7 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
 
         then:
         template.contains("id \"com.bertramlabs.asset-pipeline\"")
-        template.contains("runtimeOnly(\"com.bertramlabs.plugins:asset-pipeline-grails:4.4.0\")")
+        template.contains("runtimeOnly(\"com.bertramlabs.plugins:asset-pipeline-grails:4.3.0\")")
         template.contains('''
 assets {
     minifyJs = true
