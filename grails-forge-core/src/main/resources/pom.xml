@@ -43,6 +43,11 @@
             <version>4.2.1</version>
         </dependency>
         <dependency>
+            <groupId>org.grails.plugins</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+        <dependency>
             <groupId>org.asciidoctor.jvm.convert</groupId>
             <artifactId>asciidoctor-gradle-jvm</artifactId>
             <version>4.0.0-alpha.1</version>

@@ -6,6 +6,7 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.grails.forge.application.ApplicationType
+import org.grails.forge.feature.other.GrailsQuartz
 import spock.lang.Specification
 
 @MicronautTest
@@ -20,6 +21,14 @@ class PreviewControllerSpec extends Specification {
         then:
         map.contents.containsKey("build.gradle")
 
+    }
+
+    void "test preview - grails-quartz feature"() {
+        when:
+        def map = client.previewApp(ApplicationType.DEFAULT_OPTION, "test", [GrailsQuartz.FEATURE_NAME], null, null, null)
+
+        then:
+        map.contents['build.gradle'].contains('org.grails.plugins:quartz')
     }
 
     void "test preview - bad feature"() {
