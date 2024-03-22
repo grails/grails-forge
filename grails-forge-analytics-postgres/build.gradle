@@ -17,7 +17,7 @@ dependencies {
     runtimeOnly "ch.qos.logback:logback-classic:1.5.3"
     implementation("io.micronaut.data:micronaut-data-jdbc")
     implementation 'org.postgresql:postgresql:42.7.3'
-    implementation 'com.google.cloud.sql:postgres-socket-factory:1.15.1'
+    implementation 'com.google.cloud.sql:postgres-socket-factory:1.17.1'
     implementation "io.micronaut.sql:micronaut-jdbc-hikari"
     implementation 'io.micronaut.flyway:micronaut-flyway'
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
