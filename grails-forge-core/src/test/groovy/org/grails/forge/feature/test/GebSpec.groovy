@@ -18,11 +18,11 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
         expect:
         buildGradle.contains("testImplementation(\"org.grails.plugins:geb\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-api:4.16.1\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-support:4.16.1\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver:4.16.1\")")
-        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver:4.16.1\")")
-        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver:4.16.1\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-api:4.18.1\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-support:4.18.1\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver:4.18.1\")")
+        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver:4.18.1\")")
+        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver:4.18.1\")")
     }
 
     void "test GebConfig.groovy file is present"() {
@@ -40,7 +40,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
         expect:
         buildGradle.contains("if (details.requested.group == 'org.seleniumhq.selenium') {\n" +
-                "                details.useVersion('4.16.1')\n" +
+                "                details.useVersion('4.18.1')\n" +
                 "            }")
     }
 
