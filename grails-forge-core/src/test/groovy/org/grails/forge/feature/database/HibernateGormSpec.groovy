@@ -1,5 +1,6 @@
 package org.grails.forge.feature.database
 
+import groovy.yaml.YamlSlurper
 import org.grails.forge.ApplicationContextSpec
 import org.grails.forge.BuildBuilder
 import org.grails.forge.application.ApplicationType
@@ -60,12 +61,28 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
         GeneratorContext ctx = buildGeneratorContext(['gorm-hibernate5'])
 
         then:
-        ctx.configuration.containsKey("dataSource.url")
+//        ctx.configuration.containsKey("dataSource.url")
         ctx.configuration.containsKey("dataSource.pooled")
         ctx.configuration.containsKey("dataSource.jmxExport")
         ctx.configuration.containsKey("dataSource.dbCreate")
         ctx.configuration.containsKey("hibernate.cache.queries")
         ctx.configuration.containsKey("hibernate.cache.use_second_level_cache")
         ctx.configuration.containsKey("hibernate.cache.use_query_cache")
+    }
+
+    void "test match values of datasource config"() {
+
+        when:
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final String applicationYaml = output["grails-app/conf/application.yml"]
+        def config = new YamlSlurper().parseText(applicationYaml)
+
+        then:
+        config.environments.development.dataSource.dbCreate == 'create-drop'
+        config.environments.test.dataSource.dbCreate == 'update'
+        config.environments.production.dataSource.dbCreate == 'none'
+        config.environments.development.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
+        config.environments.test.dataSource.url == 'jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
+        config.environments.production.dataSource.url == 'jdbc:h2:./prodDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
     }
 }

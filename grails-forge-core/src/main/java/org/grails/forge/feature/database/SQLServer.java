@@ -44,7 +44,17 @@ public class SQLServer extends DatabaseDriverFeature {
     }
 
     @Override
-    public String getJdbcUrl() {
+    public String getJdbcDevUrl() {
+        return "jdbc:sqlserver://localhost:1433;databaseName=devDb";
+    }
+
+    @Override
+    public String getJdbcTestUrl() {
+        return "jdbc:sqlserver://localhost:1433;databaseName=testDb";
+    }
+
+    @Override
+    public String getJdbcProdUrl() {
         return "jdbc:sqlserver://localhost:1433;databaseName=tempdb";
     }
 

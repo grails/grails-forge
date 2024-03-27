@@ -65,7 +65,16 @@ public abstract class DatabaseDriverFeature implements OneOfFeature {
 
     public abstract boolean embedded();
 
-    public abstract String getJdbcUrl();
+    @Deprecated()
+    public String getJdbcUrl() {
+        return getJdbcProdUrl();
+    }
+
+    public abstract String getJdbcDevUrl();
+
+    public abstract String getJdbcTestUrl();
+
+    public abstract String getJdbcProdUrl();
 
     public abstract String getDriverClass();
 
