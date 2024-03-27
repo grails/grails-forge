@@ -44,7 +44,17 @@ public class MySQL extends DatabaseDriverFeature {
     }
 
     @Override
-    public String getJdbcUrl() {
+    public String getJdbcDevUrl() {
+        return "jdbc:mysql://localhost:3306/devDb";
+    }
+
+    @Override
+    public String getJdbcTestUrl() {
+        return "jdbc:mysql://localhost:3306/testDb";
+    }
+
+    @Override
+    public String getJdbcProdUrl() {
         return "jdbc:mysql://localhost:3306/db";
     }
 

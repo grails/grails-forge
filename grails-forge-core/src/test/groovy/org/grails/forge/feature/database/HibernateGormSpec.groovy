@@ -63,7 +63,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
         GeneratorContext ctx = buildGeneratorContext(['gorm-hibernate5'])
 
         then:
-        ctx.configuration.containsKey("dataSource.url")
+//        ctx.configuration.containsKey("dataSource.url")
         ctx.configuration.containsKey("dataSource.pooled")
         ctx.configuration.containsKey("dataSource.jmxExport")
         ctx.configuration.containsKey("dataSource.dbCreate")
@@ -84,7 +84,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
         config.environments.test.dataSource.dbCreate == 'update'
         config.environments.production.dataSource.dbCreate == 'none'
         config.environments.development.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
-        config.environments.test.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
-        config.environments.production.dataSource.url == 'jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
+        config.environments.test.dataSource.url == 'jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
+        config.environments.production.dataSource.url == 'jdbc:h2:./prodDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
     }
 }

@@ -30,9 +30,11 @@ class MySQLSpec extends ApplicationContextSpec {
         GeneratorContext ctx = buildGeneratorContext(["gorm-hibernate5", "mysql"])
 
         then:
-        ctx.getConfiguration().get("dataSource.url") == 'jdbc:mysql://localhost:3306/db'
         ctx.getConfiguration().get("dataSource.driverClassName") == 'com.mysql.cj.jdbc.Driver'
         ctx.getConfiguration().get("dataSource.username") == 'root'
         ctx.getConfiguration().get("dataSource.password") == ''
+        ctx.getConfiguration().get("environments.development.dataSource.url") == 'jdbc:mysql://localhost:3306/devDb'
+        ctx.getConfiguration().get("environments.test.dataSource.url") == 'jdbc:mysql://localhost:3306/testDb'
+        ctx.getConfiguration().get("environments.production.dataSource.url") == 'jdbc:mysql://localhost:3306/db'
     }
 }

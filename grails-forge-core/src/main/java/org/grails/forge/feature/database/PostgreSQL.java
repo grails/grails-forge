@@ -44,7 +44,17 @@ public class PostgreSQL extends DatabaseDriverFeature {
     }
 
     @Override
-    public String getJdbcUrl() {
+    public String getJdbcDevUrl() {
+        return "jdbc:postgresql://localhost:5432/devDb";
+    }
+
+    @Override
+    public String getJdbcTestUrl() {
+        return "jdbc:postgresql://localhost:5432/testDb";
+    }
+
+    @Override
+    public String getJdbcProdUrl() {
         // postgres docker image uses default db name and username of postgres so we use the same
         return "jdbc:postgresql://localhost:5432/postgres";
     }
