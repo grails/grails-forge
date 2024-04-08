@@ -4,8 +4,8 @@
 @args(Project project, OperatingSystem os)
 
 webdriverBinaries {
-    chromedriver '110.0.5481.77'
-    geckodriver '0.32.2'
+    chromedriver '122.0.6260.0'
+    geckodriver '0.33.0'
 @if (os == OperatingSystem.WINDOWS) {
     iedriverserver '3.141.59'
 }
