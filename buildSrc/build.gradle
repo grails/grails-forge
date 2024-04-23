@@ -24,7 +24,7 @@ configurations.all {
 }
 
 dependencies {
-    implementation "io.micronaut.build.internal:micronaut-gradle-plugins:5.4.10"
+    implementation "io.micronaut.build.internal:micronaut-gradle-plugins:6.7.1"
     implementation "com.fizzed:rocker-compiler:1.4.0"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.17.0"
     implementation "io.sdkman:gradle-sdkvendor-plugin:3.0.0"
