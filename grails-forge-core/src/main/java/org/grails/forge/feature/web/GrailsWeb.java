@@ -52,7 +52,6 @@ public class GrailsWeb implements DefaultFeature {
     @Override
     public void apply(GeneratorContext generatorContext) {
         final Map<String, Object> config = generatorContext.getConfiguration();
-        config.put("grails.controllers.defaultScope", "singleton");
         config.put("grails.views.default.codec", "html");
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-web").build());
     }
