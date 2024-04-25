@@ -16,15 +16,15 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           ref: v${{ github.event.inputs.version }}
+      - uses: gradle/wrapper-validation-action@v2
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'adopt'
+          distribution: 'temurin'
           java-version: '11'
+      - uses: gradle/actions/setup-gradle@v3
       - name: Grails SDK Minor Release
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: sdkMinorRelease
+        run: ./gradlew sdkMinorRelease
         env:
           GVM_SDKVENDOR_KEY: ${{ secrets.GVM_SDKVENDOR_KEY }}
           GVM_SDKVENDOR_TOKEN: ${{ secrets.GVM_SDKVENDOR_TOKEN }}
