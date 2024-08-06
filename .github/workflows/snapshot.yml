@@ -15,13 +15,12 @@ jobs:
         java: ['11']
     steps:
       - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - name: Run Build
         id: build
         env:
@@ -60,13 +59,12 @@ jobs:
         run: gcloud auth configure-docker --quiet
       - name: Checkout repository
         uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - name: Run Tests
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
@@ -100,13 +98,12 @@ jobs:
         run: gcloud auth configure-docker --quiet
       - name: Checkout repository
         uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - name: Run Tests
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
@@ -132,15 +129,13 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
       - name: Setup GraalVM CE
         uses: graalvm/setup-graalvm@v1
         with:
-          version: '21.3.3.1'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - name: Build the JAR
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
@@ -160,7 +155,7 @@ jobs:
           cp ./LICENSE grails-linux-amd64-snapshot/
           zip -r grails-linux-amd64-snapshot.zip ./grails-linux-amd64-snapshot
       - name: Upload Snapshot
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-linux-amd64-snapshot
@@ -172,15 +167,13 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
       - name: Setup GraalVM CE
         uses: graalvm/setup-graalvm@v1
         with:
-          version: '21.3.3.1'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - name: Build the JAR
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
@@ -200,7 +193,7 @@ jobs:
           cp ./LICENSE grails-darwin-amd64-snapshot/
           zip -r grails-darwin-amd64-snapshot.zip ./grails-darwin-amd64-snapshot -x '*.DS_Store*' -x '__MAC_OSX'
       - name: Upload Snapshot
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-darwin-amd64-snapshot
@@ -211,15 +204,13 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
       - name: Setup GraalVM CE
         uses: graalvm/setup-graalvm@v1
         with:
-          version: '21.3.3.1'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - name: Build JAR File
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
@@ -245,7 +236,7 @@ jobs:
           Copy-Item "./LICENSE" -Destination "./grails-win-amd64-snapshot"
           Compress-Archive -Path "./grails-win-amd64-snapshot" -Update -DestinationPath ./grails-win-amd64-snapshot.zip
       - name: Publish artifact
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.0.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-win-amd64-snapshot
