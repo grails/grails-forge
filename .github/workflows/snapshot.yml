@@ -130,7 +130,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
       - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1
+        uses: graalvm/setup-graalvm@v1.1.9
         with:
           java-version: '11'
           distribution: 'graalvm-community'
@@ -169,7 +169,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
       - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1
+        uses: graalvm/setup-graalvm@v1.1.9
         with:
           java-version: '11'
           distribution: 'graalvm-community'
@@ -207,7 +207,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1
+        uses: graalvm/setup-graalvm@v1.1.9
         with:
           java-version: '11'
           distribution: 'graalvm-community'
