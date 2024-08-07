@@ -14,15 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
           ref: v${{ github.event.inputs.version }}
-      - uses: gradle/wrapper-validation-action@v2
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
-      - uses: gradle/actions/setup-gradle@v3
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
       - name: Grails SDK Minor Release
         run: ./gradlew sdkMinorRelease
         env:
