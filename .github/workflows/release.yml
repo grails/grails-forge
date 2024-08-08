@@ -1,10 +1,10 @@
-name: Release
+name: "Release"
 on:
   release:
     types: [published]
 jobs:
   build:
-    name: Release artifacts to Bintray, Maven Central & SDKMAN, and publish documentation
+    name: "Release artifacts to Bintray, Maven Central & SDKMAN, and publish documentation"
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -12,46 +12,45 @@ jobs:
       release_version: ${{ steps.release_version.outputs.value }}
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-      GIT_USER_NAME: puneetbehl
-      GIT_USER_EMAIL: behlp@unityfoundation.io
+      GIT_USER_NAME: 'grails-build'
+      GIT_USER_EMAIL: 'grails-build@users.noreply.github.com'
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Set up JDK
+      - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Set the current release version
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "🔢 Set the current release version"
         id: release_version
         run: |
           echo "Update grailsVersion to ${GITHUB_REF:11}"
           sed -i "s/^grailsVersion.*$/grailsVersion\=${GITHUB_REF:11}/" gradle.properties
           sed -i "s/grailsVersion=${GITHUB_REF:11}-SNAPSHOT/grailsVersion\=${GITHUB_REF:11}/" grails-forge-core/src/test/groovy/org/grails/forge/feature/grails/GrailsGradlePluginSpec.groovy
           echo "value=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
-      - uses: stefanzweifel/git-auto-commit-action@v5.0.0
+      - name: "📝 Commit release version"
+        uses: stefanzweifel/git-auto-commit-action@v5.0.1
         with:
-          commit_message: |
-            chore: Update grailsVersion to ${{ steps.release_version.outputs.value }}
+          commit_message: "chore: Update grailsVersion to ${{ steps.release_version.outputs.value }}"
           commit_user_name: ${{ env.GIT_USER_NAME }}
           commit_user_email: ${{ env.GIT_USER_EMAIL }}
           commit_author: ${{ env.GIT_USER_NAME }} <${{ env.GIT_USER_EMAIL }}>
           file_pattern: .
           branch: 6.2.x
-      - name: Run pre-release
+      - name: "⚙️ Run pre-release"
         uses: micronaut-projects/github-actions/pre-release@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build All
+      - name: "🔨 Build All"
         run: ./gradlew grails-cli:assemble
-      - name: Generate secring file
+      - name: "🔐 Generate secring file"
         env:
           SECRING_FILE: ${{ secrets.SECRING_FILE }}
         run: echo $SECRING_FILE | base64 -d > ${{ github.workspace }}/secring.gpg
-      - name: Publish to Maven Central
+      - name: "📤 Publish to Sonatype OSSRH"
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
@@ -59,8 +58,13 @@ jobs:
           SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }}
-        run: ./gradlew -Psigning.secretKeyRingFile=${{ github.workspace }}/secring.gpg publishToSonatype closeSonatypeStagingRepository docs
-      - name: Upload CLI Zip
+        run: >
+          ./gradlew
+          -Psigning.secretKeyRingFile=${{ github.workspace }}/secring.gpg
+          publishToSonatype
+          closeSonatypeStagingRepository
+          docs
+      - name: "📤 Upload CLI Zip"
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -70,7 +74,7 @@ jobs:
           asset_path: grails-cli/build/distributions/grails-cli-${{ steps.release_version.outputs.value }}.zip
           asset_name: grails-cli-${{ steps.release_version.outputs.value }}.zip
           asset_content_type: application/zip
-      - name: Publish to Github Pages
+      - name: "📤 Publish to Github Pages"
         uses: micronaut-projects/github-pages-deploy-action@master
         env:
           BETA: ${{ contains(steps.release_version.outputs.value, 'M') }}
@@ -79,69 +83,79 @@ jobs:
           BRANCH: gh-pages
           FOLDER: build/docs
           VERSION: ${{ steps.release_version.outputs.value }}
-      - name: Run post-release
+      - name: "⚙️ Run post-release"
         if: success()
         id: post_release
         continue-on-error: true
         uses: micronaut-projects/github-actions/post-release@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Back to snapshot
+      - name: "🔢 Back to snapshot version"
         continue-on-error: true
         run: |
           echo "Setting new Grails snapshot version"
           sed -i "s/^grailsVersion.*$/grailsVersion\=${{ steps.post_release.outputs.next_version }}-SNAPSHOT/" gradle.properties
           sed -i "s/grailsVersion=${GITHUB_REF:11}/grailsVersion\=${{ steps.post_release.outputs.next_version }}-SNAPSHOT/" grails-forge-core/src/test/groovy/org/grails/forge/feature/grails/GrailsGradlePluginSpec.groovy
-      - uses: stefanzweifel/git-auto-commit-action@v5.0.0
+      - name: "📝 Commit snapshot version"
+        uses: stefanzweifel/git-auto-commit-action@v5.0.1
         continue-on-error: true
         with:
-          commit_message: Back Grails version to snapshot
+          commit_message: "chore: Next snapshot version"
           commit_user_name: ${{ env.GIT_USER_NAME }}
           commit_user_email: ${{ env.GIT_USER_EMAIL }}
           commit_author: ${{ env.GIT_USER_NAME }} <${{ env.GIT_USER_EMAIL }}>
           file_pattern: gradle.properties
   deploy:
-    name: Deploy To Google Cloud Run
+    name: "Deploy To Google Cloud Run"
     runs-on: ubuntu-latest
     needs: [build]
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
         with:
           ref: v${{ needs.build.outputs.release_version }}
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Login
+      - name: "🔑 Login to Google Cloud"
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-      - name: Configure Docker
+      - name: "🐋 Configure Docker"
         run: gcloud auth configure-docker --quiet
-      - name: Set up JDK
+      - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Run Tests
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "✅ Run Tests"
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew grails-forge-api:test grails-forge-web-netty:test
-      - name: Build Docker image
+        run: >
+          ./gradlew
+          grails-forge-api:test
+          grails-forge-web-netty:test
+      - name: "🔨 Build Docker image"
         # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ needs.build.outputs.release_version }}
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew grails-forge-web-netty:dockerBuildNative -PdockerImageName=${{ env.IMAGE_NAME }}
-      - name: Push image to Google Cloud Container Registry
+        run: >
+          ./gradlew
+          grails-forge-web-netty:dockerBuildNative
+          -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: "📤 Push image to Google Cloud Container Registry"
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ needs.build.outputs.release_version }}
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew grails-forge-web-netty:dockerPushNative -PdockerImageName=${{ env.IMAGE_NAME }}
-      - name: Deploy Docker image
+        run: >
+          ./gradlew
+          grails-forge-web-netty:dockerPushNative
+          -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: "🚀 Deploy Docker image"
         env:
           release_version: ${{ needs.build.outputs.release_version }}
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ needs.build.outputs.release_version }}
@@ -150,47 +164,55 @@ jobs:
           version="$(echo "${release_version//./}" | tr '[A-Z]' '[a-z]')"
           gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-$version --image $IMAGE_NAME --region us-central1 --update-env-vars=HOSTNAME="grailsforge-600-cjmq3uyfcq-uc.a.run.app",CORS_ALLOWED_ORIGIN="https://start.grails.org",GITHUB_OAUTH_APP_CLIENT_ID=${{ secrets.GH_OAUTH_LATEST_CLIENT_ID }},GITHUB_OAUTH_APP_CLIENT_SECRET=${{ secrets.GH_OAUTH_LATEST_CLIENT_SECRET }},GITHUB_USER_AGENT=${{ secrets.GH_USER_AGENT }},GITHUB_REDIRECT_URL=${{ secrets.GH_REDIRECT_URL }} --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
   deployanalytics:
-    name: Deploy Analytics To Google Cloud Run
+    name: "Deploy Analytics To Google Cloud Run"
     runs-on: ubuntu-latest
     needs: [build]
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
         with:
           ref: v${{ needs.build.outputs.release_version }}
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Login
+      - name: "🔑 Login"
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-      - name: Configure Docker
+      - name: "🐋 Configure Docker"
         run: gcloud auth configure-docker --quiet
-      - name: Set up JDK
+      - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Run Tests
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "✅ Run Tests"
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew grails-forge-analytics-postgres:test
-      - name: Build Docker image
+        run: >
+          ./gradlew
+          grails-forge-analytics-postgres:test
+      - name: "🔨 Build Docker image"
         # To deploy native executables built with GraalVM replace dockerBuild with dockerBuildNative and dockerPush with dockerPushNative. First, try that it works locally.
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}-analytics:${{ needs.build.outputs.release_version }}
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew grails-forge-analytics-postgres:dockerBuildNative -PdockerImageName=${{ env.IMAGE_NAME }}
-      - name: Push image to Google Cloud Container Registry
+        run: >
+          ./gradlew
+          grails-forge-analytics-postgres:dockerBuildNative
+          -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: "📤 Push image to Google Cloud Container Registry"
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}-analytics:${{ needs.build.outputs.release_version }}
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew grails-forge-analytics-postgres:dockerPushNative -PdockerImageName=${{ env.IMAGE_NAME }}
-      - name: Deploy Docker image
+        run: >
+          ./gradlew
+          grails-forge-analytics-postgres:dockerPushNative
+          -PdockerImageName=${{ env.IMAGE_NAME }}
+      - name: "🚀 Deploy Docker image"
         env:
           release_version: ${{ needs.build.outputs.release_version }}
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ needs.build.outputs.release_version }}
@@ -200,40 +222,41 @@ jobs:
           version="$(echo "${release_version//./}" | tr '[A-Z]' '[a-z]')"
           gcloud run deploy ${{ secrets.GCP_PROJECT_ID }}-analytics-$version --image $IMAGE_NAME --region us-central1 --platform managed --allow-unauthenticated --service-account=${{ secrets.GCLOUD_EMAIL }}
   linux:
-    name: Release Linux Native CLI
+    name: "Release Linux Native CLI"
     runs-on: ubuntu-latest
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
     needs: [build]
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
         with:
           ref: v${{ needs.build.outputs.release_version }}
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Setup GraalVM CE
+      - name: "☕️ Setup GraalVM CE"
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '17'
           distribution: 'graalvm-community'
+          native-image-musl: 'true'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Build the JAR
-        run: ./gradlew grails-cli:shadowJar --no-daemon
-      - name: Build Native Image
-        run: native-image --no-fallback --allow-incomplete-classpath -cp grails-cli/build/libs/grails-cli-*-all.jar
-      - name: Verify Build
-        run: ./grails --version
-      - name: Package Build
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "📸 Build the Native Image (with libc=musl)"
+        run: ./gradlew grails-cli:nativeCompile --no-daemon -Pmusl
+      - name: "✅ Verify Build"
+        run: ./grails-cli/build/native/nativeCompile/grails --version
+      - name: "✅ Verify Create App"
+        run: ./grails-cli/build/native/nativeCompile/grails create-app test
+      - name: "📦 Package Build"
         env:
           VERSION: ${{ github.event.release.tag_name }}
         run: |
           mkdir -p "grails-linux-amd64-${VERSION}/bin"
-          mv ./grails "grails-linux-amd64-${VERSION}/bin"
+          mv ./grails-cli/build/native/nativeCompile/grails "grails-linux-amd64-${VERSION}/bin"
           cp ./LICENSE "grails-linux-amd64-${VERSION}/"
           zip -r "grails-linux-amd64-${VERSION}.zip" "grails-linux-amd64-${VERSION}/"
-      - name: Upload Release Asset
+      - name: "📤 Upload Release Asset"
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -244,40 +267,40 @@ jobs:
           asset_name: grails-linux-amd64-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
   macos:
-    name: Release OS X Native CLI
-    runs-on: macos-latest
+    name: "Release OS X Intel Native CLI"
+    runs-on: macos-13
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
     needs: [build]
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
         with:
           ref: v${{ needs.build.outputs.release_version }}
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Setup GraalVM CE
+      - name: "☕️ Setup GraalVM CE"
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '17'
           distribution: 'graalvm-community'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Build the JAR
-        run: ./gradlew grails-cli:shadowJar --no-daemon
-      - name: Build Native Image
-        run: native-image --no-fallback --allow-incomplete-classpath -cp grails-cli/build/libs/grails-cli-*-all.jar
-      - name: Verify Build
-        run: ./grails --version
-      - name: Package Build
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "📸 Build the Native Image"
+        run: ./gradlew grails-cli:nativeCompile --no-daemon
+      - name: "✅ Verify Build"
+        run: ./grails-cli/build/native/nativeCompile/grails --version
+      - name: "✅ Verify Create App"
+        run: ./grails-cli/build/native/nativeCompile/grails create-app test
+      - name: "📦 Package Build"
         env:
           VERSION: ${{ github.event.release.tag_name }}
         run: |
           mkdir -p "grails-darwin-amd64-${VERSION}/bin"
-          mv ./grails "grails-darwin-amd64-${VERSION}/bin"
+          mv ./grails-cli/build/native/nativeCompile/grails "grails-darwin-amd64-${VERSION}/bin"
           cp ./LICENSE "grails-darwin-amd64-${VERSION}/"
           zip -r "grails-darwin-amd64-${VERSION}.zip" "grails-darwin-amd64-${VERSION}/" -x '*.DS_Store*' -x '__MAC_OSX'
-      - name: Upload Release Asset
+      - name: "📤 Upload Release Asset"
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -287,48 +310,91 @@ jobs:
           asset_path: ./grails-darwin-amd64-${{ github.event.release.tag_name }}.zip
           asset_name: grails-darwin-amd64-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
-  windows:
-    name: Release Windows Native CLI
-    runs-on: windows-latest
+  macos-arm:
+    name: "Release OS X Arm Native CLI"
+    runs-on: macos-latest
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
     needs: [build]
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
         with:
           ref: v${{ needs.build.outputs.release_version }}
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Setup GraalVM CE
+      - name: "☕️ Setup GraalVM CE"
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '17'
           distribution: 'graalvm-community'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Build JAR File
-        run: ./gradlew grails-cli:copyShadowJar --no-daemon
-      - name: Build Native Image
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "📸 Build the Native Image"
+        run: ./gradlew grails-cli:nativeCompile --no-daemon
+      - name: "✅ Verify Build"
+        run: ./grails-cli/build/native/nativeCompile/grails --version
+      - name: "✅ Verify Create App"
+        run: ./grails-cli/build/native/nativeCompile/grails create-app test
+      - name: "📦 Package Build"
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          mkdir -p "grails-darwin-aarch64-${VERSION}/bin"
+          mv ./grails-cli/build/native/nativeCompile/grails "grails-darwin-aarch64-${VERSION}/bin"
+          cp ./LICENSE "grails-darwin-aarch64-${VERSION}/"
+          zip -r "grails-darwin-aarch64-${VERSION}.zip" "grails-darwin-aarch64-${VERSION}/" -x '*.DS_Store*' -x '__MAC_OSX'
+      - name: "📤 Upload Release Asset"
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./grails-darwin-aarch64-${{ github.event.release.tag_name }}.zip
+          asset_name: grails-darwin-aarch64-${{ github.event.release.tag_name }}.zip
+          asset_content_type: application/zip
+  windows:
+    name: "Release Windows Native CLI"
+    runs-on: windows-latest
+    env:
+      GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+    needs: [build]
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          ref: v${{ needs.build.outputs.release_version }}
+      - name: "☕️ Setup GraalVM CE"
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '17'
+          distribution: 'graalvm-community'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "📸 Build the Native Image"
+        run: ./gradlew grails-cli:nativeCompile --no-daemon
+      - name: "✅ Verify Build (Powershell)"
         shell: powershell
-        run: native-image.cmd --no-fallback --allow-incomplete-classpath -cp build/libs/cli.jar
-      - name: Verify Build (Powershell)
-        run: ./grails.exe --version
-      - name: Verify Create App (Powershell)
-        run: ./grails.exe create-app test
-      - name: Verify Build (CMD)
+        run: ./grails-cli/build/native/nativeCompile/grails.exe --version
+      - name: "✅ Verify Create App (Powershell)"
+        shell: powershell
+        run: ./grails-cli/build/native/nativeCompile/grails.exe create-app test
+      - name: "✅ Verify Build (CMD)"
         shell: cmd
-        run: grails --version
-      - name: Verify Create App (CMD)
+        run: grails-cli\\build\\native\\nativeCompile\\grails --version
+      - name: "✅ Verify Create App (CMD)"
         shell: cmd
-        run: grails create-app test2
-      - name: ZIP Archive
+        run: grails-cli\\build\\native\\nativeCompile\\grails create-app test2
+      - name: "📦 ZIP Archive"
         run: |
           New-Item ./grails-win-amd64-${{ github.event.release.tag_name }}/bin -ItemType Directory -ea 0
-          Move-Item -Path ./grails.exe -Destination ./grails-win-amd64-${{ github.event.release.tag_name }}/bin
+          Move-Item -Path ./grails-cli/build/native/nativeCompile/grails.exe -Destination ./grails-win-amd64-${{ github.event.release.tag_name }}/bin
           Copy-Item ./LICENSE -Destination ./grails-win-amd64-${{ github.event.release.tag_name }}
           Compress-Archive -Path ./grails-win-amd64-${{ github.event.release.tag_name }} -Update -DestinationPath ./grails-win-amd64-${{ github.event.release.tag_name }}.zip
-      - name: Upload Release Asset
+      - name: "📤 Upload Release Asset"
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -339,29 +405,30 @@ jobs:
           asset_name: grails-win-amd64-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
   sdkman:
-    name: Release to SDKMAN!
+    name: "Release to SDKMAN!"
     runs-on: ubuntu-latest
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-    needs: [build, linux, macos, windows]
+    needs: [build, linux, macos, macos-arm, windows]
     steps:
-      - name: Checkout repository
+      - name: "📥 Checkout repository"
         uses: actions/checkout@v4
         with:
           ref: v${{ needs.build.outputs.release_version }}
-          token: ${{ secrets.GH_TOKEN }}
-      - uses: actions/setup-java@v4
+      - name: "☕️ Setup JDK"
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Grails SDK Minor Release
+      - name: "🐘 Setup Gradle"
+        uses: gradle/actions/setup-gradle@v4
+      - name: "🚀 Grails SDK Minor Release"
         if: contains(needs.build.outputs.release_version, 'M')
         run: ./gradlew sdkMinorRelease
         env:
           GVM_SDKVENDOR_KEY: ${{ secrets.GVM_SDKVENDOR_KEY }}
           GVM_SDKVENDOR_TOKEN: ${{ secrets.GVM_SDKVENDOR_TOKEN }}
-      - name: Grails SDK Major Release
+      - name: "🚀 Grails SDK Major Release"
         if: startsWith(needs.build.outputs.release_version, '6.') && !contains(needs.build.outputs.release_version, 'M')
         run: ./gradlew sdkMajorRelease
         env:
