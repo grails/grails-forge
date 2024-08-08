@@ -161,8 +161,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
-      - name: "📸 Build the Native Image (with libc=musl)"
-        run: ./gradlew grails-cli:nativeCompile --no-daemon -Pmusl
+      - name: "📸 Build the Native Image"
+        run: ./gradlew grails-cli:nativeCompile --no-daemon
       - name: "✅ Verify Build"
         run: ./grails-cli/build/native/nativeCompile/grails --version
       - name: "✅ Verify Create App"
@@ -218,7 +218,7 @@ jobs:
           name: grails-darwin-amd64-snapshot
           path: grails-darwin-amd64-snapshot.zip
   macos-arm:
-    name: "Release OS X Arm Native CLI"
+    name: "Builds OS X Arm Native CLI"
     runs-on: macos-latest
     env:
       GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
@@ -226,8 +226,6 @@ jobs:
     steps:
       - name: "📥 Checkout repository"
         uses: actions/checkout@v4
-        with:
-          ref: v${{ needs.build.outputs.release_version }}
       - name: "☕️ Setup GraalVM CE"
         uses: graalvm/setup-graalvm@v1
         with:
