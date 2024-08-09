@@ -1,4 +1,4 @@
-name: Manual Deploy to GCP
+name: "Manual Deploy to GCP"
 on:
   workflow_dispatch:
     inputs:
@@ -9,15 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Login
+      - name: "🔑 Login"
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-      - name: Configure Docker
+      - name: "🐋 Configure Docker"
         run: gcloud auth configure-docker --quiet
-      - name: Deploy Docker image
+      - name: "🚀 Deploy Docker image"
         env:
           release_version: ${{ github.event.inputs.release }}
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}:${{ github.event.inputs.release }}
