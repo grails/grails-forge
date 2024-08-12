@@ -6,8 +6,5 @@
 webdriverBinaries {
     chromedriver '122.0.6260.0'
     geckodriver '0.33.0'
-@if (os == OperatingSystem.WINDOWS) {
-    iedriverserver '3.141.59'
-}
     edgedriver '110.0.1587.57'
 }
