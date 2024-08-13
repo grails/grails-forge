@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.*;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 /**
  * Feature Utility class for IO operations.
@@ -49,20 +50,20 @@ public class IOFeatureUtil {
         } else {
             final String jarPath = path.toString().substring(0, sep);
             if (jarPath.endsWith(JAR_EXTENSION)) {
-                final FileSystem zipFs = FileSystems.newFileSystem(Paths.get(URI.create(jarPath)), null);
-                walkFiles(zipFs.getPath(path.toString().substring(sep + 1)), classLoader, addTemplate);
+                try (FileSystem zipFs = FileSystems.newFileSystem(Paths.get(URI.create(jarPath)))) {
+                    walkFiles(zipFs.getPath(path.toString().substring(sep + 1)), classLoader, addTemplate);
+                }
             }
         }
     }
 
     private static void walkFiles(final Path path, final ClassLoader classLoader, BiFunction<String, URLTemplate, GeneratorContext> addTemplate) throws IOException {
         if (Files.exists(path)) {
-            Files.walk(path)
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
-                        final String relativePath = path.getParent().relativize(file).toString();
-                        addTemplate.apply(relativePath, new URLTemplate("grails-app/" + relativePath, classLoader.getResource(relativePath)));
-                    });
+            try (Stream<Path> paths = Files.walk(path)) {
+                paths.filter(Files::isRegularFile)
+                        .map(file -> path.getParent().relativize(file).toString())
+                        .forEach(relativePath -> addTemplate.apply(relativePath, new URLTemplate(relativePath, classLoader.getResource(relativePath))));
+            }
         }
     }
 }

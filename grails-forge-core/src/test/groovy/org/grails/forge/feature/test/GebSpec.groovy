@@ -84,7 +84,6 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         buildGradle.contains("webdriverBinaries")
         buildGradle.contains("chromedriver '122.0.6260.0'")
         buildGradle.contains("geckodriver '0.33.0'")
-        buildGradle.contains("iedriverserver '3.141.59'")
         buildGradle.contains("edgedriver '110.0.1587.57'")
     }
 }

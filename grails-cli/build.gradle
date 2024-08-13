@@ -1,5 +1,6 @@
 plugins {
     id "org.grails.forge.internal.build.cli-module"
+    id 'org.graalvm.buildtools.native' version '0.10.2'
 }
 
 sourceSets {
@@ -32,7 +33,7 @@ dependencies {
     api "info.picocli:picocli:${picocliVersion}"
     api "info.picocli:picocli-shell-jline3:${picocliVersion}"
     api "com.fizzed:rocker-runtime:$rockerVersion"
-    implementation "org.slf4j:slf4j-nop:2.0.12"
+    implementation "org.slf4j:slf4j-nop:2.0.16"
     implementation "org.fusesource.jansi:jansi:2.4.0"
     implementation "org.yaml:snakeyaml:2.2"
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
@@ -46,12 +47,36 @@ dependencies {
     testImplementation 'org.reflections:reflections:0.10.2'
 }
 
+graalvmNative {
+    toolchainDetection = false
+
+    binaries {
+        main {
+            // Main options
+            sharedLibrary = false
+            imageName = "grails"
+            buildArgs(
+                "--add-exports=org.graalvm.nativeimage.builder/com.oracle.svm.core.configure=ALL-UNNAMED",
+                "--add-exports=org.graalvm.nativeimage.builder/com.oracle.svm.core.jdk=ALL-UNNAMED",
+                "--add-exports=org.graalvm.nativeimage.builder/com.oracle.svm.core.jni=ALL-UNNAMED",
+                "--add-exports=org.graalvm.sdk/org.graalvm.nativeimage.impl=ALL-UNNAMED",
+                "-H:+ReportExceptionStackTraces"
+            )
+            if (project.hasProperty("musl")) {
+                logger.lifecycle("Using musl libc")
+                buildArgs("--libc=musl", "--static")
+            }
+            mainClass = "org.grails.forge.cli.Application"
+        }
+    }
+}
+
 application {
     mainClass = "org.grails.forge.cli.Application"
 }
 
 rocker {
-    javaVersion = '11'
+    javaVersion = '17'
     postProcessing = ['org.grails.forge.rocker.plugin.WhitespaceProcessor']
 }
 
@@ -67,8 +92,7 @@ sdkman {
     version = project.version
     hashtag = "#grailsfw"
     platforms = [
-            // TODO:  Once graal native-image works for arm OSX, we should switch to building and publishing a non-rosetta release (https://github.com/oracle/graal/issues/2666)
-            "MAC_ARM64":"https://github.com/grails/grails-forge/releases/download/v${project.version}/grails-darwin-amd64-v${project.version}.zip",
+            "MAC_ARM64":"https://github.com/grails/grails-forge/releases/download/v${project.version}/grails-darwin-aarch64-v${project.version}.zip",
             "MAC_OSX":"https://github.com/grails/grails-forge/releases/download/v${project.version}/grails-darwin-amd64-v${project.version}.zip",
             "WINDOWS_64":"https://github.com/grails/grails-forge/releases/download/v${project.version}/grails-win-amd64-v${project.version}.zip",
             "LINUX_64":"https://github.com/grails/grails-forge/releases/download/v${project.version}/grails-linux-amd64-v${project.version}.zip"
