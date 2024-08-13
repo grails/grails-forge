@@ -77,7 +77,9 @@ public class FeatureContext {
         return features.stream().filter(feature -> {
             for (FeaturePredicate predicate: exclusions) {
                 if (predicate.test(feature)) {
-                    predicate.getWarning().ifPresent(message -> { throw new IllegalArgumentException(message); });
+                    predicate.getWarning().ifPresent(message -> {
+                        throw new IllegalArgumentException(message);
+                    });
                     return false;
                 }
             }
