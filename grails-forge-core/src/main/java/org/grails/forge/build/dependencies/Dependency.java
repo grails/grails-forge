@@ -203,6 +203,10 @@ public final class Dependency {
             return scope(Scope.ANNOTATION_PROCESSOR);
         }
 
+        public Builder profile() {
+            return scope(Scope.PROFILE);
+        }
+
         public Builder annotationProcessor(boolean requiresPriority) {
             this.annotationProcessorPriority = requiresPriority;
             return annotationProcessor();
