@@ -35,7 +35,7 @@ public class Scope {
     public static final Scope TEST_ANNOTATION_PROCESSOR = new Scope(Source.TEST, Collections.singletonList(Phase.ANNOTATION_PROCESSING));
     public static final Scope TEST_COMPILE_ONLY = new Scope(Source.TEST, Collections.singletonList(Phase.COMPILATION));
     public static final Scope TEST_RUNTIME = new Scope(Source.TEST, Collections.singletonList(Phase.RUNTIME));
-    public static final Scope OPENREWRITE = new Scope(Source.MAIN, Collections.singletonList(Phase.COMPILATION));
+    public static final Scope OPENREWRITE = new Scope(Source.MAIN, Collections.singletonList(Phase.OPENREWRITE));
     public static final Scope PROFILE = new Scope(Source.MAIN, Collections.singletonList(Phase.PROFILE));
 
     @NonNull
