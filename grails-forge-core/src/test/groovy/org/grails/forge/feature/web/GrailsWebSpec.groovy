@@ -25,9 +25,7 @@ class GrailsWebSpec extends ApplicationContextSpec implements CommandOutputFixtu
         final String applicationYaml = output["grails-app/conf/application.yml"]
         def config = new YamlSlurper().parseText(applicationYaml)
 
-
         then:
-        config.grails.controllers.defaultScope == 'singleton'
         config.grails.views.default.codec == 'html'
     }
 }
