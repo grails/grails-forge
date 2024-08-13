@@ -13,15 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.forge.build.dependencies;
+package org.grails.forge.feature.grailsWrapper;
 
-public enum Phase {
-    ANNOTATION_PROCESSING,
-    COMPILATION,
-    CONSOLE,
-    DEVELOPMENT_ONLY,
-    RUNTIME,
-    OPENREWRITE,
-    BUILD,
-    PROFILE
+import org.grails.forge.application.ApplicationType;
+import org.grails.forge.feature.Category;
+import org.grails.forge.feature.OneOfFeature;
+
+public interface GrailsWrapperFeature extends OneOfFeature {
+
+    @Override
+    default Class<?> getFeatureClass() {
+        return GrailsWrapperFeature.class;
+    }
+
+    @Override
+    default boolean supports(ApplicationType applicationType) {
+        return true;
+    }
+
+    @Override
+    default String getCategory() {
+        return Category.DEV_TOOLS;
+    }
 }

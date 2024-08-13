@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -201,6 +201,10 @@ public final class Dependency {
 
         public Builder annotationProcessor() {
             return scope(Scope.ANNOTATION_PROCESSOR);
+        }
+
+        public Builder profile() {
+            return scope(Scope.PROFILE);
         }
 
         public Builder annotationProcessor(boolean requiresPriority) {

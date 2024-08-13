@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import org.grails.forge.options.TestFramework;
 import java.util.Optional;
 
 public enum GradleConfiguration implements Ordered {
+    PROFILE("profile", -1),
     BUILD("implementation", 0),
     ANNOTATION_PROCESSOR("annotationProcessor", 1),
     KAPT("kapt", 2),
@@ -94,6 +95,9 @@ public enum GradleConfiguration implements Ordered {
                 }
                 if (scope.getPhases().contains(Phase.OPENREWRITE)) {
                     return Optional.of(GradleConfiguration.OPENREWRITE);
+                }
+                if (scope.getPhases().contains(Phase.PROFILE)) {
+                    return Optional.of(GradleConfiguration.PROFILE);
                 }
                 break;
 
