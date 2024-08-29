@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,10 +60,15 @@ public class Logback implements LoggingFeature, DefaultFeature {
     public void apply(GeneratorContext generatorContext) {
         OperatingSystem operatingSystem = generatorContext.getOperatingSystem();
         boolean jansi = false;
+
         if (operatingSystem != OperatingSystem.WINDOWS) {
             jansi = true;
         }
-        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback.xml", logback.template(jansi)));
+
+        String projectName = generatorContext.getProject().getName();
+        String packageName = generatorContext.getProject().getPackageName();
+
+        generatorContext.addTemplate("loggingConfig", new RockerTemplate("grails-app/conf/logback-spring.xml", logback.template(projectName, packageName, jansi)));
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.grails")
                 .artifactId("grails-logging")
