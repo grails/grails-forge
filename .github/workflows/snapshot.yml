@@ -176,7 +176,7 @@ jobs:
           cp ./LICENSE grails-linux-amd64-snapshot/
           zip -r grails-linux-amd64-snapshot.zip ./grails-linux-amd64-snapshot
       - name: Upload Snapshot
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/7.0.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-linux-amd64-snapshot
@@ -212,7 +212,7 @@ jobs:
           cp ./LICENSE grails-darwin-amd64-snapshot/
           zip -r grails-darwin-amd64-snapshot.zip ./grails-darwin-amd64-snapshot -x '*.DS_Store*' -x '__MAC_OSX'
       - name: "📤 Upload Snapshot"
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/7.0.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-darwin-amd64-snapshot
@@ -250,7 +250,7 @@ jobs:
           cp ./LICENSE grails-darwin-aarch64-snapshot/
           zip -r grails-darwin-aarch64-snapshot.zip grails-darwin-aarch64-snapshot/ -x '*.DS_Store*' -x '__MAC_OSX'
       - name: "📤 Upload Snapshot"
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/7.0.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-darwin-aarch64-snapshot
@@ -292,7 +292,7 @@ jobs:
           Copy-Item "./LICENSE" -Destination "./grails-win-amd64-snapshot"
           Compress-Archive -Path "./grails-win-amd64-snapshot" -Update -DestinationPath ./grails-win-amd64-snapshot.zip
       - name: "📤 Publish artifact"
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/6.2.x'
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/7.0.x'
         uses: actions/upload-artifact@v4
         with:
           name: grails-win-amd64-snapshot
