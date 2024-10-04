@@ -24,7 +24,7 @@ jobs:
         id: build
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-        run: ./gradlew build
+        run: ./gradlew build --refresh-dependencies
       - name: "✅ Verify CLI"
         if: success()
         run: |
