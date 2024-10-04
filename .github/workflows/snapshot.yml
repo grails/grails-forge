@@ -218,6 +218,7 @@ jobs:
           name: grails-darwin-amd64-snapshot
           path: grails-darwin-amd64-snapshot.zip
   macos-arm:
+    if: false # Graalvm cannot build Java 11 OS X Arm Native Image
     name: "Build OS X Arm Native CLI"
     runs-on: macos-latest
     env:
