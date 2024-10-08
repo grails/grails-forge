@@ -2,7 +2,6 @@ package org.grails.forge.create
 
 import org.grails.forge.application.OperatingSystem
 import org.grails.forge.utils.CommandSpec
-import spock.lang.PendingFeature
 
 class CreateAppSpec extends CommandSpec {
 
