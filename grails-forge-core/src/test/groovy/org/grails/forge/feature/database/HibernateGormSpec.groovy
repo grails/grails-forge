@@ -40,7 +40,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
                 .renderBuildSrc()
 
         then:
-        template.contains('implementation("org.grails.plugins:hibernate5:8.1.0")')
+        template.contains('implementation("org.grails.plugins:hibernate5:9.0.0-SNAPSHOT")')
     }
 
     void "test buildSrc is present for buildscript dependencies"() {
@@ -50,7 +50,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
 
         expect:
         buildSrcBuildGradle != null
-        buildSrcBuildGradle.contains("implementation(\"org.grails.plugins:hibernate5:8.1.0\")")
+        buildSrcBuildGradle.contains("implementation(\"org.grails.plugins:hibernate5:9.0.0-SNAPSHOT\")")
 
     }
 

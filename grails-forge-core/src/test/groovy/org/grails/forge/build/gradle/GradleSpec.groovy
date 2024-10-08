@@ -43,9 +43,9 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.2\"")
-        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.2\"")
-        settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"7.0.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"org.grails.grails-gsp\" version \"7.0.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"5.0.1\"")
     }
 
     void "test settings.gradle for REST-API"() {
@@ -59,10 +59,10 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.2\"")
-        settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.2.3\"")
-        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.2\"")
-        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"7.0.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"4.0.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"7.0.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"5.0.1\"")
     }
 
     void "test settings.gradle for REST-API for markup-views"() {
@@ -76,10 +76,10 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
         settingsGradle.contains("mavenLocal()")
         settingsGradle.contains("maven { url \"https://repo.grails.org/grails/core/\" }")
         settingsGradle.contains("gradlePluginPortal()")
-        settingsGradle.contains("id \"org.grails.grails-web\" version \"6.1.2\"")
-        settingsGradle.contains("id \"org.grails.plugins.views-markup\" version \"3.2.3\"")
-        !settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"3.2.3\"")
-        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"6.1.2\"")
-        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"4.3.0\"")
+        settingsGradle.contains("id \"org.grails.grails-web\" version \"7.0.0-SNAPSHOT\"")
+        settingsGradle.contains("id \"org.grails.plugins.views-markup\" version \"4.0.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"org.grails.plugins.views-json\" version \"4.0.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"org.grails.grails-gsp\" version \"7.0.0-SNAPSHOT\"")
+        !settingsGradle.contains("id \"com.bertramlabs.asset-pipeline\" version \"5.0.1\"")
     }
 }
