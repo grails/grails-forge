@@ -21,7 +21,7 @@ dependencies {
     api group: 'javax.inject', name: 'javax.inject', version: '1'
     implementation "io.projectreactor:reactor-core"
 
-    testCompileOnly "io.micronaut:micronaut-inject-groovy"
+    testCompileOnly "io.micronaut:micronaut-inject-groovy:$micronautVersion"
     testImplementation "io.micronaut:micronaut-http-server-netty"
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation "io.micronaut.test:micronaut-test-spock"
