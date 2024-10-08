@@ -55,7 +55,7 @@ class CreateControllerCommandSpec extends CommandSpec implements CommandFixture 
             There is a problem with running the integrationTest task here.
             It is failing with org.openqa.selenium.SessionNotCreatedException.
 
-            This problem was propably masked previously hidden by the fact that the Geb/Selenium
+            This problem was probably masked previously by the fact that the Geb/Selenium
             dependencies were not being included for OperatingSystem.MACOS_ARCH64.
 
             As of commit 8675723e62df6d136d7af48d5c75d7728cbef871 the Geb/Selenium
