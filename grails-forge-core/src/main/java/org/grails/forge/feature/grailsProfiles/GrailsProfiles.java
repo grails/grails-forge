@@ -25,6 +25,7 @@ import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
 
+import java.util.Map;
 import java.util.Set;
 
 @Singleton
@@ -51,6 +52,11 @@ public class GrailsProfiles implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
+
+
+        final Map<String, Object> config = generatorContext.getConfiguration();
+        // Required by profile commands when package is not set
+        config.put("grails.codegen.defaultPackage", generatorContext.getProject().getPackageName());
 
         ApplicationType applicationType = generatorContext.getApplicationType();
 
