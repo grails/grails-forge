@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package org.grails.forge.feature.test;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.application.Project;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Dependency;
@@ -94,49 +93,47 @@ public class Geb implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        if (generatorContext.getOperatingSystem() != OperatingSystem.MACOS_ARCH64) {
-            generatorContext.addBuildPlugin(GradlePlugin.builder()
-                    .id("com.github.erdi.webdriver-binaries")
-                    .lookupArtifactId("webdriver-binaries-gradle-plugin")
-                    .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject(), generatorContext.getOperatingSystem())))
-                            .version("3.2")
-                    .build());
+        generatorContext.addBuildPlugin(GradlePlugin.builder()
+                .id("com.github.erdi.webdriver-binaries")
+                .lookupArtifactId("webdriver-binaries-gradle-plugin")
+                .extension(new RockerWritable(webdriverBinariesPlugin.template(generatorContext.getProject(), generatorContext.getOperatingSystem())))
+                        .version("3.2")
+                .build());
 
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.grails.plugins")
-                    .artifactId("geb")
-                    .test());
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.grails.plugins")
+                .artifactId("geb")
+                .test());
 
-            Stream.of("api", "support", "remote-driver")
-                    .map(name -> "selenium-" + name)
-                    .forEach(name -> generatorContext.addDependency(Dependency.builder()
-                            .groupId("org.seleniumhq.selenium")
-                            .lookupArtifactId(name)
-                            .test()));
+        Stream.of("api", "support", "remote-driver")
+                .map(name -> "selenium-" + name)
+                .forEach(name -> generatorContext.addDependency(Dependency.builder()
+                        .groupId("org.seleniumhq.selenium")
+                        .lookupArtifactId(name)
+                        .test()));
 
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.seleniumhq.selenium")
-                    .lookupArtifactId("selenium-chrome-driver")
-                    .testRuntime());
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.seleniumhq.selenium")
-                    .lookupArtifactId("selenium-firefox-driver")
-                    .testRuntime());
-            generatorContext.addDependency(Dependency.builder()
-                    .groupId("org.seleniumhq.selenium")
-                    .lookupArtifactId("selenium-safari-driver")
-                    .testRuntime());
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.seleniumhq.selenium")
+                .lookupArtifactId("selenium-chrome-driver")
+                .testRuntime());
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.seleniumhq.selenium")
+                .lookupArtifactId("selenium-firefox-driver")
+                .testRuntime());
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.seleniumhq.selenium")
+                .lookupArtifactId("selenium-safari-driver")
+                .testRuntime());
 
-            TestFramework testFramework = generatorContext.getTestFramework();
-            String integrationTestSourcePath = generatorContext.getIntegrationTestSourcePath("/{packagePath}/{className}");
-            Project project = generatorContext.getProject();
-            TestRockerModelProvider provider = new DefaultTestRockerModelProvider(org.grails.forge.feature.test.template.spock.template(project),
-                    groovyJunit.template(project));
-            generatorContext.addTemplate("applicationTest",
-                    new RockerTemplate(integrationTestSourcePath, provider.findModel(Language.DEFAULT_OPTION, testFramework))
-            );
-            generatorContext.addTemplate("gebConfig",
-                    new RockerTemplate("src/integration-test/resources/GebConfig.groovy", gebConfig.template(project)));
-        }
+        TestFramework testFramework = generatorContext.getTestFramework();
+        String integrationTestSourcePath = generatorContext.getIntegrationTestSourcePath("/{packagePath}/{className}");
+        Project project = generatorContext.getProject();
+        TestRockerModelProvider provider = new DefaultTestRockerModelProvider(org.grails.forge.feature.test.template.spock.template(project),
+                groovyJunit.template(project));
+        generatorContext.addTemplate("applicationTest",
+                new RockerTemplate(integrationTestSourcePath, provider.findModel(Language.DEFAULT_OPTION, testFramework))
+        );
+        generatorContext.addTemplate("gebConfig",
+                new RockerTemplate("src/integration-test/resources/GebConfig.groovy", gebConfig.template(project)));
     }
 }
