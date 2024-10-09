@@ -68,8 +68,7 @@ class CommandSpec extends Specification {
     private Process executeCommand(StringBuilder builder) {
         String[] args = builder.toString().split(" ")
         ProcessBuilder pb = new ProcessBuilder(args)
-        Map<String, String> env = pb.environment()
-        env["JAVA_HOME"] = System.getenv("JAVA_HOME")
+        pb.environment().put("JAVA_HOME", System.getenv("JAVA_HOME") ?: System.getProperty("java.home"))
         process = pb.directory(dir).start()
         process.consumeProcessOutputStream(output)
         process

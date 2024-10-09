@@ -18,7 +18,7 @@ package org.grails.forge.feature.micronaut;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
-import org.grails.forge.build.dependencies.Dependency;
+//import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.feature.DefaultFeature;
 import org.grails.forge.feature.Feature;
 import org.grails.forge.options.Options;
@@ -44,6 +44,7 @@ public class MicronautInjectGroovy implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
+/*
         generatorContext.addDependency(Dependency.builder()
                 .groupId("io.micronaut")
                 .artifactId("micronaut-inject-groovy")
@@ -52,5 +53,6 @@ public class MicronautInjectGroovy implements DefaultFeature {
                 .groupId("io.micronaut")
                 .artifactId("micronaut-inject-groovy")
                 .test());
+*/
     }
 }

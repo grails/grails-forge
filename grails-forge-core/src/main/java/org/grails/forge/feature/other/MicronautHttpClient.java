@@ -19,7 +19,7 @@ import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
-import org.grails.forge.build.dependencies.Dependency;
+//import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.feature.Category;
 import org.grails.forge.feature.Feature;
 
@@ -59,9 +59,11 @@ public class MicronautHttpClient implements Feature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
+/*
         generatorContext.addDependency(Dependency.builder()
                 .groupId("io.micronaut")
                 .artifactId("micronaut-http-client")
                 .compile());
+*/
     }
 }

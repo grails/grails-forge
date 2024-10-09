@@ -12,7 +12,7 @@ class MicronautInjectGroovySpec extends BeanContextSpec {
                 .render()
 
         then:
-        template.contains("compileOnly(\"io.micronaut:micronaut-inject-groovy\")")
-        template.contains("testImplementation(\"io.micronaut:micronaut-inject-groovy\")")
+        ! template.contains("compileOnly(\"io.micronaut:micronaut-inject-groovy\")")
+        ! template.contains("testImplementation(\"io.micronaut:micronaut-inject-groovy\")")
     }
 }
