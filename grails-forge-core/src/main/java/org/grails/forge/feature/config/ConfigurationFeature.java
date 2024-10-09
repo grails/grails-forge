@@ -24,11 +24,11 @@ import java.util.function.Function;
 
 public interface ConfigurationFeature extends OneOfFeature {
 
-    final String ENVIRONMENTS_KEY = "environments";
-    final String DEV_ENVIRONMENT_KEY = "development";
-    final String TEST_ENVIRONMENT_KEY = "test";
-    final String PROD_ENVIRONMENT_KEY = "production";
-    final String PROPERTIES_KEY = "properties";
+    String ENVIRONMENTS_KEY = "environments";
+    String DEV_ENVIRONMENT_KEY = "development";
+    String TEST_ENVIRONMENT_KEY = "test";
+    String PROD_ENVIRONMENT_KEY = "production";
+    String PROPERTIES_KEY = "properties";
 
     @Override
     default Class<?> getFeatureClass() {
