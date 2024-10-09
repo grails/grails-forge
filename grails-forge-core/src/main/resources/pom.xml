@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.grails</groupId>
             <artifactId>grails-gradle-plugin</artifactId>
-            <version>6.1.2</version>
+            <version>6.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.grails.plugins</groupId>
