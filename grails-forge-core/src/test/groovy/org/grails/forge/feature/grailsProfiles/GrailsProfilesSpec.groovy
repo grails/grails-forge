@@ -33,6 +33,7 @@ class GrailsProfilesSpec extends ApplicationContextSpec implements CommandOutput
         output.containsKey("grails-app/conf/application.yml")
         def build = output.get("grails-app/conf/application.yml")
         build.contains("defaultPackage")
+        build.contains("profile")
 
         where:
         applicationType << ApplicationType.values().toList()
