@@ -14,7 +14,7 @@ dependencies {
     implementation(project(":grails-forge-api"))
     implementation("io.micronaut.gcp:micronaut-gcp-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
-    testCompileOnly("io.micronaut:micronaut-inject-groovy")
+    testCompileOnly("io.micronaut:micronaut-inject-groovy:$micronautVersion")
     testImplementation("io.micronaut.test:micronaut-test-spock")
     testImplementation("io.micronaut:micronaut-http-client")
 }
