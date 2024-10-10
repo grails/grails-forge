@@ -13,6 +13,6 @@ class MicronautHttpClientSpec extends BeanContextSpec {
                 .render()
 
         then:
-        ! template.contains("implementation(\"io.micronaut:micronaut-http-client\")")
+        template.contains("implementation(\"io.micronaut:micronaut-http-client:4.6.6\")")
     }
 }
