@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,18 @@ public class MySQL extends DatabaseDriverFeature {
     }
 
     @Override
-    public String getJdbcUrl() {
-        return "jdbc:mysql://localhost:3306/db";
+    public String getJdbcDevUrl() {
+        return "jdbc:mysql://localhost:3306/devDb";
+    }
+
+    @Override
+    public String getJdbcTestUrl() {
+        return "jdbc:mysql://localhost:3306/testDb";
+    }
+
+    @Override
+    public String getJdbcProdUrl() {
+        return "jdbc:mysql://localhost:3306/prodDb";
     }
 
     @Override

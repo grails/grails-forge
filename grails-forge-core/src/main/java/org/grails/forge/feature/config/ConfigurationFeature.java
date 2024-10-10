@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,12 @@ import org.grails.forge.template.Template;
 import java.util.function.Function;
 
 public interface ConfigurationFeature extends OneOfFeature {
+
+    String ENVIRONMENTS_KEY = "environments";
+    String DEV_ENVIRONMENT_KEY = "development";
+    String TEST_ENVIRONMENT_KEY = "test";
+    String PROD_ENVIRONMENT_KEY = "production";
+    String PROPERTIES_KEY = "properties";
 
     @Override
     default Class<?> getFeatureClass() {

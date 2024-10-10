@@ -30,10 +30,12 @@ class SQLServerSpec extends ApplicationContextSpec {
         GeneratorContext ctx = buildGeneratorContext(["gorm-hibernate5", "sqlserver"])
 
         then:
-        ctx.getConfiguration().get("dataSource.url") == 'jdbc:sqlserver://localhost:1433;databaseName=tempdb'
         ctx.getConfiguration().get("dataSource.driverClassName") == 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
         ctx.getConfiguration().get("dataSource.username") == 'sa'
         ctx.getConfiguration().get("dataSource.password") == ''
+        ctx.getConfiguration().get("environments.development.dataSource.url") == 'jdbc:sqlserver://localhost:1433;databaseName=devDb'
+        ctx.getConfiguration().get("environments.test.dataSource.url") == 'jdbc:sqlserver://localhost:1433;databaseName=testDb'
+        ctx.getConfiguration().get("environments.production.dataSource.url") == 'jdbc:sqlserver://localhost:1433;databaseName=prodDb'
     }
 
 }

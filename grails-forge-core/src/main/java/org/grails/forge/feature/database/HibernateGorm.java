@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,11 +32,12 @@ import java.util.Set;
 @Singleton
 public class HibernateGorm extends GormFeature implements DatabaseDriverConfigurationFeature {
 
-    private static final String PREFIX = "dataSource.";
+    static final String PREFIX = "dataSource.";
     private static final String URL_KEY = PREFIX + "url";
     private static final String DRIVER_KEY = PREFIX + "driverClassName";
     private static final String USERNAME_KEY = PREFIX + "username";
     private static final String PASSWORD_KEY = PREFIX + "password";
+    private static final String DB_CREATE_KEY = PREFIX + "dbCreate";
 
     private final DatabaseDriverFeature defaultDbFeature;
 
@@ -74,7 +75,6 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
         applyDefaultGormConfig(config);
         config.put("dataSource.pooled", true);
         config.put("dataSource.jmxExport", true);
-        config.put("dataSource.dbCreate", "update");
         config.put("hibernate.cache.queries", false);
         config.put("hibernate.cache.use_second_level_cache", false);
         config.put("hibernate.cache.use_query_cache", false);
@@ -111,6 +111,11 @@ public class HibernateGorm extends GormFeature implements DatabaseDriverConfigur
     @Override
     public String getPasswordKey() {
         return PASSWORD_KEY;
+    }
+
+    @Override
+    public String getDbCreateKey() {
+        return DB_CREATE_KEY;
     }
 
     @Override

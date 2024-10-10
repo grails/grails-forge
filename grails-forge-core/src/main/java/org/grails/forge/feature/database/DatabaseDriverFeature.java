@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,16 @@ public abstract class DatabaseDriverFeature implements OneOfFeature {
 
     public abstract boolean embedded();
 
-    public abstract String getJdbcUrl();
+    @Deprecated(since = "6.2.2", forRemoval = true)
+    public String getJdbcUrl() {
+        return getJdbcProdUrl();
+    }
+
+    public abstract String getJdbcDevUrl();
+
+    public abstract String getJdbcTestUrl();
+
+    public abstract String getJdbcProdUrl();
 
     public abstract String getDriverClass();
 

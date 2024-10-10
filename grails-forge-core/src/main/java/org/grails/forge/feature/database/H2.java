@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +40,18 @@ public class H2 extends DatabaseDriverFeature {
     }
 
     @Override
-    public String getJdbcUrl() {
+    public String getJdbcDevUrl() {
         return "jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE";
+    }
+
+    @Override
+    public String getJdbcTestUrl() {
+        return "jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE";
+    }
+
+    @Override
+    public String getJdbcProdUrl() {
+        return "jdbc:h2:./prodDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE";
     }
 
     @Override
