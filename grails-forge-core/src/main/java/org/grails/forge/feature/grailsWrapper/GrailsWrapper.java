@@ -17,7 +17,6 @@ package org.grails.forge.feature.grailsWrapper;
 
 import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
-import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.template.BinaryTemplate;
 
@@ -46,13 +45,11 @@ public class GrailsWrapper implements GrailsWrapperFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        OperatingSystem operatingSystem = generatorContext.getOperatingSystem();
-
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-        generatorContext.addTemplate("grailsWrapperJar", new BinaryTemplate("grails-wrapper.jar", classLoader.getResource("grails-wrapper/grails-wrapper.jar")));
-        generatorContext.addTemplate("grailsWrapper", new BinaryTemplate("grailsw", classLoader.getResource("grails-wrapper/grailsw"), true));
-        generatorContext.addTemplate("grailsWrapperBat", new BinaryTemplate("grailsw.bat", classLoader.getResource("grails-wrapper/grailsw.bat"), false));
+        generatorContext.addTemplate("grailsWrapperJar", new BinaryTemplate("grails-wrapper.jar", classLoader.getResource("grailswrapper/grails-wrapper.jar"), false));
+        generatorContext.addTemplate("grailsWrapper", new BinaryTemplate("grailsw", classLoader.getResource("grailswrapper/grailsw"), true));
+        generatorContext.addTemplate("grailsWrapperBat", new BinaryTemplate("grailsw.bat", classLoader.getResource("grailswrapper/grailsw.bat"), false));
     }
 
     @Override
