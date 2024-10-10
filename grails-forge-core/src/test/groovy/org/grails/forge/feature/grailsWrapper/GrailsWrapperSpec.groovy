@@ -23,18 +23,4 @@ class GrailsWrapperSpec extends ApplicationContextSpec implements CommandOutputF
         where:
         applicationType << ApplicationType.values().toList()
     }
-
-    @Unroll
-    void "test profile dependency is present for #applicationType application"() {
-        when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ['grails-wrapper'])
-
-        then:
-        output.containsKey("build.gradle")
-        def build = output.get("build.gradle")
-        build.contains("profile(\"org.grails.profiles:$applicationType.name\")")
-
-        where:
-        applicationType << ApplicationType.values().toList()
-    }
 }

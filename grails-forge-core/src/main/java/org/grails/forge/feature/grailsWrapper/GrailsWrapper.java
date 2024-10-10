@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2024 original authors
+ * Copyright 2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,6 @@ import jakarta.inject.Singleton;
 import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.OperatingSystem;
 import org.grails.forge.application.generator.GeneratorContext;
-import org.grails.forge.build.dependencies.Dependency;
-import org.grails.forge.build.dependencies.Scope;
 import org.grails.forge.template.BinaryTemplate;
 
 @Singleton
@@ -55,13 +53,6 @@ public class GrailsWrapper implements GrailsWrapperFeature {
         generatorContext.addTemplate("grailsWrapperJar", new BinaryTemplate("grails-wrapper.jar", classLoader.getResource("grails-wrapper/grails-wrapper.jar")));
         generatorContext.addTemplate("grailsWrapper", new BinaryTemplate("grailsw", classLoader.getResource("grails-wrapper/grailsw"), true));
         generatorContext.addTemplate("grailsWrapperBat", new BinaryTemplate("grailsw.bat", classLoader.getResource("grails-wrapper/grailsw.bat"), false));
-
-        ApplicationType applicationType = generatorContext.getApplicationType();
-
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.grails.profiles")
-                .artifactId(applicationType.getName())
-                .scope(Scope.PROFILE));
     }
 
     @Override
