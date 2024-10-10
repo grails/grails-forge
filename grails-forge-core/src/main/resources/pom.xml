@@ -142,5 +142,10 @@
             <artifactId>micronaut-http-client</artifactId>
             <version>4.6.6</version>
         </dependency>
+        <dependency>
+            <groupId>io.micronaut.serde</groupId>
+            <artifactId>micronaut-serde-jackson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
     </dependencies>
 </project>

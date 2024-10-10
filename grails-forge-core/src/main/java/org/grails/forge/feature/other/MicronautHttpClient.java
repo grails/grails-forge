@@ -63,5 +63,12 @@ public class MicronautHttpClient implements Feature {
                 .groupId("io.micronaut")
                 .lookupArtifactId("micronaut-http-client")
                 .compile());
+
+
+        // micronaut-http-client no longer provides the jackson implementation
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("io.micronaut.serde")
+                .lookupArtifactId("micronaut-serde-jackson")
+                .compile());
     }
 }
