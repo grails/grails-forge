@@ -41,6 +41,7 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
         then:
         template.contains("id \"com.bertramlabs.asset-pipeline\"")
         template.contains("runtimeOnly(\"com.bertramlabs.plugins:asset-pipeline-grails:5.0.1\")")
+        template.contains("runtimeOnly(\"org.graalvm.sdk:graal-sdk:22.0.0.2\")")
         template.contains('''
 assets {
     minifyJs = true

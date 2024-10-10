@@ -74,6 +74,11 @@ public class AssetPipeline implements DefaultFeature {
                 .lookupArtifactId("asset-pipeline-grails")
                 .runtime());
 
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.graalvm.sdk")
+                .lookupArtifactId("graal-sdk")
+                .runtime());
+
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         generatorContext.addTemplate("advancedgrails_svg", new URLTemplate("grails-app/assets/images/advancedgrails.svg", classLoader.getResource("assets/images/advancedgrails.svg")));
         generatorContext.addTemplate("apple-touch-icon_png", new URLTemplate("grails-app/assets/images/apple-touch-icon.png", classLoader.getResource("assets/images/apple-touch-icon.png")));

@@ -33,6 +33,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         template.contains("id \"org.grails.grails-web\"")
         template.contains("id \"org.grails.grails-gsp\"")
         template.contains("implementation(\"org.grails.plugins:gsp\")")
+        template.contains("implementation(\"org.sitemesh:grails-plugin-sitemesh3:7.0.0-SNAPSHOT\")")
     }
 
     void "test gsp configuration"() {
@@ -90,6 +91,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         build.contains('id "org.grails.grails-web"')
         build.contains('id "org.grails.grails-gsp"')
         build.contains("implementation(\"org.grails.plugins:gsp\")")
+        build.contains("implementation(\"org.sitemesh:grails-plugin-sitemesh3:7.0.0-SNAPSHOT\")")
 
         where:
         applicationType << [ApplicationType.WEB, ApplicationType.WEB_PLUGIN]
@@ -104,6 +106,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         then:
         !build.contains('id "org.grails.grails-gsp"')
         !build.contains("implementation(\"org.grails.plugins:gsp\")")
+        !build.contains("implementation(\"org.sitemesh:grails-plugin-sitemesh3:7.0.0-SNAPSHOT\")")
 
         where:
         applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API]
