@@ -20,18 +20,6 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
         features.contains("asset-pipeline-grails")
     }
 
-    void "test buildSrc is present for buildscript dependencies"() {
-        given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
-        final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
-
-        expect:
-        buildSrcBuildGradle != null
-        buildSrcBuildGradle.contains("implementation(\"com.bertramlabs.plugins:asset-pipeline-gradle:5.0.1\")")
-
-    }
-
-
     void "test dependencies are present for gradle"() {
         when:
         final String template = new BuildBuilder(beanContext)
@@ -41,7 +29,6 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
         then:
         template.contains("id \"com.bertramlabs.asset-pipeline\"")
         template.contains("runtimeOnly(\"com.bertramlabs.plugins:asset-pipeline-grails:5.0.1\")")
-        template.contains("runtimeOnly(\"org.graalvm.sdk:graal-sdk:22.0.0.2\")")
         template.contains('''
 assets {
     minifyJs = true

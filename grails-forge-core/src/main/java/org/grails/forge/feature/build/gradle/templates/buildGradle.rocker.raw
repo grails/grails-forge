@@ -19,13 +19,18 @@ GradleBuild gradleBuild
 )
 
 @seleniumVersion => { @coordinateResolver.apply("selenium-api").getVersion() }
+@assetPipelineVersion => { @coordinateResolver.apply("asset-pipeline-grails").getVersion() }
 
 @for (String importLine : gradleBuild.getPluginsImports()) {
 @(importLine)
 }
 plugins {
 @for (GradlePlugin gradlePlugin : gradleBuild.getPlugins()) {
-    id "@gradlePlugin.getId()"
+    @if(gradlePlugin.getId() == "com.bertramlabs.asset-pipeline") {
+        id "com.bertramlabs.asset-pipeline" version "@assetPipelineVersion"
+    } else {
+        id "@gradlePlugin.getId()"
+    }
 }
 }
 

@@ -37,9 +37,6 @@ pluginManagement {
         @if(features.contains("views-markup"))  {
         id "org.grails.plugins.views-markup" version "@viewsGradlePluginVersion"
         }
-        @if(features.contains("asset-pipeline-grails")) {
-        id "com.bertramlabs.asset-pipeline" version "@assetPipelineVersion"
-        }
 
     @for (GradlePlugin gradlePlugin : gradleBuild.getPluginsWithVersion()) {
         id "@gradlePlugin.getId()" version "@gradlePlugin.getVersion()"

@@ -60,10 +60,6 @@ public class AssetPipeline implements DefaultFeature {
 
     @Override
     public void apply(GeneratorContext generatorContext) {
-        generatorContext.addBuildscriptDependency(Dependency.builder()
-                .groupId("com.bertramlabs.plugins")
-                .lookupArtifactId("asset-pipeline-gradle")
-                .buildscript());
         generatorContext.addBuildPlugin(GradlePlugin.builder()
                 .id("com.bertramlabs.asset-pipeline")
                 .extension(new RockerWritable(assetPipelineExtension.template(generatorContext.getApplicationType())))
@@ -72,11 +68,6 @@ public class AssetPipeline implements DefaultFeature {
         generatorContext.addDependency(Dependency.builder()
                 .groupId("com.bertramlabs.plugins")
                 .lookupArtifactId("asset-pipeline-grails")
-                .runtime());
-
-        generatorContext.addDependency(Dependency.builder()
-                .groupId("org.graalvm.sdk")
-                .lookupArtifactId("graal-sdk")
                 .runtime());
 
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
