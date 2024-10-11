@@ -60,9 +60,13 @@ public class GrailsProfiles implements DefaultFeature {
 
         ApplicationType applicationType = generatorContext.getApplicationType();
 
+        String profile = applicationType.getName().replace("_", "-");
+
+        config.put("grails.profile", profile);
+
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.grails.profiles")
-                .artifactId(applicationType.getName().replace("_", "-"))
+                .artifactId(profile)
                 .scope(Scope.PROFILE));
     }
 
