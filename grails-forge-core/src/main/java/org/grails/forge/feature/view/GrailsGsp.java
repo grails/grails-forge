@@ -103,6 +103,11 @@ public class GrailsGsp implements DefaultFeature {
                 .compile());
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("org.grails.grails-gsp").build());
 
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.sitemesh")
+                .lookupArtifactId("grails-plugin-sitemesh3")
+                .compile());
+
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         generatorContext.addTemplate("mainLayout", new URLTemplate(getViewFolderPath() + "layouts/main.gsp", classLoader.getResource("gsp/main.gsp")));
         generatorContext.addTemplate("index", new URLTemplate(getViewFolderPath() + "index.gsp", classLoader.getResource("gsp/index.gsp")));

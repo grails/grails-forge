@@ -19,13 +19,18 @@ GradleBuild gradleBuild
 )
 
 @seleniumVersion => { @coordinateResolver.apply("selenium-api").getVersion() }
+@assetPipelineVersion => { @coordinateResolver.apply("asset-pipeline-grails").getVersion() }
 
 @for (String importLine : gradleBuild.getPluginsImports()) {
 @(importLine)
 }
 plugins {
 @for (GradlePlugin gradlePlugin : gradleBuild.getPlugins()) {
-    id "@gradlePlugin.getId()"
+    @if(gradlePlugin.getId() == "com.bertramlabs.asset-pipeline") {
+        id "com.bertramlabs.asset-pipeline" version "@assetPipelineVersion"
+    } else {
+        id "@gradlePlugin.getId()"
+    }
 }
 }
 
@@ -38,6 +43,7 @@ apply from: "gradle/asciidoc.gradle"
 repositories {
     mavenCentral()
     maven { url "https://repo.grails.org/grails/core/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 configurations {
@@ -62,7 +68,9 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("@features.getTargetJdk()")
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(@features.getTargetJdk())
+    }
 }
 
 @if (features.contains("jrebel")) {
