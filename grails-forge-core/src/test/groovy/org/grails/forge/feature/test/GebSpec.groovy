@@ -13,7 +13,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test dependencies"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
         final def buildGradle = output["build.gradle"]
 
         expect:
@@ -27,7 +27,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test GebConfig.groovy file is present"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
 
         expect:
         output.containsKey('src/integration-test/resources/GebConfig.groovy')
@@ -35,7 +35,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test build.gradle contains logic to force selenium version"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
         final def buildGradle = output["build.gradle"]
 
         expect:
@@ -47,7 +47,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
     @Unroll
     void "test feature geb is not supported for #applicationType application"(ApplicationType applicationType) {
         when:
-        generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["geb"])
+        generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION), ["geb"])
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -59,7 +59,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test webdriver binaries gradle configurations"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
         final def buildGradle = output["build.gradle"]
         final def settingGradle = output["settings.gradle"]
 
@@ -74,7 +74,7 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
     void "test webdriver binaries gradle configurations for windows OS"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11, OperatingSystem.WINDOWS))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION, OperatingSystem.WINDOWS))
         final def buildGradle = output["build.gradle"]
         final def settingGradle = output["settings.gradle"]
 

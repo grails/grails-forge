@@ -16,7 +16,7 @@ class PlainGithubWorkflowSpec extends BeanContextSpec implements CommandOutputFi
     void 'test github workflow is created for #buildTool'(BuildTool buildTool, String workflowName) {
         when:
         def output = generate(ApplicationType.WEB,
-                new Options(TestFramework.SPOCK, JdkVersion.JDK_11),
+                new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION),
                 [PlainGithubWorkflowFeature.NAME])
         def workflow = output[".github/workflows/${workflowName}"]
 

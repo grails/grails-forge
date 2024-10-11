@@ -13,7 +13,7 @@ class SpringResourcesSpec extends ApplicationContextSpec implements CommandOutpu
     @Unroll
     void "test /conf/spring/resources.groovy config file is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
 
         then:
         output.containsKey("grails-app/conf/spring/resources.groovy")

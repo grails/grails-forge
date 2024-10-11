@@ -12,7 +12,7 @@ class GrailsBaseSpec extends BeanContextSpec implements CommandOutputFixture {
     void "test grails base dependencies"() {
 
         when:
-        def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
         def buildGradle = output['build.gradle']
 
         then:
@@ -23,7 +23,7 @@ class GrailsBaseSpec extends BeanContextSpec implements CommandOutputFixture {
 
     void "test src/main directories are present"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
 
         expect:
         output.containsKey("src/main/groovy/.gitkeep")

@@ -6,7 +6,7 @@ class JdkVersionSpec extends Specification {
 
     void 'test valueOf with a supported JDK version'() {
         expect:
-        JdkVersion.JDK_17 == JdkVersion.valueOf(17)
+        JdkVersion.JDK_21 == JdkVersion.valueOf(21)
     }
 
     void 'test valueOf when the JDK version does not exist'() {
@@ -15,6 +15,6 @@ class JdkVersionSpec extends Specification {
 
         then:
         def ex = thrown(IllegalArgumentException)
-        ex.message == "Unsupported JDK version: 3. Supported values are [11, 17]"
+        ex.message == "Unsupported JDK version: 3. Supported values are " + JdkVersion.SUPPORTED_JDKS
     }
 }

@@ -26,10 +26,11 @@ import java.util.stream.Collectors;
  * @since 6.0.0
  */
 public enum JdkVersion {
-    JDK_11(11),
-    JDK_17(17);
+    JDK_17(17),
+    JDK_21(21),
+    JDK_23(23);
 
-    public static final JdkVersion DEFAULT_OPTION = JDK_11;
+    public static final JdkVersion DEFAULT_OPTION = JDK_17;
 
     private static final List<Integer> SUPPORTED_JDKS = Arrays.stream(JdkVersion.values()).map(JdkVersion::majorVersion).collect(Collectors.toList());
 

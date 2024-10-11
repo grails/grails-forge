@@ -59,7 +59,7 @@ class StoreGeneratedProjectStatsSpec extends Specification implements TestProper
                 GormImpl.HIBERNATE,
                 ServletImpl.TOMCAT,
                 TestFramework.SPOCK,
-                JdkVersion.JDK_11
+                JdkVersion.DEFAULT_OPTION
         )
         generated.setSelectedFeatures([new SelectedFeature("google-cloud-function")])
 

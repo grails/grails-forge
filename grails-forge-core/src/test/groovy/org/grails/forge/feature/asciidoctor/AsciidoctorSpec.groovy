@@ -20,7 +20,7 @@ class AsciidoctorSpec extends ApplicationContextSpec implements CommandOutputFix
 
     void "test asciidoctor gradle configurations"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["asciidoctor"])
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION), ["asciidoctor"])
         final def buildGradle = output["build.gradle"]
         final def settingGradle = output["settings.gradle"]
 
@@ -31,7 +31,7 @@ class AsciidoctorSpec extends ApplicationContextSpec implements CommandOutputFix
 
     void "test asciidoctor gradle configurations"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["asciidoctor"])
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION), ["asciidoctor"])
         final def asciidocGradle = output["gradle/asciidoc.gradle"]
 
         expect:
