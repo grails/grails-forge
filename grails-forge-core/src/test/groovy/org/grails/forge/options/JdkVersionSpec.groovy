@@ -6,7 +6,7 @@ class JdkVersionSpec extends Specification {
 
     void 'test valueOf with a supported JDK version'() {
         expect:
-        JdkVersion.JDK_21 == JdkVersion.valueOf(21)
+        JdkVersion.DEFAULT_OPTION == JdkVersion.valueOf(JdkVersion.DEFAULT_OPTION.majorVersion())
     }
 
     void 'test valueOf when the JDK version does not exist'() {
