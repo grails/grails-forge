@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,18 @@ public class SQLServer extends DatabaseDriverFeature {
     }
 
     @Override
-    public String getJdbcUrl() {
-        return "jdbc:sqlserver://localhost:1433;databaseName=tempdb";
+    public String getJdbcDevUrl() {
+        return "jdbc:sqlserver://localhost:1433;databaseName=devDb";
+    }
+
+    @Override
+    public String getJdbcTestUrl() {
+        return "jdbc:sqlserver://localhost:1433;databaseName=testDb";
+    }
+
+    @Override
+    public String getJdbcProdUrl() {
+        return "jdbc:sqlserver://localhost:1433;databaseName=prodDb";
     }
 
     @Override
