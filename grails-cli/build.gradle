@@ -76,7 +76,6 @@ application {
 }
 
 rocker {
-    javaVersion = '17'
     postProcessing = ['org.grails.forge.rocker.plugin.WhitespaceProcessor']
 }
 
