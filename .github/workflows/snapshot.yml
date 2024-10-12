@@ -10,14 +10,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: ['17', '21', '23']
     steps:
       - name: "📥 Checkout repository"
         uses: actions/checkout@v4
       - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
           distribution: 'liberica'
+          java-version: ${{ matrix.java }}
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
       - name: "🔨 Run Build"
@@ -34,7 +37,7 @@ jobs:
           ./tmp/cli/bin/grails --version
       - name: "📤 Publish to Sonatype OSSRH"
         id: publish
-        if: steps.build.outcome == 'success' && github.event_name == 'push'
+        if: steps.build.outcome == 'success' && github.event_name == 'push' && matrix.java == '17'
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
