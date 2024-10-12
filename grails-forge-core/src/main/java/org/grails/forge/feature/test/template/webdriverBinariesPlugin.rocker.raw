@@ -1,5 +1,5 @@
-@import org.grails.forge.application.Project;
-@import org.grails.forge.application.OperatingSystem;
+@import org.grails.forge.application.Project
+@import org.grails.forge.application.OperatingSystem
 
 @args(Project project, OperatingSystem os)
 
