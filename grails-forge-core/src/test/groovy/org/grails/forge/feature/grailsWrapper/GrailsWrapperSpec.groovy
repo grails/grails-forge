@@ -13,7 +13,7 @@ class GrailsWrapperSpec extends ApplicationContextSpec implements CommandOutputF
     @Unroll
     void "test grails-wrapper.jar, grailsw and grailsw.bat files are present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION), ['grails-wrapper'])
+        def output = generate(applicationType, new Options(TestFramework.SPOCK), ['grails-wrapper'])
 
         then:
         output.containsKey("grails-wrapper.jar")

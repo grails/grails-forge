@@ -11,7 +11,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test build properties"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final String gradleProps = output["gradle.properties"]
 
         expect:
@@ -23,7 +23,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test build gradle"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final String buildGradle = output["build.gradle"]
 
         expect:
@@ -34,7 +34,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final String settingsGradle = output["settings.gradle"]
 
         expect:
@@ -49,7 +49,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle for REST-API"() {
         given:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK))
         final String settingsGradle = output["settings.gradle"]
 
         expect:
@@ -65,7 +65,7 @@ class GradleSpec extends ApplicationContextSpec implements CommandOutputFixture 
 
     void "test settings.gradle for REST-API for markup-views"() {
         given:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION), ["views-markup"])
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK), ["views-markup"])
         final String settingsGradle = output["settings.gradle"]
 
         expect:

@@ -13,7 +13,7 @@ class GrailsProfilesSpec extends ApplicationContextSpec implements CommandOutput
     @Unroll
     void "test profile dependency is present for #applicationType application"() {
         when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        def output = generate(applicationType, new Options(TestFramework.SPOCK))
 
         then:
         output.containsKey("build.gradle")
@@ -26,7 +26,7 @@ class GrailsProfilesSpec extends ApplicationContextSpec implements CommandOutput
 
     void "test config"() {
         when:
-        def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        def output = generate(applicationType, new Options(TestFramework.SPOCK))
 
         then:
         output.containsKey("grails-app/conf/application.yml")

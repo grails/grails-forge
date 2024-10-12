@@ -106,7 +106,6 @@ class TestContainersSpec extends ApplicationContextSpec {
     void "test there is a dependency for every non embedded driver feature"() {
         when:
         String gradleTemplate = new BuildBuilder(beanContext)
-                .jdkVersion(JdkVersion.DEFAULT_OPTION)
                 .features(['testcontainers', driverFeature.getName()])
                 .render()
 

@@ -46,7 +46,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
 
     void "test buildSrc is present for buildscript dependencies"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
 
         expect:
@@ -70,7 +70,7 @@ class HibernateGormSpec extends ApplicationContextSpec implements CommandOutputF
     void "test match values of datasource config"() {
 
         when:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final String applicationYaml = output["grails-app/conf/application.yml"]
         def config = new YamlSlurper().parseText(applicationYaml)
 

@@ -12,7 +12,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
     void "test build gradle file and gradle properties"() {
         when:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final String gradleProps = output["gradle.properties"]
 
         then:
@@ -31,7 +31,7 @@ class GrailsGradlePluginSpec extends BeanContextSpec implements CommandOutputFix
 
     void "test buildSrc is present for buildscript dependencies"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         final def buildSrcBuildGradle = output["buildSrc/build.gradle"]
 
         expect:

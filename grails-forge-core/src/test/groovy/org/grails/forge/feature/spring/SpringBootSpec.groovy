@@ -15,7 +15,7 @@ class SpringBootSpec extends BeanContextSpec implements CommandOutputFixture {
         when:
         def output = generate(
                 applicationType,
-                new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION)
+                new Options(TestFramework.SPOCK)
         )
         final String build = output['build.gradle']
 
@@ -34,7 +34,7 @@ class SpringBootSpec extends BeanContextSpec implements CommandOutputFixture {
         when:
         def output = generate(
                 ApplicationType.PLUGIN,
-                new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION)
+                new Options(TestFramework.SPOCK)
         )
         final String build = output['build.gradle']
 

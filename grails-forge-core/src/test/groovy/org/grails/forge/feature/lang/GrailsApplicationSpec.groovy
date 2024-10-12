@@ -93,7 +93,7 @@ class GrailsApplicationSpec extends BeanContextSpec implements CommandOutputFixt
 
     void "test build plugins"() {
         given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.DEFAULT_OPTION))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         def buildGradle = output['build.gradle']
 
         expect:
