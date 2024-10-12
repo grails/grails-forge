@@ -16,8 +16,8 @@ jobs:
       - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
           java-version: '17'
+          distribution: 'liberica'
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
       - name: "🔨 Run Build"
@@ -61,7 +61,7 @@ jobs:
       - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'liberica'
           java-version: '17'
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
@@ -117,7 +117,7 @@ jobs:
       - name: "☕️ Setup JDK"
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'liberica'
           java-version: '17'
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
