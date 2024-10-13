@@ -73,7 +73,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
 
     void "test default views are present"() {
         when:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
         
         then:
         output.containsKey("grails-app/views/index.gsp")
@@ -84,7 +84,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
     @Unroll
     void "test grails-gsp gradle plugins and dependencies are present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK))
         final String build = output['build.gradle']
 
         then:
@@ -100,7 +100,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
     @Unroll
     void "test grails-gsp gradle plugins and dependencies are NOT present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK))
         final String build = output['build.gradle']
 
         then:

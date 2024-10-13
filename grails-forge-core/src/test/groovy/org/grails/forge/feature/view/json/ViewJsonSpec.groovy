@@ -38,7 +38,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
 
     void "test default gson views are present"() {
         when:
-        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(ApplicationType.REST_API, new Options(TestFramework.SPOCK))
 
         then:
         output.containsKey("grails-app/views/application/index.gson")
@@ -51,7 +51,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
     @Unroll
     void "test views-json gradle plugins and dependencies are present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK))
         final String build = output['build.gradle']
 
         then:
@@ -68,7 +68,7 @@ class ViewJsonSpec extends ApplicationContextSpec implements CommandOutputFixtur
     @Unroll
     void "test views-json gradle plugins and dependencies are NOT present for #applicationType application"() {
         when:
-        final def output = generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final def output = generate(applicationType, new Options(TestFramework.SPOCK))
         final String build = output['build.gradle']
 
         then:

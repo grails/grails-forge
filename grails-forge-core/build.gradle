@@ -48,7 +48,6 @@ def grailsVersionInfo = tasks.register("grailsVersionInfo", WriteGrailsVersionIn
 sourceSets.main.resources.srcDir(grailsVersionInfo)
 
 rocker {
-    javaVersion = '11'
     postProcessing = ['org.grails.forge.rocker.plugin.WhitespaceProcessor']
 }
 

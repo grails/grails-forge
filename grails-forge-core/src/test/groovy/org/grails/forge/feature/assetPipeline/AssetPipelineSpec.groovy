@@ -56,7 +56,7 @@ assets {
 
     void "test assets files are present"() {
         given:
-        final Map<String, String> output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK, JdkVersion.JDK_11))
+        final Map<String, String> output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
 
         expect:
         output.containsKey("grails-app/assets/images/advancedgrails.svg")
@@ -96,7 +96,7 @@ assets {
     @Unroll
     void "test feature asset-pipeline-grails is not supported for #applicationType application"(ApplicationType applicationType) {
         when:
-        generate(applicationType, new Options(TestFramework.SPOCK, JdkVersion.JDK_11), ["asset-pipeline-grails"])
+        generate(applicationType, new Options(TestFramework.SPOCK), ["asset-pipeline-grails"])
 
         then:
         def e = thrown(IllegalArgumentException)

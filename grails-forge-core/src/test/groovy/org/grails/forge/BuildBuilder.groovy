@@ -88,7 +88,7 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         TestFramework testFramework = this.testFramework ?: TestFramework.SPOCK
         ApplicationType type = this.applicationType ?: ApplicationType.WEB
         Project project = this.project ?: buildProject()
-        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
+        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.DEFAULT_OPTION
 
         final Options options = new Options(testFramework, gormImpl, servletImpl, jdkVersion, operatingSystem)
         Features features = getFeatures(featureNames, options, type)
@@ -104,7 +104,7 @@ class BuildBuilder implements ProjectFixture, ContextFixture {
         TestFramework testFramework = this.testFramework ?: TestFramework.SPOCK
         ApplicationType type = this.applicationType ?: ApplicationType.WEB
         Project project = this.project ?: buildProject()
-        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.JDK_11
+        JdkVersion jdkVersion = this.jdkVersion ?: JdkVersion.DEFAULT_OPTION
 
         Options options = new Options(testFramework, jdkVersion)
         Features features = getFeatures(featureNames, options, type)

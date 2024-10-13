@@ -66,6 +66,13 @@ public class Options implements ConvertibleValues<Object> {
         this(testFramework, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, javaVersion, operatingSystem, Collections.emptyMap());
     }
 
+
+    public Options(TestFramework testFramework,
+                   OperatingSystem operatingSystem) {
+
+        this(testFramework, GormImpl.DEFAULT_OPTION, ServletImpl.DEFAULT_OPTION, VersionInfo.getJavaVersion(), operatingSystem, Collections.emptyMap());
+    }
+
     public Options(TestFramework testFramework,
                    GormImpl gormImpl,
                    ServletImpl servletImpl,
