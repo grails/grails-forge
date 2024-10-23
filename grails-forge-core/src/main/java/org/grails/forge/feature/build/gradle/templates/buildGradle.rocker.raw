@@ -43,7 +43,6 @@ apply from: "gradle/asciidoc.gradle"
 repositories {
     mavenCentral()
     maven { url "https://repo.grails.org/grails/core/" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 configurations {
