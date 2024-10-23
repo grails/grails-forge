@@ -105,24 +105,29 @@ public class Geb implements DefaultFeature {
                 .artifactId("geb")
                 .test());
 
+        generatorContext.addDependency(Dependency.builder()
+                .groupId("org.gebish")
+                .artifactId("geb-spock")
+                .test());
+
         Stream.of("api", "support", "remote-driver")
                 .map(name -> "selenium-" + name)
                 .forEach(name -> generatorContext.addDependency(Dependency.builder()
                         .groupId("org.seleniumhq.selenium")
-                        .lookupArtifactId(name)
+                        .artifactId(name)
                         .test()));
 
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.seleniumhq.selenium")
-                .lookupArtifactId("selenium-chrome-driver")
+                .artifactId("selenium-chrome-driver")
                 .testRuntime());
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.seleniumhq.selenium")
-                .lookupArtifactId("selenium-firefox-driver")
+                .artifactId("selenium-firefox-driver")
                 .testRuntime());
         generatorContext.addDependency(Dependency.builder()
                 .groupId("org.seleniumhq.selenium")
-                .lookupArtifactId("selenium-safari-driver")
+                .artifactId("selenium-safari-driver")
                 .testRuntime());
 
         TestFramework testFramework = generatorContext.getTestFramework();

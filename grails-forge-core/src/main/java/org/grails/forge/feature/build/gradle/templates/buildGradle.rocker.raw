@@ -19,7 +19,7 @@ GradleBuild gradleBuild
 )
 
 @seleniumVersion => { @coordinateResolver.apply("selenium-api").getVersion() }
-@assetPipelineVersion => { @coordinateResolver.apply("asset-pipeline-grails").getVersion() }
+@assetPipelineVersion => { @coordinateResolver.apply("asset-pipeline-gradle").getVersion() }
 
 @for (String importLine : gradleBuild.getPluginsImports()) {
 @(importLine)
@@ -46,18 +46,6 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-configurations {
-    all {
-        @if (features.contains("geb")) {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details->
-            if (details.requested.group == 'org.seleniumhq.selenium') {
-                details.useVersion('@seleniumVersion')
-            }
-        }
-        }
-    }
-}
-
 @dependencies.template(applicationType, project, features, gradleBuild)
 
 @if (features.mainClass().isPresent()) {
@@ -67,10 +55,8 @@ application {
 
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(@features.getTargetJdk())
-    }
+compileJava {
+    options.release = @features.getTargetJdk()
 }
 
 @if (features.contains("jrebel")) {

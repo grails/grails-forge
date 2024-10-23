@@ -4,7 +4,7 @@
 @args(Project project, OperatingSystem os)
 
 webdriverBinaries {
-    chromedriver '122.0.6260.0'
-    geckodriver '0.33.0'
-    edgedriver '110.0.1587.57'
+    chromedriver '130.0.6723.59'
+    geckodriver '0.35.0'
+    edgedriver '130.0.2849.46'
 }

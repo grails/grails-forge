@@ -13,6 +13,7 @@ GradleBuild gradleBuild
 )
 
 dependencies {
+    implementation platform("org.grails:grails-bom:$grailsVersion")
 @for (GradleDependency dependency : gradleBuild.getDependencies()) {
     @dependency.toSnippet()
 }

@@ -18,11 +18,11 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
         expect:
         buildGradle.contains("testImplementation(\"org.grails.plugins:geb\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-api:4.19.1\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-support:4.19.1\")")
-        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver:4.19.1\")")
-        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver:4.19.1\")")
-        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver:4.19.1\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-api\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-support\")")
+        buildGradle.contains("testImplementation(\"org.seleniumhq.selenium:selenium-remote-driver\")")
+        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-chrome-driver\")")
+        buildGradle.contains("testRuntimeOnly(\"org.seleniumhq.selenium:selenium-firefox-driver\")")
     }
 
     void "test GebConfig.groovy file is present"() {
@@ -31,17 +31,6 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
 
         expect:
         output.containsKey('src/integration-test/resources/GebConfig.groovy')
-    }
-
-    void "test build.gradle contains logic to force selenium version"() {
-        given:
-        final def output = generate(ApplicationType.WEB, new Options(TestFramework.SPOCK))
-        final def buildGradle = output["build.gradle"]
-
-        expect:
-        buildGradle.contains("if (details.requested.group == 'org.seleniumhq.selenium') {\n" +
-                "                details.useVersion('4.19.1')\n" +
-                "            }")
     }
 
     @Unroll
@@ -67,9 +56,9 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.2\"")
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
-        buildGradle.contains("chromedriver '122.0.6260.0'")
-        buildGradle.contains("geckodriver '0.33.0'")
-        buildGradle.contains("edgedriver '110.0.1587.57'")
+        buildGradle.contains("chromedriver '130.0.6723.59'")
+        buildGradle.contains("geckodriver '0.35.0'")
+        buildGradle.contains("edgedriver '130.0.2849.46'")
     }
 
     void "test webdriver binaries gradle configurations for windows OS"() {
@@ -82,8 +71,8 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.2\"")
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
-        buildGradle.contains("chromedriver '122.0.6260.0'")
-        buildGradle.contains("geckodriver '0.33.0'")
-        buildGradle.contains("edgedriver '110.0.1587.57'")
+        buildGradle.contains("chromedriver '130.0.6723.59'")
+        buildGradle.contains("geckodriver '0.35.0'")
+        buildGradle.contains("edgedriver '130.0.2849.46'")
     }
 }
