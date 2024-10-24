@@ -56,9 +56,9 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.2\"")
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
-        buildGradle.contains("chromedriver '130.0.6723.59'")
-        buildGradle.contains("geckodriver '0.35.0'")
-        buildGradle.contains("edgedriver '130.0.2849.46'")
+        buildGradle.contains("chromedriver '122.0.6260.0'")
+        buildGradle.contains("geckodriver '0.33.0'")
+        buildGradle.contains("edgedriver '110.0.1587.57'")
     }
 
     void "test webdriver binaries gradle configurations for windows OS"() {
@@ -71,8 +71,8 @@ class GebSpec extends ApplicationContextSpec implements CommandOutputFixture {
         settingGradle.contains("id \"com.github.erdi.webdriver-binaries\" version \"3.2\"")
         buildGradle.contains("id \"com.github.erdi.webdriver-binaries\"")
         buildGradle.contains("webdriverBinaries")
-        buildGradle.contains("chromedriver '130.0.6723.59'")
-        buildGradle.contains("geckodriver '0.35.0'")
-        buildGradle.contains("edgedriver '130.0.2849.46'")
+        buildGradle.contains("chromedriver '122.0.6260.0'")
+        buildGradle.contains("geckodriver '0.33.0'")
+        buildGradle.contains("edgedriver '110.0.1587.57'")
     }
 }
