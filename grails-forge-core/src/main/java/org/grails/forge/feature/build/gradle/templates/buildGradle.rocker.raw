@@ -55,9 +55,7 @@ application {
 
 }
 
-compileJava {
-    options.release = @features.getTargetJdk()
-}
+compileJava.options.release = @features.getTargetJdk()
 
 @if (features.contains("jrebel")) {
 run {
