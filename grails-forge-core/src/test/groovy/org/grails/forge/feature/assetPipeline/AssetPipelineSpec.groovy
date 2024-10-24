@@ -45,6 +45,7 @@ class AssetPipelineSpec extends ApplicationContextSpec implements CommandOutputF
 assets {
     minifyJs = true
     minifyCss = true
+    skipNonDigests = true
 }''')
     }
 
@@ -61,6 +62,7 @@ assets {
     packagePlugin = true
     minifyJs = true
     minifyCss = true
+    skipNonDigests = true
 }''')
         where:
         applicationType << [ApplicationType.WEB_PLUGIN]
